@@ -1,0 +1,10 @@
+<p-one-form-field *ngIf="this.dynamicFormFieldAsText() as dynamicTextFormField">
+  <label class="form-label">{{ dynamicTextFormField.label }}</label>
+
+  <input
+    *ngIf="this.formControl"
+    [type]="dynamicTextFormField.type"
+    pOneInput
+    [formControl]="this.formControl"
+  />
+</p-one-form-field>

@@ -1,0 +1,23 @@
+.p-one-header {
+  display: grid;
+  grid-template-columns: auto minmax(0px, 1fr) auto;
+  grid-template-rows: minmax(0px, 1fr);
+
+  &__leading,
+  &__trailing,
+  &__content {
+    grid-row: 1;
+  }
+
+  &__leading {
+    grid-column: 1;
+  }
+
+  &__content {
+    grid-column: 2;
+  }
+
+  &__trailing {
+    grid-column: 3;
+  }
+}

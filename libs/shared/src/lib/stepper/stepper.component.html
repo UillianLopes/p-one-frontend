@@ -1,0 +1,18 @@
+<ng-content select="step"></ng-content>
+<p-one-stepper-header>
+  <p-one-step-header
+    *ngFor="let step of this.steps$ | async; index as index"
+    [stepIndex]="index"
+  >
+    <ng-container *ngIf="step.header as headerContent; else step.haderTemplate">
+      {{ headerContent }}
+    </ng-container>
+  </p-one-step-header>
+</p-one-stepper-header>
+<p-one-stepper-body>
+  <p-one-step-body
+    *ngFor="let step of this.steps$ | async; index as index"
+    [step]="step"
+    [stepIndex]="index"
+  ></p-one-step-body>
+</p-one-stepper-body>

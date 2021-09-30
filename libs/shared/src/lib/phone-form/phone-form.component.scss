@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.p-one-phone-form {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0px, 1fr) auto;
+  }
+}

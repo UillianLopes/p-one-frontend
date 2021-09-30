@@ -1,0 +1,79 @@
+:root {
+  --primary-color: #338bcc;
+  --primary-text-color: #ffffff;
+
+  --primary-light-color: #c2dcf0;
+  --primary-light-text-color: #000000;
+
+  --primary-dark-color: #206eb9;
+  --primary-dark-text-color: #ffffff;
+
+  --accent-color: #03b89c;
+  --accent-text-color: #ffffff;
+
+  --accent-light-color: #b3eae1;
+  --accent-light-text-color: #000000;
+
+  --accent-dark-color: #02a080;
+  --accent-dark-text-color: #ffffff;
+
+  --warning-color: #ff0000;
+  --warning-text-color: #ffffff;
+
+  --warning-light-color: #ffb3b3;
+  --warning-light-text-color: #000000;
+
+  --warning-dark-color: #ff0000;
+  --warning-dark-text-color: #ffffff;
+}
+
+$primary-color: (
+  'color': var(--primary-color),
+  'text-color': var(--primary-text-color),
+);
+$primary-light-color: (
+  'color': var(--primary-light-color),
+  'text-color': var(--primary-light-text-color),
+);
+$primary-dark-color: (
+  'color': var(--primary-dark-color),
+  'text-color': var(--primary-dark-text-color),
+);
+
+$accent-color: (
+  'color': var(--accent-color),
+  'text-color': var(--accent-text-color),
+);
+$accent-light-color: (
+  'color': var(--accent-light-color),
+  'text-color': var(--accent-light-text-color),
+);
+$accent-dark-color: (
+  'color': var(--accent-dark-color),
+  'text-color': var(--accent-dark-text-color),
+);
+
+$warning-color: (
+  'color': var(--warning-color),
+  'text-color': var(--warning-text-color),
+);
+$warning-light-color: (
+  'color': var(--warning-light-color),
+  'text-color': var(--warning-light-text-color),
+);
+$warning-dark-color: (
+  'color': var(--warning-dark-color),
+  'text-color': var(--warning-dark-text-color),
+);
+
+$colors: (
+  'primary-color': $primary-color,
+  'primary-light-color': $primary-light-color,
+  'primary-dark-color': $primary-dark-color,
+  'accent-color': $accent-color,
+  'accent-light-color': $accent-light-color,
+  'accent-dark-color': $accent-dark-color,
+  'warning-color': $warning-color,
+  'warning-light-color': $warning-light-color,
+  'warning-dark-color': $warning-dark-color,
+);

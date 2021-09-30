@@ -1,0 +1,33 @@
+:host {
+  display: block;
+
+  position: relative;
+}
+
+.p-one-stepper-header {
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: -1;
+  }
+
+  &__line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--secondary);
+  }
+}

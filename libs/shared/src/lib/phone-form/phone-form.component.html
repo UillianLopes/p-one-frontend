@@ -1,0 +1,38 @@
+<div class="p-one-phone-form__wrapper">
+  <ng-content select="label,[pOneLabel]"></ng-content>
+  <p-one-form-field
+    [formGroup]="phoneFormGroup"
+    *ngFor="
+      let phoneFormGroup of this.phoneFormGroups$ | async;
+      last as last;
+      index as index
+    "
+  >
+    <div class="input-group">
+      <input
+        #phoneNumberInput
+        pOneInput
+        mask="(00) 0000-0000||(00) 00000-0000"
+        formControlName="number"
+        cdkFocusInitial
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-danger"
+          type="button"
+          (click)="this.removePhoneForm(index)"
+        >
+          REMOVE
+        </button>
+        <button
+          *ngIf="last"
+          class="btn btn-success"
+          type="button"
+          (click)="this.addPhoneForm()"
+        >
+          ADD
+        </button>
+      </div>
+    </div>
+  </p-one-form-field>
+</div>

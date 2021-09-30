@@ -1,0 +1,11 @@
+<div class="card">
+  <img *ngIf="this.image" [src]="this.image" class="card-img-top" alt="..." />
+
+  <div class="card-body">
+    <h5 class="card-title">
+      <ng-content select="[pOneCardTitle]"></ng-content>
+    </h5>
+
+    <ng-content></ng-content>
+  </div>
+</div>

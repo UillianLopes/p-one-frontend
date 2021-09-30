@@ -1,0 +1,133 @@
+<div class="p-one-sign-up__container">
+  <div class="p-one-sign-up__stepper">
+    <form [formGroup]="form">
+      <p-one-stepper [validate]="true">
+        <p-one-step formGroupName="personal" header="Inicio">
+          <div pOneFlexRow justification="center">
+            <p-one-card class="p-one-sign-up__form">
+              <p-one-form-field>
+                <label pOneLabel for="nameInput" i18n>Full name</label>
+                <input
+                  #nameInput
+                  pOneInput
+                  placeholder="Full name"
+                  formControlName="name"
+                  i18n-placehoder
+                />
+              </p-one-form-field>
+
+              <p-one-form-field>
+                <label pOneLabel i18n for="emailInput">E-mail</label>
+                <input
+                  #emailInput
+                  pOneInput
+                  placeholder="example@email.com"
+                  formControlName="email"
+                  i18n-placehoder
+                />
+              </p-one-form-field>
+
+              <div pOneFlexRow gap="16px">
+                <p-one-form-field pOneFlex="1">
+                  <label pOneLabel i18n for="birthDateInput">
+                    Birth date
+                  </label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      formControlName="birthDate"
+                      ngbDatepicker
+                      pOneInput
+                      #birthDateInput="ngbDatepicker"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="birthDateInput.toggle()"
+                        type="button"
+                      >
+                        <i class="bi bi-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </p-one-form-field>
+                <p-one-form-field pOneFlex="1">
+                  <label pOneLabel i18n [for]="mobilePhoneInput">Celular</label>
+                  <input
+                    #mobilePhoneInput
+                    pOneInput
+                    placeholder="(99) 99999-9999"
+                    formControlName="mobilePhone"
+                    i18n-placehoder
+                    mask="(00) 00000-0000"
+                  />
+                </p-one-form-field>
+              </div>
+
+              <button class="btn btn-primary" pOneStepperNext>Próximo</button>
+            </p-one-card>
+          </div>
+        </p-one-step>
+        <p-one-step formGroupName="authentication" header="Autenticação">
+          <div pOneFlexRow justification="center">
+            <p-one-card class="p-one-sign-up__form">
+              <p-one-form-field>
+                <label pOneLabel [for]="passwordInput" i18n>Senha</label>
+                <input
+                  #passwordInput
+                  pOneInput
+                  placeholder="********"
+                  formControlName="password"
+                  i18n-placehoder
+                  type="password"
+                  autocomplete="off"
+                />
+              </p-one-form-field>
+
+              <p-one-form-field>
+                <label pOneLabel i18n [for]="passwordConfirmationInput">
+                  Confirmação de senha
+                </label>
+
+                <input
+                  #passwordConfirmationInput
+                  pOneInput
+                  placeholder="********"
+                  formControlName="passwordConfirmation"
+                  i18n-placehoder
+                  type="password"
+                  autocomplete="off"
+                />
+
+                <span pOneInvalidFeedback> Ocorreu um erro feio </span>
+              </p-one-form-field>
+
+              <div pOneFlexRow gap="16px">
+                <button class="btn btn-secondary" pOneStepperPrevious>
+                  Voltar
+                </button>
+
+                <button class="btn btn-primary" pOneStepperNext>Próximo</button>
+              </div>
+            </p-one-card>
+          </div>
+        </p-one-step>
+        <p-one-step formGroupName="address" header="Endereço">
+          <div pOneFlexRow justification="center">
+            <p-one-card class="p-one-sign-up__form">
+              <p-one-address-form></p-one-address-form>
+
+              <div pOneFlexRow gap="16px">
+                <button class="btn btn-secondary" pOneStepperPrevious>
+                  Voltar
+                </button>
+                <button class="btn btn-primary">Confirmar</button>
+              </div>
+            </p-one-card>
+          </div>
+        </p-one-step>
+      </p-one-stepper>
+    </form>
+  </div>
+</div>

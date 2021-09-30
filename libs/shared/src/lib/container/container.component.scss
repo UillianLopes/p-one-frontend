@@ -1,0 +1,30 @@
+.p-one-container {
+  display: grid;
+
+  grid-template-rows: auto minmax(0px, 1fr) auto;
+  grid-template-columns: minmax(0px, 1fr);
+
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  &__header,
+  &__content,
+  &__footer {
+    grid-column: 1;
+  }
+
+  &__hedaer {
+    grid-row: 1;
+  }
+
+  &__content {
+    grid-row: 2;
+    overflow: auto;
+  }
+
+  &__footer {
+    grid-row: 3;
+  }
+}

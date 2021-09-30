@@ -1,0 +1,122 @@
+<form [formGroup]="this.formGroup">
+  <p-one-form-field>
+    <label pOneLabel i18n [for]="zipCodeInput"> CEP* </label>
+
+    <input
+      #zipCodeInput
+      pOneInput
+      formControlName="zipCode"
+      type="text"
+      placeholder="Ex.: 99999-999"
+      mask="00000-000"
+      i18n-placehoder
+      i18n-mask
+    />
+  </p-one-form-field>
+
+  <div pOneFlexRow gap="16px">
+    <p-one-form-field pOneFlex="2">
+      <label pOneLabel i18n for="streetInput"> Rua/Logradouro* </label>
+
+      <input
+        #streetInput
+        pOneInput
+        formControlName="street"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: Rua dolores araujo de Oliveira"
+      />
+    </p-one-form-field>
+
+    <p-one-form-field pOneFlex="1">
+      <label pOneLabel i18n for="streetInput"> Numero* </label>
+
+      <input
+        #streetInput
+        pOneInput
+        formControlName="number"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: 20"
+      />
+    </p-one-form-field>
+  </div>
+  <div pOneFlexRow gap="16px">
+    <p-one-form-field pOneFlex="1">
+      <label pOneLabel i18n for="districtInput"> Bairro* </label>
+
+      <input
+        #districtInput
+        pOneInput
+        formControlName="district"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: Praia de capuba"
+      />
+    </p-one-form-field>
+
+    <p-one-form-field pOneFlex="1">
+      <label pOneLabel i18n for="districtInput"> Cidade* </label>
+
+      <input
+        #districtInput
+        pOneInput
+        formControlName="city"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: Serra"
+      />
+    </p-one-form-field>
+  </div>
+  <div pOneFlexRow gap="16px">
+    <p-one-form-field pOneFlex="1">
+      <label pOneLabel i18n for="districtInput"> Estado* </label>
+
+      <input
+        #districtInput
+        pOneInput
+        formControlName="state"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: Espírito santo"
+      />
+    </p-one-form-field>
+
+    <p-one-form-field pOneFlex="1">
+      <label pOneLabel i18n for="countryInput"> Pais* </label>
+
+      <input
+        #countryInput
+        pOneInput
+        formControlName="country"
+        i18n-placehoder
+        type="text"
+        placeholder="Ex.: Brasil"
+      />
+    </p-one-form-field>
+  </div>
+  <p-one-form-field>
+    <label pOneLabel i18n for="complementInput"> Ponto de referência </label>
+
+    <input
+      #complementInput
+      pOneInput
+      formControlName="referencePoint"
+      i18n-placehoder
+      type="text"
+      placeholder="Ex.: Próximo ao mercado do josé"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel i18n for="complementInput"> Complemento </label>
+
+    <textarea
+      #complementInput
+      pOneInput
+      formControlName="complement"
+      i18n-placehoder
+      type="text"
+      placeholder="Ex.: Apto 20, bloco 2"
+    ></textarea>
+  </p-one-form-field>
+</form>

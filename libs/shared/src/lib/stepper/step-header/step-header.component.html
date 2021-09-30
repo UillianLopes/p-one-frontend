@@ -1,0 +1,11 @@
+<div
+  class="p-one-step-header"
+  [class.p-one-step-header--selected]="this.selected$ | async"
+>
+  <div class="p-one-step-header__wrapper">
+    <div class="p-one-step-header__index">
+      {{ this.stepIndex + 1 }}
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>
