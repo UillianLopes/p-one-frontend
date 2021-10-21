@@ -7,6 +7,8 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@angular-eslint/no-host-metadata-property": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {

@@ -1,0 +1,48 @@
+.p-one-sidenav-item {
+  width: 100%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 50px minmax(0px, 1fr);
+  cursor: pointer;
+  color: white;
+  $hover-color: rgba(
+    $color: #e6e6e6,
+    $alpha: 5,
+  );
+
+  &:hover {
+    background: $hover-color;
+    border-color: $hover-color;
+  }
+
+  border-right: 2px solid var(--secondary);
+
+  &__leading {
+    grid-column: 1;
+    grid-row: 1;
+
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    grid-column: 2;
+    grid-row: 1;
+
+    height: 40px;
+
+    padding-right: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 1;
+    transition: 0.2s linear;
+  }
+  &--selected {
+    border-color: var(--primary);
+  }
+}

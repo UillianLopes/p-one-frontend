@@ -1,0 +1,36 @@
+.p-one-sidenav {
+  background: var(--secondary);
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  overflow: hidden;
+
+  $self: &;
+
+  box-shadow: 5px 5px 15px 5px var(--secondary);
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+  }
+
+  &__collapsable {
+    display: block;
+    overflow: hidden;
+  }
+
+  &__header {
+    display: block;
+    overflow: hidden;
+  }
+
+  &--left {
+    left: 0px;
+  }
+
+  &--right {
+    left: 0px;
+  }
+}

@@ -1,8 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
-import { takeUntil } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
+export enum AccountAssociation {
+  create,
+  associate,
+}
 @Component({
   selector: 'p-one-sign-up',
   templateUrl: './sign-up.component.html',
@@ -10,7 +15,43 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
-  form = this._formBuilder.group({
+  AccountAssociation = AccountAssociation;
+
+  readonly form = this._formBuilder.group({
+    account: this._formBuilder.group({
+      association: [AccountAssociation.associate, Validators.required],
+      name: [
+        null,
+        [
+          CustomValidators.whenParent(
+            Validators.required,
+            (parent) =>
+              parent?.get('association')?.value == AccountAssociation.create
+          ),
+        ],
+      ],
+      email: [
+        null,
+        [
+          CustomValidators.whenParent(
+            Validators.required,
+            (parent) =>
+              parent?.get('association')?.value == AccountAssociation.create
+          ),
+          Validators.email,
+        ],
+      ],
+      accountId: [
+        null,
+        [
+          CustomValidators.whenParent(
+            Validators.required,
+            (parent) =>
+              parent?.get('association')?.value == AccountAssociation.associate
+          ),
+        ],
+      ],
+    }),
     personal: this._formBuilder.group({
       name: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
@@ -37,7 +78,19 @@ export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
     }),
   });
 
-  constructor(private readonly _formBuilder: FormBuilder) {
+  get associationForm(): FormControl {
+    return this.form.get('account')?.get('association') as FormControl;
+  }
+
+  readonly accountAssociation$ = this.associationForm.valueChanges.pipe(
+    startWith(this.associationForm.value),
+    map((value) => value as AccountAssociation)
+  );
+
+  constructor(
+    private readonly _formBuilder: FormBuilder,
+    private readonly _router: Router
+  ) {
     super();
 
     this.form
@@ -46,6 +99,14 @@ export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.form.get('passwordConfirmation')?.updateValueAndValidity();
+      });
+
+    this.associationForm.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        this.form.get('account')?.get('name')?.updateValueAndValidity();
+        this.form.get('account')?.get('email')?.updateValueAndValidity();
+        this.form.get('account')?.get('accountId')?.updateValueAndValidity();
       });
   }
 

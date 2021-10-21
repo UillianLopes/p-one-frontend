@@ -3,13 +3,35 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { from, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
-import { UserStoreService } from '../user-store.service';
-import { EUserStoreActions, signIn, signInFailure, signInSuccess, UserStoreActionsUnion } from './user-store.actions';
+import {
+  EUserStoreActions,
+  loadFailure,
+  loadSuccess,
+  signInFailure,
+  signInSuccess,
+  UserStoreActionsUnion,
+} from './user-store.actions';
 
 @Injectable()
 export class UserStoreEffects {
+  readonly loadEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EUserStoreActions.LOAD),
+      switchMap((_) => {
+        return this._oidcService.checkAuth().pipe(
+          map(({ isAuthenticated, userData }) => {
+            if (isAuthenticated && userData) {
+              return loadSuccess({ user: userData });
+            }
+            return loadFailure();
+          })
+        );
+      })
+    )
+  );
+
   readonly signInEffect$ = createEffect(() =>
     this._actions$.pipe(ofType(EUserStoreActions.SIGN_IN)).pipe(
       switchMap(() => {
@@ -25,16 +47,8 @@ export class UserStoreEffects {
               );
             }
 
-            return this._oidcService.authorizeWithPopUp().pipe(
-              map(({ isAuthenticated, userData }) => {
-                if (isAuthenticated) {
-                  return signInSuccess({ user: userData });
-                }
-
-                return signIn();
-              }),
-              catchError(() => of(signInFailure()))
-            );
+            this._oidcService.authorize();
+            return of(signInFailure());
           })
         );
       })
@@ -43,7 +57,6 @@ export class UserStoreEffects {
 
   constructor(
     private readonly _actions$: Actions<UserStoreActionsUnion>,
-    private readonly _userStoreService: UserStoreService,
     private readonly _oidcService: OidcSecurityService,
     private readonly _router: Router
   ) {}

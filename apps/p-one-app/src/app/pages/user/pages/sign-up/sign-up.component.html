@@ -2,6 +2,87 @@
   <div class="p-one-sign-up__stepper">
     <form [formGroup]="form">
       <p-one-stepper [validate]="true">
+        <p-one-step formGroupName="account" header="Conta">
+          <div pOneFlexRow justification="center">
+            <p-one-card>
+              <div>
+                <p>
+                  Para que um usuário, seja criado é necessário que o mesmo
+                  esteja vinculada a uma conta, essa conta pode ser uma pessoa,
+                  uma empresa, uma escola, etc.
+                </p>
+              </div>
+
+              <div
+                class="btn-group btn-group-toggle"
+                ngbRadioGroup
+                name="radioBasic"
+                formControlName="association"
+              >
+                <label ngbButtonLabel class="btn-primary">
+                  <input
+                    ngbButton
+                    type="radio"
+                    [value]="AccountAssociation.associate"
+                  />
+                  Quero me associar a uma conta existente
+                </label>
+                <label ngbButtonLabel class="btn-primary">
+                  <input
+                    ngbButton
+                    type="radio"
+                    [value]="AccountAssociation.create"
+                  />
+                  Quero criar uma nova conta
+                </label>
+              </div>
+
+              <ng-container [ngSwitch]="this.accountAssociation$ | async">
+                <p-one-form-field *ngSwitchCase="AccountAssociation.associate">
+                  <label pOneLabel for="accountIdInput" i18n>ID da conta</label>
+                  <input
+                    #accountIdInput
+                    pOneInput
+                    placeholder="Digite o id da conta passada pelo seu administrador"
+                    formControlName="accountId"
+                    i18n-placehoder
+                  />
+                </p-one-form-field>
+                <ng-container *ngSwitchCase="AccountAssociation.create">
+                  <p-one-form-field>
+                    <label pOneLabel for="accountNameInput" i18n>
+                      Nome da conta
+                    </label>
+                    <input
+                      #accountNameInput
+                      pOneInput
+                      placeholder="Nome da nova conta"
+                      formControlName="name"
+                      i18n-placehoder
+                    />
+                  </p-one-form-field>
+                  <p-one-form-field>
+                    <label pOneLabel for="accountEmailInput" i18n>
+                      E-mail da conta
+                    </label>
+
+                    <input
+                      #accountEmailInput
+                      pOneInput
+                      placeholder="conta@email.com"
+                      formControlName="email"
+                      i18n-placehoder
+                    />
+                  </p-one-form-field>
+                </ng-container>
+              </ng-container>
+
+              <div pOneFlexRow justification="flex-end">
+                <button class="btn btn-primary" pOneStepperNext>Próximo</button>
+              </div>
+            </p-one-card>
+          </div>
+        </p-one-step>
         <p-one-step formGroupName="personal" header="Inicio">
           <div pOneFlexRow justification="center">
             <p-one-card class="p-one-sign-up__form">
@@ -105,10 +186,10 @@
 
               <div pOneFlexRow gap="16px">
                 <button class="btn btn-secondary" pOneStepperPrevious>
-                  Voltar
+                  Back
                 </button>
 
-                <button class="btn btn-primary" pOneStepperNext>Próximo</button>
+                <button class="btn btn-primary" pOneStepperNext>Next</button>
               </div>
             </p-one-card>
           </div>

@@ -14,3 +14,8 @@ export const userSelector = createSelector(
   userStoreStateSelector,
   (state) => state.user
 );
+
+export const isAuthenticatedSelector = createSelector(
+  userStoreStateSelector,
+  (state) => !!state.user
+);

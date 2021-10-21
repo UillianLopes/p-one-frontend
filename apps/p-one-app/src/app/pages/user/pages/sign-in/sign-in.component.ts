@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-
-import { UserStoreService } from '../../../../stores/user-store/user-store.service';
 
 @Component({
   selector: 'p-one-sign-in',
@@ -18,16 +15,8 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private readonly _formBuilder: FormBuilder,
-    private readonly _oidcService: OidcSecurityService,
-    private readonly _router: Router,
-    private readonly _userStoreService: UserStoreService
+    private readonly _oidcService: OidcSecurityService
   ) {}
 
-  ngOnInit(): void {
-    this._userStoreService.authorize();
-  }
-
-  login() {
-    this._oidcService.authorize();
-  }
+  ngOnInit(): void {}
 }

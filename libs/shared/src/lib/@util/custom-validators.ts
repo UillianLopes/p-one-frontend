@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import { FormArray, FormGroup, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
   public static equalTo(operation: () => unknown): ValidatorFn {
@@ -23,6 +23,19 @@ export class CustomValidators {
       }
 
       return null;
+    };
+  }
+
+  public static whenParent(
+    validator: ValidatorFn,
+    condition: (parent: FormGroup | FormArray | null) => boolean
+  ): ValidatorFn {
+    return (control) => {
+      if (!condition(control.parent)) {
+        return null;
+      }
+
+      return validator(control);
     };
   }
 }

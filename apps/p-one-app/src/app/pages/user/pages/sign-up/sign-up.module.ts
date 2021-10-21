@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbButtonsModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   POneAddressFormModule,
   POneCardModule,
@@ -32,6 +32,7 @@ import { SignUpRoutingModule } from './sign-up.routing';
     POneFlexModule,
     NgbDatepickerModule,
     NgxMaskModule,
+    NgbButtonsModule,
     POneAddressFormModule,
   ],
 })

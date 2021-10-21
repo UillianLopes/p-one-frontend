@@ -46,7 +46,6 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
       },
     }),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

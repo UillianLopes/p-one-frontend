@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { UserModel } from '@p-one/core';
 
 import * as UserStoreActions from './user-store.actions';
 
@@ -6,16 +7,26 @@ export const USER_STORE_KEY = 'USER_STORE';
 
 export interface UserStoreState {
   loading: boolean;
-
-  user?: { name: string; email: string; sub: string };
+  user?: UserModel;
 }
 
 const initialState: UserStoreState = {
-  loading: true,
+  loading: false,
 };
 
 const _userStoreReducer = createReducer(
   initialState,
+
+  on(UserStoreActions.load, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(UserStoreActions.loadSuccess, (state, action) => {
+    return { ...state, loading: false, user: action.user };
+  }),
+  on(UserStoreActions.loadFailure, (state) => {
+    return { ...state, loading: false, user: undefined };
+  }),
+
   on(UserStoreActions.signIn, (state) => {
     return { ...state, loading: true };
   }),
@@ -25,6 +36,7 @@ const _userStoreReducer = createReducer(
   on(UserStoreActions.signInFailure, (state) => {
     return { ...state, loading: false };
   }),
+  
   on(UserStoreActions.signUp, (state) => {
     return { ...state };
   }),
