@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserStoreService } from './stores/user-store/user-store.service';
+import { UserStoreFacade } from './stores/user-store/+state/user-store.facade';
 
 @Component({
   selector: 'p-one-root',
@@ -8,7 +8,7 @@ import { UserStoreService } from './stores/user-store/user-store.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private readonly _userStoreService: UserStoreService) {}
+  constructor(private readonly _userStoreService: UserStoreFacade) {}
 
   ngOnInit(): void {
     this._userStoreService.load();

@@ -14,15 +14,7 @@
     width: 100vw;
     max-height: 100vh;
     max-width: 100vw;
-    transition: 0.2s linear;
+    z-index: 1;
   }
 
-  // &--fixed#{$self}--opened {
-  // }
-
-  // &--fixed#{$self}--closed {
-  //   #{$self}__content {
-  //     padding-left: 50px;
-  //   }
-  // }
 }

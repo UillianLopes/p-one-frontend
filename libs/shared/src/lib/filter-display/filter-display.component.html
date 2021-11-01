@@ -1,0 +1,8 @@
+<ng-content select="p-one-filter-display-badge"></ng-content>
+<ng-container *ngIf="this.data$ | async as data">
+  <p-one-filter-display-badge
+    *ngFor="let item of data"
+    [value]="item.value"
+    [name]="item.name"
+  ></p-one-filter-display-badge>
+</ng-container>

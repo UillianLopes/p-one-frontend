@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { RouterModule } from '@angular/router';
 
-import { SidenavEffects } from './+state/sidenav.effects';
-import { SidenavFacade } from './+state/sidenav.facade';
-import { SIDENAV_KEY, sidenavReducer } from './+state/sidenav.reducer';
+import { DirectivesModule } from '../directives';
 import { SidenavCollapseComponent } from './sidenav-collapse/sidenav-collapse.component';
 import { SidenavContainerComponent } from './sidenav-container/sidenav-container.component';
 import { SidenavContentComponent } from './sidenav-content/sidenav-content.component';
@@ -22,11 +19,7 @@ import { SidenavComponent } from './sidenav.component';
     SidenavCollapseComponent,
     SidenavTriggerDirective,
   ],
-  imports: [
-    CommonModule,
-    StoreModule.forFeature(SIDENAV_KEY, sidenavReducer),
-    EffectsModule.forFeature([SidenavEffects]),
-  ],
+  imports: [CommonModule, RouterModule, DirectivesModule],
   exports: [
     SidenavComponent,
     SidenavContainerComponent,
@@ -35,6 +28,5 @@ import { SidenavComponent } from './sidenav.component';
     SidenavCollapseComponent,
     SidenavTriggerDirective,
   ],
-  providers: [SidenavFacade],
 })
 export class POneSidenavModule {}

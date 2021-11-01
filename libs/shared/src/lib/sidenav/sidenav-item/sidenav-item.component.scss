@@ -1,21 +1,33 @@
+@import '../../theme';
+
+:host {
+  display: block;
+  width: 100%;
+}
+
 .p-one-sidenav-item {
   width: 100%;
   list-style: none;
   display: grid;
-  grid-template-columns: 50px minmax(0px, 1fr);
+  grid-template-columns: 40px minmax(0px, 1fr);
   cursor: pointer;
-  color: white;
-  $hover-color: rgba(
-    $color: #e6e6e6,
-    $alpha: 5,
-  );
+
+  border-radius: 8px;
+  color: black;
+  text-decoration: none;
 
   &:hover {
-    background: $hover-color;
-    border-color: $hover-color;
+    background: rgba($color: #e6e6e6, $alpha: 5);
   }
 
-  border-right: 2px solid var(--secondary);
+  &--active {
+    background: var(--primary);
+    color: white;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
 
   &__leading {
     grid-column: 1;
@@ -41,8 +53,8 @@
     align-items: center;
     opacity: 1;
     transition: 0.2s linear;
-  }
-  &--selected {
-    border-color: var(--primary);
+
+    word-wrap: normal;
+    white-space: nowrap;
   }
 }

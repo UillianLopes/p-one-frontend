@@ -4,6 +4,7 @@ import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
+import { SERVICES_PROVIDERS } from './services';
 import { LuxonDateFormatterParser } from './utils/luxon-date-formatter-parser';
 
 registerLocaleData(localePt);
@@ -29,6 +30,7 @@ export class POneCoreModule {
           useFactory: () =>
             new LuxonDateFormatterParser(config.luxonDateFormat),
         },
+        ...SERVICES_PROVIDERS,
       ],
     };
   }

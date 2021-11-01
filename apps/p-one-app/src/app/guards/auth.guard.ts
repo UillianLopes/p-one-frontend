@@ -3,11 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { UserStoreService } from '../stores/user-store/user-store.service';
+import { UserStoreFacade } from '../stores/user-store/+state/user-store.facade';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthGuard implements CanActivate {
-  constructor(private readonly _userStoreService: UserStoreService) {}
+  constructor(private readonly _userStoreService: UserStoreFacade) {}
 
   canActivate(
     _: ActivatedRouteSnapshot,

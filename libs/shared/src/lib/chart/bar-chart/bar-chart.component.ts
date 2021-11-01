@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
-import { ChartContainerMetrics } from '../@types/chart-contianer-metics';
 import { Chart } from '../chart';
 import { BarChartData } from './bar-chart.data';
 
@@ -21,7 +20,7 @@ export class BarChartComponent extends Chart<BarChartData[]> implements OnInit {
     super(elementRef);
   }
 
-  public render(data: BarChartData[], metrics: ChartContainerMetrics): void {
+  public render(data: BarChartData[], metrics: DOMRect): void {
 
     const margin = {
       right: 60,

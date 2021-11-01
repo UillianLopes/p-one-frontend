@@ -1,15 +1,26 @@
-<div class="p-one-sidenav-collapse__item" (click)="this.toggle()">
+<div
+  class="p-one-sidenav-collapse__item"
+  [class.p-one-sidenav-collapse__item--active]="this.isLinkActivated$ | async"
+  (click)="this.toggle()"
+>
   <div class="p-one-sidenav-collapse__item__leading">
-    <ng-content select="[pOneSidenavIcon]"></ng-content>
+    <ng-content select="[pOneIcon],[pOneSidenavIcon]"></ng-content>
   </div>
   <div class="p-one-sidenav-collapse__item__content">
     <ng-content></ng-content>
   </div>
   <div class="p-one-sidenav-collapse__item__trailing">
-    <i class="material-icons" [@sidenavColllapseIconAnimation]="this.state$ | async">keyboard_arrow_right</i>
+    <i
+      class="material-icons"
+      [@sidenavColllapseIconAnimation]="this.state$ | async"
+      >keyboard_arrow_right</i
+    >
   </div>
 </div>
-<div class="p-one-sidenav-collapse__collapsable" [@sidenavColllapseAnimation]="this.state$ | async">
+<div
+  class="p-one-sidenav-collapse__collapsable"
+  [@sidenavColllapseAnimation]="this.state$ | async"
+>
   <div class="p-one-sidenav-collapse__items">
     <ng-content select="p-one-sidenav-item,p-one-sidenav-collapse"></ng-content>
   </div>

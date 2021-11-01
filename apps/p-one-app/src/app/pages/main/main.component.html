@@ -1,0 +1,45 @@
+<p-one-sidenav-container>
+  <p-one-sidenav>
+    <section pOneSidenavHeader>
+      <ng-container *ngIf="this.user$ | async as user">
+        <h1>Olá, {{ user.name | pOneFirstName }}</h1>
+      </ng-container>
+    </section>
+    <p-one-sidenav-item link="/home">
+      <i pOneIcon class="material-icons-outlined"> home </i>
+      Home
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item link="/main/settings">
+      <i pOneIcon class="material-icons-outlined"> settings </i>
+      Configuraões
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-collapse link="/main/financial">
+      <ng-container pOneIcon>
+        <i class="material-icons-outlined"> edit </i>
+      </ng-container>
+
+      Financeiro
+      <p-one-sidenav-collapse link="/main/financial/entries">
+        Entries
+        <p-one-sidenav-item link="/main/financial/entries/list">
+          Todas as contas
+        </p-one-sidenav-item>
+
+        <p-one-sidenav-item link="/main/financial/entries/credits">
+          Contas a receber
+        </p-one-sidenav-item>
+
+        <p-one-sidenav-item link="/main/financial/entries/debits">
+          Contas a pagar
+        </p-one-sidenav-item>
+      </p-one-sidenav-collapse>
+
+      <p-one-sidenav-item link="/main/financial/categories">
+        Categorias
+      </p-one-sidenav-item>
+    </p-one-sidenav-collapse>
+  </p-one-sidenav>
+  <router-outlet></router-outlet>
+</p-one-sidenav-container>

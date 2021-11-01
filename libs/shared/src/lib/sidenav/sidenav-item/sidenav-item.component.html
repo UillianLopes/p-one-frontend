@@ -1,6 +1,12 @@
-<div class="p-one-sidenav-item__leading">
-  <ng-content select="[pOneIcon]"></ng-content>
-</div>
-<div class="p-one-sidenav-item__content">
-  <ng-content></ng-content>
-</div>
+<a
+  class="p-one-sidenav-item"
+  [class.p-one-sidenav-item--active]="isLinkActivated$ | async"
+  (click)="this.navigate()"
+>
+  <div class="p-one-sidenav-item__leading">
+    <ng-content select="[pOneIcon]"></ng-content>
+  </div>
+  <div class="p-one-sidenav-item__content">
+    <ng-content></ng-content>
+  </div>
+</a>

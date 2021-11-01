@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, tap, withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 import { SidenavFacade } from '../+state/sidenav.facade';
+import { DestroyableMixin } from '../../..';
 import { ESidenavMode } from '../sidenav-mode.enum';
 import { sidenavContainerContentPaddingAnimation } from './sidenav-container.animations';
 
@@ -11,8 +12,12 @@ import { sidenavContainerContentPaddingAnimation } from './sidenav-container.ani
   templateUrl: './sidenav-container.component.html',
   styleUrls: ['./sidenav-container.component.scss'],
   animations: [sidenavContainerContentPaddingAnimation],
+  providers: [SidenavFacade],
 })
-export class SidenavContainerComponent {
+export class SidenavContainerComponent
+  extends DestroyableMixin()
+  implements OnInit
+{
   @Input()
   set mode(v: ESidenavMode) {
     this._facade.setMode(v);
@@ -31,14 +36,18 @@ export class SidenavContainerComponent {
       return {
         value,
         params: {
-          sidenavWidth: mode === ESidenavMode.FIXED ? sidenavWidth : '50px',
+          sidenavWidth: mode === ESidenavMode.FIXED ? sidenavWidth + 32 : '82',
         },
       };
-    }),
-    tap((data) => console.log('ANIMATION STATE -> ', data))
+    })
   );
 
-  constructor(private readonly _facade: SidenavFacade) {}
+  constructor(private readonly _facade: SidenavFacade) {
+    super();
+  }
+  ngOnInit(): void {
+    this._facade.registerEffects(this.destroyed$);
+  }
 
   toggle(): void {
     this._facade.toggle();

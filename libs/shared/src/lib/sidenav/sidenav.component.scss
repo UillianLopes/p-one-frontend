@@ -1,29 +1,41 @@
+@import '../theme';
+
 .p-one-sidenav {
-  background: var(--secondary);
-  display: block;
   position: absolute;
   top: 0px;
   bottom: 0px;
-  overflow: hidden;
-
+  overflow: auto;
+  border-right: 1px solid gray('300');
+  background: white;
+  z-index: 3;
   $self: &;
 
-  box-shadow: 5px 5px 15px 5px var(--secondary);
+  &__panel {
+    display: block;
+    overflow: hidden;
+    color: black;
+  }
 
   &__items {
     display: flex;
     flex-direction: column;
     padding: 0px;
+    &--gap {
+      gap: 4px;
+    }
   }
 
   &__collapsable {
     display: block;
+    width: 100%;
+    max-width: 100%;
     overflow: hidden;
   }
 
   &__header {
     display: block;
-    overflow: hidden;
+    word-wrap: normal;
+    white-space: nowrap;
   }
 
   &--left {

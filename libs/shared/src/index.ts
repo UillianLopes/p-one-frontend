@@ -29,3 +29,11 @@ export * from './lib/address-form/address-form.module';
 export * from './lib/address-form/@types/address-form.data';
 export * from './lib/chart/chart.module';
 export * from './lib/chart/bar-chart/bar-chart.data';
+
+export * from './lib/pipes/pipes.module';
+
+export * from './lib/header/header.module';
+
+export * from './lib/loading';
+export * from './lib/directives';
+export * from './lib/filter-display';

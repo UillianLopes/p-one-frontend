@@ -1,6 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 export const sidenavColllapseAnimation = trigger('sidenavColllapseAnimation', [
+  state(
+    '*',
+    style({
+      height: '0px',
+    })
+  ),
+
   state('OPENED', style({ height: '*' })),
   state('CLOSED', style({ height: '0px' })),
 

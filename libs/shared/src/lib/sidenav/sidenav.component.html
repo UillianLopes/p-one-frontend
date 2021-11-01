@@ -1,18 +1,28 @@
 <aside
   class="p-one-sidenav"
-  [@sidenavWidthAnimation]="state$ | async"
-  id="sidenav"
+  [@sidenavPaddingAnimation]="sidenaHeaderState$ | async"
+  [class.p-one-sidenav--fixed]="this.isFixed$ | async"
+  [class.p-one-sidenav--floading]="this.isFloating$ | async"
 >
-  <section id="sidenav-items" class="p-one-sidenav__items">
-    <div
-      class="p-one-sidenav__collapsable"
-      [@sidenavHeaderAnimation]="sidenaHeaderState$ | async"
-    >
-      <div id="sidenav-header" class="p-one-sidenav__header">
-        <ng-content select="[pOneSidenavHeader]"></ng-content>
+  <div
+    id="sidenav"
+    class="p-one-sidenav__panel"
+    [@sidenavWidthAnimation]="state$ | async"
+  >
+    <div id="sidenav-items" class="p-one-sidenav__items">
+      <div
+        class="p-one-sidenav__collapsable"
+        [@sidenavHeaderAnimation]="sidenaHeaderState$ | async"
+      >
+        <div id="sidenav-header" class="p-one-sidenav__header">
+          <ng-content select="[pOneSidenavHeader]"></ng-content>
+        </div>
+      </div>
+      <div  class="p-one-sidenav__items p-one-sidenav__items--gap">
+        <ng-content
+          select="p-one-sidenav-item,p-one-sidenav-collapse"
+        ></ng-content>
       </div>
     </div>
-  
-    <ng-content select="p-one-sidenav-item,p-one-sidenav-collapse"></ng-content>
-  </section>
+  </div>
 </aside>

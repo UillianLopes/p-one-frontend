@@ -1,0 +1,51 @@
+<p-one-container [isLoading]="this.isLoading$ | async">
+  <p-one-header pOneHeader>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="material-icons"> menu </i>
+    </button>
+
+    <h2>Entradas</h2>
+  </p-one-header>
+
+  <div pOneFlexColumn gap="16px" style="padding: 16px">
+    <p-one-filter-display
+      [data]="[
+        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
+        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
+        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
+        { name: 'TESTE', value: ['Teste', 'Teste II'] }
+      ]"
+    ></p-one-filter-display>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Category</th>
+          <th scope="col">Sub category</th>
+          <th scope="col">Value</th>
+          <th scope="col">Fees</th>
+          <th scope="col">Fine</th>
+          <th scope="col">Type</th>
+          <th scope="col">Recurrence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of this.entries$ | async">
+          <td>{{ entry.title }}</td>
+          <td>{{ entry.category }}</td>
+          <td>{{ entry.subCategory }}</td>
+          <td>{{ entry.value | currency: 'BRL' }}</td>
+          <td>{{ entry.fees | number: '0.2-2' }}</td>
+          <td>{{ entry.fine | number: '0.2-2' }}</td>
+          <td>{{ entry.type }}</td>
+          <td>{{ entry.recurrence }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</p-one-container>

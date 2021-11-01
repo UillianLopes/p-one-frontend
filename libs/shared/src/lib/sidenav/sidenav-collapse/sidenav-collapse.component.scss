@@ -1,15 +1,22 @@
+@import '../../theme';
 .p-one-sidenav-collapse {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 4px;
 
   &__item {
     width: 100%;
     list-style: none;
     display: grid;
-    grid-template-columns: 50px 1fr 50px;
+    grid-template-columns: 40px 1fr 40px;
     grid-template-rows: auto;
     cursor: pointer;
+    border-radius: 8px;
+
+    &--active {
+      color: var(--primary);
+    }
 
     &:hover {
       background: rgba($color: #e6e6e6, $alpha: 5);
@@ -18,7 +25,7 @@
     &__leading {
       grid-column: 1;
 
-      height: 50px;
+      height: 40px;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -28,7 +35,7 @@
     &__content {
       grid-column: 2;
 
-      height: 50px;
+      height: 40px;
 
       display: flex;
       flex-direction: row;
@@ -36,6 +43,8 @@
       align-items: center;
       opacity: 1;
       transition: 0.2s linear;
+      word-wrap: normal;
+      white-space: nowrap;
     }
 
     &__trailing {
@@ -57,5 +66,7 @@
     flex-direction: column;
     overflow: hidden;
     width: 100%;
+    gap: 4px;
+    padding-left: 16px;
   }
 }

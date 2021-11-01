@@ -1,0 +1,13 @@
+.botao-teste {
+  color: white;
+  background: red;
+
+  &:hover {
+    background: blue;
+  }
+
+  &:active {
+    background: green;
+  }
+}
+

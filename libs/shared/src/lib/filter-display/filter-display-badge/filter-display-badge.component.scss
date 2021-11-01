@@ -1,0 +1,25 @@
+.p-one-filter-display-badge {
+  background: var(--secondary);
+
+  display: grid;
+  grid-template-columns: auto minmax(0px, 150px);
+
+  border-radius: 50px;
+  padding: 0px 8px;
+
+  color: white;
+
+  &__leading {
+    grid-column: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__content {
+    grid-column: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,12 +1,14 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { uniqueId } from 'lodash';
 import { fromEvent, of, Subject } from 'rxjs';
-import { mergeAll, startWith } from 'rxjs/operators';
-
-import { ChartContainerMetrics } from './@types/chart-contianer-metics';
+import { mergeAll, startWith, takeUntil } from 'rxjs/operators';
 
 @Directive()
-export abstract class Chart<T> implements OnInit {
-  data$ = new Subject<T>();
+export abstract class Chart<T> implements OnInit, OnDestroy {
+  protected readonly uniqueId = uniqueId('chart-');
+  protected readonly data$ = new Subject<T>();
+  protected readonly destroyed$ = new Subject();
+  protected readonly rendered$ = new Subject<DOMRect>();
 
   private _data!: T;
 
@@ -22,14 +24,21 @@ export abstract class Chart<T> implements OnInit {
 
   constructor(protected readonly _elementRef: ElementRef<HTMLElement>) {}
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+  }
+
   ngOnInit(): void {
     of(fromEvent(this._elementRef.nativeElement, 'resize'), this.data$)
-      .pipe(mergeAll(), startWith(''))
+      .pipe(mergeAll(), takeUntil(this.destroyed$), startWith(''))
       .subscribe(() => {
-        const { clientHeight, clientWidth } = this._elementRef.nativeElement;
-        this.render(this.data, { width: clientWidth, height: clientHeight });
+        this.render(this.data, this._getContainerRect());
       });
   }
 
-  abstract render(data: T, containerMetrics: ChartContainerMetrics): void;
+  abstract render(data: T, containerRect: DOMRect): void;
+
+  private _getContainerRect(): DOMRect {
+    return this._elementRef.nativeElement.getBoundingClientRect();
+  }
 }

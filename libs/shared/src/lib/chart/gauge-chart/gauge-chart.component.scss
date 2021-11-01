@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge-chart {
+  
+  &__panel {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 1;
+    
+  }
+
+  &__label {
+    font-size: 1em;
+  }
+
+  &__svg {
+    z-index: 2;
+  }
+}

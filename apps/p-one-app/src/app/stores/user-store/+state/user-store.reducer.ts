@@ -36,7 +36,7 @@ const _userStoreReducer = createReducer(
   on(UserStoreActions.signInFailure, (state) => {
     return { ...state, loading: false };
   }),
-  
+
   on(UserStoreActions.signUp, (state) => {
     return { ...state };
   }),

@@ -8,8 +8,9 @@ import { StepperComponent } from './stepper.component';
 export class StepperNextDirective {
   constructor(private readonly _stepper: StepperComponent) {}
 
-  @HostListener('click')
-  click(): void {
+  @HostListener('click', ['$event'])
+  click($event: MouseEvent): void {
+    
     this._stepper.next();
   }
 }

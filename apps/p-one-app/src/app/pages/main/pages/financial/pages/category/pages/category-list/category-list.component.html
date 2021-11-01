@@ -1,0 +1,30 @@
+<p-one-container [isLoading]="this.isLoading$ | async">
+  <p-one-header pOneHeader>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="material-icons"> menu </i>
+    </button>
+    <h2>Categorias</h2>
+  </p-one-header>
+
+  <div pOneFlexColumn gap="16px" style="padding: 16px">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of this.categories$ | async">
+          <td>{{ entry.name }}</td>
+          <td>{{ entry.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</p-one-container>
