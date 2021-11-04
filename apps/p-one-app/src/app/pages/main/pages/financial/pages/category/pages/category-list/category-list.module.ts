@@ -1,17 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { POneContainerModule, POneHeaderModule, POneSidenavModule } from '@p-one/shared';
+import {
+  POneContainerModule,
+  POneContextMenuModule,
+  POneDialogModule,
+  POneFlexModule,
+  POneHeaderModule,
+  POneInputModule,
+  POneSidenavModule,
+} from '@p-one/shared';
 
 import { CategoryListEffects } from './+state/category-list.effects';
 import { CategoryListFacade } from './+state/category-list.facade';
 import { CATEGORY_LIST_KEY, categoryListReducer } from './+state/category-list.reducer';
 import { CategoryListComponent } from './category-list.component';
 import { CategoryListRoutingModule } from './category-list.routing';
+import { CreateCategoryModalComponent } from './modals/create-category-modal/create-category-modal.component';
+import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
 
 @NgModule({
-  declarations: [CategoryListComponent],
+  declarations: [
+    CategoryListComponent,
+    CreateCategoryModalComponent,
+    UpdateCategoryModalComponent,
+  ],
   imports: [
     CommonModule,
     CategoryListRoutingModule,
@@ -20,6 +35,12 @@ import { CategoryListRoutingModule } from './category-list.routing';
     POneSidenavModule,
     StoreModule.forFeature(CATEGORY_LIST_KEY, categoryListReducer),
     EffectsModule.forFeature([CategoryListEffects]),
+    POneDialogModule,
+    POneInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    POneContextMenuModule,
+    POneFlexModule,
   ],
   providers: [CategoryListFacade],
 })

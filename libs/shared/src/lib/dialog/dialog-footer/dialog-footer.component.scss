@@ -1,0 +1,33 @@
+.p-one-dialog {
+  &__footer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto minmax(0px, 1fr) auto;
+
+    &__content,
+    &__triling,
+    &__leading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+
+    &__leading,
+    &__trailing {
+      justify-content: center;
+    }
+
+    &__leading {
+      grid-column: 1;
+    }
+
+    &__content {
+      grid-column: 2;
+    }
+
+    &__trailing {
+      grid-column: 3;
+    }
+  }
+}

@@ -21,9 +21,9 @@ export class UserStoreEffects {
       ofType(EUserStoreActions.LOAD),
       switchMap((_) => {
         return this._oidcService.checkAuth().pipe(
-          map(({ isAuthenticated, userData }) => {
+          map(({ isAuthenticated, userData, accessToken }) => {
             if (isAuthenticated && userData) {
-              return loadSuccess({ user: userData });
+              return loadSuccess({ user: userData, accessToken });
             }
             return loadFailure();
           })
@@ -36,17 +36,18 @@ export class UserStoreEffects {
     this._actions$.pipe(ofType(EUserStoreActions.SIGN_IN)).pipe(
       switchMap(() => {
         return this._oidcService.checkAuth().pipe(
-          switchMap(({ isAuthenticated, userData }) => {
+          switchMap(({ isAuthenticated, userData, accessToken }) => {
             if (isAuthenticated) {
               return from(this._router.navigate(['/'])).pipe(
                 map(() => {
                   return signInSuccess({
                     user: userData,
+                    accessToken
                   });
                 })
               );
             }
-
+         
             this._oidcService.authorize();
             return of(signInFailure());
           })

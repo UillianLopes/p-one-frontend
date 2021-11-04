@@ -1,0 +1,14 @@
+:host {
+  display: block;
+
+  animation: opacityAnimation 0.2s ease-in;
+}
+
+@keyframes opacityAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

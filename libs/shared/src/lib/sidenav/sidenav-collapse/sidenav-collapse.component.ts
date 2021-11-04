@@ -57,6 +57,17 @@ export class SidenavCollapseComponent
     })
   );
 
+  public readonly isLinkActivatedAndCollapseClosed$ = combineLatest([
+    this.isLinkActivated$,
+    this.state$,
+  ]).pipe(
+    map(([isLinkActivated, state]) => {
+      return isLinkActivated && state == ESidenavState.CLOSED;
+    })
+  );
+
+  
+
   constructor(
     private readonly _sidenavFacade: SidenavFacade,
     private readonly _router: Router,

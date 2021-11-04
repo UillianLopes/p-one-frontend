@@ -15,11 +15,17 @@
     border-radius: 8px;
 
     &--active {
-      color: var(--primary);
+      color: white;
+      background: var(--primary);
+
+      &:hover {
+        
+        background: var(--dark)!important
+      }
     }
 
     &:hover {
-      background: rgba($color: #e6e6e6, $alpha: 5);
+      background: #e6e6e6
     }
 
     &__leading {

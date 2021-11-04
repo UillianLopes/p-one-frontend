@@ -11,7 +11,7 @@ import {
   resetState,
 } from './entry-list.actions';
 
-export const ENTRY_LIST_KEY = 'ENTRY LIST';
+export const ENTRY_LIST_KEY = 'FINANCIAL_ENTRY_LIST';
 export interface EntryListState {
   loading: boolean;
   filter: Partial<EntryFilter>;

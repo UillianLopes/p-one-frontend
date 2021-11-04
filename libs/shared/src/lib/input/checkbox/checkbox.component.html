@@ -1,0 +1,21 @@
+<div
+  class="p-one-checkbox"
+  [class.p-one-checkbox--checked]="isChecked$ | async"
+  [class.p-one-checkbox--indeterminated]="isIndeterminated$ | async"
+  (click)="toggle($event)"
+>
+  <div class="p-one-checkbox__checkmark-wrapper">
+    <i
+      class="p-one-checkbox__checkmark bi bi-check"
+      [@checkboxCheckmarkAnimation]="animationState$ | async"
+    ></i>
+  </div>
+  <div class="p-one-checkbox__minus-wrapper">
+    <i
+      class="p-one-checkbox__minus bi bi-dash"
+      [@checkboxMinusAnimation]="animationState$ | async"
+    ></i>
+  </div>
+</div>
+
+<input [formControl]="formControl" type="checkbox" hidden />

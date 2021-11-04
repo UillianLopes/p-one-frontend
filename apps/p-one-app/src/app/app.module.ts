@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +13,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UserStoreModule } from './stores/user-store/user-store.module';
 
 @NgModule({
@@ -23,6 +25,7 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
     POneCoreModule.forRoot({
       locale: environment.locale,
       luxonDateFormat: environment.luxonDateFormat,
+      financialApiUrl: environment.financialApiUrl,
     }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
@@ -37,8 +40,8 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
         authority: 'https://localhost:5001',
         redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
-        clientId: 'http://localhost:4200',
-        scope: 'openid profile poneapi',
+        clientId: 'POne.App',
+        scope: 'openid profile ponefinancialapi',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
@@ -47,5 +50,12 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
     }),
   ],
   bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class AppModule {}

@@ -108,9 +108,6 @@ export class GaugeChartComponent extends Chart<GaugeChartData> {
       .join('path')
       .attr('d', <any>arcGenerator)
       .attr('stroke', 'white')
-      .attr('stroke-width', `4`)
-      .on('mouseout', function () {
-        console.log(this);
-      });
+      .attr('stroke-width', `4`);
   }
 }

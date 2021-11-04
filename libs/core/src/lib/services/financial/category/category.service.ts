@@ -1,23 +1,68 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { v4 } from 'uuid';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import { CategoryModel } from '../../../models';
+import { FINANCIAL_API_URL } from '../../../contants/tokens';
+import { CategoryModel, ResponseModel } from '../../../models';
+import { ErrorModel } from '../../../models/responses/error.model';
 
 @Injectable()
 export class CategoryService {
-  constructor() {}
-
-  private _mock: CategoryModel[] = [
-    { id: v4(), name: 'Contas de casa', description: '' },
-    { id: v4(), name: 'Gastos futeis', description: '' },
-    { id: v4(), name: 'Emergências', description: '' },
-    { id: v4(), name: 'Gastos médicos', description: '' },
-    { id: v4(), name: 'Streaming', description: '' },
-  ];
+  constructor(
+    private readonly _httpClient: HttpClient,
+    @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
+  ) {}
 
   get(): Observable<CategoryModel[]> {
-    return of([...this._mock]).pipe(delay(7000));
+    return this._httpClient
+      .get<ResponseModel<CategoryModel[]>>(`${this._financialApiUrl}/Category`)
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  create(category: CategoryModel): Observable<CategoryModel> {
+    return this._httpClient
+      .post<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category`,
+        category
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  update(id: string, category: CategoryModel): Observable<CategoryModel> {
+    return this._httpClient
+      .put<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category/${id}`,
+        category
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  delete(categoryId: string): Observable<CategoryModel> {
+    return this._httpClient
+      .delete<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category/${categoryId}`
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
   }
 }

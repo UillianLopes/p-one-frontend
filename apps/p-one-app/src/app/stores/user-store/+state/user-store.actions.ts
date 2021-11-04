@@ -18,14 +18,14 @@ export enum EUserStoreActions {
 export const load = createAction(EUserStoreActions.LOAD);
 export const loadSuccess = createAction(
   EUserStoreActions.LOAD_SUCCESS,
-  props<{ user: UserModel }>()
+  props<{ user: UserModel, accessToken: string }>()
 );
 export const loadFailure = createAction(EUserStoreActions.LOAD_FAILURE);
 
 export const signIn = createAction(EUserStoreActions.SIGN_IN);
 export const signInSuccess = createAction(
   EUserStoreActions.SIGN_IN_SUCCESS,
-  props<{ user: UserModel }>()
+  props<{ user: UserModel, accessToken: string }>()
 );
 export const signInFailure = createAction(EUserStoreActions.SIGN_IN_FAILURE);
 

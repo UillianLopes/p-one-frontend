@@ -1,7 +1,8 @@
 <section class="p-one-container__header">
-  <ng-content select="[pOneHeader]"></ng-content>
+  <ng-content select="[pOneHeader],p-one-header"></ng-content>
 </section>
-<section class="p-one-container__content">
+<section class="p-one-container__content" cdkScrollable>
+  <ng-content> </ng-content>
   <ng-content></ng-content>
   <p-one-loading *ngIf="this.isLoading$ | async"></p-one-loading>
 </section>

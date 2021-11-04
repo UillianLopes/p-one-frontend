@@ -37,3 +37,6 @@ export * from './lib/header/header.module';
 export * from './lib/loading';
 export * from './lib/directives';
 export * from './lib/filter-display';
+
+export * from './lib/dialog';
+export * from './lib/context-menu';

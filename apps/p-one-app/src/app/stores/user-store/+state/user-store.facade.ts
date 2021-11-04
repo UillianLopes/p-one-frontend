@@ -12,6 +12,7 @@ export class UserStoreFacade {
   isAuthenticated$ = this._store.select(
     UserStoreSelectors.isAuthenticatedSelector
   );
+  accessToken$ = this._store.select(UserStoreSelectors.accessTokenSelector);
 
   constructor(private readonly _store: Store<UserStoreState>) {}
 

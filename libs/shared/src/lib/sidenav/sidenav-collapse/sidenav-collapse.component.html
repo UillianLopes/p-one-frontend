@@ -1,6 +1,8 @@
 <div
   class="p-one-sidenav-collapse__item"
-  [class.p-one-sidenav-collapse__item--active]="this.isLinkActivated$ | async"
+  [class.p-one-sidenav-collapse__item--active]="
+    this.isLinkActivatedAndCollapseClosed$ | async
+  "
   (click)="this.toggle()"
 >
   <div class="p-one-sidenav-collapse__item__leading">

@@ -1,0 +1,52 @@
+.p-one-checkbox {
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+
+  height: 16px;
+  width: 16px;
+
+  border-radius: 4px;
+  border: 1px solid var(--secondary);
+
+  cursor: default;
+
+  $self: &;
+  transition: 0.2s linear;
+
+  &--checked {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  &--indeterminated {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  &__checkmark {
+    opacity: 0;
+    font-size: 16px;
+    color: white;
+  }
+
+  &__checkmark-wrapper,
+  &__minus-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  &__minus {
+    opacity: 0;
+    font-size: 16px;
+    color: white;
+  }
+}
