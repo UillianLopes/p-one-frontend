@@ -65,4 +65,22 @@ export class CategoryService {
         )
       );
   }
+
+  deleteMultiple(categoryIds: string[]): Observable<CategoryModel> {
+    return this._httpClient
+      .delete<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category`,
+        {
+          params: {
+            ids: categoryIds,
+          },
+        }
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
 }

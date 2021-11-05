@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import {
   createCategory,
+  deleteCategory,
   loadCategories,
   resetState,
   setOpenedCreateCategoryDialog,
@@ -71,6 +72,10 @@ export class CategoryListFacade {
 
   resetState(): void {
     this._store.dispatch(resetState());
+  }
+
+  deleteCategory(categoryId: string): void {
+    this._store.dispatch(deleteCategory({ categoryId }));
   }
 
   toggleSelectMultipleCategories(): void {

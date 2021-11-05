@@ -39,6 +39,9 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this._facade.loadCategories();
   }
 
+  deleteCategory(categoryId: string): void {
+    this._facade.deleteCategory(categoryId);
+  }
   toggleSelectMultipleCategories(): void {
     this._facade.toggleSelectMultipleCategories();
   }

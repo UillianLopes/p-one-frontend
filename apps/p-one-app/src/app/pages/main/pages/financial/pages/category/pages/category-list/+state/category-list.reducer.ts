@@ -7,6 +7,12 @@ import {
   createCategory,
   createCategoryFailure,
   createCategorySuccess,
+  deleteCategory,
+  deleteCategoryFailure,
+  deleteCategorySuccess,
+  deleteSelectedCategories,
+  deleteSelectedCategoriesFailure,
+  deleteSelectedCategoriesSuccess,
   loadCategories,
   loadCategoriesFailure,
   loadCategoriesSuccess,
@@ -179,6 +185,38 @@ const _categoryListReducer = createReducer<CategoryListState>(
       ...state,
       selectedCategoryIds: [...(action.categoryIds ?? [])],
     };
+  }),
+
+  on(deleteCategory, (state) => {
+    return { ...state, loading: true };
+  }),
+
+  on(deleteCategorySuccess, (state) => {
+    return { ...state, loading: true };
+  }),
+
+  on(deleteCategoryFailure, (state) => {
+    return { ...state, loading: true };
+  }),
+
+  on(deleteSelectedCategories, (state) => {
+    return { ...state, loading: true };
+  }),
+
+  on(deleteSelectedCategoriesSuccess, (state, { categoriesIds }) => {
+    return {
+      ...state,
+      loading: false,
+      categories: [
+        ...state.categories.filter(
+          (e) => !(e.id && categoriesIds.includes(e.id))
+        ),
+      ],
+    };
+  }),
+
+  on(deleteSelectedCategoriesFailure, (state, { error }) => {
+    return { ...state, loading: true, error };
   }),
 
   on(resetState, (_) => {

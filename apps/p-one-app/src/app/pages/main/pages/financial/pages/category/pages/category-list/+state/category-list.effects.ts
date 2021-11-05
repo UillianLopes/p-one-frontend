@@ -12,6 +12,9 @@ import {
   closeUpdateCategoryDialogSuccess,
   createCategoryFailure,
   createCategorySuccess,
+  deleteCategorySuccess,
+  deleteSelectedCategoriesFailure,
+  deleteSelectedCategoriesSuccess,
   ECategoryListActions,
   EntryListActionsUnion,
   loadCategoriesFailure,
@@ -70,14 +73,16 @@ export class CategoryListEffects {
     this._actions$.pipe(
       ofType(ECategoryListActions.UPDATE_CATEGORY),
       switchMap((action) => {
-        return this._categoryService.update(action.category.id ?? '', action.category).pipe(
-          map((category) => {
-            return updateCategorySuccess({
-              category,
-            });
-          }),
-          catchError((error) => of(updateCategoryFailure({ error })))
-        );
+        return this._categoryService
+          .update(action.category.id ?? '', action.category)
+          .pipe(
+            map((category) => {
+              return updateCategorySuccess({
+                category,
+              });
+            }),
+            catchError((error) => of(updateCategoryFailure({ error })))
+          );
       })
     )
   );
@@ -143,6 +148,38 @@ export class CategoryListEffects {
       map(([_, __, filtredCategoriesIds]) =>
         selectMultipleCategories({ categoryIds: filtredCategoriesIds })
       )
+    )
+  );
+
+  readonly deleteCategoryEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ECategoryListActions.DELETE_CATEGORY),
+      switchMap(({ categoryId }) => {
+        return this._categoryService.delete(categoryId).pipe(
+          map(() => {
+            return deleteCategorySuccess({ categoryId });
+          }),
+          catchError((error) => {
+            return of(deleteSelectedCategoriesFailure({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  readonly deleteSelectedCategoriesEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ECategoryListActions.DELETE_SELECTED_CATEGORIES),
+      switchMap(({ categoriesIds }) => {
+        return this._categoryService.deleteMultiple(categoriesIds).pipe(
+          map(() => {
+            return deleteSelectedCategoriesSuccess({ categoriesIds });
+          }),
+          catchError((error) => {
+            return of(deleteSelectedCategoriesFailure({ error }));
+          })
+        );
+      })
     )
   );
 

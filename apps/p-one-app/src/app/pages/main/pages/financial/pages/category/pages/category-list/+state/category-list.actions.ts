@@ -61,8 +61,6 @@ export const createCategory = createAction(
   props<{ category: CategoryModel }>()
 );
 
-
-
 export const createCategorySuccess = createAction(
   ECategoryListActions.CREATE_CATEGORY_SUCCESS,
   props<{ category: CategoryModel }>()
@@ -85,8 +83,6 @@ export const updateCategoryFailure = createAction(
   ECategoryListActions.UPDATE_CATEGORY_FAILURE,
   props<{ error: any }>()
 );
-
-
 
 export const paginateCategories = createAction(
   ECategoryListActions.PAGINATE_CATEGORIES,
@@ -147,6 +143,36 @@ export const unselectCategory = createAction(
   props<{ categoryId: string }>()
 );
 
+export const deleteCategory = createAction(
+  ECategoryListActions.DELETE_CATEGORY,
+  props<{ categoryId: string }>()
+);
+
+export const deleteCategorySuccess = createAction(
+  ECategoryListActions.DELETE_CATEGORY_SUCCESS,
+  props<{ categoryId: string }>()
+);
+
+export const deleteCategoryFailure = createAction(
+  ECategoryListActions.DELETE_CATEGORY_FAILURE,
+  props<{ error: any }>()
+);
+
+export const deleteSelectedCategories = createAction(
+  ECategoryListActions.DELETE_SELECTED_CATEGORIES,
+  props<{ categoriesIds: string[] }>()
+);
+
+export const deleteSelectedCategoriesSuccess = createAction(
+  ECategoryListActions.DELETE_SELECTED_CATEGORIES_SUCCESS,
+  props<{ categoriesIds: string[] }>()
+);
+
+export const deleteSelectedCategoriesFailure = createAction(
+  ECategoryListActions.DELETE_SELECTED_CATEGORIES_FAILURE,
+  props<{ error: any }>()
+);
+
 export const resetState = createAction(ECategoryListActions.RESET_STATE);
 
 const actionsUnion = union({
@@ -173,6 +199,14 @@ const actionsUnion = union({
   updateCategory,
   updateCategorySuccess,
   updateCategoryFailure,
+
+  deleteSelectedCategories,
+  deleteSelectedCategoriesSuccess,
+  deleteSelectedCategoriesFailure,
+
+  deleteCategory,
+  deleteCategorySuccess,
+  deleteCategoryFailure,
 
   toggleSelectMultipleCategories,
   selectMultipleCategories,
