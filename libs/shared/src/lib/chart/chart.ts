@@ -8,7 +8,10 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
   protected readonly uniqueId = uniqueId('chart-');
   protected readonly data$ = new Subject<T>();
   protected readonly destroyed$ = new Subject();
-  protected readonly rendered$ = new Subject<DOMRect>();
+  protected readonly resized$ = new Subject();
+  protected readonly resizeObserver = new ResizeObserver(() => {
+    this.resized$.next();
+  });
 
   private _data!: T;
 
@@ -29,7 +32,12 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    of(fromEvent(this._elementRef.nativeElement, 'resize'), this.data$)
+    this.resizeObserver.observe(this._elementRef.nativeElement);
+    of(
+      fromEvent(this._elementRef.nativeElement, 'resize'),
+      this.data$,
+      this.resized$
+    )
       .pipe(mergeAll(), takeUntil(this.destroyed$), startWith(''))
       .subscribe(() => {
         this.render(this.data, this._getContainerRect());
