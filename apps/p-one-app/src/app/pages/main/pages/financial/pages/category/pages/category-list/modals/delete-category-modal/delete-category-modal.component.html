@@ -1,0 +1,32 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    <ng-container *ngIf="willMoreThanOneCategoryBeDeleted$ | async">
+      Excluir categorias
+    </ng-container>
+    <ng-container *ngIf="willOnlyOneCategoryBeDeleted$ | async">
+      Excluir categoria
+    </ng-container>
+  </h5>
+  <p-one-dialog-body>
+    <p>
+      <ng-container *ngIf="willMoreThanOneCategoryBeDeleted$ | async">
+        Tem certeza que deseja apagar as categorias
+      </ng-container>
+      <ng-container *ngIf="willOnlyOneCategoryBeDeleted$ | async">
+        Tem certeza que deseja apagar a categoria
+      </ng-container>
+      <b> {{ toBeDeletedCategoriesNames$ | async }} </b>?
+    </p>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>Cancelar</button>
+    <button class="btn btn-primary btn-sm" (click)="deleteCategory()">
+      <ng-container *ngIf="willMoreThanOneCategoryBeDeleted$ | async">
+        Excluir categorias
+      </ng-container>
+      <ng-container *ngIf="willOnlyOneCategoryBeDeleted$ | async">
+        Excluir categoria
+      </ng-container>
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

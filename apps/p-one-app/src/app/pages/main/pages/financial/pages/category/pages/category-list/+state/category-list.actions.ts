@@ -30,6 +30,10 @@ export enum ECategoryListActions {
   UPDATE_CATEGORY_SUCCESS = '[Category List] Update category success',
   UPDATE_CATEGORY_FAILURE = '[Category List] Update category failure',
 
+  SET_OPENED_DELETE_CATEGORY_DIALOG = '[Category List] Set opened delete category dialog',
+  CLOSE_DELETE_CATEGORY_DIALOG = '[Category List] Close delete category dialog',
+  CLOSE_DELETE_CATEGORY_DIALOG_SUCCESS = '[Category List] Close delete category dialog success',
+
   DELETE_CATEGORY = '[Category List] Delete category',
   DELETE_CATEGORY_SUCCESS = '[Category List] Delete category success',
   DELETE_CATEGORY_FAILURE = '[Category List] Delete category failure',
@@ -110,6 +114,7 @@ export const setOpenedUpdateCategoryDialog = createAction(
 export const closeUpdateCategoryDialog = createAction(
   ECategoryListActions.CLOSE_UPDATE_CATEGORY_DIALOG
 );
+
 export const closeUpdateCategoryDialogSuccess = createAction(
   ECategoryListActions.CLOSE_UPDATE_CATEGORY_DIALOG_SUCCESS
 );
@@ -143,6 +148,19 @@ export const unselectCategory = createAction(
   props<{ categoryId: string }>()
 );
 
+export const setOpenedDeleteCategoryDialog = createAction(
+  ECategoryListActions.SET_OPENED_DELETE_CATEGORY_DIALOG,
+  props<{ deleteCategoryDialogId?: string }>()
+);
+
+export const closeDeleteCategoryDialog = createAction(
+  ECategoryListActions.CLOSE_DELETE_CATEGORY_DIALOG
+);
+
+export const closeDeleteCategoryDialogSuccess = createAction(
+  ECategoryListActions.CLOSE_DELETE_CATEGORY_DIALOG_SUCCESS
+);
+
 export const deleteCategory = createAction(
   ECategoryListActions.DELETE_CATEGORY,
   props<{ categoryId: string }>()
@@ -159,8 +177,7 @@ export const deleteCategoryFailure = createAction(
 );
 
 export const deleteSelectedCategories = createAction(
-  ECategoryListActions.DELETE_SELECTED_CATEGORIES,
-  props<{ categoriesIds: string[] }>()
+  ECategoryListActions.DELETE_SELECTED_CATEGORIES
 );
 
 export const deleteSelectedCategoriesSuccess = createAction(

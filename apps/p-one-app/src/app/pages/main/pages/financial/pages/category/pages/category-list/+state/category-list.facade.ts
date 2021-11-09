@@ -7,9 +7,11 @@ import { map } from 'rxjs/operators';
 import {
   createCategory,
   deleteCategory,
+  deleteSelectedCategories,
   loadCategories,
   resetState,
   setOpenedCreateCategoryDialog,
+  setOpenedDeleteCategoryDialog,
   setOpenedUpdateCategoryDialog,
   toggleCategory,
   toggleSelectMultipleCategories,
@@ -34,16 +36,34 @@ export class CategoryListFacade {
     CategoryListSelectors.createCategoryDialogIdSelector
   );
 
-  readonly updateCategoryDialogRef$ = this._store.select(
+  readonly updateCategoryDialogId$ = this._store.select(
     CategoryListSelectors.updateCategoryDialogIdSelector
   );
+
+  
+  readonly deleteCategoryDialogId$ = this._store.select(
+    CategoryListSelectors.deleteCategoryDialogIdSelector
+  );
+
 
   readonly selectedCategoryIds$ = this._store.select(
     CategoryListSelectors.selectedCategoryIdsSelector
   );
 
+  readonly filtredCategories$ = this._store.select(
+    CategoryListSelectors.filtredCategoriesSelector
+  );
+
   readonly filtredCategoriesIds$ = this._store.select(
     CategoryListSelectors.filtredCategoriesIdsSelector
+  );
+
+  readonly filtredSelectedCategories$ = this._store.select(
+    CategoryListSelectors.filtredSelectedCategoriesSelector
+  );
+
+  readonly filtredSelectedCategoriesIds$ = this._store.select(
+    CategoryListSelectors.filtredSelectedCategoriesIdsSelector
   );
 
   readonly isAllFiltredCategoriesSelected$ = this._store.select(
@@ -74,6 +94,9 @@ export class CategoryListFacade {
     this._store.dispatch(resetState());
   }
 
+  deleteSelectedCategories(): void {
+    this._store.dispatch(deleteSelectedCategories());
+  }
   deleteCategory(categoryId: string): void {
     this._store.dispatch(deleteCategory({ categoryId }));
   }
@@ -81,7 +104,7 @@ export class CategoryListFacade {
   toggleSelectMultipleCategories(): void {
     this._store.dispatch(toggleSelectMultipleCategories());
   }
-  
+
   toggleCategory(categoryId: string): void {
     this._store.dispatch(toggleCategory({ categoryId }));
   }
@@ -95,6 +118,12 @@ export class CategoryListFacade {
   setOpenedUpdateCategoryDialog(updateCategoryDialogId: string): void {
     this._store.dispatch(
       setOpenedUpdateCategoryDialog({ updateCategoryDialogId })
+    );
+  }
+
+  setOpenedDeleteCategoryDialog(deleteCategoryDialogId: string): void {
+    this._store.dispatch(
+      setOpenedDeleteCategoryDialog({ deleteCategoryDialogId })
     );
   }
 

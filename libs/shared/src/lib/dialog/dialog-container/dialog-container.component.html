@@ -1,7 +1,8 @@
-<ng-container *ngIf="this.minWidth$ | async as minWidth">
+<ng-container>
   <div
     class="p-one-dialog-container"
-    [style.min-width]="minWidth"
+    [style.min-width]="this.minWidth$ | async"
+    [style.max-width]="this.maxWidth$ | async"
     *ngIf="this.portal$ | async as portal"
   >
     <ng-template [cdkPortalOutlet]="portal"></ng-template>

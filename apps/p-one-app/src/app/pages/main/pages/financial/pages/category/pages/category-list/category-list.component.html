@@ -19,6 +19,7 @@
     <button
       class="btn btn-danger btn-sm"
       *ngIf="isSomeFiltredCategoriesSelected$ | async"
+      (click)="openDeleteCategoryDialog()"
     >
       Deletar categorias selecionadas
     </button>
@@ -58,7 +59,10 @@
               >
                 <i class="material-icons">edit</i>
               </button>
-              <button class="btn btn-outline-danger btn-sm">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="this.openDeleteCategoryDialog(category.id)"
+              >
                 <i class="material-icons">delete</i>
               </button>
             </div>

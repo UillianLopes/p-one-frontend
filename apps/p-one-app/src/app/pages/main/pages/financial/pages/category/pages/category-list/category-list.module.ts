@@ -20,12 +20,14 @@ import { CategoryListComponent } from './category-list.component';
 import { CategoryListRoutingModule } from './category-list.routing';
 import { CreateCategoryModalComponent } from './modals/create-category-modal/create-category-modal.component';
 import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
+import { DeleteCategoryModalComponent } from './modals/delete-category-modal/delete-category-modal.component';
 
 @NgModule({
   declarations: [
     CategoryListComponent,
     CreateCategoryModalComponent,
     UpdateCategoryModalComponent,
+    DeleteCategoryModalComponent,
   ],
   imports: [
     CommonModule,

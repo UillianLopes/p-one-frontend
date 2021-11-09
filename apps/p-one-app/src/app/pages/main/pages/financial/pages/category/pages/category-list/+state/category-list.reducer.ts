@@ -21,6 +21,7 @@ import {
   selectCategory,
   selectMultipleCategories,
   setOpenedCreateCategoryDialog,
+  setOpenedDeleteCategoryDialog,
   setOpenedUpdateCategoryDialog,
   unselectCategory,
   unselectMultipleCategories,
@@ -41,6 +42,7 @@ export interface CategoryListState {
 
   createCategoryDialogId?: string;
   updateCategoryDialogId?: string;
+  deleteCategoryDialogId?: string;
 }
 
 const initialState: CategoryListState = {
@@ -187,16 +189,24 @@ const _categoryListReducer = createReducer<CategoryListState>(
     };
   }),
 
+  on(setOpenedDeleteCategoryDialog, (state, action) => {
+    return { ...state, deleteCategoryDialogId: action.deleteCategoryDialogId };
+  }),
+
   on(deleteCategory, (state) => {
     return { ...state, loading: true };
   }),
 
-  on(deleteCategorySuccess, (state) => {
-    return { ...state, loading: true };
+  on(deleteCategorySuccess, (state, { categoryId }) => {
+    return {
+      ...state,
+      loading: false,
+      categories: [...state.categories.filter((c) => c.id != categoryId)],
+    };
   }),
 
   on(deleteCategoryFailure, (state) => {
-    return { ...state, loading: true };
+    return { ...state, loading: false };
   }),
 
   on(deleteSelectedCategories, (state) => {
@@ -207,6 +217,7 @@ const _categoryListReducer = createReducer<CategoryListState>(
     return {
       ...state,
       loading: false,
+      selectedCategoryIds: [],
       categories: [
         ...state.categories.filter(
           (e) => !(e.id && categoriesIds.includes(e.id))
@@ -216,7 +227,7 @@ const _categoryListReducer = createReducer<CategoryListState>(
   }),
 
   on(deleteSelectedCategoriesFailure, (state, { error }) => {
-    return { ...state, loading: true, error };
+    return { ...state, loading: false, error };
   }),
 
   on(resetState, (_) => {

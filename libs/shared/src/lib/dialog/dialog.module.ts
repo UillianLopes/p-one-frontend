@@ -11,6 +11,7 @@ import { DialogFooterComponent } from './dialog-footer/dialog-footer.component';
 import { DialogHeaderComponent } from './dialog-header/dialog-header.component';
 import { DialogService } from './dialog.service';
 import { DialogComponent } from './dialog/dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DialogComponent } from './dialog/dialog.component';
     DialogBodyComponent,
     DialogFooterComponent,
     DialogCloseDirective,
+    ConfirmationDialogComponent,
   ],
   imports: [CommonModule, PortalModule, OverlayModule, POneLoadingModule],
   exports: [

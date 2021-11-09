@@ -8,6 +8,7 @@ import { DialogService } from '../../../../../../../../../../../../../libs/share
 import {
   closeCreateCategoryDialog,
   closeCreateCategoryDialogSuccess,
+  closeDeleteCategoryDialog,
   closeUpdateCategoryDialog,
   closeUpdateCategoryDialogSuccess,
   createCategoryFailure,
@@ -107,7 +108,7 @@ export class CategoryListEffects {
   readonly closeUpdateCategoryDialog$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryListActions.CLOSE_UPDATE_CATEGORY_DIALOG),
-      withLatestFrom(this._facade.updateCategoryDialogRef$),
+      withLatestFrom(this._facade.updateCategoryDialogId$),
       filter(([_, dialogId]) => !!dialogId),
       tap(([_, dialogId]) => this._dialogService.close(dialogId)),
       map(() => closeUpdateCategoryDialogSuccess())
@@ -167,10 +168,28 @@ export class CategoryListEffects {
     )
   );
 
+  readonly deleteCategorySucess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ECategoryListActions.DELETE_CATEGORY_SUCCESS),
+      map((_) => closeDeleteCategoryDialog())
+    )
+  );
+
+  readonly closeDeleteCategoryDialog$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ECategoryListActions.CLOSE_DELETE_CATEGORY_DIALOG),
+      withLatestFrom(this._facade.deleteCategoryDialogId$),
+      filter(([_, dialogId]) => !!dialogId),
+      tap(([_, dialogId]) => this._dialogService.close(dialogId)),
+      map(() => closeUpdateCategoryDialogSuccess())
+    )
+  );
+
   readonly deleteSelectedCategoriesEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryListActions.DELETE_SELECTED_CATEGORIES),
-      switchMap(({ categoriesIds }) => {
+      withLatestFrom(this._facade.filtredSelectedCategoriesIds$),
+      switchMap(([_, categoriesIds]) => {
         return this._categoryService.deleteMultiple(categoriesIds).pipe(
           map(() => {
             return deleteSelectedCategoriesSuccess({ categoriesIds });
@@ -180,6 +199,13 @@ export class CategoryListEffects {
           })
         );
       })
+    )
+  );
+
+  readonly deleteSelectedCategoriesSucess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ECategoryListActions.DELETE_SELECTED_CATEGORIES_SUCCESS),
+      map((_) => closeDeleteCategoryDialog())
     )
   );
 

@@ -10,5 +10,6 @@ export const PONE_DIALOG_DATA = new InjectionToken('PONE_DIALOG_DATA');
 
 export interface DialogOptions {
   minWidth: string;
+  maxWidth?: string;
   hasBackdrop?: boolean;
 }

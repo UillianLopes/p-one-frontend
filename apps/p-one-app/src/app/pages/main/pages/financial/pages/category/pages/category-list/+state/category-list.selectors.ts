@@ -23,26 +23,41 @@ export const selectedCategoryIdsSelector = createSelector(
   (state) => state.selectedCategoryIds
 );
 
-const filtredCategoriesSelector = createSelector(
+export const filtredCategoriesSelector = createSelector(
   categoriesSelector,
   filterSelector,
   selectedCategoryIdsSelector,
   (categories, filter, selectedCategoryIds) =>
-    _.sortBy(categories
-      .filter(
-        (c) =>
-          c.name.toLowerCase().includes((filter.text ?? '').toLowerCase()) ||
-          c.description
-            ?.toLowerCase()
-            .includes((filter.text ?? '').toLowerCase())
-      )
-      .map(
-        (c) =>
-          ({
-            ...c,
-            isSelected: c.id && selectedCategoryIds.includes(c.id),
-          } as CategoryListItemModel)
-      ), c => c.name)
+    _.sortBy(
+      categories
+        .filter(
+          (c) =>
+            c.name.toLowerCase().includes((filter.text ?? '').toLowerCase()) ||
+            c.description
+              ?.toLowerCase()
+              .includes((filter.text ?? '').toLowerCase())
+        )
+        .map(
+          (c) =>
+            ({
+              ...c,
+              isSelected: c.id && selectedCategoryIds.includes(c.id),
+            } as CategoryListItemModel)
+        ),
+      (c) => c.name
+    )
+);
+
+export const filtredSelectedCategoriesSelector = createSelector(
+  selectedCategoryIdsSelector,
+  filtredCategoriesSelector,
+  (selectedCategoryIds, filtredCategories) =>
+    filtredCategories.filter((c) => selectedCategoryIds.includes(c.id))
+);
+
+export const filtredSelectedCategoriesIdsSelector = createSelector(
+  filtredSelectedCategoriesSelector,
+  (filtredSelectedCategories) => filtredSelectedCategories.map((c) => c.id)
 );
 
 export const filtredCategoriesIdsSelector = createSelector(
@@ -66,6 +81,11 @@ export const updateCategoryDialogIdSelector = createSelector(
   (state) => state.updateCategoryDialogId
 );
 
+export const deleteCategoryDialogIdSelector = createSelector(
+  stateSelector,
+  (state) => state.deleteCategoryDialogId
+);
+
 export const loadingSelector = createSelector(
   stateSelector,
   (state) => state.loading
@@ -75,6 +95,7 @@ export const isAllFiltredCategoriesSelectedSelector = createSelector(
   selectedCategoryIdsSelector,
   filtredCategoriesSelector,
   (selectedCategoryIds, filtredCategories) =>
+    selectedCategoryIds &&
     filtredCategories &&
     filtredCategories.length > 0 &&
     !filtredCategories.some((c) => c.id && !selectedCategoryIds.includes(c.id))
@@ -82,5 +103,5 @@ export const isAllFiltredCategoriesSelectedSelector = createSelector(
 
 export const isSomeFiltredCategoriesSelectedSelector = createSelector(
   selectedCategoryIdsSelector,
-  (selectedCategoryIds) => selectedCategoryIds.length > 0
+  (selectedCategoryIds) => selectedCategoryIds && selectedCategoryIds.length > 0
 );

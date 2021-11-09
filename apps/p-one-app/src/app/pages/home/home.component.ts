@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { StackedBarChartData } from '../../../../../../libs/shared/src/lib/chart/stacked-bar-chart/stacked-bar-char.data';
 import { UserStoreFacade } from '../../stores/user-store/+state/user-store.facade';
@@ -46,7 +46,17 @@ export class HomeComponent implements OnInit {
     ],
   } as StackedBarChartData);
 
+  readonly zoom$ = new BehaviorSubject<'normal' | 'zoomed'>('normal');
+
   constructor(private readonly _userStoreService: UserStoreFacade) {}
 
   ngOnInit(): void {}
+
+  zoom() {
+    if (this.zoom$.value == 'zoomed') {
+      this.zoom$.next('normal');
+      return;
+    }
+    this.zoom$.next('zoomed');
+  }
 }

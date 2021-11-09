@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 
 import { CategoryListFacade } from './+state/category-list.facade';
 import { CreateCategoryModalComponent } from './modals/create-category-modal/create-category-modal.component';
+import { DeleteCategoryModalComponent } from './modals/delete-category-modal/delete-category-modal.component';
 import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
 
 @Component({
@@ -39,9 +40,16 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this._facade.loadCategories();
   }
 
-  deleteCategory(categoryId: string): void {
-    this._facade.deleteCategory(categoryId);
+  openDeleteCategoryDialog(categoryId?: string): void {
+    const { dialogId } = this._dialogService.open(
+      DeleteCategoryModalComponent,
+      { minWidth: '400px', maxWidth: '400px' },
+      categoryId
+    );
+
+    this._facade.setOpenedDeleteCategoryDialog(dialogId);
   }
+
   toggleSelectMultipleCategories(): void {
     this._facade.toggleSelectMultipleCategories();
   }

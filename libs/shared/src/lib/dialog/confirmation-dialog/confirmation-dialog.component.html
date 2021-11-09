@@ -1,0 +1,16 @@
+<p-one-dialog>
+  <h5 class="card-header">
+    <ng-content select="[pOneTitle]"></ng-content>
+  </h5>
+  <p-one-dialog-body>
+    <ng-content></ng-content>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-danger">
+      <ng-content select="[pOneCancel]"></ng-content>
+    </button>
+    <button class="btn btn-prirmay">
+      <ng-content select="[pOneConfirmation]"></ng-content>
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

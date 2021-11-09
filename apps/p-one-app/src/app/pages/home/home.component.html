@@ -1,5 +1,6 @@
 <div style="padding: 40px">
-  <div style="width: 900px">
-    <p-one-stacked-bar-chart [data]="data$ | async"></p-one-stacked-bar-chart>
+  <button class="btn btn-primary" (click)="zoom()">ZOOM</button>
+  <div style="width: 600px">
+    <p-one-stacked-bar-chart [data]="data$ | async" [zoom]="zoom$ | async"></p-one-stacked-bar-chart>
   </div>
 </div>

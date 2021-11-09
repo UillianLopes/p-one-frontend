@@ -28,6 +28,10 @@ export class DialogContainerComponent implements OnInit {
     map((options) => options?.minWidth ?? '500px')
   );
 
+  public readonly maxWidth$ = this.options$.pipe(
+    map((options) => options?.maxWidth ?? '100%')
+  );
+
   constructor(
     @Inject(PONE_DIALOG_CONTENT)
     private readonly _content: ComponentPortal<unknown>,
