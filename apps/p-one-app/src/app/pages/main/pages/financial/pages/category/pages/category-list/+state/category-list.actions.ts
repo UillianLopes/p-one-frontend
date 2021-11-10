@@ -42,6 +42,7 @@ export enum ECategoryListActions {
   DELETE_SELECTED_CATEGORIES_SUCCESS = '[Category List] Delete selected categories success',
   DELETE_SELECTED_CATEGORIES_FAILURE = '[Category List] Delete selected categories failure',
 
+  SET_CATEGORIES_PAGE = '[Category List] Set categories page',
   PAGINATE_CATEGORIES = '[Category List] Paginate categories',
   FILTER_CATEGORIES = '[Category List] Filter categories',
 
@@ -190,9 +191,15 @@ export const deleteSelectedCategoriesFailure = createAction(
   ECategoryListActions.DELETE_SELECTED_CATEGORIES_FAILURE,
   props<{ error: any }>()
 );
+
 export const filterCategories = createAction(
   ECategoryListActions.FILTER_CATEGORIES,
   props<{ filter: CategoryFilter }>()
+);
+
+export const setCategoriesPage = createAction(
+  ECategoryListActions.SET_CATEGORIES_PAGE,
+  props<{ page: number }>()
 );
 
 export const resetState = createAction(ECategoryListActions.RESET_STATE);

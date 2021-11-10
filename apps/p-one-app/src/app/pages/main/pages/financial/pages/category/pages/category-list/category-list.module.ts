@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -19,8 +20,8 @@ import { CATEGORY_LIST_KEY, categoryListReducer } from './+state/category-list.r
 import { CategoryListComponent } from './category-list.component';
 import { CategoryListRoutingModule } from './category-list.routing';
 import { CreateCategoryModalComponent } from './modals/create-category-modal/create-category-modal.component';
-import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
 import { DeleteCategoryModalComponent } from './modals/delete-category-modal/delete-category-modal.component';
+import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DeleteCategoryModalComponent } from './modals/delete-category-modal/del
     FormsModule,
     POneContextMenuModule,
     POneFlexModule,
+    NgbPaginationModule,
   ],
   providers: [CategoryListFacade],
 })

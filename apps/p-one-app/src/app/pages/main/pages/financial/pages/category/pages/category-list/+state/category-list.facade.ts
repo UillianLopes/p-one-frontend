@@ -11,6 +11,7 @@ import {
   filterCategories,
   loadCategories,
   resetState,
+  setCategoriesPage,
   setOpenedCreateCategoryDialog,
   setOpenedDeleteCategoryDialog,
   setOpenedUpdateCategoryDialog,
@@ -45,6 +46,10 @@ export class CategoryListFacade {
     CategoryListSelectors.deleteCategoryDialogIdSelector
   );
 
+  readonly filtredCategoriesLength$ = this._store.select(
+    CategoryListSelectors.filtredCategoriesLengthSelector
+  );
+
   readonly selectedCategoryIds$ = this._store.select(
     CategoryListSelectors.selectedCategoryIdsSelector
   );
@@ -71,6 +76,12 @@ export class CategoryListFacade {
 
   readonly isSomeFiltredCategoriesSelected$ = this._store.select(
     CategoryListSelectors.isSomeFiltredCategoriesSelectedSelector
+  );
+
+  readonly page$ = this._store.select(CategoryListSelectors.pageSelector);
+
+  readonly pageSize$ = this._store.select(
+    CategoryListSelectors.pageSizeSelector
   );
 
   readonly isSomeButNotAllFiltredCategoriesSelected$ = combineLatest([
@@ -128,6 +139,10 @@ export class CategoryListFacade {
     this._store.dispatch(
       setOpenedDeleteCategoryDialog({ deleteCategoryDialogId })
     );
+  }
+
+  setCategoriesPage(page: number) {
+    this._store.dispatch(setCategoriesPage({ page }));
   }
 
   createCategory(category: CategoryModel): void {

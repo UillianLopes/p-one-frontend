@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CategoryService } from '@p-one/core';
+import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
-import { DialogService } from '../../../../../../../../../../../../../libs/shared/src';
 import {
   closeCreateCategoryDialog,
   closeCreateCategoryDialogSuccess,
@@ -66,7 +66,13 @@ export class CategoryListEffects {
   readonly createCategorySucess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryListActions.CREATE_CATEGORY_SUCCESS),
-      map((_) => closeCreateCategoryDialog())
+
+      map((_) => closeCreateCategoryDialog()),
+      tap(() => {
+        this._toastService.open('Categoria criada com sucesso', {
+          color: 'success',
+        });
+      })
     )
   );
 
@@ -213,6 +219,7 @@ export class CategoryListEffects {
     private readonly _actions$: Actions<EntryListActionsUnion>,
     private readonly _categoryService: CategoryService,
     private readonly _facade: CategoryListFacade,
-    private readonly _dialogService: DialogService
+    private readonly _dialogService: DialogService,
+    private readonly _toastService: ToastService
   ) {}
 }

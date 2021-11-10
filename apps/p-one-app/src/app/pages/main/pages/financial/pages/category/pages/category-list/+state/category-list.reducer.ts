@@ -21,6 +21,7 @@ import {
   resetState,
   selectCategory,
   selectMultipleCategories,
+  setCategoriesPage,
   setOpenedCreateCategoryDialog,
   setOpenedDeleteCategoryDialog,
   setOpenedUpdateCategoryDialog,
@@ -244,6 +245,16 @@ const _categoryListReducer = createReducer<CategoryListState>(
     return {
       ...state,
       pagination,
+    };
+  }),
+
+  on(setCategoriesPage, (state, { page }) => {
+    return {
+      ...state,
+      pagination: {
+        ...state.pagination,
+        page,
+      },
     };
   }),
 

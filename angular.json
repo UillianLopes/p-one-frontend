@@ -24,7 +24,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "p-one-app": {
       "projectType": "application",
@@ -49,7 +50,7 @@
             "styles": [
               "apps/p-one-app/src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons"
+              "node_modules/bootstrap-icons/font/bootstrap-icons.scss"
             ],
             "scripts": []
           },
@@ -131,7 +132,8 @@
           "en-US": "src/locale/messages.en-US.xlf",
           "baseHref": ""
         }
-      }
+      },
+      "tags": []
     },
     "p-one-app-e2e": {
       "root": "apps/p-one-app-e2e",
@@ -157,7 +159,9 @@
             "lintFilePatterns": ["apps/p-one-app-e2e/**/*.{js,ts}"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["p-one-app"]
     },
     "shared": {
       "projectType": "library",
@@ -182,7 +186,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "store": {
       "projectType": "library",
@@ -207,12 +212,9 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     }
-  },
-  "cli": {
-    "analytics": "3edba7ec-3593-482c-8bf7-1249fec6b6ae",
-    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/angular": {
@@ -240,6 +242,5 @@
     "@nrwl/angular:component": {
       "style": "scss"
     }
-  },
-  "defaultProject": "p-one-app"
+  }
 }

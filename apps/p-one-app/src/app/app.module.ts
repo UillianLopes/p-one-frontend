@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
+import { POneToastModule } from '@p-one/shared';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -33,6 +34,7 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
+    POneToastModule.forRoot(),
     NgbModule,
     NgxMaskModule.forRoot(),
     AuthModule.forRoot({

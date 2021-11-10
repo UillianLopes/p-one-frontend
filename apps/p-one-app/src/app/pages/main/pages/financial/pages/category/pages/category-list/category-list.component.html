@@ -30,7 +30,7 @@
   </div>
 
   <div pOneFlexColumn gap="16px" style="padding: 16px">
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
           <th class="p-one-category-list__selection-column">
@@ -86,5 +86,12 @@
         </tr>
       </tbody>
     </table>
+    <ngb-pagination
+      [collectionSize]="this.filtredCategoriesLength$ | async"
+      [page]="this.page$ | async"
+      [pageSize]="this.pageSize$ | async"
+      (pageChange)="setCategoriesPage($event)"
+      aria-label="Default pagination"
+    ></ngb-pagination>
   </div>
 </p-one-container>

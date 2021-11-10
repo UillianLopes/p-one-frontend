@@ -53,6 +53,11 @@ export const filtredCategoriesSelector = createSelector(
     )
 );
 
+export const filtredCategoriesLengthSelector = createSelector(
+  filtredCategoriesSelector,
+  (categories) => categories.length
+);
+
 export const filtredSelectedCategoriesSelector = createSelector(
   selectedCategoryIdsSelector,
   filtredCategoriesSelector,
@@ -109,4 +114,14 @@ export const isAllFiltredCategoriesSelectedSelector = createSelector(
 export const isSomeFiltredCategoriesSelectedSelector = createSelector(
   selectedCategoryIdsSelector,
   (selectedCategoryIds) => selectedCategoryIds && selectedCategoryIds.length > 0
+);
+
+export const pageSelector = createSelector(
+  paginationSelector,
+  (pagination) => pagination.page
+);
+
+export const pageSizeSelector = createSelector(
+  paginationSelector,
+  (pagination) => pagination.pageSize
 );

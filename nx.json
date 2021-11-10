@@ -26,22 +26,36 @@
       }
     ]
   },
-  "projects": {
-    "core": {
-      "tags": []
+  "cli": {
+    "analytics": "3edba7ec-3593-482c-8bf7-1249fec6b6ae",
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
     },
-    "p-one-app": {
-      "tags": []
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "p-one-app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["p-one-app"]
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "shared": {
-      "tags": []
-    },
-    "store": {
-      "tags": []
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
-  }
+  },
+  "defaultProject": "p-one-app"
 }

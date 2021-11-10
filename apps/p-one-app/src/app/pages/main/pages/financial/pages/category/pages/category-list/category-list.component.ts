@@ -31,6 +31,11 @@ export class CategoryListComponent
 
   public readonly filterControl = new FormControl('');
 
+  public readonly page$ = this._facade.page$;
+  public readonly pageSize$ = this._facade.pageSize$;
+  public readonly filtredCategoriesLength$ =
+    this._facade.filtredCategoriesLength$;
+
   constructor(
     private readonly _facade: CategoryListFacade,
     private readonly _dialogService: DialogService
@@ -94,5 +99,9 @@ export class CategoryListComponent
     );
 
     this._facade.setOpenedDeleteCategoryDialog(dialogId);
+  }
+
+  setCategoriesPage(page: number): void {
+    this._facade.setCategoriesPage(page);
   }
 }

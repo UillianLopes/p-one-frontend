@@ -1,0 +1,73 @@
+@import '../theme';
+
+.p-one-toast {
+  padding: 16px;
+  border-radius: 8px;
+
+  color: var(--bs-white);
+  background: var(--bs-primary);
+
+  &--primary {
+    background: var(--bs-primary);
+  }
+
+  &--secondary {
+    background: var(--bs-secondary);
+  }
+
+  &--danger {
+    background: var(--bs-danger);
+  }
+
+  &--success {
+    background: var(--bs-success);
+  }
+
+  &--dark {
+    background: var(--bs-dark);
+  }
+
+  &--light {
+    color: var(--bs-gray-800);
+    background: var(--bs-light);
+  }
+
+  &--black {
+    background: var(--bs-black);
+  }
+
+  &--white {
+    color: var(--bs-gray-800);
+    background: var(--bs-white);
+  }
+
+  animation: inAnimation 0.2s ease-in;
+
+  &--closed {
+    opacity: 0;
+  }
+
+  &--closing {
+    animation: outAnimation 0.2s ease-in;
+  }
+}
+
+@keyframes inAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes outAnimation {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

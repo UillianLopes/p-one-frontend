@@ -40,3 +40,5 @@ export * from './lib/filter-display';
 
 export * from './lib/dialog';
 export * from './lib/context-menu';
+
+export * from './lib/toast';

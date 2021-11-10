@@ -1,0 +1,16 @@
+<section
+  class="p-one-toast"
+  [class.p-one-toast--primary]="options.color === 'primary'"
+  [class.p-one-toast--secondary]="options.color === 'secondary'"
+  [class.p-one-toast--danger]="options.color === 'danger'"
+  [class.p-one-toast--success]="options.color === 'success'"
+  [class.p-one-toast--dark]="options.color === 'dark'"
+  [class.p-one-toast--light]="options.color === 'light'"
+  [class.p-one-toast--black]="options.color === 'black'"
+  [class.p-one-toast--white]="options.color === 'white'"
+  [class.p-one-toast--closing]="ref.closing$ | async"
+  [class.p-one-toast--closed]="ref.closed$ | async"
+>
+  <ng-container *ngIf="template" [ngTemplateOutlet]="template"></ng-container>
+  <ng-container *ngIf="text">{{ text }}</ng-container>
+</section>
