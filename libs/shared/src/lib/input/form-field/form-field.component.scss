@@ -1,4 +1,8 @@
 .p-one-form-field {
   display: block;
   padding-bottom: 20px;
+
+  &--no-padding {
+    padding-bottom: 0px;
+  }
 }

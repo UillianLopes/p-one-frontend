@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { CategoryFilter, CategoryModel } from '@p-one/core';
+import { CategoryFilter, CategoryModel, PaginatedFilter } from '@p-one/core';
 
 import {
   closeCreateCategoryDialogSuccess,
@@ -13,6 +13,7 @@ import {
   deleteSelectedCategories,
   deleteSelectedCategoriesFailure,
   deleteSelectedCategoriesSuccess,
+  filterCategories,
   loadCategories,
   loadCategoriesFailure,
   loadCategoriesSuccess,
@@ -35,6 +36,7 @@ export const CATEGORY_LIST_KEY = 'FINANCIAL_CATEGORY_LIST';
 export interface CategoryListState {
   loading: boolean;
   filter: CategoryFilter;
+  pagination: PaginatedFilter;
   categories: CategoryModel[];
   error?: any;
 
@@ -49,10 +51,11 @@ const initialState: CategoryListState = {
   loading: false,
   categories: [],
   selectedCategoryIds: [],
-  filter: {
+  pagination: {
     page: 1,
     pageSize: 50,
   },
+  filter: {},
 };
 
 const _categoryListReducer = createReducer<CategoryListState>(
@@ -228,6 +231,20 @@ const _categoryListReducer = createReducer<CategoryListState>(
 
   on(deleteSelectedCategoriesFailure, (state, { error }) => {
     return { ...state, loading: false, error };
+  }),
+
+  on(filterCategories, (state, { filter }) => {
+    return {
+      ...state,
+      filter,
+    };
+  }),
+
+  on(paginateCategories, (state, { pagination }) => {
+    return {
+      ...state,
+      pagination,
+    };
   }),
 
   on(resetState, (_) => {

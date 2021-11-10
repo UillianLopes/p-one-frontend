@@ -18,6 +18,11 @@ export const filterSelector = createSelector(
   (state) => state.filter
 );
 
+export const paginationSelector = createSelector(
+  stateSelector,
+  (state) => state.pagination
+);
+
 export const selectedCategoryIdsSelector = createSelector(
   stateSelector,
   (state) => state.selectedCategoryIds
@@ -67,7 +72,7 @@ export const filtredCategoriesIdsSelector = createSelector(
 
 export const filtredPaginatedCategoriesSelector = createSelector(
   filtredCategoriesSelector,
-  filterSelector,
+  paginationSelector,
   (filtredCategories, filter) => paginateArray(filtredCategories, filter)
 );
 

@@ -1,5 +1,5 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h5 p-one-dialog-header> Alteração de categria</h5>
+  <h5 p-one-dialog-header>Alteração de categria</h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
       <p-one-form-field>
@@ -19,16 +19,20 @@
           pOneInput
           placeholder="Digite a descrição da categoria"
           formControlName="description"
+          i18n-placeholder
         ></textarea>
       </p-one-form-field>
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>
-    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>Cancelar</button>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose i18n>
+      Cancelar
+    </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isCreateCategoryDisabled$ | async"
       (click)="this.updateCategory()"
+      i18n
     >
       Alterar categoria
     </button>

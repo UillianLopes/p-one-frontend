@@ -5,7 +5,7 @@ import { NgxMaskModule } from 'ngx-mask';
 
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FormFieldComponent } from './form-field/form-field.component';
-import { InputDirective } from './input.directive';
+import { InputDirective, LargeInputDirective, SmallInputDirective } from './input.directive';
 import { InvalidFeedbackDirective } from './invalid-feedback.directive';
 import { LabelDirective } from './label.directive';
 
@@ -13,6 +13,8 @@ import { LabelDirective } from './label.directive';
   declarations: [
     FormFieldComponent,
     InputDirective,
+    SmallInputDirective,
+    LargeInputDirective,
     LabelDirective,
     InvalidFeedbackDirective,
     CheckboxComponent,
@@ -21,6 +23,8 @@ import { LabelDirective } from './label.directive';
   exports: [
     FormFieldComponent,
     InputDirective,
+    SmallInputDirective,
+    LargeInputDirective,
     LabelDirective,
     InvalidFeedbackDirective,
     CheckboxComponent,

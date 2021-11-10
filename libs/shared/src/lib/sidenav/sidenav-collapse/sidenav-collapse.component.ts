@@ -61,12 +61,11 @@ export class SidenavCollapseComponent
     this.isLinkActivated$,
     this.state$,
   ]).pipe(
+    delay(10),
     map(([isLinkActivated, state]) => {
       return isLinkActivated && state == ESidenavState.CLOSED;
     })
   );
-
-  
 
   constructor(
     private readonly _sidenavFacade: SidenavFacade,

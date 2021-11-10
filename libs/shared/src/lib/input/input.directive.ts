@@ -67,3 +67,18 @@ export class InputDirective
     }
   }
 }
+@Directive({
+  selector: '[pOneSmallInput]',
+  host: {
+    class: 'form-control form-control-sm',
+  },
+})
+export class SmallInputDirective extends InputDirective {}
+
+@Directive({
+  selector: '[pOneLargeInput]',
+  host: {
+    class: 'form-control form-control-lg',
+  },
+})
+export class LargeInputDirective extends InputDirective {}

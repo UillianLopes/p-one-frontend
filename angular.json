@@ -46,7 +46,11 @@
               "apps/p-one-app/src/favicon.ico",
               "apps/p-one-app/src/assets"
             ],
-            "styles": ["apps/p-one-app/src/styles.scss"],
+            "styles": [
+              "apps/p-one-app/src/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -54,8 +58,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "7mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -97,7 +101,10 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "p-one-app:build"
+            "browserTarget": "p-one-app:build",
+            "outFile": "messages.xlf",
+            "outputPath": "apps/p-one-app/src/assets/i18n",
+            "format": "xlf"
           }
         },
         "lint": {
@@ -116,6 +123,13 @@
             "jestConfig": "apps/p-one-app/jest.config.js",
             "passWithNoTests": true
           }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "pt",
+        "locales": {
+          "en-US": "src/locale/messages.en-US.xlf",
+          "baseHref": ""
         }
       }
     },

@@ -37,6 +37,6 @@ export class EntryService {
   ];
 
   get(filter: Partial<EntryFilter>): Observable<EntryModel[]> {
-    return of([...this._mock]).pipe(delay(7000));
+    return of([...this._mock]).pipe(delay(1000));
   }
 }

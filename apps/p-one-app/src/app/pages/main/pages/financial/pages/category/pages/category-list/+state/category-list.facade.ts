@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CategoryModel } from '@p-one/core';
+import { CategoryFilter, CategoryModel } from '@p-one/core';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,6 +8,7 @@ import {
   createCategory,
   deleteCategory,
   deleteSelectedCategories,
+  filterCategories,
   loadCategories,
   resetState,
   setOpenedCreateCategoryDialog,
@@ -40,11 +41,9 @@ export class CategoryListFacade {
     CategoryListSelectors.updateCategoryDialogIdSelector
   );
 
-  
   readonly deleteCategoryDialogId$ = this._store.select(
     CategoryListSelectors.deleteCategoryDialogIdSelector
   );
-
 
   readonly selectedCategoryIds$ = this._store.select(
     CategoryListSelectors.selectedCategoryIdsSelector
@@ -99,6 +98,10 @@ export class CategoryListFacade {
   }
   deleteCategory(categoryId: string): void {
     this._store.dispatch(deleteCategory({ categoryId }));
+  }
+
+  filterCategories(filter: CategoryFilter): void {
+    this._store.dispatch(filterCategories({ filter }));
   }
 
   toggleSelectMultipleCategories(): void {

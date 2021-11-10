@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { CategoryModel } from '@p-one/core';
-import { DialogService } from '@p-one/shared';
-import { Subject } from 'rxjs';
+import { DestroyableMixin, DialogService } from '@p-one/shared';
+import { takeUntil } from 'rxjs/operators';
 
 import { CategoryListFacade } from './+state/category-list.facade';
 import { CreateCategoryModalComponent } from './modals/create-category-modal/create-category-modal.component';
@@ -14,7 +15,10 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
   styleUrls: ['./category-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryListComponent implements OnInit, OnDestroy {
+export class CategoryListComponent
+  extends DestroyableMixin()
+  implements OnInit, OnDestroy
+{
   public readonly categories$ = this._facade.filtredPaginatedCategories$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly isAllFiltredCategoriesSelected$ =
@@ -25,29 +29,30 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   public readonly isSomeFiltredCategoriesSelected$ =
     this._facade.isSomeFiltredCategoriesSelected$;
 
-  isIndeterminated$ = new Subject<boolean>();
+  public readonly filterControl = new FormControl('');
 
   constructor(
     private readonly _facade: CategoryListFacade,
     private readonly _dialogService: DialogService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._facade.resetState();
   }
 
   ngOnInit(): void {
+    this.filterControl.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((value) => {
+        this._facade.filterCategories({
+          text: value,
+        });
+      });
+
     this._facade.loadCategories();
-  }
-
-  openDeleteCategoryDialog(categoryId?: string): void {
-    const { dialogId } = this._dialogService.open(
-      DeleteCategoryModalComponent,
-      { minWidth: '400px', maxWidth: '400px' },
-      categoryId
-    );
-
-    this._facade.setOpenedDeleteCategoryDialog(dialogId);
   }
 
   toggleSelectMultipleCategories(): void {
@@ -81,7 +86,13 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this._facade.setOpenedUpdateCategoryDialog(dialogId);
   }
 
-  markAsIndeterminated(): void {
-    this.isIndeterminated$.next(true);
+  openDeleteCategoryDialog(categoryId?: string): void {
+    const { dialogId } = this._dialogService.open(
+      DeleteCategoryModalComponent,
+      { minWidth: '400px', maxWidth: '400px' },
+      categoryId
+    );
+
+    this._facade.setOpenedDeleteCategoryDialog(dialogId);
   }
 }

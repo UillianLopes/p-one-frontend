@@ -22,7 +22,7 @@
   &__square {
     height: 50px;
     width: 50px;
-    background: var(--primary);
+    background: var(--bs-primary);
     animation: rotationAnimation 2s infinite ease-in-out;
   }
 }

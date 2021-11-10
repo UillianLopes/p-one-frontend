@@ -5,7 +5,7 @@
   top: 0px;
   bottom: 0px;
   overflow: auto;
-  border-right: 1px solid gray('300');
+  border-right: 1px solid var(--bs-gray-300);
   background: white;
   z-index: 3;
   $self: &;

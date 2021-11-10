@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryModel, PaginatedFilter } from '@p-one/core';
+import { CategoryFilter, CategoryModel, PaginatedFilter } from '@p-one/core';
 
 export enum ECategoryListActions {
   LOAD_CATEGORIES = '[Category List] Load categories',
@@ -43,6 +43,7 @@ export enum ECategoryListActions {
   DELETE_SELECTED_CATEGORIES_FAILURE = '[Category List] Delete selected categories failure',
 
   PAGINATE_CATEGORIES = '[Category List] Paginate categories',
+  FILTER_CATEGORIES = '[Category List] Filter categories',
 
   RESET_STATE = '[Category List] Reset state',
 }
@@ -188,6 +189,10 @@ export const deleteSelectedCategoriesSuccess = createAction(
 export const deleteSelectedCategoriesFailure = createAction(
   ECategoryListActions.DELETE_SELECTED_CATEGORIES_FAILURE,
   props<{ error: any }>()
+);
+export const filterCategories = createAction(
+  ECategoryListActions.FILTER_CATEGORIES,
+  props<{ filter: CategoryFilter }>()
 );
 
 export const resetState = createAction(ECategoryListActions.RESET_STATE);
