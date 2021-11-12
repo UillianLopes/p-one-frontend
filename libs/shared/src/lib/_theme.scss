@@ -1,2 +1,15 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import './dialog/theme';
+table.table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  &--fix-head {
+    thead tr th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--bs-white);
+      border-bottom: 2px solid var(--bs-gray-800);
+    }
+  }
+}

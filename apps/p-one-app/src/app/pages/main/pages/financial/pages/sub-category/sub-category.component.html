@@ -8,20 +8,20 @@
     >
       <i class="material-icons"> menu </i>
     </button>
-    <h2 i18n>Categorias</h2>
+    <h2 i18n>Sub categorias</h2>
   </p-one-header>
 
-  <div pOneHeader class="p-one-category__sub-header">
+  <div pOneHeader class="p-one-sub-category__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateCategoryDialog()">
-      Criar categoria
+      Criar sub categoria
     </button>
 
     <button
       class="btn btn-danger btn-sm"
-      *ngIf="isSomeFiltredCategoriesSelected$ | async"
+      *ngIf="isSomeFiltredSubCategoriesSelected$ | async"
       (click)="openDeleteCategoryDialog()"
     >
-      Deletar categorias selecionadas
+      Deletar sub categorias selecionadas
     </button>
 
     <p-one-form-field noPadding>
@@ -33,12 +33,12 @@
     <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
-          <th class="p-one-category__selection-column">
+          <th class="p-one-sub-category__selection-column">
             <p-one-checkbox
               [isIndeterminated]="
                 this.isSomeButNotAllFiltredCategoriesSelected$ | async
               "
-              [ngModel]="this.isAllFiltredCategoriesSelected$ | async"
+              [ngModel]="this.isAllFiltredSubCategoriesSelected$ | async"
               (ngModelChange)="toggleSelectMultipleCategories()"
             ></p-one-checkbox>
           </th>
@@ -52,7 +52,7 @@
           [pOneContextMenuHost]="contextMenuTemplate"
         >
           <ng-template #contextMenuTemplate>
-            <div pOneFlexRow gap="8px" class="p-one-category__context-menu">
+            <div pOneFlexRow gap="8px" class="p-one-sub-category__context-menu">
               <button
                 class="btn btn-outline-primary btn-sm"
                 (click)="openUpdateUpdateCategoryDialog(category)"
@@ -67,12 +67,12 @@
               </button>
             </div>
           </ng-template>
-          <td class="p-one-category__selection-column">
-            <div class="p-one-category__checkbox-container">
+          <td class="p-one-sub-category__selection-column">
+            <div class="p-one-sub-category__checkbox-container">
               <p-one-checkbox
                 *ngIf="category.id as categoryId"
                 [ngModel]="category.isSelected"
-                (ngModelChange)="toggleCategory(categoryId)"
+                (ngModelChange)="toggleSubCategory(categoryId)"
                 [id]="category.id"
               ></p-one-checkbox>
             </div>
@@ -83,11 +83,11 @@
       </tbody>
     </table>
     <ngb-pagination
-      [collectionSize]="this.filtredCategoriesLength$ | async"
+      [collectionSize]="this.filtredSubCategoriesLength$ | async"
       [page]="this.page$ | async"
       [pageSize]="this.pageSize$ | async"
       (pageChange)="setCategoriesPage($event)"
-      aria-label="Paginação da lista de categorias"
+      aria-label="Paginação da lista de sub categorias"
     ></ngb-pagination>
   </div>
 </p-one-container>

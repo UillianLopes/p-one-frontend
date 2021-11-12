@@ -1,0 +1,38 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">Criação de sub categoria</h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <p-one-form-field>
+        <label pOneLabel for="categoryNameInput" i18n>Nome</label>
+        <input
+          #categoryNameInput
+          pOneInput
+          placeholder="Digite o nome da sub categoria"
+          formControlName="name"
+          i18n-placehoder
+        />
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel for="descriptionInput" i18n>Descrição</label>
+        <textarea
+          #descriptionInput
+          pOneInput
+          placeholder="Digite a descrição da sub categoria"
+          formControlName="description"
+        ></textarea>
+      </p-one-form-field>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isCreateSubCategoryDisabled$ | async"
+      (click)="this.createSubCategory()"
+    >
+      Criar sub categoria
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

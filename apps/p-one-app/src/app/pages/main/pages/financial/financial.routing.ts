@@ -25,6 +25,13 @@ const routes: Routes = [
             (m) => m.CategoryModule
           ),
       },
+      {
+        path: 'sub-categories',
+        loadChildren: () =>
+          import('./pages/sub-category/sub-category.module').then(
+            (m) => m.SubCategoryModule
+          ),
+      },
     ],
   },
 ];
