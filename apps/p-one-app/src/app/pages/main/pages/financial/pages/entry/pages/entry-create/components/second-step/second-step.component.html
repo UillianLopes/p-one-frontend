@@ -1,0 +1,138 @@
+<div class="card" [formGroup]="this.form">
+  <div class="card-body">
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryValueInput" i18n>Valor</label>
+        <input #entryValueInput pOneInput formControlName="value" />
+      </p-one-form-field>
+
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryValueInput" i18n>Vencimento</label>
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              formControlName="dueDate"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+
+            <button
+              class="btn btn-outline-secondary"
+              (click)="d.toggle()"
+              type="button"
+            >
+              <i class="bi bi-calendar"></i>
+            </button>
+          </div>
+        </div>
+      </p-one-form-field>
+    </div>
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryTypeSelect" i18n>Tipo</label>
+        <select
+          #entryTypeSelect
+          class="form-control"
+          formControlName="recurrence"
+        >
+          <option [ngValue]="EntryRecurrence.OneTime">Uma vez</option>
+          <option [ngValue]="EntryRecurrence.EveryLastMonthDay">
+            Todo ultimo dia do mês
+          </option>
+          <option [ngValue]="EntryRecurrence.Every15Days">
+            A cada 15 dias
+          </option>
+          <option [ngValue]="EntryRecurrence.Every30Days">
+            A cada 30 dias
+          </option>
+          <option [ngValue]="EntryRecurrence.EveryExactNumberOfDays">
+            A cada numero exato de dias
+          </option>
+          <option [ngValue]="EntryRecurrence.EveveryDay">
+            Todo mês no dia
+          </option>
+        </select>
+      </p-one-form-field>
+      <ng-container [ngSwitch]="recurrence$ | async">
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EveveryDay"
+          pOneGridColumn="100px"
+        >
+          <label pOneLabel for="entryDayInput" i18n> Dia </label>
+          <input
+            #entryDayInput
+            pOneInput
+            type="number"
+            formControlName="day"
+            type="number"
+          />
+        </p-one-form-field>
+
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EveryExactNumberOfDays"
+          pOneGridColumn="auto"
+        >
+          <label pOneLabel for="entryTypeSelect" i18n>
+            Intervalo (em dias)
+          </label>
+          <input pOneInput formControlName="intervalInDays" />
+        </p-one-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="isRecurrenceNotOneTime$ | async">
+        <p-one-form-field pOneGridColumn="auto">
+          <label pOneLabel for="distribuitionInput" i18n>
+            Distribuição de valor
+          </label>
+          <select
+            pOneInput
+            #distribuitionInput
+            formControlName="valueDistribuition"
+          >
+            <option [ngValue]="EntryValueDistribuitioin.Divide">Dividir</option>
+            <option [ngValue]="EntryValueDistribuitioin.Repeat">Repetir</option>
+          </select>
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="100px">
+          <label pOneLabel for="recurrenceInput" i18n> Repetições </label>
+          <input
+            #recurrenceInput
+            pOneInput
+            type="number"
+            formControlName="times"
+          />
+        </p-one-form-field>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="isRecurrencesDisplayed$ | async">
+      <h5 class="card-title">Recorrências</h5>
+      <div class="p-one-second-step__recurrences">
+        <table class="table table-sm table--fix-head">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let recurrence of recurrences$ | async">
+              <td>{{ recurrence.index }}</td>
+              <th>{{ recurrence.value | currency: 'BRL' }}</th>
+              <th>{{ recurrence.dueDate | date: 'dd/MM/yyyy' }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+  <div class="card-footer" pOneFlexRow gap="16px">
+    <button class="btn btn-primary" (click)="this.buildRecurrences()">
+      Gerar recorrências
+    </button>
+    <button class="btn btn-primary">Proximo</button>
+  </div>
+</div>

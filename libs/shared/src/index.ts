@@ -42,3 +42,4 @@ export * from './lib/dialog';
 export * from './lib/context-menu';
 
 export * from './lib/toast';
+export * from './lib/grid'

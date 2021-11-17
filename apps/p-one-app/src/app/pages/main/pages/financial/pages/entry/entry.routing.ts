@@ -14,6 +14,13 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'create',
+        loadChildren: () =>
+          import('./pages/entry-create/entry-create.module').then(
+            (m) => m.EntryCreateModule
+          ),
+      },
+      {
         path: 'list',
         loadChildren: () =>
           import('./pages/entry-list/entry-list.module').then(

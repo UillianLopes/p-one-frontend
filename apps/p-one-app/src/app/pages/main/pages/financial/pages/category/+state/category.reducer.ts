@@ -54,7 +54,7 @@ const initialState: CategoryState = {
   selectedCategoryIds: [],
   pagination: {
     page: 1,
-    pageSize: 50,
+    pageSize: 10,
   },
   filter: {},
 };
@@ -104,12 +104,12 @@ const _categoryReducer = createReducer<CategoryState>(
     };
   }),
 
-  on(updateCategorySuccess, (state, action) => {
+  on(updateCategorySuccess, (state, { category }) => {
     return {
       ...state,
       categories: [
-        ...state.categories.filter((c) => c.id != action.category.id),
-        action.category,
+        ...state.categories.filter((c) => c.id != category.id),
+        category,
       ],
       loading: false,
     };

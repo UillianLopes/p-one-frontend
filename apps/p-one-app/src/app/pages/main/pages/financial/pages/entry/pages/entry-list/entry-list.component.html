@@ -11,16 +11,15 @@
 
     <h2>Entradas</h2>
   </p-one-header>
-
+  <div pOneHeader class="p-one-entry__sub-header">
+    <button
+      class="btn btn-primary btn-sm"
+      routerLink="/main/financial/entries/create"
+    >
+      Criar entrada
+    </button>
+  </div>
   <div pOneFlexColumn gap="16px" style="padding: 16px">
-    <p-one-filter-display
-      [data]="[
-        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
-        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
-        { name: 'TESTE', value: ['Uillian de Souza Lopes'] },
-        { name: 'TESTE', value: ['Teste', 'Teste II'] }
-      ]"
-    ></p-one-filter-display>
     <table class="table">
       <thead>
         <tr>

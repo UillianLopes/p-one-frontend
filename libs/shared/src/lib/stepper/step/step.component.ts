@@ -1,5 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, Optional, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormGroupDirective, FormGroupName } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormControlDirective,
+  FormControlName,
+  FormGroup,
+  FormGroupDirective,
+  FormGroupName,
+} from '@angular/forms';
+import { v4 } from 'uuid';
+
+import { StepperStateService } from '../stepper-state.service';
 
 @Component({
   selector: 'p-one-step',
@@ -20,22 +31,55 @@ export class StepComponent {
   @Input()
   identifier?: string;
 
-  get formGroup(): FormGroup | undefined {
-    return this._formControlName?.control ?? this._formGroupDirective?.form;
+  @Input()
+  public isInvalid?: boolean;
+
+  get control(): AbstractControl | undefined {
+    return (
+      this._formControlName?.control ??
+      this._formControlDirective?.control ??
+      this._formGroupName?.control ??
+      this._formGroupDirective?.form
+    );
   }
 
+  readonly uinqueId = v4();
+
   constructor(
+    private readonly _stepperStateService: StepperStateService,
     @Optional() private readonly _formGroupDirective?: FormGroupDirective,
-    @Optional() private readonly _formControlName?: FormGroupName
+    @Optional() private readonly _formGroupName?: FormGroupName,
+    @Optional() private readonly _formControlDirective?: FormControlDirective,
+    @Optional() private readonly _formControlName?: FormControlName
   ) {}
 
-  validate(): boolean {
-    if (!this.formGroup || this.formGroup.valid) {
+  next() {
+    if (!this._validate()) {
+      return;
+    }
+
+    this._stepperStateService.next();
+  }
+
+  previous() {
+    this._stepperStateService.previous();
+  }
+
+  private _validate(): boolean {
+    if (this.isInvalid) {
+      return false;
+    }
+
+    if (!this.control || this.control.valid) {
       return true;
     }
 
-    for (const key of Object.keys(this.formGroup.controls)) {
-      this.formGroup.get(key)?.updateValueAndValidity();
+    if (this.control instanceof FormGroup) {
+      for (const key of Object.keys(this.control.controls)) {
+        this.control.get(key)?.updateValueAndValidity();
+      }
+    } else if (this.control instanceof FormControl) {
+      this.control.updateValueAndValidity();
     }
 
     return false;

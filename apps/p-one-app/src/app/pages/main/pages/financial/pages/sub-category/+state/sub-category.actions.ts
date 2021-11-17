@@ -1,5 +1,9 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryFilter, CategoryModel, PaginatedFilter } from '@p-one/core';
+import { CategoryFilter, CategoryModel, PaginatedFilter, SubCategoryModel, UpdateSubCategoryRequest } from '@p-one/core';
+
+import {
+  CreateSubCategoryRequest,
+} from '../../../../../../../../../../../libs/core/src/lib/models/requests/create-sub-category.request';
 
 export enum ESubCategoryActions {
   LOAD_SUB_CATEGORIES = '[Sub Category] Load sub categories',
@@ -46,6 +50,12 @@ export enum ESubCategoryActions {
   PAGINATE_SUB_CATEGORIES = '[Sub Category] Paginate sub categories',
   FILTER_SUB_CATEGORIES = '[Sub Category] Filter sub categories',
 
+  LOAD_CATEGORIES = '[Sub Category] Load categories',
+  LOAD_CATEGORIES_SUCCESS = '[Sub Category] Load categories success',
+  LOAD_CATEGORIES_FAILURE = '[Sub Category] Load categories failure',
+  RESET_CATEGORIES = '[Sub Category] Reset categories',
+  SET_CATEGORIES_FILTER = '[Sub Category] Set categories filter',
+
   RESET_STATE = '[Sub Category] Reset state',
 }
 
@@ -64,7 +74,7 @@ export const loadSubCategoriesFailure = createAction(
 
 export const createSubCategory = createAction(
   ESubCategoryActions.CREATE_SUB_CATEGORY,
-  props<{ category: CategoryModel }>()
+  props<{ createSubCategoryRequest: CreateSubCategoryRequest }>()
 );
 
 export const createSubCategorySuccess = createAction(
@@ -78,12 +88,12 @@ export const createSubCategoryFailure = createAction(
 
 export const updateSubCategory = createAction(
   ESubCategoryActions.UPDATE_SUB_CATEGORY,
-  props<{ category: CategoryModel }>()
+  props<{ updateSubCategoryRequest: UpdateSubCategoryRequest }>()
 );
 
 export const updateSubCategorySuccess = createAction(
   ESubCategoryActions.UPDATE_SUB_CATEGORY_SUCCESS,
-  props<{ category: CategoryModel }>()
+  props<{ subCategory: SubCategoryModel }>()
 );
 export const updateSubCategoryFailure = createAction(
   ESubCategoryActions.UPDATE_SUB_CATEGORY_FAILURE,
@@ -202,6 +212,26 @@ export const setSubCategoriesPage = createAction(
   props<{ page: number }>()
 );
 
+export const loadCategories = createAction(ESubCategoryActions.LOAD_CATEGORIES);
+
+export const loadCategoriesSuccess = createAction(
+  ESubCategoryActions.LOAD_CATEGORIES_SUCCESS,
+  props<{ categories: CategoryModel[] }>()
+);
+export const loadCategoriesFailure = createAction(
+  ESubCategoryActions.LOAD_CATEGORIES_FAILURE,
+  props<{ error: any }>()
+);
+
+export const resetCategories = createAction(
+  ESubCategoryActions.RESET_CATEGORIES
+);
+
+export const setCategoriesFilter = createAction(
+  ESubCategoryActions.SET_CATEGORIES_FILTER,
+  props<{ categoryFilter: string }>()
+);
+
 export const resetState = createAction(ESubCategoryActions.RESET_STATE);
 
 const actionsUnion = union({
@@ -242,6 +272,11 @@ const actionsUnion = union({
   unselectMultipleSubCategories,
 
   paginateSubCategories,
+
+  loadCategories,
+  loadCategoriesSuccess,
+  loadCategoriesFailure,
+  resetCategories,
 
   resetState,
 });

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 import { StepComponent } from '../step/step.component';
-import { StepperComponent } from '../stepper.component';
+import { StepperStateService } from '../stepper-state.service';
 import { stepBodyAnimation } from './step-body.animations';
 
 export enum EStepBodyState {
@@ -24,41 +23,39 @@ export enum EStepBodyState {
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [stepBodyAnimation],
 })
-export class StepBodyComponent implements OnInit {
+export class StepBodyComponent {
   @Input()
-  step!: StepComponent;
+  public step!: StepComponent;
 
   @Input()
-  stepIndex!: number;
+  public stepIndex!: number;
 
-  state$?: Observable<EStepBodyState>;
-
-  constructor(private readonly _stepper: StepperComponent) {}
-
-  ngOnInit(): void {
-    this.state$ = this._stepper.selectedStep$.pipe(
-      map(({ previousSelectedStepIndex, selectedStepIndex }) => {
-        if (this.stepIndex != selectedStepIndex) {
-          if (previousSelectedStepIndex == this.stepIndex) {
-            return selectedStepIndex > this.stepIndex
-              ? EStepBodyState.UNSELECTED_FROM_RIGHT
-              : EStepBodyState.UNSELECTED_FROM_LEFT;
-          }
-
-          return EStepBodyState.UNSELECTED;
+  public readonly state$ = this._stepper.selectedStep$.pipe(
+    withLatestFrom(this._stepper.previousSelectedStep$),
+    map(([selectedStepIndex, previousSelectedStepIndex]) => {
+      
+      if (this.stepIndex != selectedStepIndex) {
+        if (previousSelectedStepIndex == this.stepIndex) {
+          return selectedStepIndex > this.stepIndex
+            ? EStepBodyState.UNSELECTED_FROM_RIGHT
+            : EStepBodyState.UNSELECTED_FROM_LEFT;
         }
 
-        if (
-          previousSelectedStepIndex == undefined ||
-          previousSelectedStepIndex == null
-        ) {
-          return EStepBodyState.SELECTED;
-        }
+        return EStepBodyState.UNSELECTED;
+      }
 
-        return previousSelectedStepIndex > selectedStepIndex
-          ? EStepBodyState.SELECTED_FROM_LEFT
-          : EStepBodyState.SELECTED_FROM_RIGHT;
-      })
-    );
-  }
+      if (
+        previousSelectedStepIndex == undefined ||
+        previousSelectedStepIndex == null
+      ) {
+        return EStepBodyState.SELECTED;
+      }
+
+      return previousSelectedStepIndex > selectedStepIndex
+        ? EStepBodyState.SELECTED_FROM_LEFT
+        : EStepBodyState.SELECTED_FROM_RIGHT;
+    })
+  );
+
+  constructor(private readonly _stepper: StepperStateService) {}
 }

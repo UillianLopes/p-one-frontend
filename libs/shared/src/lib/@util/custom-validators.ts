@@ -26,6 +26,11 @@ export class CustomValidators {
     };
   }
 
+  public static requireToBeObject: ValidatorFn = (control) =>
+    control.value && typeof control.value === 'object'
+      ? null
+      : { requireToBeObject: true };
+
   public static whenParent(
     validator: ValidatorFn,
     condition: (parent: FormGroup | FormArray | null) => boolean

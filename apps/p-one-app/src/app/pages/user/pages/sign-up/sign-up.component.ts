@@ -87,6 +87,7 @@ export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
     map((value) => value as AccountAssociation)
   );
 
+  
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router

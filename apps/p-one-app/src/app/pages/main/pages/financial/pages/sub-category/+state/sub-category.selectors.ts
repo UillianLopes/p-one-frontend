@@ -126,3 +126,21 @@ export const pageSizeSelector = createSelector(
   paginationSelector,
   (pagination) => pagination.pageSize
 );
+
+export const isCategoriesLoadingSelector = createSelector(
+  stateSelector,
+  (state) => state.isCategoriesLoading
+);
+
+const categoryFilterSelector = createSelector(stateSelector, (state) =>
+  (state.categoryFilter ?? '').toLowerCase()
+);
+
+export const categoriesSelector = createSelector(
+  stateSelector,
+  categoryFilterSelector,
+  (state, categoryFilter) =>
+    (state.categories ?? []).filter(
+      (c) => c.name.toLowerCase().indexOf(categoryFilter) >= 0
+    )
+);

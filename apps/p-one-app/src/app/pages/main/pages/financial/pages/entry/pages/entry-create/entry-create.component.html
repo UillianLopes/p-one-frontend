@@ -1,1 +1,38 @@
-<p>entry-create works!</p>
+<p-one-container [isLoading]="this.isLoading$ | async">
+  <p-one-header pOneHeader>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="material-icons"> menu </i>
+    </button>
+
+    <h2>Entradas</h2>
+  </p-one-header>
+
+  <div pOneFlexColumn gap="16px" class="p-one-entry-create__panel">
+    <p-one-stepper>
+      <p-one-step [isInvalid]="isFirstStepInvalid$ | async">
+        <span pOneStepHeader>Informações basicas</span>
+        <div pOneFlexRow justification="center">
+          <div class="p-one-entry-create__form">
+            <p-one-first-step></p-one-first-step>
+          </div>
+        </div>
+      </p-one-step>
+      <p-one-step [isInvalid]="isSecondStepInvalid$ | async">
+        <span pOneStepHeader>Recorrência</span>
+        <div pOneFlexRow justification="center">
+          <div class="p-one-entry-create__form">
+            <p-one-second-step></p-one-second-step>
+          </div>
+        </div>
+      </p-one-step>
+      <p-one-step>
+        <span pOneStepHeader>Confirmação</span>
+      </p-one-step>
+    </p-one-stepper>
+  </div>
+</p-one-container>

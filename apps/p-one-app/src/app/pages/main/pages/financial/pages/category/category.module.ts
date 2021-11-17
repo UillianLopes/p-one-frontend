@@ -9,6 +9,7 @@ import {
   POneContextMenuModule,
   POneDialogModule,
   POneFlexModule,
+  POneGridModule,
   POneHeaderModule,
   POneInputModule,
   POneSidenavModule,
@@ -45,6 +46,7 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     POneContextMenuModule,
     POneFlexModule,
     NgbPaginationModule,
+    POneGridModule
   ],
   providers: [CategoryFacade],
 })

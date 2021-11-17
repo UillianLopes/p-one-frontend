@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { SubCategoryService } from '@p-one/core';
+import { CategoryService, SubCategoryService } from '@p-one/core';
 import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import {
   deleteSubCategorySuccess,
   EntryListActionsUnion,
   ESubCategoryActions,
+  loadCategoriesSuccess,
   loadSubCategoriesFailure,
   loadSubCategoriesSuccess,
   selectMultipleSubCategories,
@@ -35,7 +36,7 @@ export class SubCategoryEffects {
     this._actions$.pipe(
       ofType(ESubCategoryActions.LOAD_SUB_CATEGORIES),
       switchMap((_) => {
-        return this._categoryService.get().pipe(
+        return this._subCategoryService.get().pipe(
           map((categories) => {
             return loadSubCategoriesSuccess({
               categories,
@@ -50,8 +51,8 @@ export class SubCategoryEffects {
   readonly createSubCateogryEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ESubCategoryActions.CREATE_SUB_CATEGORY),
-      switchMap((action) => {
-        return this._categoryService.create(action.category).pipe(
+      switchMap(({ createSubCategoryRequest }) => {
+        return this._subCategoryService.create(createSubCategoryRequest).pipe(
           map((category) => {
             return createSubCategorySuccess({
               category,
@@ -66,10 +67,9 @@ export class SubCategoryEffects {
   readonly createSubCategorySucessEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ESubCategoryActions.CREATE_SUB_CATEGORY_SUCCESS),
-
       map((_) => closeCreateSubCategoryDialog()),
       tap(() => {
-        this._toastService.open('Categoria criada com sucesso', {
+        this._toastService.open('Sub categoria criada com sucesso', {
           color: 'success',
         });
       })
@@ -79,13 +79,13 @@ export class SubCategoryEffects {
   readonly updateSubCateogryEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ESubCategoryActions.UPDATE_SUB_CATEGORY),
-      switchMap((action) => {
-        return this._categoryService
-          .update(action.category.id ?? '', action.category)
+      switchMap(({ updateSubCategoryRequest }) => {
+        return this._subCategoryService
+          .update(updateSubCategoryRequest.id ?? '', updateSubCategoryRequest)
           .pipe(
-            map((category) => {
+            map((subCategory) => {
               return updateSubCategorySuccess({
-                category,
+                subCategory,
               });
             }),
             catchError((error) => of(updateSubCategoryFailure({ error })))
@@ -162,7 +162,7 @@ export class SubCategoryEffects {
     this._actions$.pipe(
       ofType(ESubCategoryActions.DELETE_SUB_CATEGORY),
       switchMap(({ subCategoryId: categoryId }) => {
-        return this._categoryService.delete(categoryId).pipe(
+        return this._subCategoryService.delete(categoryId).pipe(
           map(() => {
             return deleteSubCategorySuccess({ subCategoryId: categoryId });
           }),
@@ -196,7 +196,7 @@ export class SubCategoryEffects {
       ofType(ESubCategoryActions.DELETE_SELECTED_SUB_CATEGORIES),
       withLatestFrom(this._facade.filtredSelectedSubCategoriesIds$),
       switchMap(([_, categoriesIds]) => {
-        return this._categoryService.deleteMultiple(categoriesIds).pipe(
+        return this._subCategoryService.deleteMultiple(categoriesIds).pipe(
           map(() => {
             return deleteSelectedSubCategoriesSuccess({
               subCategoriesIds: categoriesIds,
@@ -217,9 +217,26 @@ export class SubCategoryEffects {
     )
   );
 
+  readonly loadCategoriesEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ESubCategoryActions.LOAD_CATEGORIES),
+      switchMap(() => {
+        return this._categoryService.get().pipe(
+          map((categories) => {
+            return loadCategoriesSuccess({ categories });
+          }),
+          catchError((error) => {
+            return of(loadSubCategoriesFailure({ error }));
+          })
+        );
+      })
+    )
+  );
+
   constructor(
     private readonly _actions$: Actions<EntryListActionsUnion>,
-    private readonly _categoryService: SubCategoryService,
+    private readonly _subCategoryService: SubCategoryService,
+    private readonly _categoryService: CategoryService,
     private readonly _facade: SubCategoryFacade,
     private readonly _dialogService: DialogService,
     private readonly _toastService: ToastService

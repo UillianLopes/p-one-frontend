@@ -2,16 +2,26 @@
   <h5 class="card-header">Criação de categoria</h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
-      <p-one-form-field>
-        <label pOneLabel for="categoryNameInput" i18n>Nome</label>
-        <input
-          #categoryNameInput
-          pOneInput
-          placeholder="Digite o nome da categoria"
-          formControlName="name"
-          i18n-placehoder
-        />
-      </p-one-form-field>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryNameInput" i18n>Nome</label>
+          <input
+            #categoryNameInput
+            pOneInput
+            placeholder="Digite o nome da categoria"
+            formControlName="name"
+            i18n-placehoder
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="200px">
+          <label pOneLabel for="categoryNameInput" i18n>Tipo</label>
+          <select pOneInput formControlName="type">
+            <option [ngValue]="EntryType.Credit">Crédito</option>
+            <option [ngValue]="EntryType.Debit">Débito</option>
+          </select>
+        </p-one-form-field>
+      </div>
+
       <p-one-form-field>
         <label pOneLabel for="descriptionInput" i18n>Descrição</label>
         <textarea

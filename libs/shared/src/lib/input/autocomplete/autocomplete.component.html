@@ -1,0 +1,13 @@
+<ng-content select="p-one-option"></ng-content>
+
+<ng-template>
+  <div class="p-one-autocomplete">
+    <div
+      *ngFor="let option of this.options$ | async"
+      (click)="select(option.value)"
+      class="p-one-autocomplete__option"
+    >
+      <ng-container [ngTemplateOutlet]="option.template"></ng-container>
+    </div>
+  </div>
+</ng-template>

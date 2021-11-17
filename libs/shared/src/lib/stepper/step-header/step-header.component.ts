@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../../@mixins/destroyable.mixin';
 import { StepComponent } from '../step/step.component';
-import { StepperHeaderComponent } from '../stepper-header/stepper-header.component';
+import { StepperStateService } from '../stepper-state.service';
 
 @Component({
   selector: 'p-one-step-header',
@@ -12,35 +11,26 @@ import { StepperHeaderComponent } from '../stepper-header/stepper-header.compone
   styleUrls: ['./step-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StepHeaderComponent
-  extends DestroyableMixin()
-  implements OnDestroy
-{
+export class StepHeaderComponent extends DestroyableMixin() {
   @Input()
-  step!: StepComponent;
+  public step!: StepComponent;
 
   @Input()
-  stepIndex!: number;
+  public stepIndex!: number;
 
   @Input()
-  selected$: Observable<boolean>;
+  public readonly selected$ = this._stepperState.selectedStep$.pipe(
+    map((selectedStep) => {
+      return selectedStep === this.stepIndex;
+    })
+  );
 
-  constructor(private readonly _header: StepperHeaderComponent) {
+  constructor(private readonly _stepperState: StepperStateService) {
     super();
-
-    this.selected$ = this._header.selectedStep$.pipe(
-      map(({ selectedStepIndex }) => {
-        return selectedStepIndex == this.stepIndex;
-      })
-    );
-  }
-
-  ngOnDestroy() {
-    super.ngOnDestroy();
   }
 
   @HostListener('click')
   click(): void {
-    this._header.goTo(this.stepIndex);
+    this._stepperState.setSelectedIndex(this.stepIndex);
   }
 }

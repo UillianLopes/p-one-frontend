@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { EntryComponent } from './entry.component';
 import { EntryRoutingModule } from './entry.routing';
-import { EntryCreateComponent } from './pages/entry-create/entry-create.component';
 
 @NgModule({
-  declarations: [EntryComponent, EntryCreateComponent],
+  declarations: [EntryComponent],
   imports: [CommonModule, EntryRoutingModule],
   providers: [],
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CategoryFilter, CategoryModel } from '@p-one/core';
+import { CategoryFilter, CreateCategoryRequest, UpdateCategoryRequest } from '@p-one/core';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -145,11 +145,11 @@ export class CategoryFacade {
     this._store.dispatch(setCategoriesPage({ page }));
   }
 
-  createCategory(category: CategoryModel): void {
-    this._store.dispatch(createCategory({ category }));
+  createCategory(createCategoryRequest: CreateCategoryRequest): void {
+    this._store.dispatch(createCategory({ createCategoryRequest }));
   }
 
-  updateCategory(category: CategoryModel): void {
-    this._store.dispatch(updateCategory({ category }));
+  updateCategory(updateCategoryRequest: UpdateCategoryRequest): void {
+    this._store.dispatch(updateCategory({ updateCategoryRequest }));
   }
 }

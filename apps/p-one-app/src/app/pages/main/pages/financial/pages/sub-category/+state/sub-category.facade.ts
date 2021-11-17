@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CategoryFilter, CategoryModel } from '@p-one/core';
+import { CategoryFilter, CreateSubCategoryRequest, UpdateSubCategoryRequest } from '@p-one/core';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,8 +9,11 @@ import {
   deleteSelectedSubCategories,
   deleteSubCategory,
   filterSubCategories,
+  loadCategories,
   loadSubCategories,
+  resetCategories,
   resetState,
+  setCategoriesFilter,
   setOpenedCreateSubCategoryDialog,
   setOpenedDeleteSubCategoryDialog,
   setOpenedUpdateSubCategoryDialog,
@@ -97,6 +100,14 @@ export class SubCategoryFacade {
     )
   );
 
+  readonly categories$ = this._store.select(
+    SubCategorySelectors.categoriesSelector
+  );
+
+  readonly isCategoriesLoading$ = this._store.select(
+    SubCategorySelectors.isCategoriesLoadingSelector
+  );
+
   constructor(private readonly _store: Store<SubCategoryState>) {}
 
   loadSubCategories(): void {
@@ -141,7 +152,9 @@ export class SubCategoryFacade {
 
   setOpenedDeleteSubCategoryDialog(deleteCategoryDialogId: string): void {
     this._store.dispatch(
-      setOpenedDeleteSubCategoryDialog({ deleteSubCategoryDialogId: deleteCategoryDialogId })
+      setOpenedDeleteSubCategoryDialog({
+        deleteSubCategoryDialogId: deleteCategoryDialogId,
+      })
     );
   }
 
@@ -149,11 +162,24 @@ export class SubCategoryFacade {
     this._store.dispatch(setSubCategoriesPage({ page }));
   }
 
-  createSubCategory(category: CategoryModel): void {
-    this._store.dispatch(createSubCategory({ category }));
+  createSubCategory(createCategoryRequest: CreateSubCategoryRequest): void {
+    this._store.dispatch(
+      createSubCategory({ createSubCategoryRequest: createCategoryRequest })
+    );
   }
 
-  updateSubCategory(category: CategoryModel): void {
-    this._store.dispatch(updateSubCategory({ category }));
+  updateSubCategory(updateSubCategoryRequest: UpdateSubCategoryRequest): void {
+    this._store.dispatch(updateSubCategory({ updateSubCategoryRequest }));
+  }
+
+  setCategoriesFilter(categoryFilter: string): void {
+    this._store.dispatch(setCategoriesFilter({ categoryFilter }));
+  }
+  loadCategories(): void {
+    this._store.dispatch(loadCategories());
+  }
+
+  resetCategories(): void {
+    this._store.dispatch(resetCategories());
   }
 }

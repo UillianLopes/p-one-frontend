@@ -14,13 +14,17 @@ import {
   deleteSubCategoryFailure,
   deleteSubCategorySuccess,
   filterSubCategories,
-  loadSubCategories as loadSubCategories,
-  loadSubCategoriesFailure as loadSubCategoriesFailure,
-  loadSubCategoriesSuccess as loadSubCategoriesSuccess,
+  loadCategories,
+  loadCategoriesFailure,
+  loadCategoriesSuccess,
+  loadSubCategories,
+  loadSubCategoriesFailure,
+  loadSubCategoriesSuccess,
   paginateSubCategories,
   resetState,
   selectMultipleSubCategories,
   selectSubCategory,
+  setCategoriesFilter,
   setOpenedCreateSubCategoryDialog,
   setOpenedDeleteSubCategoryDialog,
   setOpenedUpdateSubCategoryDialog,
@@ -46,10 +50,15 @@ export interface SubCategoryState {
   createSubCategoryDialogId?: string;
   updateSubCategoryDialogId?: string;
   deleteSubCategoryDialogId?: string;
+
+  categories?: CategoryModel[];
+  isCategoriesLoading: boolean;
+  categoryFilter?: string;
 }
 
 const initialState: SubCategoryState = {
   loading: false,
+  isCategoriesLoading: false,
   subCategories: [],
   selectedSubCategoryIds: [],
   pagination: {
@@ -104,12 +113,12 @@ const _subCategoryReducer = createReducer<SubCategoryState>(
     };
   }),
 
-  on(updateSubCategorySuccess, (state, action) => {
+  on(updateSubCategorySuccess, (state, { subCategory }) => {
     return {
       ...state,
       subCategories: [
-        ...state.subCategories.filter((c) => c.id != action.category.id),
-        action.category,
+        ...state.subCategories.filter((c) => c.id != subCategory.id),
+        subCategory,
       ],
       loading: false,
     };
@@ -223,18 +232,21 @@ const _subCategoryReducer = createReducer<SubCategoryState>(
     return { ...state, loading: true };
   }),
 
-  on(deleteSelectedSubCategoriesSuccess, (state, { subCategoriesIds: categoriesIds }) => {
-    return {
-      ...state,
-      loading: false,
-      selectedSubCategoryIds: [],
-      subCategories: [
-        ...state.subCategories.filter(
-          (e) => !(e.id && categoriesIds.includes(e.id))
-        ),
-      ],
-    };
-  }),
+  on(
+    deleteSelectedSubCategoriesSuccess,
+    (state, { subCategoriesIds: categoriesIds }) => {
+      return {
+        ...state,
+        loading: false,
+        selectedSubCategoryIds: [],
+        subCategories: [
+          ...state.subCategories.filter(
+            (e) => !(e.id && categoriesIds.includes(e.id))
+          ),
+        ],
+      };
+    }
+  ),
 
   on(deleteSelectedSubCategoriesFailure, (state, { error }) => {
     return { ...state, loading: false, error };
@@ -261,6 +273,34 @@ const _subCategoryReducer = createReducer<SubCategoryState>(
         ...state.pagination,
         page,
       },
+    };
+  }),
+  on(loadCategories, (state) => {
+    return {
+      ...state,
+      isCategoriesLoading: true,
+    };
+  }),
+  on(loadCategoriesSuccess, (state, { categories }) => {
+    return {
+      ...state,
+      categories,
+      isCategoriesLoading: false,
+    };
+  }),
+
+  on(loadCategoriesFailure, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      isCategoriesLoading: false,
+    };
+  }),
+
+  on(setCategoriesFilter, (state, { categoryFilter }) => {
+    return {
+      ...state,
+      categoryFilter,
     };
   }),
 

@@ -1,4 +1,4 @@
 export enum EntryType {
-    Debit,
-    Credit
+  Debit = 0,
+  Credit,
 }

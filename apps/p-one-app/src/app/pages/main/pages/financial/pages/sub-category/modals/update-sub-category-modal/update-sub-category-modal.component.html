@@ -7,17 +7,41 @@
         <input
           #categoryNameInput
           pOneInput
-          placeholder="Digite o nome da categoria"
+          placeholder="Digite o nome da sub categoria"
           formControlName="name"
           i18n-placehoder
         />
+      </p-one-form-field>
+
+      <p-one-form-field>
+        <label pOneLabel for="subCategoryCategory" i18n>Categoria</label>
+        <input
+          #categoryNameInput
+          pOneInput
+          placeholder="Digite a categoria"
+          formControlName="category"
+          [pOneAutocomplete]="categoryAutocomplete"
+          i18n-placehoder
+        />
+
+        <p-one-autocomplete
+          #categoryAutocomplete="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            [value]="category"
+            *ngFor="let category of categories$ | async"
+          >
+            {{ category.name }}
+          </p-one-option>
+        </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
         <label pOneLabel for="descriptionInput" i18n>Descrição</label>
         <textarea
           #descriptionInput
           pOneInput
-          placeholder="Digite a descrição da categoria"
+          placeholder="Digite a descrição da sub categoria"
           formControlName="description"
           i18n-placeholder
         ></textarea>

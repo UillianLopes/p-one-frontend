@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryFilter, CategoryModel, PaginatedFilter } from '@p-one/core';
+import { CategoryFilter, CategoryModel, CreateCategoryRequest, PaginatedFilter, UpdateCategoryRequest } from '@p-one/core';
 
 export enum ECategoryActions {
   LOAD_CATEGORIES = '[Category List] Load categories',
@@ -62,7 +62,7 @@ export const loadCategoriesFailure = createAction(
 
 export const createCategory = createAction(
   ECategoryActions.CREATE_CATEGORY,
-  props<{ category: CategoryModel }>()
+  props<{ createCategoryRequest: CreateCategoryRequest }>()
 );
 
 export const createCategorySuccess = createAction(
@@ -76,7 +76,7 @@ export const createCategoryFailure = createAction(
 
 export const updateCategory = createAction(
   ECategoryActions.UPDATE_CATEGORY,
-  props<{ category: CategoryModel }>()
+  props<{ updateCategoryRequest: UpdateCategoryRequest }>()
 );
 
 export const updateCategorySuccess = createAction(

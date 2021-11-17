@@ -11,7 +11,7 @@ import { ToastComponent } from './toast.component';
 
 @Injectable()
 export class ToastService {
-  readonly toasts: {
+  private readonly _toasts: {
     [toasId: string]:
       | {
           toastRef: ToastRef;
@@ -75,18 +75,18 @@ export class ToastService {
 
     const toastId = v4();
 
-    this.toasts[toastId] = {
+    this._toasts[toastId] = {
       overlayRef: overlayRef,
       toastRef: toastRef,
     };
 
     toastRef.closed$.pipe(takeUntil(overlayRef.detachments())).subscribe(() => {
-      this.toasts[toastId]?.overlayRef?.detach();
+      this._toasts[toastId]?.overlayRef?.detach();
     });
 
     timer(options.duration)
       .pipe(take(1), takeUntil(overlayRef.detachments()))
-      .subscribe((_) => this.toasts[toastId]?.toastRef?.close());
+      .subscribe((_) => this._toasts[toastId]?.toastRef?.close());
 
     return {
       toastId,
@@ -95,7 +95,7 @@ export class ToastService {
   }
 
   close(toastId: string) {
-    const toast = this.toasts[toastId];
+    const toast = this._toasts[toastId];
 
     if (!toast) {
       return;
@@ -105,6 +105,6 @@ export class ToastService {
 
     toastRef.close();
 
-    this.toasts[toastId] = undefined;
+    this._toasts[toastId] = undefined;
   }
 }

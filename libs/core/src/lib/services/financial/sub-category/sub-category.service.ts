@@ -4,7 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { ResponseModel, SubCategoryModel } from '../../../models';
+import { ResponseModel, SubCategoryModel, UpdateSubCategoryRequest } from '../../../models';
+import { CreateSubCategoryRequest } from '../../../models/requests/create-sub-category.request';
 import { ErrorModel } from '../../../models/responses/error.model';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class SubCategoryService {
       );
   }
 
-  create(category: SubCategoryModel): Observable<SubCategoryModel> {
+  create(category: CreateSubCategoryRequest): Observable<SubCategoryModel> {
     return this._httpClient
       .post<ResponseModel<SubCategoryModel>>(
         `${this._financialApiUrl}/SubCategory`,
@@ -41,7 +42,10 @@ export class SubCategoryService {
       );
   }
 
-  update(id: string, category: SubCategoryModel): Observable<SubCategoryModel> {
+  update(
+    id: string,
+    category: UpdateSubCategoryRequest
+  ): Observable<SubCategoryModel> {
     return this._httpClient
       .put<ResponseModel<SubCategoryModel>>(
         `${this._financialApiUrl}/SubCategory/${id}`,

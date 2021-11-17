@@ -50,8 +50,8 @@ export class CategoryEffects {
   readonly createCateogryEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryActions.CREATE_CATEGORY),
-      switchMap((action) => {
-        return this._categoryService.create(action.category).pipe(
+      switchMap(({ createCategoryRequest }) => {
+        return this._categoryService.create(createCategoryRequest).pipe(
           map((category) => {
             return createCategorySuccess({
               category,
@@ -79,9 +79,9 @@ export class CategoryEffects {
   readonly updateCateogryEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryActions.UPDATE_CATEGORY),
-      switchMap((action) => {
+      switchMap(({ updateCategoryRequest }) => {
         return this._categoryService
-          .update(action.category.id ?? '', action.category)
+          .update(updateCategoryRequest.id ?? '', updateCategoryRequest)
           .pipe(
             map((category) => {
               return updateCategorySuccess({

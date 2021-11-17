@@ -1,16 +1,15 @@
 import { Directive, HostListener } from '@angular/core';
 
-import { StepperComponent } from './stepper.component';
+import { StepComponent } from './step/step.component';
 
 @Directive({
   selector: '[pOneStepperNext]',
 })
 export class StepperNextDirective {
-  constructor(private readonly _stepper: StepperComponent) {}
+  constructor(private readonly _stepComponent: StepComponent) {}
 
-  @HostListener('click', ['$event'])
-  click($event: MouseEvent): void {
-    
-    this._stepper.next();
+  @HostListener('click')
+  click(_: MouseEvent): void {
+    this._stepComponent.next();
   }
 }

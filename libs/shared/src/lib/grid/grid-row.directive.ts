@@ -1,10 +1,11 @@
-import { Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 @Directive({
-  selector: '[pOneGridRow]'
+  selector: '[pOneGridRow]',
 })
 export class GridRowDirective {
+  @Input()
+  size?: string;
 
-  constructor() { }
-
+  constructor() {}
 }

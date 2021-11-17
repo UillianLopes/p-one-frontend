@@ -17,10 +17,28 @@ export class InputDirective
 {
   invalid$?: Observable<boolean | undefined>;
 
+  get value(): any {
+    if (this._ngControl) {
+      return this._ngControl.control?.value;
+    }
+
+    if (this._elementRef.nativeElement instanceof HTMLInputElement) {
+      return this._elementRef.nativeElement.value;
+    }
+
+    if (this._elementRef.nativeElement instanceof HTMLTextAreaElement) {
+      return this._elementRef.nativeElement.value;
+    }
+
+    if (this._elementRef.nativeElement instanceof HTMLSelectElement) {
+      return this._elementRef.nativeElement.value;
+    }
+  }
+
   constructor(
-    @Optional() private readonly _ngControl: NgControl,
-    private readonly _renderer2: Renderer2,
-    private readonly _elementRef: ElementRef<HTMLElement>
+    @Optional() protected readonly _ngControl: NgControl,
+    protected readonly _renderer2: Renderer2,
+    protected readonly _elementRef: ElementRef<HTMLElement>
   ) {
     super();
   }
