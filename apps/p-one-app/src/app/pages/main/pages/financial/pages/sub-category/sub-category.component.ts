@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SubCategoryModel } from '@p-one/core';
+import { EntryType, SubCategoryModel } from '@p-one/core';
 import { DestroyableMixin, DialogService } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
@@ -15,6 +15,7 @@ import { UpdateSubCategoryModalComponent } from './modals/update-sub-category-mo
   styleUrls: ['./sub-category.component.scss'],
 })
 export class SubCategoryComponent extends DestroyableMixin() implements OnInit {
+  public readonly EntryType = EntryType;
   public readonly categories$ = this._facade.filtredPaginatedSubCategories$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly isAllFiltredSubCategoriesSelected$ =

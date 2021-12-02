@@ -1,5 +1,6 @@
 .p-one-form-field {
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 20px;
 
   &--no-padding {

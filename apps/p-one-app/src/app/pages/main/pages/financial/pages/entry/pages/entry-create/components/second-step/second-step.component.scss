@@ -4,3 +4,17 @@
     overflow: auto;
   }
 }
+
+.rotate-loop {
+  animation: rotationAnimation 2s infinite ease-in-out;
+}
+
+@keyframes rotationAnimation {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(360deg);
+  }
+}

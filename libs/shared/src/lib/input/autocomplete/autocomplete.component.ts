@@ -4,6 +4,7 @@ import {
   Component,
   ContentChildren,
   Input,
+  Output,
   QueryList,
   TemplateRef,
   ViewChild,
@@ -27,7 +28,9 @@ export class AutocompleteComponent
   implements AfterContentInit
 {
   readonly formControl = new FormControl(null);
-  readonly valueChanges$ = this.formControl.valueChanges;
+
+  @Output()
+  readonly change$ = this.formControl.valueChanges;
 
   @Input()
   public displayFn?: (obj: any) => string;
@@ -52,12 +55,6 @@ export class AutocompleteComponent
       .subscribe((options: OptionComponent[]) => {
         this.options$.next(options);
       });
-  }
-
-  initValue(value: any) {
-    this.formControl.setValue(value, {
-      emitEvent: false,
-    });
   }
 
   select(value: any) {

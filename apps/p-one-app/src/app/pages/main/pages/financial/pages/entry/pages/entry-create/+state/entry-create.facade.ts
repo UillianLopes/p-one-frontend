@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { EntryType } from '@p-one/core';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';
 import {
   buildRecurrences,
+  createEntry,
   loadCategories,
   loadSubCategories,
   resetState,
@@ -14,44 +16,48 @@ import {
   setSubCategoriesFilter,
 } from './entry-create.actions';
 import { EntryCreateState } from './entry-create.reducer';
-import * as EntryCreateSelector from './entry-create.selectors';
+import * as EntryCreateSelectors from './entry-create.selectors';
 
 @Injectable()
 export class EntryCreateFacade {
   readonly filtredSubCategories$ = this._store.select(
-    EntryCreateSelector.filtredSubCategoriesSelector
+    EntryCreateSelectors.filtredSubCategoriesSelector
   );
 
   readonly filtredCategories$ = this._store.select(
-    EntryCreateSelector.filtredCategoriesSelector
+    EntryCreateSelectors.filtredCategoriesSelector
   );
 
   readonly isLoading$ = this._store.select(
-    EntryCreateSelector.isLoadingSelector
+    EntryCreateSelectors.isLoadingSelector
   );
 
   readonly recurrences$ = this._store.select(
-    EntryCreateSelector.recurrencesSelector
+    EntryCreateSelectors.recurrencesSelector
   );
 
   readonly recurrence$ = this._store.select(
-    EntryCreateSelector.recurrenceSelector
+    EntryCreateSelectors.recurrenceSelector
   );
 
   readonly firstStepForm$ = this._store.select(
-    EntryCreateSelector.firstStepFormSelector
+    EntryCreateSelectors.firstStepFormSelector
   );
 
   readonly secondStepForm$ = this._store.select(
-    EntryCreateSelector.secondStepFormSelector
+    EntryCreateSelectors.secondStepFormSelector
   );
 
   readonly isFirstStepInvalid$ = this._store.select(
-    EntryCreateSelector.isFirstStepInvalidSelector
+    EntryCreateSelectors.isFirstStepInvalidSelector
   );
 
   readonly isSecondStepInvalid$ = this._store.select(
-    EntryCreateSelector.isSecondStepInvalidSelector
+    EntryCreateSelectors.isSecondStepInvalidSelector
+  );
+
+  readonly isBuildingRecurrences$ = this._store.select(
+    EntryCreateSelectors.isBuildingRecurrencesSelector
   );
 
   constructor(private readonly _store: Store<EntryCreateState>) {}
@@ -72,12 +78,12 @@ export class EntryCreateFacade {
     this._store.dispatch(setSubCategoriesFilter({ subCategoriesFilter }));
   }
 
-  loadCategories(): void {
-    this._store.dispatch(loadCategories());
+  loadCategories(targetType: EntryType): void {
+    this._store.dispatch(loadCategories({ targetType }));
   }
 
-  loadSubCategories(): void {
-    this._store.dispatch(loadSubCategories());
+  loadSubCategories(categoryId: string): void {
+    this._store.dispatch(loadSubCategories({ categoryId }));
   }
 
   resetState(): void {
@@ -86,5 +92,9 @@ export class EntryCreateFacade {
 
   buildRecurrences(): void {
     this._store.dispatch(buildRecurrences());
+  }
+
+  createEntry(): void {
+    this._store.dispatch(createEntry());
   }
 }

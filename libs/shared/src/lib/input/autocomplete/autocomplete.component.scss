@@ -3,13 +3,14 @@
   width: 100%;
   background: var(--bs-white);
   border: var(--bs-gray-400) solid 1px;
-  border-radius: 8px;
+  border-radius: 4px;
   max-height: 300px;
   overflow: auto;
 
   &__option {
     padding: 8px;
     display: block;
+    cursor: pointer;
     &:hover {
       background: var(--bs-gray-100);
     }

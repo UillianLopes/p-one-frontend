@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
 import { POneToastModule } from '@p-one/shared';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { environment } from '../environments/environment';
@@ -49,6 +50,18 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
         useRefreshToken: true,
         logLevel: LogLevel.None,
       },
+    }),
+    NgxCurrencyModule.forRoot({
+      align: 'right',
+      allowNegative: true,
+      allowZero: true,
+      decimal: ',',
+      precision: 2,
+      prefix: 'R$ ',
+      suffix: '',
+      thousands: '.',
+      nullable: true,
+      inputMode: CurrencyMaskInputMode.FINANCIAL,
     }),
   ],
   bootstrap: [AppComponent],

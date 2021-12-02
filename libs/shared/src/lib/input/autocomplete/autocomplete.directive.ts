@@ -20,16 +20,16 @@ import { AutocompleteComponent } from './autocomplete.component';
 
 @Directive({
   selector: 'input[pOneAutocomplete]',
-  host: {
-    class: 'form-control',
-  },
 })
 export class AutocompleteDirective
   extends InputDirective
   implements OnInit, AfterContentInit
 {
   @Input('pOneAutocomplete')
-  autoComplete!: AutocompleteComponent;
+  public autocomplete!: AutocompleteComponent;
+
+  @Input()
+  public clearAfterSelect = false;
 
   private _overlayRef?: OverlayRef;
 
@@ -46,21 +46,26 @@ export class AutocompleteDirective
   ngAfterContentInit(): void {
     if (this.value) {
       (this._elementRef.nativeElement as HTMLInputElement).value = this
-        .autoComplete.displayFn
-        ? this.autoComplete.displayFn(this.value)
+        .autocomplete.displayFn
+        ? this.autocomplete.displayFn(this.value)
         : this.value ?? '';
     }
   }
 
   ngOnInit(): void {
-    this.autoComplete.valueChanges$
+    this.autocomplete.change$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((obj) => {
         this._ngControl?.control?.setValue(obj);
-        (this._elementRef.nativeElement as HTMLInputElement).value = this
-          .autoComplete.displayFn
-          ? this.autoComplete.displayFn(obj)
-          : obj ?? '';
+        if (!this.clearAfterSelect) {
+          (this._elementRef.nativeElement as HTMLInputElement).value = this
+            .autocomplete.displayFn
+            ? this.autocomplete.displayFn(obj)
+            : obj ?? '';
+        } else {
+          (this._elementRef.nativeElement as HTMLInputElement).value = '';
+        }
+
         this.close();
       });
   }
@@ -71,7 +76,7 @@ export class AutocompleteDirective
       return;
     }
 
-    const template = this.autoComplete.template;
+    const template = this.autocomplete.template;
 
     if (!template) {
       return;

@@ -1,0 +1,143 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">Filtrar entradas</h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="auto">
+          <label pOneLabel for="categoryNameInput" i18n>Tipo</label>
+          <p-one-radio
+            appearance="outline"
+            color="secondary"
+            formControlName="type"
+          >
+            <p-one-radio-button [value]="null">Todos</p-one-radio-button>
+            <p-one-radio-button [value]="EntryType.Credit">
+              <span> Crédito </span>
+              <i class="bi bi-arrow-up text-success"> </i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryType.Debit">
+              <span> Débito </span>
+              <i class="bi bi-arrow-down text-danger"> </i>
+            </p-one-radio-button>
+          </p-one-radio>
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="auto">
+          <label pOneLabel for="categoryNameInput" i18n>Situação</label>
+          <p-one-radio
+            appearance="outline"
+            color="secondary"
+            formControlName="paymentStatus"
+          >
+            <p-one-radio-button [value]="null">Todas</p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Paid">
+              <span> Pagas </span>
+              <i class="bi bi-check-circle text-success"></i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Expiring">
+              <span> A vencer </span>
+              <i class="bi bi-exclamation-triangle text-warning"></i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Overdue">
+              <span> Vencidas </span>
+              <i class="bi bi-exclamation-triangle text-danger"></i>
+            </p-one-radio-button>
+          </p-one-radio>
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="auto">
+          <label pOneLabel for="categoryNameInput" i18n>Mês</label>
+          <p-one-month-year-picker
+            formControlName="date"
+          ></p-one-month-year-picker>
+        </p-one-form-field>
+      </div>
+
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryNameInput" i18n>Texto</label>
+          <input
+            #categoryNameInput
+            pOneInput
+            placeholder="Ex.: Conta de energia"
+            formControlName="text"
+            i18n-placehoder
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryNameInput" i18n>
+            Valor (mínimo / máximo)
+          </label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              formControlName="minValue"
+              currencyMask
+              placeholder="Valor mínimo"
+              type="tel"
+            />
+            <input
+              class="form-control"
+              formControlName="maxValue"
+              currencyMask
+              placeholder="Valor máximo"
+              type="tel"
+            />
+          </div>
+        </p-one-form-field>
+      </div>
+
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryMultipleAutocomplete" i18n>
+            Categorias
+          </label>
+          <p-one-multiple-autocomplete
+            #categoryMultipleAutocomplete
+            [pOneAutocomplete]="gruposAutoComplete"
+            (search$)="setCategoryFilter($event)"
+            [displayFn]="displayFn"
+            formControlName="categories"
+          >
+          </p-one-multiple-autocomplete>
+          <p-one-autocomplete #gruposAutoComplete="pOneAutocomplete">
+            <p-one-option
+              *ngFor="let category of this.categories$ | async"
+              [value]="category"
+            >
+              {{ category.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="subCategoryMultipleAutocomplete" i18n>
+            Sub categorias
+          </label>
+          <p-one-multiple-autocomplete
+            #subCategoryMultipleAutocomplete
+            [pOneAutocomplete]="subGruposAutocomplete"
+            (search$)="setSubCategoryFilter($event)"
+            [displayFn]="displayFn"
+            formControlName="subCategories"
+          >
+          </p-one-multiple-autocomplete>
+          <p-one-autocomplete #subGruposAutocomplete="pOneAutocomplete">
+            <p-one-option
+              *ngFor="let subCategory of this.subCategories$ | async"
+              [value]="subCategory"
+            >
+              {{ subCategory.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="this.confirm()">
+      Filtrar entradas
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

@@ -3,7 +3,12 @@
     <div pOneGrid gap="16px">
       <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
         <label pOneLabel for="entryValueInput" i18n>Valor</label>
-        <input #entryValueInput pOneInput formControlName="value" />
+        <input
+          #entryValueInput
+          pOneInput
+          formControlName="value"
+          currencyMask
+        />
       </p-one-form-field>
 
       <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
@@ -107,6 +112,29 @@
         </p-one-form-field>
       </ng-container>
     </div>
+
+    <div
+      pOneFlexRow
+      justification="center"
+      alignment="center"
+      *ngIf="this.isRecurrenceNotOneTime$ | async"
+    >
+      <button
+        class="btn btn-primary"
+        (click)="this.buildRecurrences()"
+        [disabled]="this.isBuildingRecurrences$ | async"
+      >
+        <div pOneFlexRow alinement="center">
+          Gerar recorrências
+          <div class="rotate-loop">
+            <i
+              class="bi bi-arrow-repeat"
+              *ngIf="this.isBuildingRecurrences$ | async"
+            ></i>
+          </div>
+        </div>
+      </button>
+    </div>
     <ng-container *ngIf="isRecurrencesDisplayed$ | async">
       <h5 class="card-title">Recorrências</h5>
       <div class="p-one-second-step__recurrences">
@@ -121,8 +149,8 @@
           <tbody>
             <tr *ngFor="let recurrence of recurrences$ | async">
               <td>{{ recurrence.index }}</td>
-              <th>{{ recurrence.value | currency: 'BRL' }}</th>
-              <th>{{ recurrence.dueDate | date: 'dd/MM/yyyy' }}</th>
+              <td>{{ recurrence.value | currency: 'BRL' }}</td>
+              <td>{{ recurrence.dueDate | date: 'dd/MM/yyyy' }}</td>
             </tr>
           </tbody>
         </table>
@@ -130,9 +158,12 @@
     </ng-container>
   </div>
   <div class="card-footer" pOneFlexRow gap="16px">
-    <button class="btn btn-primary" (click)="this.buildRecurrences()">
-      Gerar recorrências
+    <button
+      class="btn btn-primary"
+      [disabled]="this.isCreateButtonDisabled$ | async"
+      (click)="createEntry()"
+    >
+      Confirmar
     </button>
-    <button class="btn btn-primary">Proximo</button>
   </div>
 </div>

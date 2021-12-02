@@ -6,9 +6,8 @@
       pOneSidenavTrigger
       #sidenavTrigger="pOneSidenavTrigger"
     >
-      <i class="material-icons"> menu </i>
+      <i class="bi bi-list"></i>
     </button>
-
     <h2>Entradas</h2>
   </p-one-header>
   <div pOneHeader class="p-one-entry__sub-header">
@@ -18,31 +17,73 @@
     >
       Criar entrada
     </button>
+
+    <div pOneFlexRow alignment="center" gap="8px">
+      <button
+        class="btn btn-primary btn-sm"
+        (click)="openEntryListFilterDialog()"
+      >
+        Abrir filtro completo
+      </button>
+      <p-one-radio
+        appearance="outline"
+        color="secondary"
+        [value]="typeFilter$ | async"
+        (change$)="setTypeFilter($event)"
+      >
+        <p-one-radio-button [value]="null">Todos</p-one-radio-button>
+        <p-one-radio-button [value]="EntryType.Credit">
+          <span> Crédito </span>
+          <i class="bi bi-arrow-up text-success"> </i>
+        </p-one-radio-button>
+        <p-one-radio-button [value]="EntryType.Debit">
+          <span> Débito </span>
+          <i class="bi bi-arrow-down text-danger"> </i>
+        </p-one-radio-button>
+      </p-one-radio>
+      <p-one-month-year-picker
+        [value]="dateFilter$ | async"
+        (change$)="setDateFilter($event)"
+      ></p-one-month-year-picker>
+    </div>
   </div>
   <div pOneFlexColumn gap="16px" style="padding: 16px">
-    <table class="table">
+    <table class="table table-sm table--fix-head">
       <thead>
         <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Category</th>
-          <th scope="col">Sub category</th>
-          <th scope="col">Value</th>
-          <th scope="col">Fees</th>
-          <th scope="col">Fine</th>
-          <th scope="col">Type</th>
-          <th scope="col">Recurrence</th>
+          <th scope="col">Nº Parcela</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Vencimento</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Sub categoria</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Juros</th>
+          <th scope="col">Multa</th>
+          <th scope="col">Tipo</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let entry of this.entries$ | async">
+          <td>({{ entry.index }}/{{ entry.recurrences }})</td>
           <td>{{ entry.title }}</td>
-          <td>{{ entry.category }}</td>
-          <td>{{ entry.subCategory }}</td>
+          <td>{{ entry.dueDate | date }}</td>
+          <td>{{ entry.category?.title }}</td>
+          <td>{{ entry.subCategory?.title }}</td>
           <td>{{ entry.value | currency: 'BRL' }}</td>
           <td>{{ entry.fees | number: '0.2-2' }}</td>
           <td>{{ entry.fine | number: '0.2-2' }}</td>
-          <td>{{ entry.type }}</td>
-          <td>{{ entry.recurrence }}</td>
+          <td [ngSwitch]="entry.type">
+            <i
+              *ngSwitchCase="EntryType.Debit"
+              class="bi bi-arrow-down text-danger"
+            >
+            </i>
+
+            <i
+              *ngSwitchCase="EntryType.Credit"
+              class="bi bi-arrow-up text-success"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>

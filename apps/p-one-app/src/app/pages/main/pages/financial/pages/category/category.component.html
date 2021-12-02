@@ -6,7 +6,7 @@
       pOneSidenavTrigger
       #sidenavTrigger="pOneSidenavTrigger"
     >
-      <i class="material-icons"> menu </i>
+      <i class="bi bi-list"></i>
     </button>
     <h2 i18n>Categorias</h2>
   </p-one-header>
@@ -44,6 +44,7 @@
           </th>
           <th scope="col">Nome</th>
           <th scope="col">Descrição</th>
+          <th scope="col">Tipo</th>
         </tr>
       </thead>
       <tbody>
@@ -79,6 +80,18 @@
           </td>
           <td>{{ category.name }}</td>
           <td>{{ category.description }}</td>
+          <td [ngSwitch]="category.type">
+            <i
+              *ngSwitchCase="EntryType.Debit"
+              class="bi bi-arrow-down-short text-danger"
+            >
+            </i>
+
+            <i
+              *ngSwitchCase="EntryType.Credit"
+              class="bi bi-arrow-up-short text-success"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EntryRecurrence, EntryValueDistribuition } from '@p-one/core';
-import { DestroyableMixin } from '@p-one/shared';
+import { DestroyableMixin, StepComponent } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -25,12 +25,12 @@ export class SecondStepComponent extends DestroyableMixin() implements OnInit {
     valueDistribuition: [EntryValueDistribuition.Repeat, Validators.required],
   });
 
-  public readonly recurrence$ = this._entryCreateFacade.recurrence$;
+  public readonly recurrence$ = this._facade.recurrence$;
   public readonly isRecurrenceNotOneTime$ = this.recurrence$.pipe(
     map((recurrence) => ![EntryRecurrence.OneTime].includes(recurrence))
   );
 
-  public readonly recurrences$ = this._entryCreateFacade.recurrences$;
+  public readonly recurrences$ = this._facade.recurrences$;
   public readonly isRecurrencesDisplayed$ = combineLatest([
     this.isRecurrenceNotOneTime$,
     this.recurrences$,
@@ -39,11 +39,24 @@ export class SecondStepComponent extends DestroyableMixin() implements OnInit {
       return isRecurrenceNotOneTime && recurrences?.length > 0;
     })
   );
-  
-  public readonly isSecondStepInvalid$ = this._entryCreateFacade.isSecondStepInvalid$;
+
+  public readonly isBuildingRecurrences$ = this._facade.isBuildingRecurrences$;
+  public readonly isSecondStepInvalid$ = this._facade.isSecondStepInvalid$;
+
+  public readonly isCreateButtonDisabled$ = combineLatest([
+    this.isSecondStepInvalid$,
+    this.isBuildingRecurrences$,
+  ]).pipe(
+    map(
+      ([isSecondStepInvalid, isBuildingRecurrences]) =>
+        isSecondStepInvalid || isBuildingRecurrences
+    )
+  );
+
   constructor(
     private readonly _formBuilder: FormBuilder,
-    private readonly _entryCreateFacade: EntryCreateFacade
+    private readonly _facade: EntryCreateFacade,
+    @Optional() private readonly _step: StepComponent
   ) {
     super();
   }
@@ -52,11 +65,19 @@ export class SecondStepComponent extends DestroyableMixin() implements OnInit {
     this.form.valueChanges
       .pipe(takeUntil(this.destroyed$), startWith(this.form.value))
       .subscribe((value) => {
-        this._entryCreateFacade.setSecondStepForm(value);
+        this._facade.setSecondStepForm(value);
       });
   }
 
   buildRecurrences(): void {
-    this._entryCreateFacade.buildRecurrences();
+    this._facade.buildRecurrences();
+  }
+
+  createEntry(): void {
+    this._facade.createEntry();
+  }
+
+  next() {
+    this._facade.buildRecurrences();
   }
 }

@@ -8,8 +8,8 @@
       <p-one-form-field>
         <label pOneLabel for="entryTypeSelect" i18n>Tipo</label>
         <select #entryTypeSelect class="form-control" formControlName="type">
-          <option [value]="EntryType.Credit">Crédito</option>
-          <option [value]="EntryType.Debit">Débito</option>
+          <option [ngValue]="EntryType.Credit">Crédito</option>
+          <option [ngValue]="EntryType.Debit">Débito</option>
         </select>
       </p-one-form-field>
     </div>
@@ -56,8 +56,13 @@
     </div>
   </div>
   <div class="card-footer">
-    <button class="btn btn-outline-primary" pOneStepperNext i18n>
-      Próximo
+    <button
+      class="btn btn-outline-primary"
+      [disabled]="isFirstStepInvalid$ | async"
+      pOneStepperNext
+      i18n
+    >
+      <ng-container> Continuar </ng-container>
     </button>
   </div>
 </section>

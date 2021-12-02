@@ -1,14 +1,16 @@
-import { EntryRecurrence } from '../enums/entry-recurrence.enum';
 import { EntryType } from '../enums/entry-type.enum';
+import { AutocompleteModel } from './autocomplete.model';
 
 export interface EntryModel {
   type: EntryType;
-  recurrence: EntryRecurrence;
+  recurrences: number;
   value: number;
   fees: number;
   fine: number;
   title: string;
+  index: number;
+  dueDate: Date;
   description: string;
-  category: string;
-  subCategory: string;
+  category: AutocompleteModel;
+  subCategory: AutocompleteModel;
 }

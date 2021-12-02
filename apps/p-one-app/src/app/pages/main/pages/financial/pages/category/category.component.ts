@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CategoryModel } from '@p-one/core';
+import { CategoryModel, EntryType } from '@p-one/core';
 import { DestroyableMixin, DialogService } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
@@ -18,6 +18,7 @@ export class CategoryComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
+  public readonly EntryType = EntryType;
   public readonly categories$ = this._facade.filtredPaginatedCategories$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly isAllFiltredCategoriesSelected$ =

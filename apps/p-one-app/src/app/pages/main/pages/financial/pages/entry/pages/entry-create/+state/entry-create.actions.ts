@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryModel, RecurrenceModel, SubCategoryModel } from '@p-one/core';
+import { CategoryModel, EntryType, RecurrenceModel, SubCategoryModel } from '@p-one/core';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';
@@ -24,12 +24,30 @@ export enum EEntryCreateActions {
   SET_FIRST_STEP_FORM = '[Entry Create] Set first step form',
   SET_SECOND_STEP_FORM = '[Entry Create] Set second step form',
 
+  CREATE_ENTRY = '[Entry Create] Create entry',
+  CREATE_ENTRY_SUCCESS = '[Entry Create] Create entry success',
+  CREATE_ENTRY_FAILURE = '[Entry Create] Create entry failure',
+
   RESET_STATE = '[Entry Create] Reset state',
 }
 
 export const resetState = createAction(EEntryCreateActions.RESET_STATE);
 
-export const loadCategories = createAction(EEntryCreateActions.LOAD_CATEGORIES);
+export const loadCategories = createAction(
+  EEntryCreateActions.LOAD_CATEGORIES,
+  props<{ targetType: EntryType }>()
+);
+
+export const createEntry = createAction(EEntryCreateActions.CREATE_ENTRY);
+
+export const createEntrySuccess = createAction(
+  EEntryCreateActions.CREATE_ENTRY_SUCCESS
+);
+
+export const createEntryFailure = createAction(
+  EEntryCreateActions.CREATE_ENTRY_FAILURE,
+  props<{ error: any }>()
+);
 
 export const loadCategoriesSuccess = createAction(
   EEntryCreateActions.LOAD_CATEGORIES_SUCCESS,
@@ -47,7 +65,8 @@ export const setCategoriesFilter = createAction(
 );
 
 export const loadSubCategories = createAction(
-  EEntryCreateActions.LOAD_SUB_CATEGORIES
+  EEntryCreateActions.LOAD_SUB_CATEGORIES,
+  props<{ categoryId: string }>()
 );
 
 export const loadSubCategoriesSuccess = createAction(
@@ -100,9 +119,9 @@ const actionsUnion = union({
   loadSubCategoriesFailure,
   setSubCategoriesFilter,
 
-  loadRecurrences: buildRecurrences,
-  loadRecurrencesSuccess: buildRecurrencesSuccess,
-  loadRecurrencesFailure: buildRecurrencesFailure,
+  buildRecurrences,
+  buildRecurrencesSuccess,
+  buildRecurrencesFailure,
 
   resetState,
 });

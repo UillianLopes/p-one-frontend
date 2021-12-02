@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
 import { FormControl, NgControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { DestroyableMixin } from '../@mixins/destroyable.mixin';
 @Directive({
   selector: '[pOneInput]',
   host: {
-    class: 'form-control',
+    '[class.form-control]': 'useFormControl',
   },
 })
 export class InputDirective
@@ -16,6 +16,9 @@ export class InputDirective
   implements OnDestroy, OnInit
 {
   invalid$?: Observable<boolean | undefined>;
+
+  @Input()
+  public useFormControl = true;
 
   get value(): any {
     if (this._ngControl) {

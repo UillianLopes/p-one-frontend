@@ -4,10 +4,34 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { CategoryModel, EntryFilter, EntryModel, RecurrenceModel, ResponseModel } from '../../../models';
+import { CategoryModel, EntryFilterRequest, EntryModel, RecurrenceModel, ResponseModel } from '../../../models';
 import { BuildEntryReccurrenceRequest } from '../../../models/requests/build-entry-recurrence.request';
+import { CreateEntryRequest } from '../../../models/requests/create-entry.request';
 import { ErrorModel } from '../../../models/responses/error.model';
 
+function cleanFilter(filter: any) {
+  if (!filter) {
+    return {};
+  }
+
+  const keys = Object.keys(filter);
+  let param = {};
+
+  for (let key of keys) {
+    if (filter[key] === undefined || filter[key] === null) {
+      continue;
+    }
+
+    param = {
+      ...param,
+      [key]: filter[key],
+    };
+  }
+
+  return {
+    ...param,
+  };
+}
 @Injectable()
 export class EntryService {
   constructor(
@@ -15,11 +39,11 @@ export class EntryService {
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
   ) {}
 
-  get(filter: Partial<EntryFilter>): Observable<EntryModel[]> {
+  get(filter: Partial<EntryFilterRequest>): Observable<EntryModel[]> {
     return this._httpClient
       .get<ResponseModel<EntryModel[]>>(`${this._financialApiUrl}/Entry`, {
         params: {
-          ...filter,
+          ...cleanFilter(filter),
         },
       })
       .pipe(
@@ -46,11 +70,11 @@ export class EntryService {
       );
   }
 
-  create(category: CategoryModel): Observable<CategoryModel> {
+  create(entry: CreateEntryRequest): Observable<EntryModel[]> {
     return this._httpClient
-      .post<ResponseModel<CategoryModel>>(
+      .post<ResponseModel<EntryModel[]>>(
         `${this._financialApiUrl}/Entry`,
-        category
+        entry
       )
       .pipe(
         map((resposne) => resposne.data),

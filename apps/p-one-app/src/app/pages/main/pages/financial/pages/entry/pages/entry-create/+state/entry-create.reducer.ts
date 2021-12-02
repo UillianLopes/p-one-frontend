@@ -4,22 +4,25 @@ import { CategoryModel, RecurrenceModel, SubCategoryModel } from '@p-one/core';
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';
 import {
-    buildRecurrencesSuccess,
-    loadCategoriesFailure,
-    loadCategoriesSuccess,
-    loadSubCategoriesFailure,
-    loadSubCategoriesSuccess,
-    resetState,
-    setCategoriesFilter,
-    setFirstStepForm,
-    setSecondStepForm,
-    setSubCategoriesFilter,
+  buildRecurrences,
+  buildRecurrencesFailure,
+  buildRecurrencesSuccess,
+  loadCategoriesFailure,
+  loadCategoriesSuccess,
+  loadSubCategoriesFailure,
+  loadSubCategoriesSuccess,
+  resetState,
+  setCategoriesFilter,
+  setFirstStepForm,
+  setSecondStepForm,
+  setSubCategoriesFilter,
 } from './entry-create.actions';
 
 export const ENTRY_CREATE_KEY = 'ENTRY_CREATE';
 
 export interface EntryCreateState {
   loading: boolean;
+  isBuildingRecurrences: boolean;
 
   subCategoriesFilter?: string;
   subCategories?: SubCategoryModel[];
@@ -37,6 +40,7 @@ export interface EntryCreateState {
 
 const initialState: EntryCreateState = {
   loading: false,
+  isBuildingRecurrences: false,
 };
 
 const _entryCreateReducer = createReducer<EntryCreateState>(
@@ -46,6 +50,7 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     return {
       ...state,
       categories,
+      subCategories: [],
     };
   }),
 
@@ -84,10 +89,26 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     };
   }),
 
+  on(buildRecurrences, (state) => {
+    return {
+      ...state,
+      isBuildingRecurrences: true,
+    };
+  }),
+
   on(buildRecurrencesSuccess, (state, { recurrences }) => {
     return {
       ...state,
       recurrences,
+      isBuildingRecurrences: false,
+    };
+  }),
+
+  on(buildRecurrencesFailure, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      isBuildingRecurrences: false,
     };
   }),
 
@@ -102,6 +123,7 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     return {
       ...state,
       secondStepForm,
+      recurrences: [],
     };
   }),
 

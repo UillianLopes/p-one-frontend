@@ -15,10 +15,17 @@ export class SubCategoryService {
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
   ) {}
 
-  get(): Observable<SubCategoryModel[]> {
+  get(categoryId?: string): Observable<SubCategoryModel[]> {
+    const params: any = {
+      categoryId,
+    };
+
     return this._httpClient
       .get<ResponseModel<SubCategoryModel[]>>(
-        `${this._financialApiUrl}/SubCategory`
+        `${this._financialApiUrl}/SubCategory`,
+        {
+          params,
+        }
       )
       .pipe(
         map((resposne) => resposne.data),

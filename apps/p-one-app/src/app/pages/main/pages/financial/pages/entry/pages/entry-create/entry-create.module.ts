@@ -14,17 +14,19 @@ import {
   POneSidenavModule,
   POneStepperModule,
 } from '@p-one/shared';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { EntryCreateEffects } from './+state/entry-create.effects';
 import { EntryCreateFacade } from './+state/entry-create.facade';
 import { ENTRY_CREATE_KEY, entryCreateReducer } from './+state/entry-create.reducer';
 import { FirstStepComponent } from './components/first-step/first-step.component';
+import { SecondStepComponent } from './components/second-step/second-step.component';
 import { EntryCreateComponent } from './entry-create.component';
 import { EntryCreateRoutingModule } from './entry-create.routing';
-import { SecondStepComponent } from './components/second-step/second-step.component';
+import { ThirdStepComponent } from './components/third-step/third-step.component';
 
 @NgModule({
-  declarations: [EntryCreateComponent, FirstStepComponent, SecondStepComponent],
+  declarations: [EntryCreateComponent, FirstStepComponent, SecondStepComponent, ThirdStepComponent],
   imports: [
     CommonModule,
     EntryCreateRoutingModule,
@@ -41,6 +43,7 @@ import { SecondStepComponent } from './components/second-step/second-step.compon
     POneInputModule,
     POneGridModule,
     NgbDatepickerModule,
+    NgxCurrencyModule,
   ],
   providers: [EntryCreateFacade],
 })

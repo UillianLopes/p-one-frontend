@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 
+import { EntryRecurrence } from '../../../../../../../../../../../../../libs/core/src';
 import { ENTRY_CREATE_KEY, EntryCreateState } from './entry-create.reducer';
 
 export const stateSelector =
@@ -69,10 +70,11 @@ export const isFirstStepInvalidSelector = createSelector(
   firstStepFormSelector,
   (form) =>
     !(
-      form &&
-      form.title &&
+      !!form &&
+      !!form.title &&
       form.title != '' &&
-      form.type &&
+      !!form.type &&
+      !!form.category &&
       typeof form.subCategory == 'object' &&
       typeof form.category == 'object'
     )
@@ -80,5 +82,20 @@ export const isFirstStepInvalidSelector = createSelector(
 
 export const isSecondStepInvalidSelector = createSelector(
   secondStepFormSelector,
-  (form) => !(form && form.dueDate && form.value)
+  recurrencesSelector,
+  (form, recurrences) => {
+    if (!(form && form.dueDate && form.value)) {
+      return true;
+    }
+
+    if (form.recurrence === EntryRecurrence.OneTime) {
+      return recurrences?.length > 0;
+    }
+
+    return recurrences?.length < 1;
+  }
+);
+export const isBuildingRecurrencesSelector = createSelector(
+  stateSelector,
+  (state) => state.isBuildingRecurrences
 );

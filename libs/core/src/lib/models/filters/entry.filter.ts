@@ -1,7 +1,12 @@
-import { PaginatedFilter } from './paginated.filter';
+import { CategoryModel, EntryType, SubCategoryModel } from '..';
 
-export interface EntryFilter extends PaginatedFilter {
-  text: string;
-  categoryIds: string[];
-  subCategoryIds: string[];
+export interface EntryFilter {
+  text?: string;
+  categories: CategoryModel[];
+  subCategories: SubCategoryModel[];
+  date: { month: number; year: number };
+  type?: EntryType;
+  minValue?: number;
+  maxValue?: number;
+  paymentStatus?: boolean;
 }

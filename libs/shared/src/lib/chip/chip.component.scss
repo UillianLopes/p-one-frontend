@@ -1,0 +1,14 @@
+:host {
+  display: inline-block;
+  padding-right: 8px;
+  &:last-child {
+    padding-right: 0px;
+  }
+}
+
+.p-one-chip {
+  display: block;
+  padding: 0px 8px;
+  border-radius: 20px;
+  background: var(--bs-gray-200);
+}

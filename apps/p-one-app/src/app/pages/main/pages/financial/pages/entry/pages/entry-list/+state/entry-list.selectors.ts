@@ -16,7 +16,26 @@ export const loadingSelector = createSelector(
 );
 
 export const filterSelector = createSelector(
-    stateSelector,
-    (state) => state.filter
-  );
-  
+  stateSelector,
+  (state) => state.filter
+);
+
+export const paginationSelector = createSelector(
+  stateSelector,
+  (state) => state.pagination
+);
+
+export const pageSelector = createSelector(
+  paginationSelector,
+  (state) => state.page
+);
+
+export const pageSizeSelector = createSelector(
+  paginationSelector,
+  (state) => state.pageSize
+);
+
+export const typeFilterSelecotr = createSelector(
+  filterSelector,
+  (filter) => filter.type
+);

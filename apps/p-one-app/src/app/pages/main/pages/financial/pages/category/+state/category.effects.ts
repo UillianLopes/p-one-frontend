@@ -66,7 +66,6 @@ export class CategoryEffects {
   readonly createCategorySucessEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ECategoryActions.CREATE_CATEGORY_SUCCESS),
-
       map((_) => closeCreateCategoryDialog()),
       tap(() => {
         this._toastService.open('Categoria criada com sucesso', {

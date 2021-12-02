@@ -1,23 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { EntryFilter, PaginatedFilter } from '@p-one/core';
 
-import { loadEntries, resetState } from './entry-list.actions';
+import { filterEntries, loadEntries, paginateEntries, patchEntriesFilter, resetState } from './entry-list.actions';
 import { EntryListState } from './entry-list.reducer';
 import * as EntryListSelector from './entry-list.selectors';
 
 @Injectable()
 export class EntryListFacade {
-  entries$ = this._store.select(EntryListSelector.entriesSelector);
-  isLoading$ = this._store.select(EntryListSelector.loadingSelector);
-  filter$ = this._store.select(EntryListSelector.filterSelector);
+  public readonly entries$ = this._store.select(EntryListSelector.entriesSelector);
+  public readonly isLoading$ = this._store.select(EntryListSelector.loadingSelector);
+  public readonly filter$ = this._store.select(EntryListSelector.filterSelector);
+  public readonly pagination$ = this._store.select(EntryListSelector.paginationSelector);
+  public readonly page$ = this._store.select(EntryListSelector.pageSelector);
+  public readonly pageSize$ = this._store.select(EntryListSelector.pageSizeSelector);
+
+  public readonly typeFilter$ = this._store.select(EntryListSelector.typeFilterSelecotr);
 
   constructor(private readonly _store: Store<EntryListState>) {}
 
-  loadEntries(): void {
+  public loadEntries(): void {
     this._store.dispatch(loadEntries());
   }
 
-  resetState(): void {
+  public paginateEntries(pagination: PaginatedFilter): void {
+    this._store.dispatch(
+      paginateEntries({
+        pagination,
+      })
+    );
+  }
+
+  public filterEntries(): void {
+    this._store.dispatch(filterEntries());
+  }
+
+  public patchEntriesFilter(filter: Partial<EntryFilter>): void {
+    this._store.dispatch(patchEntriesFilter({ filter }));
+  }
+
+  public resetState(): void {
     this._store.dispatch(resetState());
   }
 }

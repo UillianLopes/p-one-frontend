@@ -42,4 +42,9 @@ export * from './lib/dialog';
 export * from './lib/context-menu';
 
 export * from './lib/toast';
-export * from './lib/grid'
+export * from './lib/grid';
+
+export * from './lib/month-year-picker';
+export * from './lib/tooltip';
+export * from './lib/stepper/step/step.component';
+export * from './lib/chip';

@@ -1,0 +1,15 @@
+<div style="display: flex; flex-direction: column; gap: 8px">
+  <input
+    [useFormControl]="true"
+    [pOneAutocomplete]="autocomplete"
+    [formControl]="control"
+    [clearAfterSelect]="true"
+  />
+
+  <div>
+    <p-one-chip *ngFor="let chip of value$ | async">
+      {{ displayFn(chip) }}
+      <i class="bi bi-x-circle" (click)="remove(chip)"></i>
+    </p-one-chip>
+  </div>
+</div>
