@@ -9,9 +9,8 @@ import {
   loadEntriesFailure,
   loadEntriesSuccess,
   paginateEntries,
-  paginateEntriesFailure,
-  paginateEntriesSuccess,
   patchEntriesFilterSuccess,
+  removeFilter,
   resetState,
 } from './entry-list.actions';
 
@@ -25,6 +24,10 @@ export interface EntryListState {
 }
 const now = new Date();
 
+const initialPagination: PaginatedFilter = {
+  page: 1,
+  pageSize: 50,
+};
 const initialState: EntryListState = {
   loading: false,
   entries: [],
@@ -38,8 +41,7 @@ const initialState: EntryListState = {
   },
 
   pagination: {
-    page: 1,
-    pageSize: 50,
+    ...initialPagination,
   },
 };
 
@@ -66,6 +68,53 @@ const _entityListReducer = createReducer<EntryListState>(
     return { ...state, filter: { ...state.filter, ...filter } };
   }),
 
+  on(removeFilter, (state, { id }) => {
+    let filter = state.filter;
+
+    switch (id) {
+      case 'CATEGORY':
+        filter = {
+          ...filter,
+          categories: undefined,
+        };
+        break;
+
+      case 'SUB_CATEGORY':
+        filter = {
+          ...filter,
+          subCategories: undefined,
+        };
+        break;
+
+      case 'TEXT':
+        filter = {
+          ...filter,
+          text: undefined,
+        };
+        break;
+
+      case 'RANGE':
+        filter = {
+          ...filter,
+          minValue: undefined,
+          maxValue: undefined,
+        };
+
+        break;
+
+      default:
+        filter = {
+          ...filter,
+        };
+        break;
+    }
+
+    return {
+      ...state,
+      filter,
+    };
+  }),
+
   on(filterEntries, (state) => {
     return { ...state, loading: true };
   }),
@@ -75,19 +124,6 @@ const _entityListReducer = createReducer<EntryListState>(
   }),
 
   on(filterEntriesFailure, (state, { error }) => {
-    return { ...state, error, loading: false };
-  }),
-
-  on(paginateEntriesSuccess, (state, { pagination, entries }) => {
-    return {
-      ...state,
-      pagination,
-      entries: entries,
-      loading: false,
-    };
-  }),
-
-  on(paginateEntriesFailure, (state, { error }) => {
     return { ...state, error, loading: false };
   }),
 

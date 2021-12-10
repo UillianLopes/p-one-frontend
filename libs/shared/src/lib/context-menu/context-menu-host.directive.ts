@@ -10,6 +10,9 @@ import { CONTEXT_MENU_TEMPLATE } from './context-menu.constants';
 
 @Directive({
   selector: '[pOneContextMenuHost]',
+  host: {
+    class: 'p-one-context-menu-host'
+  }
 })
 export class ContextMenuHostDirective {
   private _overlayRef?: OverlayRef;

@@ -1,6 +1,3 @@
-<div style="padding: 40px">
-  <button class="btn btn-primary" (click)="zoom()">ZOOM</button>
-  <div style="width: 600px">
-    <p-one-stacked-bar-chart [data]="data$ | async" [zoom]="zoom$ | async"></p-one-stacked-bar-chart>
-  </div>
-</div>
+<ng-container *ngFor="let id of ['1', '2', '3']">
+  <p-one-list-item [itemId]="id"></p-one-list-item>
+</ng-container>

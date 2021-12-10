@@ -5,6 +5,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
+  POneBreadcrumbModule,
   POneContainerModule,
   POneContextMenuModule,
   POneDialogModule,
@@ -46,7 +47,8 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     POneContextMenuModule,
     POneFlexModule,
     NgbPaginationModule,
-    POneGridModule
+    POneGridModule,
+    POneBreadcrumbModule,
   ],
   providers: [CategoryFacade],
 })

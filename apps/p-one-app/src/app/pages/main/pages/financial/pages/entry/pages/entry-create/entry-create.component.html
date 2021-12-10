@@ -11,7 +11,17 @@
 
     <h2>Entradas</h2>
   </p-one-header>
-
+  <div pOneHeader class="p-one-entry-create__sub-header">
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item link="/main/financial">
+        Financeiro
+      </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item link="/main/financial/entries/list">
+        Entradas
+      </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item>Criar entrada</p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </div>
   <div pOneFlexColumn gap="16px" class="p-one-entry-create__panel">
     <p-one-stepper>
       <p-one-step [isInvalid]="isFirstStepInvalid$ | async">

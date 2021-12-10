@@ -11,19 +11,19 @@ import { CategoryFacade } from '../../+state/category.facade';
   styleUrls: ['./create-category-modal.component.scss'],
 })
 export class CreateCategoryModalComponent implements OnInit {
-  readonly EntryType = EntryType;
-  readonly form = this._formBuilder.group({
+  public readonly EntryType = EntryType;
+  public readonly form = this._formBuilder.group({
     name: ['', [Validators.required]],
     type: [EntryType.Credit, [Validators.required]],
     description: [''],
   });
 
-  readonly isCreateCategoryDisabled$ = this.form.statusChanges.pipe(
+  public readonly isCreateCategoryDisabled$ = this.form.statusChanges.pipe(
     startWith(this.form.status),
     map((status) => status === 'INVALID')
   );
-
-  readonly isLoading$ = this._facade.isLoading$;
+  
+  public readonly isLoading$ = this._facade.isLoading$;
 
   constructor(
     private readonly _formBuilder: FormBuilder,

@@ -81,18 +81,18 @@ const _categoryReducer = createReducer<CategoryState>(
     };
   }),
 
-  on(createCategorySuccess, (state, action) => {
+  on(createCategorySuccess, (state, { category }) => {
     return {
       ...state,
-      categories: [...state.categories, action.category],
+      categories: [...state.categories, category],
       loading: false,
     };
   }),
 
-  on(createCategoryFailure, (state, action) => {
+  on(createCategoryFailure, (state, { error }) => {
     return {
       ...state,
-      error: action.error,
+      error,
       loading: false,
     };
   }),

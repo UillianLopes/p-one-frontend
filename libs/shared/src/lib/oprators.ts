@@ -16,7 +16,7 @@ export function eventOutsideOverlay(
   overlayRef: OverlayRef,
   origin: HTMLElement
 ) {
-  return fromEvent<MouseEvent>(document, eventName).pipe(
+  return fromEvent<any>(document, eventName).pipe(
     filter((event) => {
       const clickTarget = event.target as HTMLElement;
 

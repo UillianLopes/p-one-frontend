@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import * as _ from 'lodash';
 import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../@mixins/destroyable.mixin';
-import { MonthYearPickerData, MonthYearPickerStore } from './month-year-picker.store';
+import { TooltipRef } from '../tooltip';
+import { MonthYearPickerData } from './@types';
+import { MonthYearPickerStore } from './month-year-picker.store';
 
 @Component({
   selector: 'p-one-month-year-picker',
@@ -23,6 +26,9 @@ export class MonthYearPickerComponent
   extends DestroyableMixin()
   implements ControlValueAccessor, OnInit
 {
+  public readonly now = new Date();
+  public readonly currentYear = this.now.getFullYear();
+
   public readonly value$ = this._store.value$;
   public readonly year$ = this._store.year$;
   public readonly month$ = this._store.month$;
@@ -42,13 +48,17 @@ export class MonthYearPickerComponent
     super();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.value) {
       this._store.setValue(this.value);
     }
 
     this.value$
-      .pipe(takeUntil(this.destroyed$), skip(1), distinctUntilChanged())
+      .pipe(
+        skip(1),
+        takeUntil(this.destroyed$),
+        distinctUntilChanged((a, b) => _.isEqual(a, b))
+      )
       .subscribe((value) => {
         if (this._onChanged) {
           this._onChanged(value);
@@ -57,30 +67,33 @@ export class MonthYearPickerComponent
         if (this._onTouched) {
           this._onTouched();
         }
+
+        this.change$.emit(value);
       });
   }
 
-  next(): void {
-    this._store.next((data) => {
-      this.change$.emit(data);
-    });
+  public setValue(value: MonthYearPickerData, tooltipRef: TooltipRef) {
+    this._store.setValue(value);
+    tooltipRef.close();
   }
 
-  previous(): void {
-    this._store.previous((data) => {
-      this.change$.emit(data);
-    });
+  public next(): void {
+    this._store.next();
   }
 
-  writeValue(obj: MonthYearPickerData): void {
+  public previous(): void {
+    this._store.previous();
+  }
+
+  public writeValue(obj: MonthYearPickerData): void {
     this._store.setValue(obj);
   }
 
-  registerOnChange(fn: any): void {
+  public registerOnChange(fn: any): void {
     this._onChanged = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
 }

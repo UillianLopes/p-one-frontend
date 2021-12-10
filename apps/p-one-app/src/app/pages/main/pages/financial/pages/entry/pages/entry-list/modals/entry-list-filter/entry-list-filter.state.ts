@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { CategoryModel, CategoryService, EntryFilter, SubCategoryModel, SubCategoryService } from '@p-one/core';
 import { combineLatest } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 export interface EntryListFilterState {
   categories: CategoryModel[];
@@ -13,8 +13,8 @@ export interface EntryListFilterState {
 
   error?: any;
 
-  loadingCategories?: boolean;
-  loadingSubCategories?: boolean;
+  isCategoriesLoading?: boolean;
+  isSubCategoriesLoading?: boolean;
 
   loading?: boolean;
 }
@@ -59,98 +59,114 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
     });
   }
 
-  public setFilter(filter: EntryFilter): void {
-    this.setState((state) => {
-      return {
-        ...state,
-        filter,
-      };
-    });
-  }
+  public readonly setFilter = this.updater((state, filter: EntryFilter) => {
+    return {
+      ...state,
+      filter,
+    };
+  });
 
-  public loadCategories(): void {
-    this.setState((state) => {
-      return {
-        ...state,
-        loadingCategories: true,
-      };
-    });
+  public readonly loadCategories = this.effect((event$) => {
+    return event$.pipe(
+      tap(() => this._setIsCategoriesLoading(true)),
+      switchMap(() =>
+        this._categoryService.get().pipe(
+          tap({
+            next: (categories) => this._loadCategoriesSuccess(categories),
+            error: (error) => this._loadCategoriesFailure(error),
+          })
+        )
+      )
+    );
+  });
 
-    this._categoryService.get().subscribe({
-      next: (categories) => this._loadCategoriesSuccess(categories),
-      error: (error) => this._loadCategoriesFailure(error),
-    });
-  }
+  public readonly loadSubCategories = this.effect((event$) => {
+    return event$.pipe(
+      tap(() => this._setIsSubCategoriesLoading(true)),
+      switchMap(() =>
+        this._subCategoryService.get().pipe(
+          tap({
+            next: (categories) => this._loadSubCategoriesSuccess(categories),
+            error: (error) => this._loadSubCategoriesFailure(error),
+          })
+        )
+      )
+    );
+  });
 
-  public loadSubCategories(): void {
-    this.setState((state) => {
-      return {
-        ...state,
-        loadingSubCategories: true,
-      };
-    });
-
-    this._subCategoryService.get().subscribe({
-      next: (subCategories) => this._loadSubCategoriesSuccess(subCategories),
-      error: (error) => this._loadSubCategoriesFailure(error),
-    });
-  }
-
-  public setCategoryFilter(categoryFilter: string) {
-    this.setState((state) => {
+  public readonly setCategoryFilter = this.updater(
+    (state, categoryFilter: string) => {
       return {
         ...state,
         categoryFilter,
       };
-    });
-  }
+    }
+  );
 
-  public setSubCategoryFilter(subCategoryFilter: string) {
-    this.setState((state) => {
+  public readonly setSubCategoryFilter = this.updater(
+    (state, subCategoryFilter: string) => {
       return {
         ...state,
         subCategoryFilter,
       };
-    });
-  }
+    }
+  );
 
-  private _loadCategoriesSuccess(categories: CategoryModel[]): void {
-    this.setState((state) => {
+  private readonly _loadCategoriesSuccess = this.updater(
+    (state, categories: CategoryModel[]) => {
       return {
         ...state,
         categories,
-        loadingCategories: false,
+        isCategoriesLoading: false,
       };
-    });
-  }
+    }
+  );
 
-  private _loadCategoriesFailure(error: any): void {
-    this.setState((state) => {
+  private readonly _loadCategoriesFailure = this.updater(
+    (state, error: any) => {
       return {
         ...state,
         error,
-        loadingCategories: false,
+        isCategoriesLoading: false,
       };
-    });
-  }
+    }
+  );
 
-  private _loadSubCategoriesSuccess(subCategories: SubCategoryModel[]): void {
-    this.setState((state) => {
+  private readonly _loadSubCategoriesSuccess = this.updater(
+    (state, subCategories: SubCategoryModel[]) => {
       return {
         ...state,
         subCategories,
-        loadingSubCategories: false,
+        isSubCategoriesLoading: false,
       };
-    });
-  }
+    }
+  );
 
-  private _loadSubCategoriesFailure(error: any): void {
-    this.setState((state) => {
+  private readonly _loadSubCategoriesFailure = this.updater(
+    (state, error: any) => {
       return {
         ...state,
         error,
-        loadingSubCategories: false,
+        isSubCategoriesLoading: false,
       };
-    });
-  }
+    }
+  );
+
+  private readonly _setIsCategoriesLoading = this.updater(
+    (state, isCategoriesLoading: boolean) => {
+      return {
+        ...state,
+        isCategoriesLoading,
+      };
+    }
+  );
+
+  private readonly _setIsSubCategoriesLoading = this.updater(
+    (state, isSubCategoriesLoading: boolean) => {
+      return {
+        ...state,
+        isSubCategoriesLoading,
+      };
+    }
+  );
 }

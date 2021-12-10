@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EntryType } from '@p-one/core';
-import { DestroyableMixin, DialogService } from '@p-one/shared';
+import { EntryModel, EntryType } from '@p-one/core';
+import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
 import { map, take } from 'rxjs/operators';
 
 import { EntryListFacade } from './+state/entry-list.facade';
@@ -18,6 +18,7 @@ export class EntryListComponent
   public readonly EntryType = EntryType;
   public readonly entries$ = this._facade.entries$;
   public readonly isLoading$ = this._facade.isLoading$;
+  public readonly filterToDisplay$ = this._facade.filterToDisplay$;
 
   public readonly filter$ = this._facade.filter$;
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
@@ -32,7 +33,7 @@ export class EntryListComponent
 
   openEntryListFilterDialog(): void {
     this._facade.filter$.pipe(take(1)).subscribe((filter) => {
-      const { dialogRef } = this._dialogService.open(
+      const dialogRef = this._dialogService.open(
         EntryListFilterComponent,
         { minWidth: '700px' },
         filter
@@ -50,6 +51,10 @@ export class EntryListComponent
     this._facade.resetState();
   }
 
+  remove({ id }: FilterDisplayData): void {
+    this._facade.removeFilter(id);
+  }
+
   setTypeFilter(type?: EntryType): void {
     this._facade.patchEntriesFilter({
       type,
@@ -62,6 +67,10 @@ export class EntryListComponent
         ...date,
       },
     });
+  }
+
+  openDeleteEntryDialog(entry: EntryModel): void {
+    this._facade.openDeleteEntriesDialog(entry);
   }
 
   ngOnInit(): void {

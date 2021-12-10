@@ -10,7 +10,19 @@
     </button>
     <h2>Entradas</h2>
   </p-one-header>
-  <div pOneHeader class="p-one-entry__sub-header">
+  <div pOneHeader class="p-one-entry-list__sub-header">
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item link="/main/financial">
+        Financeiro
+      </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item>Entradas</p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+    <p-one-filter-display
+      [data]="filterToDisplay$ | async"
+      (removed$)="remove($event)"
+    ></p-one-filter-display>
+  </div>
+  <div pOneHeader class="p-one-entry-list__sub-header">
     <button
       class="btn btn-primary btn-sm"
       routerLink="/main/financial/entries/create"
@@ -25,6 +37,10 @@
       >
         Abrir filtro completo
       </button>
+      <p-one-month-year-picker
+        [value]="dateFilter$ | async"
+        (change$)="setDateFilter($event)"
+      ></p-one-month-year-picker>
       <p-one-radio
         appearance="outline"
         color="secondary"
@@ -41,14 +57,11 @@
           <i class="bi bi-arrow-down text-danger"> </i>
         </p-one-radio-button>
       </p-one-radio>
-      <p-one-month-year-picker
-        [value]="dateFilter$ | async"
-        (change$)="setDateFilter($event)"
-      ></p-one-month-year-picker>
     </div>
   </div>
+
   <div pOneFlexColumn gap="16px" style="padding: 16px">
-    <table class="table table-sm table--fix-head">
+    <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
           <th scope="col">Nº Parcela</th>
@@ -63,7 +76,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of this.entries$ | async">
+        <tr
+          *ngFor="let entry of this.entries$ | async"
+          [pOneContextMenuHost]="contextMenuTemplate"
+        >
+          <ng-template #contextMenuTemplate>
+            <div pOneFlexRow gap="8px" class="p-one-entry-list__context-menu">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="openDeleteEntryDialog(entry)"
+              >
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+          </ng-template>
           <td>({{ entry.index }}/{{ entry.recurrences }})</td>
           <td>{{ entry.title }}</td>
           <td>{{ entry.dueDate | date }}</td>

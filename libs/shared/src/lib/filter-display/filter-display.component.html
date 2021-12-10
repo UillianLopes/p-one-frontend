@@ -1,8 +1,16 @@
-<ng-content select="p-one-filter-display-badge"></ng-content>
 <ng-container *ngIf="this.data$ | async as data">
-  <p-one-filter-display-badge
-    *ngFor="let item of data"
-    [value]="item.value"
-    [name]="item.name"
-  ></p-one-filter-display-badge>
+  <ng-container *ngFor="let item of data">
+    <ng-template #template>
+      {{ item.value }}
+    </ng-template>
+    <p-one-chip [pOneTooltip]="template" trigger="hover">
+      <div class="p-one-filter-display__row">
+        <b>{{ item.name }}: </b>
+        <div class="p-one-filter-display__badge">
+          {{ item.value }}
+        </div>
+        <i class="bi bi-x-circle" (click)="remove(item)"></i>
+      </div>
+    </p-one-chip>
+  </ng-container>
 </ng-container>

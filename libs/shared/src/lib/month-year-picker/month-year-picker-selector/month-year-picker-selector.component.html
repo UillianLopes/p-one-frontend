@@ -1,0 +1,100 @@
+<div
+  [ngSwitch]="mode$ | async"
+  class="p-one-month-year-picker-selector__selector"
+>
+  <ng-container *ngSwitchCase="MonthYearPickerMode.month">
+    <div class="btn-group">
+      <button
+        class="
+          btn btn-sm btn-outline-secondary
+          p-one-month-year-picker-selector__action
+        "
+        (click)="previousYear()"
+      >
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        (click)="setMode(MonthYearPickerMode.year); $event.stopPropagation()"
+      >
+        <b>{{ year$ | async }}</b>
+      </button>
+      <button
+        class="
+          btn btn-sm btn-outline-secondary
+          p-one-month-year-picker-selector__action
+        "
+        (click)="nextYear()"
+      >
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+    <div
+      class="p-one-month-year-picker-selector__months"
+      *ngIf="month$ | async as currentMonth"
+    >
+      <div
+        *ngFor="let month of months"
+        class="p-one-month-year-picker-selector__selection"
+        [class.p-one-month-year-picker-selector__selection--active]="
+          month.value === currentMonth
+        "
+        (click)="setMonth(month.value)"
+      >
+        {{ month.reference | date: 'MMM' | titlecase }}
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="MonthYearPickerMode.year">
+    <div class="btn-group">
+      <button
+        class="
+          btn btn-sm btn-outline-secondary
+          p-one-month-year-picker-selector__action
+        "
+        (click)="previousMonth()"
+      >
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        (click)="setMode(MonthYearPickerMode.month); $event.stopPropagation()"
+      >
+        <b>{{ monthToDisplay$ | async | date: 'MMMM' | titlecase }}</b>
+      </button>
+      <button
+        class="
+          btn btn-sm btn-outline-secondary
+          p-one-month-year-picker-selector__action
+        "
+        (click)="nextMonth()"
+      >
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+    <div
+      class="p-one-month-year-picker-selector__months"
+      *ngIf="year$ | async as currentYear"
+    >
+      <div
+        *ngFor="let year of years"
+        class="p-one-month-year-picker-selector__selection"
+        [class.p-one-month-year-picker-selector__selection--active]="
+          year === currentYear
+        "
+        (click)="setYear(year)"
+      >
+        {{ year }}
+      </div>
+    </div>
+  </ng-container>
+  <div pOneFlexRow justification="flex-end">
+    <button
+      class="btn btn-sm btn-outline-secondary"
+      (click)="this.confirm()"
+      i18n
+    >
+      Confirmar
+    </button>
+  </div>
+</div>

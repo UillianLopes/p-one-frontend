@@ -1,0 +1,24 @@
+<ng-content select="p-one-breadcrumb-item"></ng-content>
+<ng-container *ngIf="items$">
+  <ul class="p-one-breadcrumb">
+    <ng-container *ngFor="let item of items$ | async; last as last">
+      <li
+        class="p-one-breadcrumb__item"
+        [class.p-one-breadcrumb__item--last]="last"
+      >
+        <a
+          *ngIf="item.link as link; else withoutLinkTemplate"
+          [routerLink]="link"
+        >
+          <ng-container [ngTemplateOutlet]="item.template"></ng-container>
+        </a>
+        <ng-template #withoutLinkTemplate>
+          <span>
+            <ng-container [ngTemplateOutlet]="item.template"></ng-container>
+          </span>
+        </ng-template>
+        <i class="bi bi-chevron-right" *ngIf="!last"></i>
+      </li>
+    </ng-container>
+  </ul>
+</ng-container>

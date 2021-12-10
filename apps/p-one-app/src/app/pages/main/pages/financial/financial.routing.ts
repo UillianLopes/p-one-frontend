@@ -32,6 +32,11 @@ const routes: Routes = [
             (m) => m.SubCategoryModule
           ),
       },
+      {
+        path: 'balances',
+        loadChildren: () =>
+          import('./pages/balance/balance.module').then((m) => m.BalanceModule),
+      },
     ],
   },
 ];

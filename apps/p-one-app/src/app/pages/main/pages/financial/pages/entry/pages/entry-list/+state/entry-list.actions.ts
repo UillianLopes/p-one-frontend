@@ -8,14 +8,18 @@ export enum EEntryListActions {
 
   PATCH_ENTRIES_FILTER = '[Entry List] Patch entries filter',
   PATCH_ENTRIES_FILTER_SUCCESS = '[Entry List] Patch entries filter success',
-  
+
   FILTER_ENTRIES = '[Entry List] Filter entries',
   FILTER_ENTRIES_SUCCESS = '[Entry List] Filter entries success',
   FILTER_ENTRIES_FAILURE = '[Entry List] Filter entries failure',
 
+  REMOVE_FILTER = '[Entry List] Remove filter',
+
   PAGINATE_ENTRIES = '[Entry List] Paginate entries',
   PAGINATE_ENTRIES_SUCCESS = '[Entry List] Paginate entries success',
   PAGINATE_ENTRIES_FAILURE = '[Entry List] Paginate entries fail',
+
+  OPEN_DELETE_ENTRIES_DIALOG = '[Entry List] Open delete entries dialog',
 
   RESET_STATE = '[Entry List] Reset state',
 }
@@ -29,6 +33,16 @@ export const loadEntriesSuccess = createAction(
 export const loadEntriesFailure = createAction(
   EEntryListActions.LAOD_ENTRIES_FAILURE,
   props<{ error: any }>()
+);
+
+export const removeFilter = createAction(
+  EEntryListActions.REMOVE_FILTER,
+  props<{ id: string }>()
+);
+
+export const openDeleteEntriesDialog = createAction(
+  EEntryListActions.OPEN_DELETE_ENTRIES_DIALOG,
+  props<{ entry?: EntryModel }>()
 );
 
 export const paginateEntries = createAction(
@@ -57,7 +71,6 @@ export const patchEntriesFilterSuccess = createAction(
   props<{ filter: Partial<EntryFilter> }>()
 );
 
-
 export const filterEntriesSuccess = createAction(
   EEntryListActions.FILTER_ENTRIES_SUCCESS,
   props<{ entries: EntryModel[] }>()
@@ -83,6 +96,8 @@ const actionsUnion = union({
   filterEntries,
   filterEntriesSuccess,
   filterEntriesFailure,
+
+  openDeleteEntriesDialog,
 
   resetState,
 });

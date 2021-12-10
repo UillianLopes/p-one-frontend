@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { FilterDisplayBadgeComponent } from './filter-display-badge/filter-display-badge.component';
+import { POneChipModule } from '../chip';
+import { POneTooltipModule } from '../tooltip';
 import { FilterDisplayComponent } from './filter-display.component';
 
 @NgModule({
-  declarations: [FilterDisplayComponent, FilterDisplayBadgeComponent],
-  imports: [CommonModule],
-  exports: [FilterDisplayComponent, FilterDisplayBadgeComponent],
+  declarations: [FilterDisplayComponent],
+  imports: [CommonModule, POneChipModule, POneTooltipModule],
+  exports: [FilterDisplayComponent],
 })
 export class POneFilterDisplayModule {}

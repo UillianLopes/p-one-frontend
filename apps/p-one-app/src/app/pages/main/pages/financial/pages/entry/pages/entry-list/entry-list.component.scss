@@ -1,4 +1,4 @@
-.p-one-entry {
+.p-one-entry-list {
   &__sub-header {
     padding: 8px 16px;
     border-bottom: 1px solid var(--bs-gray-200);
@@ -6,5 +6,15 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  &__context-menu {
+    padding: 8px;
+    background: white;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border: 1px solid #e6e6e6;
+    border-top: none;
   }
 }

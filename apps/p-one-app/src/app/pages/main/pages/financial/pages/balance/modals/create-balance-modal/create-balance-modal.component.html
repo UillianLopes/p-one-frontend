@@ -1,0 +1,87 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">Criação de contas / cateiras</h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <p-one-form-field>
+        <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
+          <p-one-radio-button [value]="ECreateBalanceModalMode.balance">
+            Conta bancária
+          </p-one-radio-button>
+          <p-one-radio-button [value]="ECreateBalanceModalMode.wallet">
+            Carteira digital
+          </p-one-radio-button>
+        </p-one-radio>
+      </p-one-form-field>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel for="nameInput" i18n>Name</label>
+          <input
+            #categoryNameInput
+            pOneInput
+            placeholder="Digite o nome da conta ou carteira"
+            formControlName="nameInput"
+            i18n-placehoder
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="200px">
+          <label pOneLabel for="valueInput" i18n>Valor</label>
+          <input
+            #valueInput
+            pOneInput
+            placeholder="R$ 0,00"
+            formControlName="value"
+            type="tel"
+            currencyMask
+          />
+        </p-one-form-field>
+      </div>
+
+      <ng-container *ngIf="(mode$ | async) === ECreateBalanceModalMode.balance">
+        <p-one-form-field>
+          <label pOneLabel for="agencyInput" i18n>Instituição</label>
+          <input
+            #agencyInput
+            pOneInput
+            placeholder="Digite o nome da instituição"
+            formControlName="instituition"
+            type="text"
+          />
+        </p-one-form-field>
+        <div pOneGrid gap="16px">
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="agencyInput" i18n>Agência</label>
+            <input
+              #agencyInput
+              pOneInput
+              placeholder="Digite o nome da conta"
+              formControlName="agency"
+              type="tel"
+            />
+          </p-one-form-field>
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="numberInput" i18n>Conta</label>
+            <input
+              #numberInput
+              pOneInput
+              placeholder="Digite o numero da conta"
+              formControlName="number"
+              type="tel"
+            />
+          </p-one-form-field>
+        </div>
+      </ng-container>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isCreateBalanceEnabled$ | async"
+      (click)="this.createBalance()"
+    >
+      Criar conta / carteira
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

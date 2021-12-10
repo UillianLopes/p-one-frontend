@@ -48,3 +48,4 @@ export * from './lib/month-year-picker';
 export * from './lib/tooltip';
 export * from './lib/stepper/step/step.component';
 export * from './lib/chip';
+export * from './lib/breadcrumb';

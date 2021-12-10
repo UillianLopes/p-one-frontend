@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { FilterDisplayData } from '@p-one/shared';
 
 import { ENTRY_LIST_KEY, EntryListState } from './entry-list.reducer';
 
@@ -17,7 +18,7 @@ export const loadingSelector = createSelector(
 
 export const filterSelector = createSelector(
   stateSelector,
-  (state) => state.filter
+  (state) => state.filter ?? {}
 );
 
 export const paginationSelector = createSelector(
@@ -38,4 +39,57 @@ export const pageSizeSelector = createSelector(
 export const typeFilterSelecotr = createSelector(
   filterSelector,
   (filter) => filter.type
+);
+
+export const filterToDisplaySelector = createSelector(
+  filterSelector,
+  ({ categories, subCategories, text, minValue, maxValue }) => {
+    let data: FilterDisplayData[] = [];
+
+    if (categories && categories.length > 0) {
+      data = [
+        ...data,
+        {
+          id: 'CATEGORY',
+          name: 'Categorias',
+          value: categories.map((c) => c.name),
+        },
+      ];
+    }
+
+    if (subCategories && subCategories.length > 0) {
+      data = [
+        ...data,
+        {
+          id: 'SUB_CATEGORY',
+          name: 'Sub categorias',
+          value: subCategories.map((c) => c.name),
+        },
+      ];
+    }
+
+    if (minValue || maxValue) {
+      data = [
+        ...data,
+        {
+          id: 'RANGE',
+          name: 'Range',
+          value: `${minValue ?? '~'} a ${maxValue ?? '~'}`,
+        },
+      ];
+    }
+
+    if (text) {
+      data = [
+        ...data,
+        {
+          id: 'TEXT',
+          name: 'Texto',
+          value: text,
+        },
+      ];
+    }
+
+    return data;
+  }
 );

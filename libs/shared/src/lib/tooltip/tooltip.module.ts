@@ -7,6 +7,6 @@ import { TooltipDirective } from './tooltip.directive';
 @NgModule({
   declarations: [TooltipComponent, TooltipDirective],
   imports: [CommonModule],
-  exports: [TooltipComponent, TooltipDirective],
+  exports: [TooltipDirective],
 })
 export class POneTooltipModule {}

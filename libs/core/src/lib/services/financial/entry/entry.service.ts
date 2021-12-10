@@ -84,9 +84,9 @@ export class EntryService {
       );
   }
 
-  update(id: string, category: CategoryModel): Observable<CategoryModel> {
+  update(id: string, category: CategoryModel): Observable<EntryModel> {
     return this._httpClient
-      .put<ResponseModel<CategoryModel>>(
+      .put<ResponseModel<EntryModel>>(
         `${this._financialApiUrl}/Entry/${id}`,
         category
       )
@@ -98,9 +98,9 @@ export class EntryService {
       );
   }
 
-  delete(categoryId: string): Observable<CategoryModel> {
+  delete(categoryId: string): Observable<EntryModel> {
     return this._httpClient
-      .delete<ResponseModel<CategoryModel>>(
+      .delete<ResponseModel<EntryModel>>(
         `${this._financialApiUrl}/Entry/${categoryId}`
       )
       .pipe(
@@ -111,11 +111,11 @@ export class EntryService {
       );
   }
 
-  deleteMultiple(categoryIds: string[]): Observable<CategoryModel> {
+  deleteMultiple(ids: string[]): Observable<EntryModel> {
     return this._httpClient
-      .delete<ResponseModel<CategoryModel>>(`${this._financialApiUrl}/Entry`, {
+      .delete<ResponseModel<EntryModel>>(`${this._financialApiUrl}/Entry`, {
         params: {
-          ids: categoryIds,
+          ids,
         },
       })
       .pipe(

@@ -13,54 +13,9 @@
   </button>
 </div>
 
-<ng-template #tooltipTemplate>
-  <p-one-tooltip>
-    <div style="display: flex; flex-direction: column">
-      <input
-        type="text"
-        class="form-control mb-2"
-        placeholder="year"
-        style="max-width: 100px"
-      />
-
-      <div class="btn-group-vertical">
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-01-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-02-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-03-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-04-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-05-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-06-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-07-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-08-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-09-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-10-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-11-01' | date: 'MMMM' | titlecase }}
-        </button>
-        <button class="btn btn-primary btn-sm">
-          {{ '0001-12-01' | date: 'MMMM' | titlecase }}
-        </button>
-      </div>
-    </div>
-  </p-one-tooltip>
+<ng-template #tooltipTemplate let-tooltipRef>
+  <p-one-month-year-picker-selector
+    [value]="value$ | async"
+    (change$)="setValue($event, tooltipRef)"
+  ></p-one-month-year-picker-selector>
 </ng-template>

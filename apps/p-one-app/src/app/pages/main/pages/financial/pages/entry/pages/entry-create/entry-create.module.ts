@@ -5,6 +5,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
+  POneBreadcrumbModule,
   POneContainerModule,
   POneFilterDisplayModule,
   POneFlexModule,
@@ -21,12 +22,17 @@ import { EntryCreateFacade } from './+state/entry-create.facade';
 import { ENTRY_CREATE_KEY, entryCreateReducer } from './+state/entry-create.reducer';
 import { FirstStepComponent } from './components/first-step/first-step.component';
 import { SecondStepComponent } from './components/second-step/second-step.component';
+import { ThirdStepComponent } from './components/third-step/third-step.component';
 import { EntryCreateComponent } from './entry-create.component';
 import { EntryCreateRoutingModule } from './entry-create.routing';
-import { ThirdStepComponent } from './components/third-step/third-step.component';
 
 @NgModule({
-  declarations: [EntryCreateComponent, FirstStepComponent, SecondStepComponent, ThirdStepComponent],
+  declarations: [
+    EntryCreateComponent,
+    FirstStepComponent,
+    SecondStepComponent,
+    ThirdStepComponent,
+  ],
   imports: [
     CommonModule,
     EntryCreateRoutingModule,
@@ -44,6 +50,7 @@ import { ThirdStepComponent } from './components/third-step/third-step.component
     POneGridModule,
     NgbDatepickerModule,
     NgxCurrencyModule,
+    POneBreadcrumbModule,
   ],
   providers: [EntryCreateFacade],
 })

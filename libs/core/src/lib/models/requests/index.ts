@@ -5,3 +5,4 @@ export * from './create-sub-category.request';
 export * from './update-sub-category.request';
 export * from './update-category.request';
 export * from './entry-filter.request';
+export * from './create-balance.request'

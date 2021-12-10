@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { map } from 'rxjs/operators';
 
-export interface MonthYearPickerData {
-  month: number;
-  year: number;
+import { MonthYearPickerData } from './@types';
+
+export enum MonthYearPickerSelectionMode {
+  year,
+  month,
 }
 
 export interface MonthYearPickerState {
@@ -14,8 +16,8 @@ export interface MonthYearPickerState {
 @Injectable()
 export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
   public readonly value$ = this.select((s) => s.value);
-  public readonly year$ = this.value$.pipe(map((d) => d.year));
-  public readonly month$ = this.value$.pipe(map((d) => d.month));
+  public readonly year$ = this.value$.pipe(map((v) => v.year));
+  public readonly month$ = this.value$.pipe(map((v) => v.month));
 
   constructor() {
     super({
@@ -26,7 +28,7 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     });
   }
 
-  public next(afterUpdateCallback?: (v: MonthYearPickerData) => void): void {
+  public next(): void {
     this.setState((state) => {
       let { year, month } = state.value;
 
@@ -41,10 +43,6 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
         month,
       };
 
-      if (afterUpdateCallback) {
-        afterUpdateCallback(value);
-      }
-
       return {
         ...state,
         value: value,
@@ -52,9 +50,7 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     });
   }
 
-  public previous(
-    afterUpdateCallback?: (v: MonthYearPickerData) => void
-  ): void {
+  public previous(): void {
     this.setState((state) => {
       let { year, month } = state.value;
 
@@ -68,10 +64,6 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
         year,
         month,
       };
-      
-      if (afterUpdateCallback) {
-        afterUpdateCallback(value);
-      }
 
       return {
         ...state,
@@ -84,9 +76,7 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     this.setState((state) => {
       return {
         ...state,
-        value: {
-          ...value,
-        },
+        value,
       };
     });
   }

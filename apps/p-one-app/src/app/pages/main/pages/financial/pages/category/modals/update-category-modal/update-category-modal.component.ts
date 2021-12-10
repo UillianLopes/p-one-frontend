@@ -34,11 +34,10 @@ export class UpdateCategoryModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('CATEGORY -> ', this._category);
+    
   }
 
   updateCategory(): void {
-    console.log('CATEGORY -> ', this.form.value);
     this._facade.updateCategory(this.form.value);
   }
 }

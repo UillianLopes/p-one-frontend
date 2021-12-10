@@ -1,7 +1,21 @@
 :host {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
+  display: block;
+}
+
+.p-one-filter-display {
+  &__badge {
+    display: block;
+    overflow: hidden;
+    max-width: 125px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
 }

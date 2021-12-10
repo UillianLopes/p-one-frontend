@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FilterDisplayData } from './filter-display.data';
@@ -10,7 +10,10 @@ import { FilterDisplayData } from './filter-display.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterDisplayComponent implements OnInit {
-  readonly data$ = new BehaviorSubject<FilterDisplayData[]>([]);
+  public readonly data$ = new BehaviorSubject<FilterDisplayData[]>([]);
+
+  @Output()
+  public readonly removed$ = new EventEmitter<FilterDisplayData>();
 
   @Input()
   set data(v: FilterDisplayData[]) {
@@ -20,4 +23,8 @@ export class FilterDisplayComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  remove(item: FilterDisplayData) {
+    this.removed$.emit(item);
+  }
 }

@@ -4,7 +4,10 @@ import { Subject } from 'rxjs';
 export class DialogRef {
   public readonly afterClosed$ = new Subject<any>();
 
-  constructor(private readonly _overlayRef: OverlayRef) {}
+  constructor(
+    private readonly _overlayRef: OverlayRef,
+    public readonly dialogId: string
+  ) {}
 
   close(data?: any): void {
     this._overlayRef.detach();

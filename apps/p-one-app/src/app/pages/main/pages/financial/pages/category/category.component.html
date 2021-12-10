@@ -10,7 +10,14 @@
     </button>
     <h2 i18n>Categorias</h2>
   </p-one-header>
-
+  <div pOneHeader class="p-one-category__sub-header">
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item link="/main/financial">
+        Financeiro
+      </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item> Categorias </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </div>
   <div pOneHeader class="p-one-category__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateCategoryDialog()">
       Criar categoria

@@ -1,3 +1,11 @@
 <div class="p-one-tooltip">
-  <ng-content></ng-content>
+  <ng-container *ngIf="data">
+    {{ data }}
+  </ng-container>
+  <ng-container *ngIf="template">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: this.tooltipRef }"
+    ></ng-container>
+  </ng-container>
 </div>
