@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { EntryRecurrence, EntryValueDistribuition } from '@p-one/core';
+import { EEntryRecurrence, EEntryValueDistribuition } from '@p-one/core';
 import { DestroyableMixin, StepComponent } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
@@ -13,21 +13,28 @@ import { EntryCreateFacade } from '../../+state/entry-create.facade';
   styleUrls: ['./second-step.component.scss'],
 })
 export class SecondStepComponent extends DestroyableMixin() implements OnInit {
-  readonly EntryRecurrence = EntryRecurrence;
-  readonly EntryValueDistribuitioin = EntryValueDistribuition;
+  readonly EntryRecurrence = EEntryRecurrence;
+  readonly EntryValueDistribuitioin = EEntryValueDistribuition;
+  private readonly now = new Date();
   readonly form = this._formBuilder.group({
     value: [0.01, [Validators.required, Validators.min(0.01)]],
-    dueDate: [null, [Validators.required]],
-    recurrence: [EntryRecurrence.OneTime, [Validators.required]],
+    dueDate: [this.now, [Validators.required]],
+    recurrence: [EEntryRecurrence.OneTime, [Validators.required]],
     day: [1, Validators.required],
     intervalInDays: [30, [Validators.min(1), Validators.max(31)]],
     times: [1, Validators.required],
-    valueDistribuition: [EntryValueDistribuition.Repeat, Validators.required],
+    valueDistribuition: [EEntryValueDistribuition.Repeat, Validators.required],
+    barCode: [],
   });
 
   public readonly recurrence$ = this._facade.recurrence$;
+  public readonly isLoading$ = this._facade.isLoading$;
   public readonly isRecurrenceNotOneTime$ = this.recurrence$.pipe(
-    map((recurrence) => ![EntryRecurrence.OneTime].includes(recurrence))
+    map((recurrence) => ![EEntryRecurrence.OneTime].includes(recurrence))
+  );
+
+  public readonly isRecurrenceOneTime$ = this.isRecurrenceNotOneTime$.pipe(
+    map((isRecurrenceNotOneTime) => !isRecurrenceNotOneTime)
   );
 
   public readonly recurrences$ = this._facade.recurrences$;
@@ -46,10 +53,11 @@ export class SecondStepComponent extends DestroyableMixin() implements OnInit {
   public readonly isCreateButtonDisabled$ = combineLatest([
     this.isSecondStepInvalid$,
     this.isBuildingRecurrences$,
+    this.isLoading$,
   ]).pipe(
     map(
-      ([isSecondStepInvalid, isBuildingRecurrences]) =>
-        isSecondStepInvalid || isBuildingRecurrences
+      ([isSecondStepInvalid, isBuildingRecurrences, isLoading]) =>
+        isLoading || isSecondStepInvalid || isBuildingRecurrences
     )
   );
 

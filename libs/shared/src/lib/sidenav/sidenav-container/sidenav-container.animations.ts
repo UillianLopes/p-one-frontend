@@ -8,6 +8,7 @@ export const sidenavContainerContentPaddingAnimation = trigger(
     state('OPENED', style({ 'padding-left': '{{sidenavWidth}}px' }), {
       params: { sidenavWidth: '56' },
     }),
+
     state('CLOSED', style({ 'padding-left': '56px' })),
 
     transition('OPENED => CLOSED', animate('.2s linear')),

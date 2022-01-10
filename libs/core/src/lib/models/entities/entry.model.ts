@@ -1,9 +1,9 @@
-import { EntryType } from '../enums/entry-type.enum';
+import { EEntryType } from '../enums/entry-type.enum';
 import { AutocompleteModel } from './autocomplete.model';
 
 export interface EntryModel {
   id: string;
-  type: EntryType;
+  type: EEntryType;
   recurrences: number;
   value: number;
   fees: number;
@@ -14,4 +14,5 @@ export interface EntryModel {
   description: string;
   category: AutocompleteModel;
   subCategory: AutocompleteModel;
+  barCode: string;
 }

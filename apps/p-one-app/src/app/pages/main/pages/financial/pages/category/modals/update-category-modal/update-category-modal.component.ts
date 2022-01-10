@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EntryType } from '@p-one/core';
+import { CategoryModel, EEntryType } from '@p-one/core';
 import { PONE_DIALOG_DATA } from '@p-one/shared';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { CategoryFacade } from '../../+state/category.facade';
   styleUrls: ['./update-category-modal.component.scss'],
 })
 export class UpdateCategoryModalComponent implements OnInit {
-  readonly EntryType = EntryType;
+  readonly EntryType = EEntryType;
   readonly form = this._formBuilder.group({
     id: [this._category.id, Validators.required],
     name: [this._category.name, [Validators.required]],

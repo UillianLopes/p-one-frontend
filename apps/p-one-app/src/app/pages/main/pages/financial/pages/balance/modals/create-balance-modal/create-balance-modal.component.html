@@ -4,10 +4,10 @@
     <form [formGroup]="this.form">
       <p-one-form-field>
         <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
-          <p-one-radio-button [value]="ECreateBalanceModalMode.balance">
+          <p-one-radio-button [value]="EBalanceType.balance">
             Conta bancária
           </p-one-radio-button>
-          <p-one-radio-button [value]="ECreateBalanceModalMode.wallet">
+          <p-one-radio-button [value]="EBalanceType.wallet">
             Carteira digital
           </p-one-radio-button>
         </p-one-radio>
@@ -19,7 +19,7 @@
             #categoryNameInput
             pOneInput
             placeholder="Digite o nome da conta ou carteira"
-            formControlName="nameInput"
+            formControlName="name"
             i18n-placehoder
           />
         </p-one-form-field>
@@ -36,16 +36,28 @@
         </p-one-form-field>
       </div>
 
-      <ng-container *ngIf="(mode$ | async) === ECreateBalanceModalMode.balance">
+      <ng-container *ngIf="(mode$ | async) === EBalanceType.balance">
         <p-one-form-field>
-          <label pOneLabel for="agencyInput" i18n>Instituição</label>
+          <label pOneLabel for="agencyInput" i18n>Banco</label>
           <input
             #agencyInput
             pOneInput
-            placeholder="Digite o nome da instituição"
-            formControlName="instituition"
+            placeholder="Selecione a instituição"
+            formControlName="bank"
             type="text"
+            [pOneAutocomplete]="banksAutocomplete"
           />
+          <p-one-autocomplete
+            #banksAutocomplete="pOneAutocomplete"
+            [displayFn]="displayBankFn"
+          >
+            <p-one-option
+              *ngFor="let bank of filtredBanks$ | async"
+              [value]="bank"
+            >
+              {{ bank.code }} - {{ bank.name }}
+            </p-one-option>
+          </p-one-autocomplete>
         </p-one-form-field>
         <div pOneGrid gap="16px">
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
@@ -58,6 +70,7 @@
               type="tel"
             />
           </p-one-form-field>
+
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
             <label pOneLabel for="numberInput" i18n>Conta</label>
             <input
@@ -78,8 +91,8 @@
     </button>
     <button
       class="btn btn-primary btn-sm"
-      [disabled]="isCreateBalanceEnabled$ | async"
-      (click)="this.createBalance()"
+      [disabled]="isCreateBalanceDisabled$ | async"
+      (click)="createBalance()"
     >
       Criar conta / carteira
     </button>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CategoryService, EntryRecurrence, EntryService, SubCategoryService } from '@p-one/core';
+import { CategoryService, EEntryRecurrence, EntryService, SubCategoryService } from '@p-one/core';
 import { ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -27,12 +27,8 @@ export class EntryCreateEffects {
       ofType(EEntryCreateActions.LOAD_CATEGORIES),
       switchMap(({ targetType }) => {
         return this._categoryService.get(targetType).pipe(
-          map((categories) => {
-            return loadCategoriesSuccess({ categories });
-          }),
-          catchError((error) => {
-            return of(loadCategoriesFailure({ error }));
-          })
+          map((categories) => loadCategoriesSuccess({ categories })),
+          catchError((error) => of(loadCategoriesFailure({ error })))
         );
       })
     )
@@ -43,12 +39,8 @@ export class EntryCreateEffects {
       ofType(EEntryCreateActions.LOAD_SUB_CATEGORIES),
       switchMap(({ categoryId }) => {
         return this._subCategoryService.get(categoryId).pipe(
-          map((subCategories) => {
-            return loadSubCategoriesSuccess({ subCategories });
-          }),
-          catchError((error) => {
-            return of(loadSubCategoriesFailure({ error }));
-          })
+          map((subCategories) => loadSubCategoriesSuccess({ subCategories })),
+          catchError((error) => of(loadSubCategoriesFailure({ error })))
         );
       })
     )
@@ -60,12 +52,8 @@ export class EntryCreateEffects {
       withLatestFrom(this._facade.secondStepForm$),
       switchMap(([_, form]) => {
         return this._entryService.buildEntryRecurrence(form).pipe(
-          map((recurrences) => {
-            return buildRecurrencesSuccess({ recurrences });
-          }),
-          catchError((error) => {
-            return of(buildRecurrencesFailure({ error }));
-          })
+          map((recurrences) => buildRecurrencesSuccess({ recurrences })),
+          catchError((error) => of(buildRecurrencesFailure({ error })))
         );
       })
     )
@@ -80,9 +68,15 @@ export class EntryCreateEffects {
         this._facade.recurrences$
       ),
       switchMap(
-        ([_, firstStepForm, { value, recurrence, dueDate }, recurrences]) => {
+        ([
+          _,
+          firstStepForm,
+          { value, recurrence, dueDate, barCode },
+          recurrences,
+        ]) => {
           let entryCreateRequest: any = {
             ...firstStepForm,
+            barCode,
             subCategoryId: firstStepForm.subCategory?.id,
             categoryId: firstStepForm.category.id,
             recurrences: [...recurrences],
@@ -90,7 +84,7 @@ export class EntryCreateEffects {
             subCategory: undefined,
           };
 
-          if (recurrence == EntryRecurrence.OneTime) {
+          if (recurrence == EEntryRecurrence.OneTime) {
             entryCreateRequest = {
               ...entryCreateRequest,
               value,
@@ -100,9 +94,7 @@ export class EntryCreateEffects {
 
           return this._entryService.create(entryCreateRequest).pipe(
             map(() => createEntrySuccess()),
-            catchError((error) => {
-              return of(createEntryFailure({ error }));
-            })
+            catchError((error) => of(createEntryFailure({ error })))
           );
         }
       )

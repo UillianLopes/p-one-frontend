@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EntryModel, EntryType } from '@p-one/core';
+import { EEntryType, EntryModel } from '@p-one/core';
 import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
 import { map, take } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ export class EntryListComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  public readonly EntryType = EntryType;
+  public readonly EntryType = EEntryType;
   public readonly entries$ = this._facade.entries$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly filterToDisplay$ = this._facade.filterToDisplay$;
@@ -55,7 +55,7 @@ export class EntryListComponent
     this._facade.removeFilter(id);
   }
 
-  setTypeFilter(type?: EntryType): void {
+  setTypeFilter(type?: EEntryType): void {
     this._facade.patchEntriesFilter({
       type,
     });

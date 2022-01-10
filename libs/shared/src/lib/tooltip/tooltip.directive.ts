@@ -1,4 +1,4 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
   Directive,
@@ -6,6 +6,7 @@ import {
   HostListener,
   Injector,
   Input,
+  OnDestroy,
   Renderer2,
   TemplateRef,
   ViewContainerRef,
@@ -14,22 +15,62 @@ import { takeUntil } from 'rxjs/operators';
 
 import { eventOutsideOverlay } from '../oprators';
 import { TooltipComponent } from './tooltip.component';
-import { TOOLTIP_TEMPLATE } from './tooltip.constants';
+import { TOOLTIP_DATA, TOOLTIP_TEMPLATE } from './tooltip.constants';
 import { TooltipRef } from './tooltip.ref';
+
+export const BOTTOM: ConnectedPosition = {
+  originX: 'center',
+  overlayX: 'center',
+  overlayY: 'top',
+  originY: 'bottom',
+  offsetY: 4,
+};
+
+export const RIGHT: ConnectedPosition = {
+  originX: 'end',
+  overlayX: 'start',
+  overlayY: 'center',
+  originY: 'center',
+  offsetX: 4,
+};
+
+export const LEFT: ConnectedPosition = {
+  originX: 'start',
+  overlayX: 'end',
+  overlayY: 'center',
+  originY: 'center',
+  offsetX: 4,
+};
+
+export const TOP: ConnectedPosition = {
+  originX: 'center',
+  overlayX: 'center',
+  overlayY: 'bottom',
+  originY: 'top',
+  offsetY: 4,
+};
+
+export type TooltipPosition = 'bottom' | 'right' | 'left' | 'top';
 
 @Directive({
   selector: '[pOneTooltip]',
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
   @Input('pOneTooltip')
-  public template!: TemplateRef<any>;
+  public tooltip!: TemplateRef<any> | string;
 
   @Input()
-  public trigger: 'hover' | 'click' = 'click';
+  public trigger: 'hover' | 'click' = 'hover';
 
   private _overlayRef?: OverlayRef;
 
   private _mouseLeaveEventDispatcher?: () => void;
+
+  @Input()
+  public tooltipPosition: TooltipPosition = 'bottom';
+
+  @Input()
+  public canTooltipOpen = true;
 
   constructor(
     private readonly _overlay: Overlay,
@@ -38,6 +79,10 @@ export class TooltipDirective {
     private readonly _renderer2: Renderer2,
     private readonly _injector: Injector
   ) {}
+
+  public ngOnDestroy(): void {
+    this._close();
+  }
 
   @HostListener('click')
   public click(): void {
@@ -59,23 +104,35 @@ export class TooltipDirective {
   }
 
   private _open(): void {
-    if (this._overlayRef) {
+    if (this._overlayRef || !this.tooltip || !this.canTooltipOpen) {
       return;
+    }
+
+    let position = [BOTTOM, TOP, LEFT, RIGHT];
+
+    switch (this.tooltipPosition) {
+      case 'bottom':
+        position = [BOTTOM, TOP, LEFT, RIGHT];
+        break;
+
+      case 'top':
+        position = [TOP, BOTTOM, LEFT, RIGHT];
+        break;
+
+      case 'left':
+        position = [LEFT, BOTTOM, TOP, RIGHT];
+        break;
+
+      case 'right':
+        position = [RIGHT, BOTTOM, TOP, LEFT];
+        break;
     }
 
     const overlayRef = this._overlay.create({
       positionStrategy: this._overlay
         .position()
         .flexibleConnectedTo(this._elementRef.nativeElement)
-        .withPositions([
-          {
-            originX: 'center',
-            overlayX: 'center',
-            overlayY: 'top',
-            originY: 'bottom',
-            offsetY: 8,
-          },
-        ]),
+        .withPositions([...position]),
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
     });
 
@@ -88,7 +145,11 @@ export class TooltipDirective {
         providers: [
           {
             provide: TOOLTIP_TEMPLATE,
-            useValue: this.template,
+            useValue: this.tooltip instanceof TemplateRef ? this.tooltip : null,
+          },
+          {
+            provide: TOOLTIP_DATA,
+            useValue: typeof this.tooltip === 'string' ? this.tooltip : null,
           },
           {
             provide: TooltipRef,

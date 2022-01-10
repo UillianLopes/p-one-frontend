@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EntryType, SubCategoryModel } from '@p-one/core';
+import { CategoryModel, EEntryType, SubCategoryModel } from '@p-one/core';
 import { CustomValidators, DestroyableMixin, PONE_DIALOG_DATA } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -19,7 +19,7 @@ export class UpdateSubCategoryModalComponent
   readonly form = this._formBuilder.group({
     id: [this._subCategory.id, Validators.required],
     name: [this._subCategory.name, [Validators.required]],
-    type: [EntryType.Credit, Validators.required],
+    type: [EEntryType.Credit, Validators.required],
     category: [
       this._subCategory.category,
       [CustomValidators.requireToBeObject],

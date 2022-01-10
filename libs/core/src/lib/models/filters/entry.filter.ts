@@ -1,11 +1,11 @@
-import { CategoryModel, EntryType, SubCategoryModel } from '..';
+import { CategoryModel, EEntryType, SubCategoryModel } from '..';
 
 export interface EntryFilter {
   text?: string;
   categories: CategoryModel[];
   subCategories: SubCategoryModel[];
   date: { month: number; year: number };
-  type?: EntryType;
+  type?: EEntryType;
   minValue?: number;
   maxValue?: number;
   paymentStatus?: boolean;

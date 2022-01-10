@@ -1,4 +1,4 @@
-export enum EntryValueDistribuition {
+export enum EEntryValueDistribuition {
   Divide,
   Repeat,
 }

@@ -1,19 +1,19 @@
 import { Directive, HostListener } from '@angular/core';
 import { delay } from 'rxjs/operators';
 
-import { SidenavFacade } from './+state/sidenav.facade';
+import { SidenavStore } from './sidenav.state';
 
 @Directive({
   selector: '[pOneSidenavTrigger]',
   exportAs: 'pOneSidenavTrigger',
 })
 export class SidenavTriggerDirective {
-  readonly state$ = this._sidenavFacade.state$.pipe(delay(10));
+  readonly state$ = this._sidenavStore.state$.pipe(delay(10));
 
-  constructor(private readonly _sidenavFacade: SidenavFacade) {}
+  constructor(private readonly _sidenavStore: SidenavStore) {}
 
   @HostListener('click')
   public toggle(): void {
-    this._sidenavFacade.toggle();
+    this._sidenavStore.toggle();
   }
 }

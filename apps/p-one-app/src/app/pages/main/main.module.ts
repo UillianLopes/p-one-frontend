@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { POneChartModule, POneContainerModule, POneFlexModule, POnePipesModule, POneSidenavModule } from '@p-one/shared';
+import {
+  POneChartModule,
+  POneContainerModule,
+  POneFlexModule,
+  POnePipesModule,
+  POneSidenavModule,
+  POneTooltipModule,
+} from '@p-one/shared';
 
 import { MainComponent } from './main.component';
 import { MainRoutingModule } from './main.routing';
@@ -15,6 +22,7 @@ import { MainRoutingModule } from './main.routing';
     POneContainerModule,
     POneFlexModule,
     POnePipesModule,
+    POneTooltipModule
   ],
 })
 export class MainModule {}

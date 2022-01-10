@@ -27,13 +27,14 @@
       <input pOneSmallInput />
     </p-one-form-field>
   </div>
-
   <div pOneFlexColumn gap="16px" style="padding: 16px">
     <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
           <th scope="col">Nome</th>
-          <th scope="col">Valor</th>
+          <th scope="col">Saldo</th>
+          <th scope="col">Banco</th>
+          <th scope="col">Agência / conta</th>
         </tr>
       </thead>
       <tbody>
@@ -43,16 +44,28 @@
         >
           <ng-template #contextMenuTemplate>
             <div pOneFlexRow gap="8px" class="p-one-balance__context-menu">
-              <button class="btn btn-outline-primary btn-sm">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="openUpdateBalanceDialog(balance)"
+              >
                 <i class="material-icons">edit</i>
               </button>
-              <button class="btn btn-outline-danger btn-sm">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="openDeleteBalanceDialog(balance)"
+              >
                 <i class="material-icons">delete</i>
               </button>
             </div>
           </ng-template>
           <td>{{ balance.name }}</td>
           <td>{{ balance.value | currency: 'BRL' }}</td>
+          <td>{{ displayBankFn(balance.bank) }}</td>
+          <td>
+            <ng-container *ngIf="balance.agency">
+              {{ balance.agency }} / {{ balance.number }}
+            </ng-container>
+          </td>
         </tr>
       </tbody>
     </table>

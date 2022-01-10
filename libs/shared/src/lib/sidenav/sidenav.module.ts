@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { DirectivesModule } from '../directives';
+import { POneTooltipModule } from '../tooltip';
 import { SidenavCollapseComponent } from './sidenav-collapse/sidenav-collapse.component';
 import { SidenavContainerComponent } from './sidenav-container/sidenav-container.component';
 import { SidenavContentComponent } from './sidenav-content/sidenav-content.component';
@@ -19,7 +20,7 @@ import { SidenavComponent } from './sidenav.component';
     SidenavCollapseComponent,
     SidenavTriggerDirective,
   ],
-  imports: [CommonModule, RouterModule, DirectivesModule],
+  imports: [CommonModule, RouterModule, DirectivesModule, POneTooltipModule],
   exports: [
     SidenavComponent,
     SidenavContainerComponent,

@@ -2,13 +2,14 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { fromEvent, Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-export const observeResize = (element: HTMLElement) => {
+export const observeResize$ = (element: HTMLElement) => {
   return new Observable<DOMRect>(function (subscriber) {
     const resizeObserver = new ResizeObserver(() => {
       subscriber.next(element.getBoundingClientRect());
     });
 
     resizeObserver.observe(element);
+    subscriber.next(element.getBoundingClientRect());
   });
 };
 export function eventOutsideOverlay(

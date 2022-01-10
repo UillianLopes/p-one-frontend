@@ -1,12 +1,12 @@
-import { EntryPaymentStatus, EntryType } from '../enums';
+import { EEntryPaymentStatus, EEntryType } from '../enums';
 import { PaginatedFilter } from '../filters';
 
 export interface EntryFilterRequest extends PaginatedFilter {
   text: string;
   month: number;
   year: number;
-  type?: EntryType;
+  type?: EEntryType;
   subCategoryIds?: string[];
   categoryIds?: string[];
-  paymentStatus: EntryPaymentStatus;
+  paymentStatus: EEntryPaymentStatus;
 }

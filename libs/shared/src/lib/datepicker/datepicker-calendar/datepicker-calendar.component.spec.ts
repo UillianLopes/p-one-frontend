@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidenavComponent } from './sidenav.component';
+import { DatepickerCalendarComponent } from './datepicker-calendar.component';
 
-describe('SidenavComponent', () => {
-  let component: SidenavComponent;
-  let fixture: ComponentFixture<SidenavComponent>;
+describe('DatepickerCalendarComponent', () => {
+  let component: DatepickerCalendarComponent;
+  let fixture: ComponentFixture<DatepickerCalendarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidenavComponent ]
+      declarations: [ DatepickerCalendarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidenavComponent);
+    fixture = TestBed.createComponent(DatepickerCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EntryType } from '@p-one/core';
+import { CategoryModel, EEntryType } from '@p-one/core';
 import { DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -12,10 +12,12 @@ import { EntryCreateFacade } from '../../+state/entry-create.facade';
   styleUrls: ['./first-step.component.scss'],
 })
 export class FirstStepComponent extends DestroyableMixin() implements OnInit {
-  readonly EntryType = EntryType;
-  readonly form = this._formBuilder.group({
+  
+  public readonly EntryType = EEntryType;
+  
+  public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
-    type: [EntryType.Credit],
+    type: [EEntryType.Credit],
     category: [null, [Validators.required]],
     subCategory: [null],
   });

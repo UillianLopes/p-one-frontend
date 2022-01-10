@@ -4,16 +4,18 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  NgZone,
   OnDestroy,
   QueryList,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay, shareReplay } from 'rxjs/operators';
+import { delay, distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../..';
-import { SidenavFacade } from './+state/sidenav.facade';
+import { observeResize$ } from '../oprators';
 import { SidenavItemComponent } from './sidenav-item/sidenav-item.component';
 import { sidenavHeaderAnimation, sidenavPaddingAnimation, sidenavWidthAnimation } from './sidenav.animations';
+import { SidenavStore } from './sidenav.state';
 
 @Component({
   selector: 'p-one-sidenav',
@@ -34,14 +36,17 @@ export class SidenavComponent
   public items!: QueryList<SidenavItemComponent>;
   public items$!: Observable<SidenavItemComponent[]>;
 
-  public readonly state$ = this._facade.state$.pipe(shareReplay());
-  public readonly isFixed$ = this._facade.isFixed$;
-  public readonly isFloating$ = this._facade.isFloating$;
-  public readonly sidenaHeaderState$ = this.state$.pipe(delay(10));
+  public readonly state$ = this._store.sidenavState$.pipe(shareReplay());
+  public readonly isFixed$ = this._store.isFixed$;
+  public readonly isFloating$ = this._store.isFloating$;
+  public readonly sidenaHeaderState$ = this._store.sidenavState$.pipe(
+    delay(10)
+  );
 
   constructor(
-    private readonly _facade: SidenavFacade,
-    private readonly _elementRef: ElementRef<HTMLElement>
+    private readonly _store: SidenavStore,
+    private readonly _elementRef: ElementRef<HTMLElement>,
+    private readonly _ngZone: NgZone
   ) {
     super();
   }
@@ -50,17 +55,27 @@ export class SidenavComponent
   }
 
   toggle(): void {
-    this._facade.toggle();
+    this._store.toggle();
   }
 
   private _setSidenavWidthToContent() {
     const sidenavItems =
-      this._elementRef.nativeElement.querySelector('#sidenav-items');
+      this._elementRef.nativeElement.querySelector<HTMLElement>('#sidenav');
 
     if (!sidenavItems) {
       return;
     }
 
-    this._facade.setSidenavWidth(sidenavItems.clientWidth);
+    observeResize$(sidenavItems)
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(({ width }) => width),
+        distinctUntilChanged()
+      )
+      .subscribe((width) => {
+        this._ngZone.run(() => {
+          this._store.setSidenavWidth(width);
+        });
+      });
   }
 }

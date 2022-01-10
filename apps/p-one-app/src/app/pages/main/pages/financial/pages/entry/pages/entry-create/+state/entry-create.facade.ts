@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EntryType } from '@p-one/core';
+import { EEntryType } from '@p-one/core';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';
@@ -78,7 +78,7 @@ export class EntryCreateFacade {
     this._store.dispatch(setSubCategoriesFilter({ subCategoriesFilter }));
   }
 
-  loadCategories(targetType: EntryType): void {
+  loadCategories(targetType: EEntryType): void {
     this._store.dispatch(loadCategories({ targetType }));
   }
 

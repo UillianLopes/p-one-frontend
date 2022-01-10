@@ -1,11 +1,12 @@
-import { EntryRecurrence, EntryValueDistribuition } from '@p-one/core';
+import { EEntryRecurrence, EEntryValueDistribuition } from '@p-one/core';
 
 export interface SecondStepFormModel {
   value: number;
   dueDate: Date;
-  recurrence: EntryRecurrence;
+  recurrence: EEntryRecurrence;
   day: number;
   intervalInDays: number;
   times: number;
-  valueDistribuition: EntryValueDistribuition;
+  valueDistribuition: EEntryValueDistribuition;
+  barCode: string;
 }

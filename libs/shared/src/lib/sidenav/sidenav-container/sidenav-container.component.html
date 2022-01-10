@@ -9,7 +9,7 @@
 
   <div
     class="p-one-sidenav-container__content"
-    [@sidenavContainerContentPaddingAnimation]="this.state$ | async"
+    [style.padding-left.px]="paddingLeft$ | async"
   >
     <ng-content></ng-content>
   </div>

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { EntryFilter, EntryPaymentStatus, EntryType } from '@p-one/core';
+import { EEntryPaymentStatus, EEntryType, EntryFilter } from '@p-one/core';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
@@ -17,8 +17,8 @@ export class EntryListFilterComponent
   extends DestroyableMixin()
   implements OnInit
 {
-  readonly EntryType = EntryType;
-  readonly EntryPaymentStatus = EntryPaymentStatus;
+  readonly EntryType = EEntryType;
+  readonly EntryPaymentStatus = EEntryPaymentStatus;
   readonly isLoading$ = this._store.isLoading$;
 
   readonly form = this._formBuilder.group({

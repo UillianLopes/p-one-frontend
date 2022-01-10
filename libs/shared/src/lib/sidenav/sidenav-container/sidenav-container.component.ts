@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SidenavFacade } from '../+state/sidenav.facade';
 import { DestroyableMixin } from '../../..';
 import { ESidenavMode } from '../sidenav-mode.enum';
+import { ESidenavState } from '../sidenav-state.enum';
+import { SidenavStore } from '../sidenav.state';
 import { sidenavContainerContentPaddingAnimation } from './sidenav-container.animations';
 
 @Component({
@@ -12,44 +13,36 @@ import { sidenavContainerContentPaddingAnimation } from './sidenav-container.ani
   templateUrl: './sidenav-container.component.html',
   styleUrls: ['./sidenav-container.component.scss'],
   animations: [sidenavContainerContentPaddingAnimation],
-  providers: [SidenavFacade],
+  providers: [SidenavStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidenavContainerComponent
-  extends DestroyableMixin()
-  implements OnInit
-{
+export class SidenavContainerComponent extends DestroyableMixin() {
   @Input()
-  set mode(v: ESidenavMode) {
-    this._facade.setMode(v);
+  set mode(mode: ESidenavMode) {
+    this._store.setMode(mode);
   }
 
-  public readonly sidenav$ = new Subject<HTMLElement>();
-
-  public readonly isFixed$ = this._facade.isFixed$;
-  public readonly isFloating$ = this._facade.isFloating$;
-  public readonly isOpened$ = this._facade.isOpened$;
-  public readonly isClosed$ = this._facade.isClosed$;
-
-  public readonly state$ = this._facade.state$.pipe(
-    withLatestFrom(this._facade.sidenavWidth$, this._facade.mode$),
+  public readonly isFixed$ = this._store.isFixed$;
+  public readonly isFloating$ = this._store.isFloating$;
+  public readonly isOpened$ = this._store.isOpened$;
+  public readonly isClosed$ = this._store.isClosed$;
+  public readonly paddingLeft$ = combineLatest([
+    this._store.sidenavState$,
+    this._store.sidenavWidth$,
+    this._store.mode$,
+  ]).pipe(
     map(([value, sidenavWidth, mode]) => {
-      return {
-        value,
-        params: {
-          sidenavWidth: mode === ESidenavMode.FIXED ? sidenavWidth + 32 : '82',
-        },
-      };
+      return mode === ESidenavMode.FIXED && value === ESidenavState.OPENED
+        ? sidenavWidth + 32
+        : sidenavWidth + 16;
     })
   );
 
-  constructor(private readonly _facade: SidenavFacade) {
+  constructor(private readonly _store: SidenavStore) {
     super();
-  }
-  ngOnInit(): void {
-    this._facade.registerEffects(this.destroyed$);
   }
 
   toggle(): void {
-    this._facade.toggle();
+    this._store.toggle();
   }
 }

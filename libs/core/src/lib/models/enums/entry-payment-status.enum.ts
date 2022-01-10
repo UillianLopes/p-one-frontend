@@ -1,4 +1,4 @@
-export enum EntryPaymentStatus {
+export enum EEntryPaymentStatus {
   Paid = 1,
   Expiring,
   Overdue,

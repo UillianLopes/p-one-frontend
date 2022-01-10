@@ -73,6 +73,7 @@
           <th scope="col">Juros</th>
           <th scope="col">Multa</th>
           <th scope="col">Tipo</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -108,6 +109,17 @@
             <i
               *ngSwitchCase="EntryType.Credit"
               class="bi bi-arrow-up text-success"
+            ></i>
+          </td>
+          <td>
+            <ng-template #barCodeTemplate>
+              {{ entry.barCode }}
+            </ng-template>
+            <i
+              *ngIf="entry.barCode"
+              class="bi bi-upc"
+              [pOneTooltip]="barCodeTemplate"
+              trigger="hover"
             ></i>
           </td>
         </tr>

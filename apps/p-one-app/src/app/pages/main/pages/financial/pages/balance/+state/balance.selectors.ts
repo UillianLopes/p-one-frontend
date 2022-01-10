@@ -24,8 +24,8 @@ const filtredBalancesSelector = createSelector(
       balances,
       (b) =>
         b.name.toLowerCase().includes((text ?? '').toLowerCase()) &&
-        (!!minValue || b.value >= minValue) &&
-        (!!maxValue || b.value <= maxValue)
+        (!minValue || b.value >= minValue) &&
+        (!maxValue || b.value <= maxValue)
     )
 );
 

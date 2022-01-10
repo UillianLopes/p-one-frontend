@@ -1,1 +1,89 @@
-<p>update-balance-modal works!</p>
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">Alteração de contas / cateiras</h5>
+  <p-one-dialog-body>
+    <form [formGroup]="form">
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel for="nameInput" i18n>Name</label>
+          <input
+            #categoryNameInput
+            pOneInput
+            placeholder="Digite o nome da conta ou carteira"
+            formControlName="name"
+            i18n-placehoder
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="200px">
+          <label pOneLabel for="valueInput" i18n>Valor</label>
+          <input
+            #valueInput
+            pOneInput
+            placeholder="R$ 0,00"
+            formControlName="value"
+            type="tel"
+            currencyMask
+          />
+        </p-one-form-field>
+      </div>
+
+      <ng-container *ngIf="(type$ | async) === EBalanceType.balance">
+        <p-one-form-field>
+          <label pOneLabel for="agencyInput" i18n>Banco</label>
+          <input
+            #agencyInput
+            pOneInput
+            placeholder="Selecione a instituição"
+            formControlName="bank"
+            type="text"
+            [pOneAutocomplete]="banksAutocomplete"
+          />
+          <p-one-autocomplete
+            #banksAutocomplete="pOneAutocomplete"
+            [displayFn]="displayBankFn"
+          >
+            <p-one-option
+              *ngFor="let bank of filtredBanks$ | async"
+              [value]="bank"
+            >
+              {{ bank.code }} - {{ bank.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+        <div pOneGrid gap="16px">
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="agencyInput" i18n>Agência</label>
+            <input
+              #agencyInput
+              pOneInput
+              placeholder="Digite o nome da conta"
+              formControlName="agency"
+              type="tel"
+            />
+          </p-one-form-field>
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="numberInput" i18n>Conta</label>
+            <input
+              #numberInput
+              pOneInput
+              placeholder="Digite o numero da conta"
+              formControlName="number"
+              type="tel"
+            />
+          </p-one-form-field>
+        </div>
+      </ng-container>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isUpdateBalanceDisabled$ | async"
+      (click)="updateBalance()"
+    >
+      Alterar conta / carteira
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

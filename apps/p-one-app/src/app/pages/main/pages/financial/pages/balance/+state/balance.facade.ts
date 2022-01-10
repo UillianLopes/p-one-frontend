@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { loadBalances, openCreateBalanceDialog, setBalancesPage } from './balance.actions';
+import { BalanceModel } from '../../../../../../../../../../../libs/core/src';
+import {
+  loadBalances,
+  openCreateBalanceDialog,
+  openDeleteBalanceDialog,
+  openUpdateBalanceDialog,
+  setBalancesPage,
+} from './balance.actions';
 import { BalanceState } from './balance.reducer';
 import * as BalanceSelectors from './balance.selectors';
 
@@ -35,5 +42,13 @@ export class BalanceFacade {
 
   public openCreateBalanceDialog() {
     this._store.dispatch(openCreateBalanceDialog());
+  }
+
+  public openUpdateBalanceDialog(balance: BalanceModel) {
+    this._store.dispatch(openUpdateBalanceDialog({ balance }));
+  }
+
+  public openDeleteBalanceDialog(balance: BalanceModel) {
+    this._store.dispatch(openDeleteBalanceDialog({ balance }));
   }
 }

@@ -49,3 +49,4 @@ export * from './lib/tooltip';
 export * from './lib/stepper/step/step.component';
 export * from './lib/chip';
 export * from './lib/breadcrumb';
+export * from './lib/datepicker';

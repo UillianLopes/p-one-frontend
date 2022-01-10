@@ -1,4 +1,4 @@
-export enum EntryRecurrence {
+export enum EEntryRecurrence {
   OneTime,
   EveryLastMonthDay,
   Every15Days,

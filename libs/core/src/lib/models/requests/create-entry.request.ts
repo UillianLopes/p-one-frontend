@@ -1,4 +1,4 @@
-import { EntryType } from '..';
+import { EEntryType } from '..';
 
 interface CreateEntryRequestRecurrence {
   index: number;
@@ -7,7 +7,7 @@ interface CreateEntryRequestRecurrence {
 }
 
 export interface CreateEntryRequest {
-  type: EntryType;
+  type: EEntryType;
   title: string;
   description: string;
   categoryId: string;

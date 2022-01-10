@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { EntryType } from '@p-one/core';
+import { EEntryType } from '@p-one/core';
 import { map, startWith } from 'rxjs/operators';
 
 import { CategoryFacade } from '../../+state/category.facade';
@@ -11,10 +11,10 @@ import { CategoryFacade } from '../../+state/category.facade';
   styleUrls: ['./create-category-modal.component.scss'],
 })
 export class CreateCategoryModalComponent implements OnInit {
-  public readonly EntryType = EntryType;
+  public readonly EntryType = EEntryType;
   public readonly form = this._formBuilder.group({
     name: ['', [Validators.required]],
-    type: [EntryType.Credit, [Validators.required]],
+    type: [EEntryType.Credit, [Validators.required]],
     description: [''],
   });
 

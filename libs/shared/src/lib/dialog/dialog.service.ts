@@ -29,6 +29,7 @@ export class DialogService {
         hasBackdrop: options.hasBackdrop,
         panelClass: 'p-one-dialog-container__pane',
       });
+
       const dialogId = v4();
 
       const dialogRef = new DialogRef(overlayRef, dialogId);

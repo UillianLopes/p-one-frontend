@@ -5,7 +5,7 @@
         <h1>Olá, {{ user.name | pOneFirstName }}</h1>
       </ng-container>
     </section>
-    <p-one-sidenav-item link="/home">
+    <p-one-sidenav-item link="/home" tooltip="Home">
       <i pOneIcon class="bi bi-house"></i>
       Home
     </p-one-sidenav-item>
@@ -15,38 +15,66 @@
       Configurações
     </p-one-sidenav-item>
 
-    <p-one-sidenav-collapse link="/main/financial">
+    <p-one-sidenav-collapse link="/main/financial" tooltip="Financeiro">
       <i pOneIcon class="bi bi-currency-dollar"></i>
-
       Financeiro
-      <p-one-sidenav-collapse link="/main/financial/entries">
+      <p-one-sidenav-collapse link="/main/financial/entries" tooltip="Entradas">
+        <i pOneIcon class="bi bi-clipboard"></i>
         Entradas
-        <p-one-sidenav-item link="/main/financial/entries/list">
+        <p-one-sidenav-item
+          link="/main/financial/entries/list"
+          tooltip="Todas as contas"
+        >
+          <i pOneIcon class="bi bi-arrow-down-up"></i>
           Todas as contas
         </p-one-sidenav-item>
 
-        <p-one-sidenav-item link="/main/financial/entries/credits">
+        <p-one-sidenav-item
+          link="/main/financial/entries/credits"
+          tooltip="Créditos"
+        >
+          <i pOneIcon class="bi bi-arrow-up"></i>
           Contas a receber
         </p-one-sidenav-item>
 
-        <p-one-sidenav-item link="/main/financial/entries/debits">
+        <p-one-sidenav-item
+          link="/main/financial/entries/debits"
+          tooltip="Débitos"
+        >
+          <i pOneIcon class="bi bi-arrow-down"></i>
           Contas a pagar
         </p-one-sidenav-item>
 
-        <p-one-sidenav-item link="/main/financial/entries/create">
+        <p-one-sidenav-item
+          link="/main/financial/entries/create"
+          tooltip="Criar entrada"
+        >
+          <i pOneIcon class="bi bi-clipboard-plus"></i>
           Criar entrada
         </p-one-sidenav-item>
       </p-one-sidenav-collapse>
 
-      <p-one-sidenav-item link="/main/financial/categories">
+      <p-one-sidenav-item
+        link="/main/financial/categories"
+        tooltip="Categorias"
+      >
+        <i pOneIcon class="bi bi-tag"></i>
         Categorias
       </p-one-sidenav-item>
 
-      <p-one-sidenav-item link="/main/financial/sub-categories">
+      <p-one-sidenav-item
+        link="/main/financial/sub-categories"
+        tooltip="Sub categorias"
+      >
+        <i pOneIcon class="bi bi-tags"></i>
         Sub categorias
       </p-one-sidenav-item>
 
-      <p-one-sidenav-item link="/main/financial/balances">
+      <p-one-sidenav-item
+        link="/main/financial/balances"
+        tooltip="Contas / carteiras"
+      >
+        <i pOneIcon class="bi bi-bank"></i>
         Contas / Cateiras
       </p-one-sidenav-item>
     </p-one-sidenav-collapse>

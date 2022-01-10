@@ -1,9 +1,13 @@
 <div
   class="p-one-sidenav-collapse__item"
   [class.p-one-sidenav-collapse__item--active]="
-    this.isLinkActivatedAndCollapseClosed$ | async
+    isLinkActivatedAndCollapseClosed$ | async
   "
-  (click)="this.toggle()"
+  (click)="toggle()"
+  [@sidenavCollapseLeftPaddingAnimation]="sidenavPaddingLeftState$ | async"
+  [pOneTooltip]="tooltip"
+  tooltipPosition="right"
+  [canTooltipOpen]="canTooltipOpen$ | async"
 >
   <div class="p-one-sidenav-collapse__item__leading">
     <ng-content select="[pOneIcon],[pOneSidenavIcon]"></ng-content>
@@ -14,14 +18,15 @@
   <div class="p-one-sidenav-collapse__item__trailing">
     <i
       class="material-icons"
-      [@sidenavColllapseIconAnimation]="this.state$ | async"
-      >keyboard_arrow_right</i
+      [@sidenavColllapseIconAnimation]="collapseState$ | async"
     >
+      keyboard_arrow_right
+    </i>
   </div>
 </div>
 <div
   class="p-one-sidenav-collapse__collapsable"
-  [@sidenavColllapseAnimation]="this.state$ | async"
+  [@sidenavColllapseAnimation]="collapseState$ | async"
 >
   <div class="p-one-sidenav-collapse__items">
     <ng-content select="p-one-sidenav-item,p-one-sidenav-collapse"></ng-content>

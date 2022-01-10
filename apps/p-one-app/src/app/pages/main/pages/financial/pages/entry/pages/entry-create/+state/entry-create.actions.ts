@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryModel, EntryType, RecurrenceModel, SubCategoryModel } from '@p-one/core';
+import { CategoryModel, EEntryType, RecurrenceModel, SubCategoryModel } from '@p-one/core';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';
@@ -35,7 +35,7 @@ export const resetState = createAction(EEntryCreateActions.RESET_STATE);
 
 export const loadCategories = createAction(
   EEntryCreateActions.LOAD_CATEGORIES,
-  props<{ targetType: EntryType }>()
+  props<{ targetType: EEntryType }>()
 );
 
 export const createEntry = createAction(EEntryCreateActions.CREATE_ENTRY);

@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 
-import { BalanceService, CategoryService, EntryService, SubCategoryService } from './financial';
+import { BalanceService, BankService, CategoryService, EntryService, SubCategoryService } from './financial';
 
 export * from './financial';
 
@@ -9,4 +9,5 @@ export const SERVICES_PROVIDERS: Provider[] = [
   CategoryService,
   SubCategoryService,
   BalanceService,
+  BankService,
 ];

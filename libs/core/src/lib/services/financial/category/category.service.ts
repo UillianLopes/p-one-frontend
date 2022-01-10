@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { CategoryModel, EntryType, ResponseModel } from '../../../models';
+import { CategoryModel, EEntryType, ResponseModel } from '../../../models';
 import { ErrorModel } from '../../../models/responses/error.model';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CategoryService {
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
   ) {}
 
-  get(type?: EntryType): Observable<CategoryModel[]> {
+  get(type?: EEntryType): Observable<CategoryModel[]> {
     const params: any = {
       type,
     };

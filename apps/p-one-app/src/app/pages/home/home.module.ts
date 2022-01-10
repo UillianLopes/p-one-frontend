@@ -3,13 +3,14 @@ import { NgModule } from '@angular/core';
 import {
   POneChartModule,
   POneContainerModule,
+  POneDatepickerModule,
   POneFlexModule,
   POneGridModule,
   POnePipesModule,
   POneSidenavModule,
 } from '@p-one/shared';
+import { NgxCurrencyModule } from 'ngx-currency';
 
-import { ListItemModule } from './components/list-item/list-item.module';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
 
@@ -24,7 +25,8 @@ import { HomeRoutingModule } from './home.routing';
     POneFlexModule,
     POnePipesModule,
     POneGridModule,
-    ListItemModule,
+    POneDatepickerModule,
+    NgxCurrencyModule,
   ],
 })
 export class HomeModule {}

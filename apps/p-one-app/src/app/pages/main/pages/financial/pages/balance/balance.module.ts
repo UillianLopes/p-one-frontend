@@ -9,6 +9,7 @@ import {
   POneContainerModule,
   POneContextMenuModule,
   POneDialogModule,
+  POneFlexModule,
   POneGridModule,
   POneHeaderModule,
   POneInputModule,
@@ -49,6 +50,7 @@ import { UpdateBalanceModalComponent } from './modals/update-balance-modal/updat
     POneDialogModule,
     POneGridModule,
     NgxCurrencyModule,
+    POneFlexModule,
   ],
   providers: [BalanceFacade],
 })

@@ -16,15 +16,13 @@ import {
   POneInputModule,
   POneMonthYearPickerModule,
   POneSidenavModule,
+  POneTooltipModule,
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { EntryListEffects } from './+state/entry-list.effects';
 import { EntryListFacade } from './+state/entry-list.facade';
-import {
-  entityListReducer as entryListReducer,
-  ENTRY_LIST_KEY,
-} from './+state/entry-list.reducer';
+import { entityListReducer as entryListReducer, ENTRY_LIST_KEY } from './+state/entry-list.reducer';
 import { EntryListComponent } from './entry-list.component';
 import { EntryListRoutingModule } from './entry-list.routing';
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
@@ -51,6 +49,7 @@ import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-
     POneChipModule,
     POneContextMenuModule,
     NgxCurrencyModule,
+    POneTooltipModule,
   ],
   providers: [EntryListFacade],
 })

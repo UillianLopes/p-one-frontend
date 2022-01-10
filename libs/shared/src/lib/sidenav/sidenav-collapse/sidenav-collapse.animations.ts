@@ -25,3 +25,16 @@ export const sidenavColllapseIconAnimation = trigger(
     transition('CLOSED => OPENED', animate('.2s linear')),
   ]
 );
+
+export const sidenavCollapseLeftPaddingAnimation = trigger(
+  'sidenavCollapseLeftPaddingAnimation',
+  [
+    state('OPENED', style({ paddingLeft: '{{paddingLeft}}px' }), {
+      params: { paddingLeft: 0 },
+    }),
+    state('CLOSED', style({ paddingLeft: '0px' })),
+
+    transition('OPENED => CLOSED', animate('.2s linear')),
+    transition('CLOSED => OPENED', animate('.2s linear')),
+  ]
+);

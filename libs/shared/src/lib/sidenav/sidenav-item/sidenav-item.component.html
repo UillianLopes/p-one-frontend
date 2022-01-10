@@ -2,6 +2,10 @@
   class="p-one-sidenav-item"
   [class.p-one-sidenav-item--active]="isLinkActivated$ | async"
   (click)="this.navigate()"
+  [@sidenavItemPaddingLeftAnimation]="sidenavPaddingLeftState$ | async"
+  [pOneTooltip]="tooltip"
+  tooltipPosition="right"
+  [canTooltipOpen]="canTooltipOpen$ | async"
 >
   <div class="p-one-sidenav-item__leading">
     <ng-content select="[pOneIcon]"></ng-content>

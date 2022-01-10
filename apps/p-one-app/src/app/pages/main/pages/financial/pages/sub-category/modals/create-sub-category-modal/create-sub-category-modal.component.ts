@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EntryType } from '@p-one/core';
+import { CategoryModel, EEntryType } from '@p-one/core';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -15,10 +15,10 @@ export class CreateSubCategoryModalComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  readonly EntryType = EntryType;
+  readonly EntryType = EEntryType;
   readonly form = this._formBuilder.group({
     name: ['', [Validators.required]],
-    type: [EntryType.Credit, Validators.required],
+    type: [EEntryType.Credit, Validators.required],
     category: [null, [CustomValidators.requireToBeObject]],
     description: [''],
   });

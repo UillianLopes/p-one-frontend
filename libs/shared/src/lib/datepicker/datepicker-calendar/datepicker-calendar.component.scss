@@ -1,0 +1,30 @@
+.p-one-date-picker-calendar {
+  display: block;
+  padding: 8px;
+  border: var(--bs-gray-200) 1px solid;
+  border-radius: 8px;
+
+  display: grid;
+  grid-template-columns: repeat(7, 35px);
+  gap: 4px;
+
+  &__item {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  &__day {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    &:hover {
+      background: var(--bs-gray-200);
+    }
+
+    &--selected {
+      background: var(--bs-primary);
+    }
+  }
+}

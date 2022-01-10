@@ -1,0 +1,14 @@
+<div class="p-one-date-picker-calendar">
+  <div class="p-one-date-picker-calendar__item">dom</div>
+  <div class="p-one-date-picker-calendar__item">seg</div>
+  <div class="p-one-date-picker-calendar__item">ter</div>
+  <div class="p-one-date-picker-calendar__item">qua</div>
+  <div class="p-one-date-picker-calendar__item">qui</div>
+  <div class="p-one-date-picker-calendar__item">sex</div>
+  <div class="p-one-date-picker-calendar__item">sab</div>
+  <ng-container *ngFor="let week of weeks$ | async">
+    <div class="p-one-date-picker-calendar__day" *ngFor="let day of week">
+      {{ day }}
+    </div>
+  </ng-container>
+</div>
