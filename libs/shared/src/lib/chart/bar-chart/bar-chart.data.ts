@@ -1,5 +1,9 @@
 export interface BarChartData {
-    name: string;
-    value: number;
-  }
-  
+  series: BarChartSerie[];
+}
+
+export interface BarChartSerie {
+  color: string;
+  name: string;
+  value: number;
+}

@@ -7,6 +7,7 @@ import { FINANCIAL_API_URL } from '../../../contants/tokens';
 import { CategoryModel, EntryFilterRequest, EntryModel, RecurrenceModel, ResponseModel } from '../../../models';
 import { BuildEntryReccurrenceRequest } from '../../../models/requests/build-entry-recurrence.request';
 import { CreateEntryRequest } from '../../../models/requests/create-entry.request';
+import { PayEntryRequest } from '../../../models/requests/pay-entry.request';
 import { ErrorModel } from '../../../models/responses/error.model';
 
 function cleanFilter(filter: any) {
@@ -118,6 +119,20 @@ export class EntryService {
           ids,
         },
       })
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  payEntry(id: string, pay: PayEntryRequest): Observable<EntryModel> {
+    return this._httpClient
+      .put<ResponseModel<EntryModel>>(
+        `${this._financialApiUrl}/Entry/${id}/Pay`,
+        pay
+      )
       .pipe(
         map((resposne) => resposne.data),
         catchError((err) =>

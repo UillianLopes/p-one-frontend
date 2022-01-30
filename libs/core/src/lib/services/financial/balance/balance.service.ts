@@ -11,6 +11,7 @@ import { ErrorModel } from '../../../models/responses/error.model';
 
 @Injectable()
 export class BalanceService {
+
   constructor(
     private readonly _httpClient: HttpClient,
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
@@ -85,4 +86,6 @@ export class BalanceService {
         )
       );
   }
+
+
 }

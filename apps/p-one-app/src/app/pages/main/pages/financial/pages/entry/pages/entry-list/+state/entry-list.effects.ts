@@ -7,6 +7,7 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 
 import { DialogService } from '../../../../../../../../../../../../../libs/shared/src';
 import { DeleteEntryModalComponent } from '../../../modals/delete-entry-modal/delete-entry-modal.component';
+import { PayEntryModalComponent } from '../../../modals/pay-entry-modal';
 import {
   EEntryListActions,
   EntryListActionsUnion,
@@ -121,6 +122,20 @@ export class EntryListEffects {
               entries: entry ? [entry] : entries,
             }
           )
+          .afterClosed$.pipe(
+            filter((value) => value),
+            map(() => filterEntries())
+          );
+      })
+    )
+  );
+
+  public readonly openPayEntryDialogEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EEntryListActions.OPEN_PAY_ENTRY_DIALOG),
+      switchMap(({ entry }) => {
+        return this._dialogService
+          .open(PayEntryModalComponent, { minWidth: '600px' }, entry)
           .afterClosed$.pipe(
             filter((value) => value),
             map(() => filterEntries())

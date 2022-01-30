@@ -6,6 +6,7 @@ import {
   filterEntries,
   loadEntries,
   openDeleteEntriesDialog,
+  openPayEntryDialog,
   paginateEntries,
   patchEntriesFilter,
   removeFilter,
@@ -72,5 +73,9 @@ export class EntryListFacade {
 
   public openDeleteEntriesDialog(entry?: EntryModel): void {
     this._store.dispatch(openDeleteEntriesDialog({ entry }));
+  }
+
+  public openPayEntryDialog(entry?: EntryModel): void {
+    this._store.dispatch(openPayEntryDialog({ entry }));
   }
 }

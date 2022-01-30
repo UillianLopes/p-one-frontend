@@ -22,7 +22,7 @@ import { MainRoutingModule } from './main.routing';
     POneContainerModule,
     POneFlexModule,
     POnePipesModule,
-    POneTooltipModule
+    POneTooltipModule,
   ],
 })
 export class MainModule {}

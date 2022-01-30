@@ -1,50 +1,97 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import * as d3 from 'd3';
 import { uniqueId } from 'lodash';
-import { fromEvent, of, Subject } from 'rxjs';
-import { mergeAll, startWith, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Directive()
 export abstract class Chart<T> implements OnInit, OnDestroy {
-  protected readonly uniqueId = uniqueId('chart-');
-  protected readonly data$ = new Subject<T>();
-  protected readonly destroyed$ = new Subject();
-  protected readonly resized$ = new Subject();
-  protected readonly resizeObserver = new ResizeObserver(() => {
-    this.resized$.next();
-  });
+  protected readonly uniqueId = `${this._nameId}-${uniqueId()}`;
 
+  private readonly _updated$ = new Subject();
+  private readonly _resized$ = new Subject();
+  private readonly _resizeObserver = new ResizeObserver(() =>
+    this._ngZone.run(() => {
+      this._resized$.next();
+    })
+  );
+
+  private _svg!: d3.Selection<SVGSVGElement, unknown, null, undefined>;
+  private _oldData!: T;
   private _data!: T;
 
   @Input()
   set data(value: T) {
+    this._oldData = this.data;
     this._data = value;
-    this.data$.next(this._data);
+    this._updated$.next();
   }
 
-  get data(): T {
-    return this._data;
-  }
+  @Input()
+  public animationDuration = 300;
 
-  constructor(protected readonly _elementRef: ElementRef<HTMLElement>) {}
+  protected readonly destroyed$ = new Subject();
+
+  constructor(
+    protected readonly _elementRef: ElementRef<HTMLElement>,
+    protected readonly _ngZone: NgZone,
+    private readonly _nameId: string
+  ) {}
 
   ngOnDestroy(): void {
     this.destroyed$.next();
+    this._resizeObserver.unobserve(this._elementRef.nativeElement);
+    this._resizeObserver.disconnect();
   }
 
   ngOnInit(): void {
-    this.resizeObserver.observe(this._elementRef.nativeElement);
-    of(
-      fromEvent(this._elementRef.nativeElement, 'resize'),
-      this.data$,
-      this.resized$
-    )
-      .pipe(mergeAll(), takeUntil(this.destroyed$), startWith(''))
-      .subscribe(() => {
-        this.render(this.data, this._getContainerRect());
-      });
+    this._resizeObserver.observe(this._elementRef.nativeElement);
+    this._svg = this.init(this._data, this._getContainerRect());
+
+    this._updated$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
+      this.update(
+        this._svg,
+        this._data,
+        this._oldData,
+        this._getContainerRect()
+      );
+    });
+
+    this._resized$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
+      this.resize(
+        this._svg,
+        this._data,
+        this._oldData,
+        this._getContainerRect()
+      );
+    });
   }
 
-  abstract render(data: T, containerRect: DOMRect): void;
+  abstract init(
+    data: T,
+    containerRect: DOMRect
+  ): d3.Selection<SVGSVGElement, unknown, null, undefined>;
+
+  abstract update(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    data: T,
+    oldData: T,
+    containerRect: DOMRect
+  ): void;
+
+  abstract resize(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    data: T,
+    oldData: T,
+    containerRect: DOMRect
+  ): void;
 
   private _getContainerRect(): DOMRect {
     return this._elementRef.nativeElement.getBoundingClientRect();

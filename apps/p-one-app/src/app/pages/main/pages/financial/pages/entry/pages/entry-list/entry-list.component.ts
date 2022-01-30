@@ -72,7 +72,11 @@ export class EntryListComponent
   openDeleteEntryDialog(entry: EntryModel): void {
     this._facade.openDeleteEntriesDialog(entry);
   }
-
+  
+  openPayEntryDialog(entry: EntryModel): void {
+    this._facade.openPayEntryDialog(entry);
+  }
+  
   ngOnInit(): void {
     this._facade.loadEntries();
   }

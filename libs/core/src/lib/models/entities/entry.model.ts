@@ -15,4 +15,5 @@ export interface EntryModel {
   category: AutocompleteModel;
   subCategory: AutocompleteModel;
   barCode: string;
+  isPaid: boolean;
 }

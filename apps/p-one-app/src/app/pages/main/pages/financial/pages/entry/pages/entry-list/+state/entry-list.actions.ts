@@ -20,6 +20,7 @@ export enum EEntryListActions {
   PAGINATE_ENTRIES_FAILURE = '[Entry List] Paginate entries fail',
 
   OPEN_DELETE_ENTRIES_DIALOG = '[Entry List] Open delete entries dialog',
+  OPEN_PAY_ENTRY_DIALOG = '[Entry List] Open pay entry dialog',
 
   RESET_STATE = '[Entry List] Reset state',
 }
@@ -81,6 +82,11 @@ export const filterEntriesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const openPayEntryDialog = createAction(
+  EEntryListActions.OPEN_PAY_ENTRY_DIALOG,
+  props<{ entry: EntryModel }>()
+);
+
 export const resetState = createAction(EEntryListActions.RESET_STATE);
 
 const actionsUnion = union({
@@ -98,7 +104,8 @@ const actionsUnion = union({
   filterEntriesFailure,
 
   openDeleteEntriesDialog,
-
+  openPayEntryDialog,
+  
   resetState,
 });
 

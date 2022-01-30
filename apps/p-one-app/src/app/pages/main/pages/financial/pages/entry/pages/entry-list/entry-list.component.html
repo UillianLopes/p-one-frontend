@@ -70,8 +70,6 @@
           <th scope="col">Categoria</th>
           <th scope="col">Sub categoria</th>
           <th scope="col">Valor</th>
-          <th scope="col">Juros</th>
-          <th scope="col">Multa</th>
           <th scope="col">Tipo</th>
           <th scope="col"></th>
         </tr>
@@ -83,6 +81,13 @@
         >
           <ng-template #contextMenuTemplate>
             <div pOneFlexRow gap="8px" class="p-one-entry-list__context-menu">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="openPayEntryDialog(entry)"
+                [disabled]="entry.isPaid"
+              >
+                <span class="material-icons-outlined"> payment </span>
+              </button>
               <button
                 class="btn btn-outline-danger btn-sm"
                 (click)="openDeleteEntryDialog(entry)"
@@ -97,8 +102,6 @@
           <td>{{ entry.category?.title }}</td>
           <td>{{ entry.subCategory?.title }}</td>
           <td>{{ entry.value | currency: 'BRL' }}</td>
-          <td>{{ entry.fees | number: '0.2-2' }}</td>
-          <td>{{ entry.fine | number: '0.2-2' }}</td>
           <td [ngSwitch]="entry.type">
             <i
               *ngSwitchCase="EntryType.Debit"
