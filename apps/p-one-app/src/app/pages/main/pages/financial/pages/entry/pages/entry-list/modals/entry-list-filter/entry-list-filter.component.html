@@ -2,8 +2,42 @@
   <h5 class="card-header">Filtrar entradas</h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
-      <div pOneGrid gap="16px">
+      <div pOneFlexRow justification="space-between">
+        <p-one-form-field>
+          <label pOneLabel for="categoryNameInput" i18n>Situação</label>
+          <p-one-radio
+            appearance="outline"
+            color="secondary"
+            formControlName="paymentStatus"
+          >
+            <p-one-radio-button [value]="null">Todas</p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Opened">
+              <span> Em aberto </span>
+              <i class="bi bi-check-circle text-success"></i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.ToPayToday">
+              <span> A vencer hoje </span>
+              <i class="bi bi-exclamation-triangle text-warning"></i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Overdue">
+              <span> Vencidas </span>
+              <i class="bi bi-exclamation-triangle text-danger"></i>
+            </p-one-radio-button>
+            <p-one-radio-button [value]="EntryPaymentStatus.Paid">
+              <span> Pagas </span>
+              <i class="bi bi-check-circle text-success"></i>
+            </p-one-radio-button>
+          </p-one-radio>
+        </p-one-form-field>
         <p-one-form-field pOneGridColumn="auto">
+          <label pOneLabel for="categoryNameInput" i18n>Mês</label>
+          <p-one-month-year-picker
+            formControlName="date"
+          ></p-one-month-year-picker>
+        </p-one-form-field>
+      </div>
+      <div pOneFlexRow *ngIf="(entryType$ | async) === undefined">
+        <p-one-form-field>
           <label pOneLabel for="categoryNameInput" i18n>Tipo</label>
           <p-one-radio
             appearance="outline"
@@ -20,34 +54,6 @@
               <i class="bi bi-arrow-down text-danger"> </i>
             </p-one-radio-button>
           </p-one-radio>
-        </p-one-form-field>
-        <p-one-form-field pOneGridColumn="auto">
-          <label pOneLabel for="categoryNameInput" i18n>Situação</label>
-          <p-one-radio
-            appearance="outline"
-            color="secondary"
-            formControlName="paymentStatus"
-          >
-            <p-one-radio-button [value]="null">Todas</p-one-radio-button>
-            <p-one-radio-button [value]="EntryPaymentStatus.Paid">
-              <span> Pagas </span>
-              <i class="bi bi-check-circle text-success"></i>
-            </p-one-radio-button>
-            <p-one-radio-button [value]="EntryPaymentStatus.Expiring">
-              <span> A vencer </span>
-              <i class="bi bi-exclamation-triangle text-warning"></i>
-            </p-one-radio-button>
-            <p-one-radio-button [value]="EntryPaymentStatus.Overdue">
-              <span> Vencidas </span>
-              <i class="bi bi-exclamation-triangle text-danger"></i>
-            </p-one-radio-button>
-          </p-one-radio>
-        </p-one-form-field>
-        <p-one-form-field pOneGridColumn="auto">
-          <label pOneLabel for="categoryNameInput" i18n>Mês</label>
-          <p-one-month-year-picker
-            formControlName="date"
-          ></p-one-month-year-picker>
         </p-one-form-field>
       </div>
 

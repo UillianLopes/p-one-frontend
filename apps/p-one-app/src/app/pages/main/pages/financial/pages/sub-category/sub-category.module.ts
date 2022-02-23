@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
   POneBreadcrumbModule,
+  POneColorPickerModule,
   POneContainerModule,
   POneContextMenuModule,
   POneDialogModule,
@@ -47,6 +48,7 @@ import { SubCategoryRoutingModule } from './sub-category.routing';
     POneFlexModule,
     NgbPaginationModule,
     POneBreadcrumbModule,
+    POneColorPickerModule
   ],
   providers: [SubCategoryFacade],
 })

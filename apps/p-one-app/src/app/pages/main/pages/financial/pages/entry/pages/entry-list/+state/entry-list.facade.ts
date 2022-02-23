@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { EntryFilter, EntryModel, PaginatedFilter } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryModel, PaginatedFilter } from '@p-one/core';
 
 import {
   filterEntries,
-  loadEntries,
+  loadEntriesWithType,
   openDeleteEntriesDialog,
   openPayEntryDialog,
   paginateEntries,
@@ -41,10 +41,14 @@ export class EntryListFacade {
     EntryListSelector.typeFilterSelecotr
   );
 
+  public readonly entryType$ = this._store.select(
+    EntryListSelector.entryTypeSelector
+  );
+  
   constructor(private readonly _store: Store<EntryListState>) {}
 
-  public loadEntries(): void {
-    this._store.dispatch(loadEntries());
+  public loadEntriesWithType(entryType?: EEntryType): void {
+    this._store.dispatch(loadEntriesWithType({ entryType }));
   }
 
   public paginateEntries(pagination: PaginatedFilter): void {

@@ -1,0 +1,24 @@
+<div class="input-group">
+  <input
+    pOneInput
+    pOneColorPicker
+    #pOneColorPicker="pOneColorPicker"
+    [formControl]="control"
+    maxlength="7"
+  />
+
+  <span class="input-group-text">
+    <div
+      class="p-one-color-picker__display"
+      [style.background]="color$ | async"
+    ></div>
+  </span>
+
+  <button
+    class="btn btn-primary"
+    pOneColorPickerTrigger
+    [for]="pOneColorPicker"
+  >
+    <i class="bi bi-palette"></i>
+  </button>
+</div>

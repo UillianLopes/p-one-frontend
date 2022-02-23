@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
 import { BarChartData } from '@p-one/shared';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'p-one-home',
@@ -8,11 +8,12 @@ import { BarChartData } from '@p-one/shared';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  data$ = of({
+  readonly data$ = of({
     series: [
       {
         name: 'Teste',
         value: 200,
+        color: '#f56cb2'
       },
       {
         name: 'Teste II',

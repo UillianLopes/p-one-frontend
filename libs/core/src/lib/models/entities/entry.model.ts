@@ -1,3 +1,4 @@
+import { EEntryPaymentStatus } from '../enums';
 import { EEntryType } from '../enums/entry-type.enum';
 import { AutocompleteModel } from './autocomplete.model';
 
@@ -15,5 +16,5 @@ export interface EntryModel {
   category: AutocompleteModel;
   subCategory: AutocompleteModel;
   barCode: string;
-  isPaid: boolean;
+  paymentStatus: EEntryPaymentStatus;
 }

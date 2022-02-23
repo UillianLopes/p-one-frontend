@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EntryFilter, EntryService } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryService } from '@p-one/core';
 import * as _ from 'lodash';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -45,16 +45,18 @@ export function mapFilterToRequest({
   type,
   minValue,
   maxValue,
-}: Partial<EntryFilter>): any {
+  paymentStatus,
+}: Partial<EntryFilter>, entryType?: EEntryType): any {
   return {
     minValue,
     maxValue,
     text,
-    type,
+    type: entryType === undefined ? type : entryType,
     month,
     year,
     categories: categories?.map((c) => c.id),
     subCategories: subCategories?.map((c) => c.id),
+    paymentStatus,
   };
 }
 @Injectable()
@@ -88,9 +90,9 @@ export class EntryListEffects {
   public readonly filterEntriesEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(EEntryListActions.FILTER_ENTRIES),
-      withLatestFrom(this._facade.filter$),
-      switchMap(([_, filter]) => {
-        return this._entryService.get(mapFilterToRequest(filter)).pipe(
+      withLatestFrom(this._facade.filter$, this._facade.entryType$),
+      switchMap(([_, filter, entryType]) => {
+        return this._entryService.get(mapFilterToRequest(filter, entryType)).pipe(
           map((entries) => {
             return filterEntriesSuccess({ entries });
           }),

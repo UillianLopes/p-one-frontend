@@ -5,4 +5,5 @@ export interface CategoryModel {
   description?: string;
   id?: string;
   type?: EEntryType;
+  color?: string;
 }

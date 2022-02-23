@@ -5,6 +5,7 @@ import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
+import { EntryListFacade } from '../../+state/entry-list.facade';
 import { EntryListFilterStore } from './entry-list-filter.state';
 
 @Component({
@@ -76,13 +77,16 @@ export class EntryListFilterComponent
     })
   );
 
+  public readonly entryType$ = this._facade.entryType$;
+
   public readonly displayFn = (obj: any) => obj.name;
 
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _store: EntryListFilterStore,
     @Inject(PONE_DIALOG_DATA) private readonly _data: Partial<EntryFilter>,
-    private readonly _dialog: DialogRef
+    private readonly _dialog: DialogRef,
+    private readonly _facade: EntryListFacade
   ) {
     super();
   }

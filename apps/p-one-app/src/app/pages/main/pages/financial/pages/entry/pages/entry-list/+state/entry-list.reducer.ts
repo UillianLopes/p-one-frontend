@@ -1,13 +1,13 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { EntryFilter, EntryModel, PaginatedFilter } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryModel, PaginatedFilter } from '@p-one/core';
 
 import {
   filterEntries,
   filterEntriesFailure,
   filterEntriesSuccess,
-  loadEntries,
-  loadEntriesFailure,
-  loadEntriesSuccess,
+  loadEntriesWithType,
+  loadEntriesWithTypeFailure,
+  loadEntriesWithTypeSuccess,
   paginateEntries,
   patchEntriesFilterSuccess,
   removeFilter,
@@ -21,6 +21,7 @@ export interface EntryListState {
   pagination: PaginatedFilter;
   entries: EntryModel[];
   error?: any;
+  entryType?: EEntryType;
 }
 const now = new Date();
 
@@ -28,6 +29,7 @@ const initialPagination: PaginatedFilter = {
   page: 1,
   pageSize: 50,
 };
+
 const initialState: EntryListState = {
   loading: false,
   entries: [],
@@ -48,15 +50,15 @@ const initialState: EntryListState = {
 const _entityListReducer = createReducer<EntryListState>(
   initialState,
 
-  on(loadEntries, (state, _) => {
-    return { ...state, loading: true };
+  on(loadEntriesWithType, (state, { entryType }) => {
+    return { ...state, entryType, loading: true };
   }),
 
-  on(loadEntriesSuccess, (state, action) => {
+  on(loadEntriesWithTypeSuccess, (state, action) => {
     return { ...state, entries: action.entries, loading: false };
   }),
 
-  on(loadEntriesFailure, (state, action) => {
+  on(loadEntriesWithTypeFailure, (state, action) => {
     return { ...state, error: action.error, loading: false };
   }),
 

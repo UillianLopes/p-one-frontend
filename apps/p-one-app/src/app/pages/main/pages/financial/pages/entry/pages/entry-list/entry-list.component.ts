@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EEntryType, EntryModel } from '@p-one/core';
+import { ActivatedRoute } from '@angular/router';
+import { EEntryPaymentStatus, EEntryType, EntryModel } from '@p-one/core';
 import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
 import { map, take } from 'rxjs/operators';
 
@@ -16,6 +17,8 @@ export class EntryListComponent
   implements OnInit, OnDestroy
 {
   public readonly EntryType = EEntryType;
+  public readonly EntryPaymentStatus = EEntryPaymentStatus;
+
   public readonly entries$ = this._facade.entries$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly filterToDisplay$ = this._facade.filterToDisplay$;
@@ -23,10 +26,12 @@ export class EntryListComponent
   public readonly filter$ = this._facade.filter$;
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
   public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
+  public readonly entryType$ = this._facade.entryType$;
 
   constructor(
     private readonly _facade: EntryListFacade,
-    private readonly _dialogService: DialogService
+    private readonly _dialogService: DialogService,
+    private readonly _route: ActivatedRoute
   ) {
     super();
   }
@@ -72,12 +77,12 @@ export class EntryListComponent
   openDeleteEntryDialog(entry: EntryModel): void {
     this._facade.openDeleteEntriesDialog(entry);
   }
-  
+
   openPayEntryDialog(entry: EntryModel): void {
     this._facade.openPayEntryDialog(entry);
   }
-  
+
   ngOnInit(): void {
-    this._facade.loadEntries();
+    this._facade.loadEntriesWithType(this._route.snapshot.data.type);
   }
 }

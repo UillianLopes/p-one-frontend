@@ -18,6 +18,7 @@ export class UpdateCategoryModalComponent implements OnInit {
     name: [this._category.name, [Validators.required]],
     type: [this._category.type, [Validators.required]],
     description: [this._category.description],
+    color: [this._category.color]
   });
 
   readonly isCreateCategoryDisabled$ = this.form.statusChanges.pipe(

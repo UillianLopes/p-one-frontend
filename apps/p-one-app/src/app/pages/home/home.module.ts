@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   POneChartModule,
+  POneColorPickerModule,
   POneContainerModule,
   POneDatepickerModule,
   POneFlexModule,
@@ -27,6 +28,7 @@ import { HomeRoutingModule } from './home.routing';
     POneGridModule,
     POneDatepickerModule,
     NgxCurrencyModule,
+    POneColorPickerModule
   ],
 })
 export class HomeModule {}

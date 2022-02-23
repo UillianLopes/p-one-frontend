@@ -15,7 +15,6 @@ export class UpdateSubCategoryModalComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  
   readonly form = this._formBuilder.group({
     id: [this._subCategory.id, Validators.required],
     name: [this._subCategory.name, [Validators.required]],
@@ -25,6 +24,7 @@ export class UpdateSubCategoryModalComponent
       [CustomValidators.requireToBeObject],
     ],
     description: [this._subCategory.description],
+    color: [this._subCategory.color],
   });
 
   readonly isCreateSubCategoryDisabled$ = this.form.statusChanges.pipe(
@@ -62,11 +62,12 @@ export class UpdateSubCategoryModalComponent
   }
 
   updateSubCategory(): void {
-    const { id, name, description, category } = this.form.value;
+    const { id, name, description, category, color } = this.form.value;
     this._facade.updateSubCategory({
       id,
       name,
       description,
+      color,
       categoryId: category.id,
     });
   }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { EEntryType } from '../../../../../../../../../../libs/core/src';
 import { EntryComponent } from './entry.component';
 
 const routes: Routes = [
@@ -22,6 +23,9 @@ const routes: Routes = [
       },
       {
         path: 'list',
+        data: {
+          type: undefined,
+        },
         loadChildren: () =>
           import('./pages/entry-list/entry-list.module').then(
             (m) => m.EntryListModule
@@ -33,6 +37,9 @@ const routes: Routes = [
           import('./pages/entry-list/entry-list.module').then(
             (m) => m.EntryListModule
           ),
+        data: {
+          type: EEntryType.Debit,
+        },
       },
       {
         path: 'credits',
@@ -40,6 +47,9 @@ const routes: Routes = [
           import('./pages/entry-list/entry-list.module').then(
             (m) => m.EntryListModule
           ),
+        data: {
+          type: EEntryType.Credit,
+        },
       },
     ],
   },

@@ -4,7 +4,7 @@ import { Selection, svg } from 'd3';
 import * as _ from 'lodash';
 
 import { Chart } from '../chart';
-import { BarChartData } from './bar-chart.data';
+import { BarChartData, BarChartSerie } from './bar-chart.data';
 
 @Component({
   selector: 'p-one-bar-chart',
@@ -64,30 +64,105 @@ export class BarChartComponent extends Chart<BarChartData> {
     containerRect: DOMRect,
     animate?: boolean
   ) {
-    const { innerHeight, innerWidth, yScale, xScale, leftMargin, topMargin } =
+    const { innerHeight, innerWidth, leftMargin, topMargin, axisWidth } =
       this._getChartMetrics(containerRect, data);
 
     chart.attr('transform', `translate(${leftMargin}, ${topMargin})`);
 
-    
-    chart
+    const { series } = data;
+    const { yScale, barWidth, barGap } = this._getSeriesMetrics(
+      series,
+      innerWidth - axisWidth,
+      innerHeight
+    );
+
+    const allBars = chart
       .append('g')
       .attr('id', `${this.uniqueId}__bars`)
-      .selectAll('rect')
-      .data(data.series)
+      .attr('transform', `translate(${axisWidth}, 0)`);
+
+    const bars = allBars
+      .selectAll('g')
+      .data(series)
       .enter()
+      .append('g')
+      .attr('id', (__, i) => `${this.uniqueId}__bars__${i}`)
+      .attr('opacity', 1)
+      .attr(
+        'transform',
+        (__, i) => `translate(${i * barWidth + barGap * i}, 0)`
+      )
+      .attr('cursor', 'pointer');
+
+    bars
+      .on('mouseover', (__, serie) =>
+        this._allBarsMouseOver(allBars, serie, series)
+      )
+      .on('mouseleave', () => this._allBarsMouseLeave(allBars, series));
+
+    bars
       .append('rect')
-      .attr('x', (d) => xScale(d.name) ?? 0)
-      .attr('y', (d) => yScale(d.value) ?? 0)
-      .attr('height', (s) => innerHeight - yScale(s.value))
-      .attr('width', xScale.bandwidth());
+      .attr('y', ({ value }) => yScale(value) ?? 0)
+      .attr('height', ({ value }) => innerHeight - yScale(value))
+      .attr('width', barWidth)
+      .attr('fill', (d) => d.color ?? 'black')
+      .attr('id', (__, i) => `${this.uniqueId}__bars__${i}__rect`)
+      .attr('border-top-left-radius', 4);
 
-    chart.append('g').call(d3.axisLeft(yScale));
+    bars
+      .append('text')
+      .text(({ name }) => name)
+      .attr(
+        'y',
+        ({ value }) => yScale(value) + (innerHeight - yScale(value)) / 2
+      )
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'middle')
+      .attr('fill', '#ffffff')
+      .attr('transform', `translate(${barWidth / 2}, 0)`)
+      .attr('id', (__, i) => `${this.uniqueId}__bars__${i}__label`);
 
+    bars
+      .append('text')
+      .text(({ value }) => value)
+      .attr('y', ({ value }) => (yScale(value) ?? 0) - 8)
+      .attr('text-anchor', 'middle')
+      .attr('transform', `translate(${barWidth / 2}, 0)`)
+      .attr('id', (__, i) => `${this.uniqueId}__bars__${i}__value`);
+
+    const axisLeft = d3.axisLeft(yScale);
     chart
       .append('g')
-      .attr('transform', `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(xScale));
+      .attr('transform', `translate(${axisWidth - 8}, 0)`)
+      .call(axisLeft);
+  }
+
+  public _getSeriesMetrics(
+    series: BarChartSerie[],
+    width: number,
+    height: number
+  ) {
+    const maxSeriesValue = _.max(series.map(({ value }) => value)) ?? 0;
+    const seriesLength = series.length;
+    const barGap = 8;
+    const barWidth = (width - barGap * (seriesLength - 1)) / seriesLength;
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, maxSeriesValue + maxSeriesValue * 0.1])
+      .range([height, 0]);
+
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, seriesLength - 1])
+      .range([0, width]);
+
+    return {
+      yScale,
+      xScale,
+      barWidth,
+      barGap,
+    };
   }
 
   public _getChartMetrics(
@@ -95,35 +170,21 @@ export class BarChartComponent extends Chart<BarChartData> {
     data: BarChartData,
     animate?: boolean
   ) {
-    const { series } = data;
-
     let { width, height } = containerRect;
 
     if (width < 200) width = 200;
 
     if (height < 200) height = 200;
 
-    const barWidth = 30;
     const topMargin = 16;
-    const bottomMargin = 38;
-    const leftMargin = 40;
+    const bottomMargin = 16;
+    const axisWidth = 30;
+
+    const leftMargin = 16;
     const rightMargin = 16;
 
     const innerWidth = width - (leftMargin + rightMargin);
     const innerHeight = height - (bottomMargin + topMargin);
-
-    const maxSeriesValue = _.max(series.map(({ value }) => value)) ?? 0;
-
-    const yScale = d3
-      .scaleLinear()
-      .domain([0, maxSeriesValue + maxSeriesValue * 0.1])
-      .range([innerHeight, 0]);
-
-    const xScale = d3
-      .scaleBand()
-      .range([0, innerWidth])
-      .domain(series.map(({ name }) => name))
-      .padding(0.2);
 
     return {
       width,
@@ -131,12 +192,48 @@ export class BarChartComponent extends Chart<BarChartData> {
       innerWidth,
       innerHeight,
       animationDuration: animate ? this.animationDuration : 0,
-      yScale,
-      xScale,
       topMargin,
       leftMargin,
       rightMargin,
       bottomMargin,
+      axisWidth,
     };
+  }
+
+  public _allBarsMouseOver(
+    bars: d3.Selection<SVGGElement, unknown, null, undefined>,
+    serie: BarChartSerie,
+    series: BarChartSerie[]
+  ) {
+    const serieIndex = series.indexOf(serie);
+    for (let s of series) {
+      const index = series.indexOf(s);
+
+      if (index === serieIndex) {
+        continue;
+      }
+
+      bars
+        .select(`#${this.uniqueId}__bars__${index}`)
+        .transition()
+        .duration(200)
+        .ease(d3.easeQuadIn)
+        .attr('opacity', 0.7);
+    }
+  }
+
+  public _allBarsMouseLeave(
+    bars: d3.Selection<SVGGElement, unknown, null, undefined>,
+    series: BarChartSerie[]
+  ) {
+    for (let serie of series) {
+      const index = series.indexOf(serie);
+      bars
+        .select(`#${this.uniqueId}__bars__${index}`)
+        .transition()
+        .duration(200)
+        .ease(d3.easeQuadIn)
+        .attr('opacity', 1);
+    }
   }
 }

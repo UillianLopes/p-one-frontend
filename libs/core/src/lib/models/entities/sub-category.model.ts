@@ -5,4 +5,5 @@ export interface SubCategoryModel {
   description?: string;
   id?: string;
   category?: CategoryModel;
+  color?: string;
 }

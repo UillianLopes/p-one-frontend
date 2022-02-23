@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BalanceModel, EEntryType, EntryModel } from '@p-one/core';
-import { PONE_DIALOG_DATA } from '@p-one/shared';
+import { EEntryType, EntryModel, WalletModel } from '@p-one/core';
+import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -53,8 +53,10 @@ export class PayEntryModalComponent implements OnInit {
   constructor(
     private readonly _store: PayEntryModalStore,
     @Inject(PONE_DIALOG_DATA) public readonly entry: EntryModel,
-    private readonly _formBuilder: FormBuilder
+    private readonly _formBuilder: FormBuilder,
+    private readonly _dialogRef: DialogRef
   ) {
+    this._store.setDialogId(_dialogRef.dialogId);
     this._store.setEntry(entry);
   }
 
@@ -62,7 +64,7 @@ export class PayEntryModalComponent implements OnInit {
     this._store.loadBalances();
   }
 
-  public setBalance(balance: BalanceModel) {
+  public setBalance(balance: WalletModel) {
     this._store.setBalance(balance);
   }
 
@@ -70,5 +72,5 @@ export class PayEntryModalComponent implements OnInit {
     this._store.payEntry(this.form.value);
   }
 
-  public readonly displayBalanceFn = (balance: BalanceModel) => balance?.name;
+  public readonly displayBalanceFn = (balance: WalletModel) => balance?.name;
 }

@@ -36,12 +36,12 @@ export class UserStoreEffects {
     this._actions$.pipe(ofType(EUserStoreActions.SIGN_IN)).pipe(
       switchMap(() => {
         return this._oidcService.checkAuth().pipe(
-          switchMap(({ isAuthenticated, userData, accessToken }) => {
+          switchMap(({ isAuthenticated, userData: user, accessToken }) => {
             if (isAuthenticated) {
               return from(this._router.navigate(['/'])).pipe(
                 map(() => {
                   return signInSuccess({
-                    user: userData,
+                    user,
                     accessToken
                   });
                 })

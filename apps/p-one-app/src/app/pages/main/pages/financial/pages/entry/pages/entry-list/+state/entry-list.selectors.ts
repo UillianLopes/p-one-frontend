@@ -8,37 +8,42 @@ export const stateSelector =
 
 export const entriesSelector = createSelector(
   stateSelector,
-  (state) => state.entries
+  ({ entries }) => entries
 );
 
 export const loadingSelector = createSelector(
   stateSelector,
-  (state) => state.loading
+  ({ loading }) => loading
 );
 
 export const filterSelector = createSelector(
   stateSelector,
-  (state) => state.filter ?? {}
+  ({ filter }) => filter ?? {}
 );
 
 export const paginationSelector = createSelector(
   stateSelector,
-  (state) => state.pagination
+  ({ pagination }) => pagination
 );
 
 export const pageSelector = createSelector(
   paginationSelector,
-  (state) => state.page
+  ({ page }) => page
 );
 
 export const pageSizeSelector = createSelector(
   paginationSelector,
-  (state) => state.pageSize
+  ({ pageSize }) => pageSize
 );
 
 export const typeFilterSelecotr = createSelector(
   filterSelector,
-  (filter) => filter.type
+  ({ type }) => type
+);
+
+export const entryTypeSelector = createSelector(
+  stateSelector,
+  ({ entryType }) => entryType
 );
 
 export const filterToDisplaySelector = createSelector(

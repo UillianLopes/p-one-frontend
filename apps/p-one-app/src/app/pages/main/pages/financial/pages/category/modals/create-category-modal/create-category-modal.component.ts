@@ -16,13 +16,14 @@ export class CreateCategoryModalComponent implements OnInit {
     name: ['', [Validators.required]],
     type: [EEntryType.Credit, [Validators.required]],
     description: [''],
+    color: ['#ffffff', [Validators.required]],
   });
 
   public readonly isCreateCategoryDisabled$ = this.form.statusChanges.pipe(
     startWith(this.form.status),
     map((status) => status === 'INVALID')
   );
-  
+
   public readonly isLoading$ = this._facade.isLoading$;
 
   constructor(

@@ -33,9 +33,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'balances',
+        path: 'wallets',
         loadChildren: () =>
-          import('./pages/balance/balance.module').then((m) => m.BalanceModule),
+          import('./pages/wallet/wallet.module').then((m) => m.WalletModule),
       },
     ],
   },

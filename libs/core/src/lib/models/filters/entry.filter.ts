@@ -1,4 +1,4 @@
-import { CategoryModel, EEntryType, SubCategoryModel } from '..';
+import { CategoryModel, EEntryPaymentStatus, EEntryType, SubCategoryModel } from '..';
 
 export interface EntryFilter {
   text?: string;
@@ -8,5 +8,5 @@ export interface EntryFilter {
   type?: EEntryType;
   minValue?: number;
   maxValue?: number;
-  paymentStatus?: boolean;
+  paymentStatus?: EEntryPaymentStatus;
 }

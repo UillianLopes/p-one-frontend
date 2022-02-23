@@ -21,6 +21,7 @@ export class CreateSubCategoryModalComponent
     type: [EEntryType.Credit, Validators.required],
     category: [null, [CustomValidators.requireToBeObject]],
     description: [''],
+    color: [''],
   });
 
   readonly isCreateSubCategoryDisabled$ = this.form.statusChanges.pipe(
@@ -58,11 +59,12 @@ export class CreateSubCategoryModalComponent
   }
 
   createSubCategory(): void {
-    const { name, description, category } = this.form.value;
+    const { name, description, category, color } = this.form.value;
     this._facade.createSubCategory({
       name,
       description,
       categoryId: category.id,
+      color,
     });
   }
 }

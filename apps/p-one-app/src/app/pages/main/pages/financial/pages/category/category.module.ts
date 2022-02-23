@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
   POneBreadcrumbModule,
+  POneColorPickerModule,
   POneContainerModule,
   POneContextMenuModule,
   POneDialogModule,
@@ -49,6 +50,7 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     NgbPaginationModule,
     POneGridModule,
     POneBreadcrumbModule,
+    POneColorPickerModule,
   ],
   providers: [CategoryFacade],
 })
