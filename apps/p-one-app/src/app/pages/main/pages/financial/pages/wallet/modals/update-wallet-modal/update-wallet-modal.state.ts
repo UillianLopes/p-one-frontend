@@ -52,9 +52,9 @@ export class UpdateWalletModalStore extends ComponentStore<UpdateWalletModalStat
     (data$: Observable<WalletModel>) => {
       return data$.pipe(
         tap(() => this.setIsLoading(true)),
-        switchMap((wallet) =>
+        switchMap(({ bank, id, ...wallet }) =>
           this._walletService
-            .update(wallet.id, { ...wallet, bankId: wallet.bank?.id })
+            .update(id, { ...wallet, bankId: bank?.id })
             .pipe(
               tap({
                 next: () => {

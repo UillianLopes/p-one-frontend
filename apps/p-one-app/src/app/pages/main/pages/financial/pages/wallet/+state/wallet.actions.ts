@@ -9,6 +9,8 @@ export enum EWalletActions {
   OPEN_CREATE_WALLET_DIALOG = '[Wallet] Open create wallet dialog',
   OPEN_UPDATE_WALLET_DIALOG = '[Wallet] Open update wallet dialog',
   OPEN_DELETE_WALLET_DIALOG = '[Wallet] Open delete wallet dialog',
+  OPEN_DEPOSIT_WALLET_DIALOG = '[Wallet] Open deposit wallet dialog',
+  OPEN_WITHDRAW_WALLET_DIALOG = '[Wallet] Open withdraw wallet dialog',
 
   SET_WALLETS_PAGE = '[Wallet] Set wallets page',
 
@@ -41,6 +43,16 @@ export const openUpdateWalletDialog = createAction(
   props<{ wallet: WalletModel }>()
 );
 
+export const openDepositWalletDialog = createAction(
+  EWalletActions.OPEN_DEPOSIT_WALLET_DIALOG,
+  props<{ wallet: WalletModel }>()
+);
+
+export const openWithdrawWalletDialog = createAction(
+  EWalletActions.OPEN_WITHDRAW_WALLET_DIALOG,
+  props<{ wallet: WalletModel }>()
+);
+
 export const openDeleteWalletDialog = createAction(
   EWalletActions.OPEN_DELETE_WALLET_DIALOG,
   props<{ wallet: WalletModel }>()
@@ -56,6 +68,7 @@ const actionsUnion = union({
   openCreateWalletDialog,
   openUpdateWalletDialog,
   openDeleteWalletDialog,
+  openDepositWalletDialog,
 
   resetState,
 });

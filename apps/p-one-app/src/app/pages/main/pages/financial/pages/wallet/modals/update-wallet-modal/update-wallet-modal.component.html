@@ -13,17 +13,6 @@
             i18n-placehoder
           />
         </p-one-form-field>
-        <p-one-form-field pOneGridColumn="200px">
-          <label pOneLabel for="valueInput" i18n>Valor</label>
-          <input
-            #valueInput
-            pOneInput
-            placeholder="R$ 0,00"
-            formControlName="value"
-            type="tel"
-            currencyMask
-          />
-        </p-one-form-field>
       </div>
 
       <ng-container *ngIf="(type$ | async) === EWalletType.balance">

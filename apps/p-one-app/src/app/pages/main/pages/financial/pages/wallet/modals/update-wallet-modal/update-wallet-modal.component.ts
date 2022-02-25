@@ -22,7 +22,6 @@ export class UpdateWalletModalComponent implements OnInit {
   public readonly form = this._formBuilder.group({
     id: [this.data?.id, [Validators.required]],
     name: [this.data?.name, [Validators.required]],
-    value: [this.data?.value, [Validators.required]],
     agency: [this.data?.agency],
     bank: [this.data?.bank],
     number: [this.data?.number],

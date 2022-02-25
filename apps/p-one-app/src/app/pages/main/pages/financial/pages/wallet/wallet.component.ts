@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BankModel, WalletModel } from '@p-one/core';
 import { map } from 'rxjs/operators';
 
-import { BankModel, WalletModel } from '../../../../../../../../../../libs/core/src';
 import { WalletFacade } from './+state/wallet.facade';
 
 @Component({
@@ -33,12 +33,20 @@ export class WalletComponent implements OnInit {
     this._facade.openCreateWalletDialog();
   }
 
-  public openUpdateWalletDialog(balance: WalletModel): void {
-    this._facade.openUpdateWalletDialog(balance);
+  public openUpdateWalletDialog(wallet: WalletModel): void {
+    this._facade.openUpdateWalletDialog(wallet);
   }
 
-  public openDeleteWalletDialog(balance: WalletModel): void {
-    this._facade.openDeleteWalletDialog(balance);
+  public openDeleteWalletDialog(wallet: WalletModel): void {
+    this._facade.openDeleteWalletDialog(wallet);
+  }
+
+  public openDepositWalletDialog(wallet: WalletModel): void {
+    this._facade.openDepositWalletDialog(wallet);
+  }
+
+  public openWithdrawWalletDialog(wallet: WalletModel): void {
+    this._facade.openWithdrawWalletDialog(wallet);
   }
 
   public setWalletsPage(page: number) {

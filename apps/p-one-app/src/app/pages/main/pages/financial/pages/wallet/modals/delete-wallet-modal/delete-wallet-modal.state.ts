@@ -84,16 +84,17 @@ export class DeleteWalletModalStore extends ComponentStore<DeleteWalletModalStat
       tap(() => this.setIsLoading(true)),
       withLatestFrom(this.wallets$),
       switchMap(([_, wallets]) =>
-        this._walletService.deleteMultiple(wallets.map((b) => b.id))
-      ),
-      withLatestFrom(this.dialogId$),
-      tap({
-        next: ([_, dialogId]) => {
-          this.deleteWalletsSuccess();
-          this._dialogService.close(dialogId, true);
-        },
-        error: (error) => this.deleteWalletsFailure(error),
-      })
+        this._walletService.deleteMultiple(wallets.map((b) => b.id)).pipe(
+          withLatestFrom(this.dialogId$),
+          tap({
+            next: ([_, dialogId]) => {
+              this.deleteWalletsSuccess();
+              this._dialogService.close(dialogId, true);
+            },
+            error: (error) => this.deleteWalletsFailure(error),
+          })
+        )
+      )
     );
   });
 }

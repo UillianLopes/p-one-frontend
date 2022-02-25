@@ -1,9 +1,12 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryFilter, CategoryModel, PaginatedFilter, SubCategoryModel, UpdateSubCategoryRequest } from '@p-one/core';
-
 import {
+  CategoryFilter,
+  CategoryModel,
   CreateSubCategoryRequest,
-} from '../../../../../../../../../../../libs/core/src/lib/models/requests/create-sub-category.request';
+  PaginatedFilter,
+  SubCategoryModel,
+  UpdateSubCategoryRequest,
+} from '@p-one/core';
 
 export enum ESubCategoryActions {
   LOAD_SUB_CATEGORIES = '[Sub Category] Load sub categories',

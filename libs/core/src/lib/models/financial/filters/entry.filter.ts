@@ -1,4 +1,6 @@
-import { CategoryModel, EEntryPaymentStatus, EEntryType, SubCategoryModel } from '..';
+import { CategoryModel, SubCategoryModel } from '../entities';
+import { EEntryPaymentStatus, EEntryType } from '../enums';
+
 
 export interface EntryFilter {
   text?: string;

@@ -4,11 +4,17 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { CategoryModel, EntryFilterRequest, EntryModel, RecurrenceModel, ResponseModel } from '../../../models';
-import { BuildEntryReccurrenceRequest } from '../../../models/requests/build-entry-recurrence.request';
-import { CreateEntryRequest } from '../../../models/requests/create-entry.request';
-import { PayEntryRequest } from '../../../models/requests/pay-entry.request';
-import { ErrorModel } from '../../../models/responses/error.model';
+import {
+  BuildEntryReccurrenceRequest,
+  CategoryModel,
+  EntryFilterRequest,
+  EntryModel,
+  PayEntryRequest,
+  RecurrenceModel,
+  ResponseModel,
+} from '../../../models/financial';
+import { CreateEntryRequest } from '../../../models/financial/requests/create-entry.request';
+import { ErrorModel } from '../../../models/financial/responses/error.model';
 
 function cleanFilter(filter: any) {
   if (!filter) {

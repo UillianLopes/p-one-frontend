@@ -1,7 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { FINANCIAL_API_URL } from '@p-one/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { combineLatest, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 
@@ -15,7 +14,6 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private readonly _userStoreFacade: UserStoreFacade,
-    private readonly _oidcSecurityService: OidcSecurityService,
     @Inject(FINANCIAL_API_URL) private readonly _financialApi: string
   ) {}
 

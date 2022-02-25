@@ -1,4 +1,4 @@
-import { EEntryType } from '..';
+import { EEntryType } from '../enums';
 
 interface CreateEntryRequestRecurrence {
   index: number;

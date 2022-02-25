@@ -70,18 +70,16 @@ export class EntryCreateEffects {
       switchMap(
         ([
           _,
-          firstStepForm,
+          { category, subCategory, ...firstStepForm },
           { value, recurrence, dueDate, barCode },
           recurrences,
         ]) => {
           let entryCreateRequest: any = {
             ...firstStepForm,
             barCode,
-            subCategoryId: firstStepForm.subCategory?.id,
-            categoryId: firstStepForm.category.id,
+            subCategoryId: subCategory?.id,
+            categoryId: category.id,
             recurrences: [...recurrences],
-            category: undefined,
-            subCategory: undefined,
           };
 
           if (recurrence == EEntryRecurrence.OneTime) {

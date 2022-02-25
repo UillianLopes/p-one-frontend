@@ -14,6 +14,7 @@ import {
   POneHeaderModule,
   POneInputModule,
   POneSidenavModule,
+  POneTooltipModule,
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
@@ -22,7 +23,9 @@ import { WalletFacade } from './+state/wallet.facade';
 import { WALLET_KEY, walletReducer } from './+state/wallet.reducer';
 import { CreateWalletModalComponent } from './modals/create-wallet-modal/create-wallet-modal.component';
 import { DeleteWalletModalComponent } from './modals/delete-wallet-modal/delete-wallet-modal.component';
+import { DepositModalComponent } from './modals/deposit-modal/deposit-modal.component';
 import { UpdateWalletModalComponent } from './modals/update-wallet-modal/update-wallet-modal.component';
+import { WithdrawModalComponent } from './modals/withdraw-modal/withdraw-modal.component';
 import { WalletComponent } from './wallet.component';
 import { WalletRoutingModule } from './wallet.routing';
 
@@ -32,6 +35,8 @@ import { WalletRoutingModule } from './wallet.routing';
     CreateWalletModalComponent,
     UpdateWalletModalComponent,
     DeleteWalletModalComponent,
+    DepositModalComponent,
+    WithdrawModalComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +56,7 @@ import { WalletRoutingModule } from './wallet.routing';
     POneGridModule,
     NgxCurrencyModule,
     POneFlexModule,
+    POneTooltipModule,
   ],
   providers: [WalletFacade],
 })

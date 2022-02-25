@@ -12,10 +12,10 @@
   </p-one-header>
   <div pOneHeader class="p-one-balance__sub-header">
     <p-one-breadcrumb>
-      <p-one-breadcrumb-item link="/main/financial">
+      <p-one-breadcrumb-item link="/main/financial" i18n>
         Financeiro
       </p-one-breadcrumb-item>
-      <p-one-breadcrumb-item> Contas / Carteiras </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item i18n> Contas / Carteiras </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </div>
   <div pOneHeader class="p-one-balance__sub-header">
@@ -39,11 +39,23 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let wallet of this.filtredPaginatedWallets$ | async"
+          *ngFor="let wallet of filtredPaginatedWallets$ | async"
           [pOneContextMenuHost]="contextMenuTemplate"
         >
           <ng-template #contextMenuTemplate>
             <div pOneFlexRow gap="8px" class="p-one-balance__context-menu">
+              <button
+                class="btn btn-outline-success btn-sm"
+                (click)="openDepositWalletDialog(wallet)"
+              >
+                Lançar depósito
+              </button>
+              <button
+                class="btn btn-outline-warning btn-sm"
+                (click)="openWithdrawWalletDialog(wallet)"
+              >
+                Lançar retirada
+              </button>
               <button
                 class="btn btn-outline-primary btn-sm"
                 (click)="openUpdateWalletDialog(wallet)"

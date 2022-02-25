@@ -6,7 +6,9 @@ import {
   loadWallets,
   openCreateWalletDialog,
   openDeleteWalletDialog,
+  openDepositWalletDialog,
   openUpdateWalletDialog,
+  openWithdrawWalletDialog,
   setWalletsPage,
 } from './wallet.actions';
 import { WalletState } from './wallet.reducer';
@@ -40,12 +42,20 @@ export class WalletFacade {
     this._store.dispatch(setWalletsPage({ page }));
   }
 
-  public openCreateWalletDialog() {
+  public openCreateWalletDialog(): void {
     this._store.dispatch(openCreateWalletDialog());
   }
 
-  public openUpdateWalletDialog(balance: WalletModel) {
-    this._store.dispatch(openUpdateWalletDialog({ wallet: balance }));
+  public openUpdateWalletDialog(wallet: WalletModel): void {
+    this._store.dispatch(openUpdateWalletDialog({ wallet }));
+  }
+
+  public openDepositWalletDialog(wallet: WalletModel): void {
+    this._store.dispatch(openDepositWalletDialog({ wallet }));
+  }
+
+  public openWithdrawWalletDialog(wallet: WalletModel): void {
+    this._store.dispatch(openWithdrawWalletDialog({ wallet }));
   }
 
   public openDeleteWalletDialog(balance: WalletModel) {

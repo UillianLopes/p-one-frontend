@@ -10,8 +10,12 @@
     </button>
 
     <h2 [ngSwitch]="entryType$ | async">
-      <ng-container *ngSwitchCase="EntryType.Debit">Contas a pagar</ng-container>
-      <ng-container *ngSwitchCase="EntryType.Credit">Contas a receber</ng-container>
+      <ng-container *ngSwitchCase="EntryType.Debit"
+        >Contas a pagar</ng-container
+      >
+      <ng-container *ngSwitchCase="EntryType.Credit"
+        >Contas a receber</ng-container
+      >
       <ng-container *ngSwitchDefault>Todas as contas</ng-container>
     </h2>
   </p-one-header>
@@ -105,7 +109,14 @@
               </button>
             </div>
           </ng-template>
-          <td>({{ entry.index }}/{{ entry.recurrences }})</td>
+          <td>
+            <ng-container
+              *ngIf="entry.recurrences > 0; else noRecurrencesTemplate"
+            >
+              ({{ entry.index }}/{{ entry.recurrences }})
+            </ng-container>
+            <ng-template #noRecurrencesTemplate> --- </ng-template>
+          </td>
           <td>{{ entry.title }}</td>
           <td>{{ entry.dueDate | date }}</td>
           <td>{{ entry.category?.title }}</td>
@@ -137,7 +148,15 @@
               <i class="bi bi-exclamation-triangle text-danger"></i>
             </ng-container>
             <ng-container *ngSwitchCase="EntryPaymentStatus.Paid">
-              Pago
+              <ng-container [ngSwitch]="entry.type">
+                <ng-container *ngSwitchCase="EntryType.Credit">
+                  Recebido
+                </ng-container>
+                <ng-container *ngSwitchCase="EntryType.Debit">
+                  Pago
+                </ng-container>
+              </ng-container>
+
               <i class="bi bi-check-circle text-success"></i>
             </ng-container>
           </td>

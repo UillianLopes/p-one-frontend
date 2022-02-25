@@ -4,9 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { ResponseModel, SubCategoryModel, UpdateSubCategoryRequest } from '../../../models';
-import { CreateSubCategoryRequest } from '../../../models/requests/create-sub-category.request';
-import { ErrorModel } from '../../../models/responses/error.model';
+import {
+  CreateSubCategoryRequest,
+  ResponseModel,
+  SubCategoryModel,
+  UpdateSubCategoryRequest,
+} from '../../../models/financial';
+import { ErrorModel } from '../../../models/financial/responses/error.model';
+
 
 @Injectable()
 export class SubCategoryService {

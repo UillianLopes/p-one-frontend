@@ -4,14 +4,18 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { ResponseModel, WalletModel } from '../../../models';
-import { CreateWalletRequest } from '../../../models/requests/create-wallet.request';
-import { UpdateWalletRequest } from '../../../models/requests/update-wallet.request';
-import { ErrorModel } from '../../../models/responses/error.model';
+import {
+  CreateWalletRequest,
+  DepositRequest,
+  ErrorModel,
+  ResponseModel,
+  UpdateWalletRequest,
+  WalletModel,
+  WithdrawRequest,
+} from '../../../models/financial';
 
 @Injectable()
 export class WalletService {
-
   constructor(
     private readonly _httpClient: HttpClient,
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
@@ -44,12 +48,12 @@ export class WalletService {
 
   public update(
     balanceId: string,
-    balance: UpdateWalletRequest
+    wallet: UpdateWalletRequest
   ): Observable<WalletModel> {
     return this._httpClient
       .put<ResponseModel<WalletModel>>(
         `${this._financialApiUrl}/Wallet/${balanceId}`,
-        balance
+        wallet
       )
       .pipe(
         map((resposne) => resposne.data),
@@ -59,10 +63,10 @@ export class WalletService {
       );
   }
 
-  public delete(balanceId: string): Observable<WalletModel> {
+  public delete(walletId: string): Observable<WalletModel> {
     return this._httpClient
       .delete<ResponseModel<WalletModel>>(
-        `${this._financialApiUrl}/Wallet/${balanceId}`
+        `${this._financialApiUrl}/Wallet/${walletId}`
       )
       .pipe(
         map((resposne) => resposne.data),
@@ -87,5 +91,34 @@ export class WalletService {
       );
   }
 
+  public deposit(walletId: string, deposit: DepositRequest): Observable<any> {
+    return this._httpClient
+      .put<ResponseModel<any>>(
+        `${this._financialApiUrl}/Wallet/${walletId}/Deposit`,
+        { ...deposit }
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
 
+  public withdraw(
+    walletId: string,
+    withdraw: WithdrawRequest
+  ): Observable<any> {
+    return this._httpClient
+      .put<ResponseModel<any>>(
+        `${this._financialApiUrl}/Wallet/${walletId}/Withdraw`,
+        { ...withdraw }
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
 }

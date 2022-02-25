@@ -7,3 +7,6 @@ export * from './update-category.request';
 export * from './entry-filter.request';
 export * from './create-wallet.request';
 export * from './pay-entry.request';
+export * from './deposit.request';
+export * from './withdraw.request';
+export * from './update-wallet.request';

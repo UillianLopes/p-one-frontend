@@ -1,0 +1,69 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h2 p-one-dialog-header>Depósito</h2>
+  <p-one-dialog-body>
+    <form [formGroup]="form">
+      <p-one-form-field>
+        <label pOneLabel>Titulo</label>
+        <input pOneInput formControlName="title" />
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel>Categoria</label>
+        <input
+          pOneInput
+          [pOneAutocomplete]="autoCompleteCategory"
+          formControlName="category"
+        />
+        <p-one-autocomplete
+          #autoCompleteCategory="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            *ngFor="let category of categories$ | async"
+            [value]="category"
+          >
+            {{ category.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel>Sub categoria</label>
+        <input
+          [pOneAutocomplete]="autoCompleteSubCategory"
+          formControlName="subCategory"
+        />
+        <p-one-autocomplete
+          #autoCompleteSubCategory="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            *ngFor="let subCategory of subCategories$ | async"
+            [value]="subCategory"
+          >
+            {{ subCategory.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel>Valor do depósito</label>
+        <input pOneInput currencyMask formControlName="deposit" />
+      </p-one-form-field>
+    </form>
+    <p>
+      Com esse depósito o saldo vai de
+      <b>{{ currentBalance$ | async | currency: 'BRL' }} </b> para
+      <b>{{ newBalance$ | async | currency: 'BRL' }} </b>
+    </p>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isConfirmFormDisabled$ | async"
+      (click)="confirmDeposit()"
+    >
+      Confirmar depósito
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>
