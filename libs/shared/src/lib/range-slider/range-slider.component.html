@@ -1,0 +1,28 @@
+<div style="display: flex; flex-direction: row; justify-content: center">
+  <div style="width: 10px; height: 40px; background: green"></div>
+</div>
+
+<!-- <div
+  class="range-slider__slide"
+  cdkScrollable
+  (panright)="panright()"
+  (panleft)="panleft()"
+>
+  <div class="range-slider__thicks">
+    <div
+      class="range-slider__thick"
+      *ngFor="let thick of thicks$ | async"
+    ></div>
+  </div>
+</div> -->
+
+<div class="range-slider" cdkScrollable>
+  <div class="range-slider__slide" [style.width.px]="slideWidth$ | async">
+    <div class="range-slider__thicks" [style.width.px]="thicksWidth$ | async">
+      <div
+        class="range-slider__thick"
+        *ngFor="let thick of thicks$ | async"
+      ></div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { BarChartData } from '@p-one/shared';
 import { of } from 'rxjs';
 
@@ -42,7 +43,10 @@ export class HomeComponent implements OnInit {
     ],
   } as BarChartData);
 
-  constructor() {}
+  constructor(el: ElementRef<HTMLElement>) {
+    var formArray = new FormArray([]);
+    formArray.clear()
+  }
 
   ngOnInit(): void {}
 }

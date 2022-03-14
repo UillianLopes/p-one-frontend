@@ -2,6 +2,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
+import { HammerModule } from '@angular/platform-browser';
 import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 import { FINANCIAL_API_URL } from './contants/tokens';
@@ -13,7 +14,7 @@ registerLocaleData(localePt);
 registerLocaleData(localeEn);
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, HammerModule],
 })
 export class POneCoreModule {
   static forRoot(config: {

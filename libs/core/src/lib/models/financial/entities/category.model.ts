@@ -1,4 +1,4 @@
-import { EEntryType } from '../enums/entry-type.enum';
+import { EEntryType } from '../enums';
 
 export interface CategoryModel {
   name: string;

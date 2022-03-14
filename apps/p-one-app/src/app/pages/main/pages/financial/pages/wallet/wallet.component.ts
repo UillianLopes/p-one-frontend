@@ -12,8 +12,7 @@ import { WalletFacade } from './+state/wallet.facade';
 })
 export class WalletComponent implements OnInit {
   public readonly isLoading$ = this._facade.isLoading$;
-  public readonly filtredPaginatedWallets$ =
-    this._facade.filtredPaginatedWallets$;
+  public readonly filtredPaginatedWallets$ = this._facade.filtredPaginatedWallets$;
   public readonly filtredWalletsLength$ = this._facade.filtredWalletsLength$;
   public readonly pageSize$ = this._facade.pagination$.pipe(
     map(({ pageSize }) => pageSize)
@@ -25,9 +24,7 @@ export class WalletComponent implements OnInit {
 
   constructor(private readonly _facade: WalletFacade) {}
 
-  ngOnInit(): void {
-    this._facade.loadWallets();
-  }
+  ngOnInit(): void {}
 
   public openCreateWalletDialog(): void {
     this._facade.openCreateWalletDialog();

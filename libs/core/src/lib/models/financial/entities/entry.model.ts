@@ -1,5 +1,4 @@
-import { EEntryPaymentStatus } from '../enums';
-import { EEntryType } from '../enums/entry-type.enum';
+import { EEntryPaymentStatus, EEntryType } from '../enums';
 import { AutocompleteModel } from './autocomplete.model';
 
 export interface EntryModel {

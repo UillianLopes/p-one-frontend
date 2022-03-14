@@ -4,10 +4,10 @@
     <form [formGroup]="this.form">
       <p-one-form-field>
         <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
-          <p-one-radio-button [value]="EWalletType.balance">
+          <p-one-radio-button [value]="EWalletType.Balance">
             Conta bancária
           </p-one-radio-button>
-          <p-one-radio-button [value]="EWalletType.wallet">
+          <p-one-radio-button [value]="EWalletType.Wallet">
             Carteira digital
           </p-one-radio-button>
         </p-one-radio>
@@ -36,7 +36,7 @@
         </p-one-form-field>
       </div>
 
-      <ng-container *ngIf="(mode$ | async) === EWalletType.balance">
+      <ng-container *ngIf="(mode$ | async) === EWalletType.Balance">
         <p-one-form-field>
           <label pOneLabel for="agencyInput" i18n>Banco</label>
           <input

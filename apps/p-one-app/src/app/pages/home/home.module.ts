@@ -9,6 +9,7 @@ import {
   POneGridModule,
   POnePipesModule,
   POneSidenavModule,
+  RangeSliderModule,
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
@@ -28,7 +29,8 @@ import { HomeRoutingModule } from './home.routing';
     POneGridModule,
     POneDatepickerModule,
     NgxCurrencyModule,
-    POneColorPickerModule
+    POneColorPickerModule,
+    RangeSliderModule,
   ],
 })
 export class HomeModule {}

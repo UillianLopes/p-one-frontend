@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.range-slider {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
+
+  &__slide {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    background: transparent;
+    justify-content: center;
+  }
+
+  &__thicks {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(244, 151, 0, 1) 23%,
+      rgba(255, 220, 77, 1) 50%,
+      rgba(188, 230, 0, 1) 70%,
+      rgba(9, 121, 16, 1) 100%
+    );
+
+    justify-content: space-between;
+  }
+
+  &__thick {
+    height: 40px;
+    width: 10px;
+    min-width: 10px;
+  }
+}

@@ -35,7 +35,6 @@ export class UpdateCategoryModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
   }
 
   updateCategory(): void {

@@ -4,8 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { CategoryModel, EEntryType, ResponseModel } from '../../../models/financial';
-import { ErrorModel } from '../../../models/financial/responses/error.model';
+import { CategoryModel, EEntryType, ErrorModel, ResponseModel } from '../../../models/financial';
 
 @Injectable()
 export class CategoryService {
