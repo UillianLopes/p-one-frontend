@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'entries',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
       {
@@ -36,6 +36,13 @@ const routes: Routes = [
         path: 'wallets',
         loadChildren: () =>
           import('./pages/wallet/wallet.module').then((m) => m.WalletModule),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
     ],
   },

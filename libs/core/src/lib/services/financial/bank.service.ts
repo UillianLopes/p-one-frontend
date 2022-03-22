@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import { BankModel, ErrorModel, ResponseModel } from '../../../models/financial';
+import { FINANCIAL_API_URL } from '../../contants/tokens';
+import { BankModel, ErrorModel, ResponseModel } from '../../models/financial';
 
 @Injectable()
 export class BankService {

@@ -1,28 +1,27 @@
-<div style="display: flex; flex-direction: row; justify-content: center">
-  <div style="width: 10px; height: 40px; background: green"></div>
-</div>
-
-<!-- <div
-  class="range-slider__slide"
+<span>{{ value$ | async }}</span>
+<div class="range-slider__selector" [style.width.px]="SELECTOR_WIDTH"></div>
+<div
+  class="range-slider"
   cdkScrollable
-  (panright)="panright()"
-  (panleft)="panleft()"
+  (panleft)="panleft($event)"
+  (panright)="panright($event)"
 >
-  <div class="range-slider__thicks">
+  <div
+    class="range-slider__thicks"
+    [style.left.px]="left$ | async"
+    [style.width.px]="thicksWidth$ | async"
+    [style.gap.px]="THICKS_GAP"
+  >
     <div
       class="range-slider__thick"
+      [id]="'range-slider__thick--' + thick"
+      [style.min-width.px]="THICK_WIDTH"
+      [style.max-width.px]="THICK_WIDTH"
+      [style.width-width.px]="THICK_WIDTH"
+      [class.range-slider__thick--selected]="thick === (value$ | async)"
+      [class.range-slider__thick--previous]="thick === (previousValue$ | async)"
+      [class.range-slider__thick--next]="thick === (nextValue$ | async)"
       *ngFor="let thick of thicks$ | async"
     ></div>
-  </div>
-</div> -->
-
-<div class="range-slider" cdkScrollable>
-  <div class="range-slider__slide" [style.width.px]="slideWidth$ | async">
-    <div class="range-slider__thicks" [style.width.px]="thicksWidth$ | async">
-      <div
-        class="range-slider__thick"
-        *ngFor="let thick of thicks$ | async"
-      ></div>
-    </div>
   </div>
 </div>

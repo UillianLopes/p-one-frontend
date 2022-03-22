@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../../../contants/tokens';
+import { FINANCIAL_API_URL } from '../../contants/tokens';
 import {
   CreateWalletRequest,
   DepositRequest,
@@ -12,7 +12,7 @@ import {
   UpdateWalletRequest,
   WalletModel,
   WithdrawRequest,
-} from '../../../models/financial';
+} from '../../models/financial';
 
 @Injectable()
 export class WalletService {

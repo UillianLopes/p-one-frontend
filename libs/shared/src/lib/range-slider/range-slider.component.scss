@@ -1,12 +1,17 @@
 :host {
   display: block;
   width: 100%;
+  max-width: 100%;
+  text-align: center;
+  position: relative;
 }
 
 .range-slider {
   width: 100%;
   max-width: 100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  position: relative;
+  height: 40px;
 
   &__slide {
     height: 40px;
@@ -14,27 +19,49 @@
     flex-direction: row;
     background: transparent;
     justify-content: center;
+
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
   }
 
   &__thicks {
     height: 40px;
     display: flex;
     flex-direction: row;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(244, 151, 0, 1) 23%,
-      rgba(255, 220, 77, 1) 50%,
-      rgba(188, 230, 0, 1) 70%,
-      rgba(9, 121, 16, 1) 100%
-    );
-
-    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    top: 0px;
+    transition: 100ms;
+    
   }
 
   &__thick {
-    height: 40px;
-    width: 10px;
-    min-width: 10px;
+    height: 35px;
+    min-height: 35px;
+    transition: 100ms linear;
+    background: black;
+
+    &--selected {
+      height: 40px;
+      transition: 100ms linear;
+    }
+
+    &--previous,
+    &--next {
+      height: 37.5px;
+      transition: 100ms linear;
+    }
+    
+  }
+
+
+  &__selector {
+    height: 42px;
+    border: 1px solid green;
+
+    bottom: -1px;
+    position: absolute;
+    left: calc(50% - 3px);
   }
 }

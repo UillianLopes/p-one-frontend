@@ -3,31 +3,23 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../../../contants/tokens';
-import {
-  CreateSubCategoryRequest,
-  ResponseModel,
-  SubCategoryModel,
-  UpdateSubCategoryRequest,
-} from '../../../models/financial';
-import { ErrorModel } from '../../../models/financial/responses/error.model';
-
+import { FINANCIAL_API_URL } from '../../contants/tokens';
+import { CategoryModel, EEntryType, ErrorModel, ResponseModel } from '../../models/financial';
 
 @Injectable()
-export class SubCategoryService {
+export class CategoryService {
   constructor(
     private readonly _httpClient: HttpClient,
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
   ) {}
 
-  get(categoryId?: string): Observable<SubCategoryModel[]> {
+  get(type?: EEntryType): Observable<CategoryModel[]> {
     const params: any = {
-      categoryId,
+      type,
     };
-
     return this._httpClient
-      .get<ResponseModel<SubCategoryModel[]>>(
-        `${this._financialApiUrl}/SubCategory`,
+      .get<ResponseModel<CategoryModel[]>>(
+        `${this._financialApiUrl}/Category`,
         {
           params,
         }
@@ -40,10 +32,10 @@ export class SubCategoryService {
       );
   }
 
-  create(category: CreateSubCategoryRequest): Observable<SubCategoryModel> {
+  create(category: CategoryModel): Observable<CategoryModel> {
     return this._httpClient
-      .post<ResponseModel<SubCategoryModel>>(
-        `${this._financialApiUrl}/SubCategory`,
+      .post<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category`,
         category
       )
       .pipe(
@@ -54,13 +46,10 @@ export class SubCategoryService {
       );
   }
 
-  update(
-    id: string,
-    category: UpdateSubCategoryRequest
-  ): Observable<SubCategoryModel> {
+  update(id: string, category: CategoryModel): Observable<CategoryModel> {
     return this._httpClient
-      .put<ResponseModel<SubCategoryModel>>(
-        `${this._financialApiUrl}/SubCategory/${id}`,
+      .put<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category/${id}`,
         category
       )
       .pipe(
@@ -71,10 +60,10 @@ export class SubCategoryService {
       );
   }
 
-  delete(categoryId: string): Observable<SubCategoryModel> {
+  delete(categoryId: string): Observable<CategoryModel> {
     return this._httpClient
-      .delete<ResponseModel<SubCategoryModel>>(
-        `${this._financialApiUrl}/SubCategory/${categoryId}`
+      .delete<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category/${categoryId}`
       )
       .pipe(
         map((resposne) => resposne.data),
@@ -84,10 +73,10 @@ export class SubCategoryService {
       );
   }
 
-  deleteMultiple(categoryIds: string[]): Observable<SubCategoryModel> {
+  deleteMultiple(categoryIds: string[]): Observable<CategoryModel> {
     return this._httpClient
-      .delete<ResponseModel<SubCategoryModel>>(
-        `${this._financialApiUrl}/SubCategory`,
+      .delete<ResponseModel<CategoryModel>>(
+        `${this._financialApiUrl}/Category`,
         {
           params: {
             ids: categoryIds,

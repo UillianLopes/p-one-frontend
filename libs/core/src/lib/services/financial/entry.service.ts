@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../../../contants/tokens';
+import { FINANCIAL_API_URL } from '../../contants/tokens';
 import {
   BuildEntryReccurrenceRequest,
   CategoryModel,
@@ -12,9 +12,9 @@ import {
   PayEntryRequest,
   RecurrenceModel,
   ResponseModel,
-} from '../../../models/financial';
-import { CreateEntryRequest } from '../../../models/financial/requests/create-entry.request';
-import { ErrorModel } from '../../../models/financial/responses/error.model';
+} from '../../models/financial';
+import { CreateEntryRequest } from '../../models/financial/requests/create-entry.request';
+import { ErrorModel } from '../../models/financial/responses/error.model';
 
 function cleanFilter(filter: any) {
   if (!filter) {

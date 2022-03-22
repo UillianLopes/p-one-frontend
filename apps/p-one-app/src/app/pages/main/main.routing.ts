@@ -13,13 +13,20 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'financial',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'financial',
         loadChildren: () =>
           import('./pages/financial/financial.module').then(
             (m) => m.FinancialModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./pages/settings/settings.module').then(
+            (m) => m.SettingsModule
           ),
       },
     ],

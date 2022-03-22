@@ -1,6 +1,6 @@
 {
   "cli": {
-    "analytics": "e984c5f5-49dd-46c6-8da5-59c078e78d08"
+    "analytics": "a72825e9-16ad-4189-89ae-96da9ba1ddc0"
   },
   "version": 1,
   "projects": {
@@ -217,33 +217,6 @@
         }
       },
       "tags": []
-    }
-  },
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
     }
   }
 }
