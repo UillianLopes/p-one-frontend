@@ -12,21 +12,45 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'financial',
+        redirectTo: 'entries',
         pathMatch: 'full',
-      },
-      {
-        path: 'financial',
-        loadChildren: () =>
-          import('./pages/financial/financial.module').then(
-            (m) => m.FinancialModule
-          ),
       },
       {
         path: 'settings',
         loadChildren: () =>
           import('./pages/settings/settings.module').then(
             (m) => m.SettingsModule
+          ),
+      },
+      {
+        path: 'entries',
+        loadChildren: () =>
+          import('./pages/entry/entry.module').then((m) => m.EntryModule),
+      },
+      {
+        path: 'categories',
+        loadChildren: () =>
+          import('./pages/category/category.module').then(
+            (m) => m.CategoryModule
+          ),
+      },
+      {
+        path: 'sub-categories',
+        loadChildren: () =>
+          import('./pages/sub-category/sub-category.module').then(
+            (m) => m.SubCategoryModule
+          ),
+      },
+      {
+        path: 'wallets',
+        loadChildren: () =>
+          import('./pages/wallet/wallet.module').then((m) => m.WalletModule),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
           ),
       },
     ],
