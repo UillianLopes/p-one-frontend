@@ -1,5 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import { UserModel } from '@p-one/financial';
+
+import { UserModel } from '../../../models';
 
 export enum EUserStoreActions {
   LOAD = '[User] Load',

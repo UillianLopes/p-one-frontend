@@ -53,6 +53,32 @@
       },
       "tags": []
     },
+    "identity": {
+      "projectType": "library",
+      "root": "libs/identity",
+      "sourceRoot": "libs/identity/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/identity"],
+          "options": {
+            "jestConfig": "libs/identity/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/identity/src/**/*.ts",
+              "libs/identity/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "p-one-financial-app": {
       "projectType": "application",
       "root": "apps/p-one-financial-app",

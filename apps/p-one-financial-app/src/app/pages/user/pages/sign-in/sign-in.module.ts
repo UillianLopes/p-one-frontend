@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserStoreModule } from '@p-one/identity';
 import { POneInputModule, POneStepperModule } from '@p-one/shared';
 import { AuthModule } from 'angular-auth-oidc-client';
 
-import { UserStoreModule } from '../../../../stores/user-store/user-store.module';
 import { SignInComponent } from './sign-in.component';
 import { SignInRoutingModule } from './sing-in.routing';
 

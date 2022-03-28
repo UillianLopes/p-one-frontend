@@ -1,4 +1,3 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
+import { UserStoreModule } from '@p-one/identity';
 import { POneToastModule } from '@p-one/shared';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
@@ -16,8 +16,6 @@ import { POneFinancialModule } from '../../../../libs/financial/src';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { TokenInterceptor } from './interceptors/token.interceptor';
-import { UserStoreModule } from './stores/user-store/user-store.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -68,12 +66,5 @@ import { UserStoreModule } from './stores/user-store/user-store.module';
     }),
   ],
   bootstrap: [AppComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
-  ],
 })
 export class AppModule {}

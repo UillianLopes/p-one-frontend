@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { UserStoreFacade } from '../stores/user-store/+state/user-store.facade';
+import { UserStoreFacade } from '../stores';
 
 @Injectable({
   providedIn: 'root',

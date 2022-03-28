@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { UserModel } from '@p-one/financial';
 
+import { UserModel } from '../../../models';
 import * as UserStoreActions from './user-store.actions';
 
 export const USER_STORE_KEY = 'USER_STORE';

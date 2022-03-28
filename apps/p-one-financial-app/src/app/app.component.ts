@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { UserStoreFacade } from './stores/user-store/+state/user-store.facade';
+import { UserStoreFacade } from '@p-one/identity';
 
 @Component({
   selector: 'p-one-root',
