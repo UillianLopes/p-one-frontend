@@ -1,7 +1,4 @@
 {
-  "cli": {
-    "analytics": "a72825e9-16ad-4189-89ae-96da9ba1ddc0"
-  },
   "version": 1,
   "projects": {
     "core": {
@@ -30,28 +27,54 @@
       },
       "tags": []
     },
-    "p-one-app": {
+    "financial": {
+      "projectType": "library",
+      "root": "libs/financial",
+      "sourceRoot": "libs/financial/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/financial"],
+          "options": {
+            "jestConfig": "libs/financial/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/financial/src/**/*.ts",
+              "libs/financial/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "p-one-financial-app": {
       "projectType": "application",
-      "root": "apps/p-one-app",
-      "sourceRoot": "apps/p-one-app/src",
+      "root": "apps/p-one-financial-app",
+      "sourceRoot": "apps/p-one-financial-app/src",
       "prefix": "p-one",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/p-one-app",
-            "index": "apps/p-one-app/src/index.html",
-            "main": "apps/p-one-app/src/main.ts",
-            "polyfills": "apps/p-one-app/src/polyfills.ts",
-            "tsConfig": "apps/p-one-app/tsconfig.app.json",
+            "outputPath": "dist/apps/p-one-financial-app",
+            "index": "apps/p-one-financial-app/src/index.html",
+            "main": "apps/p-one-financial-app/src/main.ts",
+            "polyfills": "apps/p-one-financial-app/src/polyfills.ts",
+            "tsConfig": "apps/p-one-financial-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/p-one-app/src/favicon.ico",
-              "apps/p-one-app/src/assets"
+              "apps/p-one-financial-app/src/favicon.ico",
+              "apps/p-one-financial-app/src/assets"
             ],
             "styles": [
-              "apps/p-one-app/src/styles.scss",
+              "apps/p-one-financial-app/src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.scss"
             ],
@@ -73,8 +96,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/p-one-app/src/environments/environment.ts",
-                  "with": "apps/p-one-app/src/environments/environment.prod.ts"
+                  "replace": "apps/p-one-financial-app/src/environments/environment.ts",
+                  "with": "apps/p-one-financial-app/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -94,10 +117,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "p-one-app:build:production"
+              "browserTarget": "p-one-financial-app:build:production"
             },
             "development": {
-              "browserTarget": "p-one-app:build:development"
+              "browserTarget": "p-one-financial-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,9 +128,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "p-one-app:build",
+            "browserTarget": "p-one-financial-app:build",
             "outFile": "messages.xlf",
-            "outputPath": "apps/p-one-app/src/assets/i18n",
+            "outputPath": "apps/p-one-financial-app/src/assets/i18n",
             "format": "xlf"
           }
         },
@@ -115,16 +138,16 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/p-one-app/src/**/*.ts",
-              "apps/p-one-app/src/**/*.html"
+              "apps/p-one-financial-app/src/**/*.ts",
+              "apps/p-one-financial-app/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/p-one-app"],
+          "outputs": ["coverage/apps/p-one-financial-app"],
           "options": {
-            "jestConfig": "apps/p-one-app/jest.config.js",
+            "jestConfig": "apps/p-one-financial-app/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -137,34 +160,6 @@
         }
       },
       "tags": []
-    },
-    "p-one-app-e2e": {
-      "root": "apps/p-one-app-e2e",
-      "sourceRoot": "apps/p-one-app-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/p-one-app-e2e/cypress.json",
-            "tsConfig": "apps/p-one-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "p-one-app:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "p-one-app:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/p-one-app-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["p-one-app"]
     },
     "shared": {
       "projectType": "library",

@@ -1,0 +1,19 @@
+.p-one-balance {
+  &__sub-header {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  &__context-menu {
+    padding: 8px;
+    background: white;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border: 1px solid #e6e6e6;
+    border-top: none;
+  }
+}

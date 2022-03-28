@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@p-one/core": ["libs/core/src/index.ts"],
+      "@p-one/financial": ["libs/financial/src/index.ts"],
       "@p-one/shared": ["libs/shared/src/index.ts"],
       "@p-one/store": ["libs/store/src/index.ts"]
     }
