@@ -1,4 +1,11 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -18,8 +25,9 @@ export class StepperComponent implements AfterContentInit {
     this._stepperStateService.setIsCompleted(value);
   }
 
-  @ContentChildren(StepComponent)
+  @ContentChildren(StepComponent, { descendants: true })
   public steps!: QueryList<StepComponent>;
+
   public steps$?: Observable<StepComponent[]>;
   public isValid$?: Observable<boolean>;
 

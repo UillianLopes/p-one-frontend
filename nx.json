@@ -27,7 +27,6 @@
     ]
   },
   "cli": {
-    "analytics": "3edba7ec-3593-482c-8bf7-1249fec6b6ae",
     "defaultCollection": "@nrwl/angular"
   },
   "generators": {
@@ -50,8 +49,7 @@
     },
     "@nrwl/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "style": "scss"
+      "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
       "style": "scss"

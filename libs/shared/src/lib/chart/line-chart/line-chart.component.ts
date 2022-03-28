@@ -566,7 +566,6 @@ export class LineChartComponent extends Chart<LineChartData> {
     for (let serie of series.filter(({ value }) => value !== null)) {
       const indexInSeries = series.indexOf(serie);
       const previousInSeries = series[indexInSeries - 1];
-
       if (previousInSeries && previousInSeries.value === serie.value) {
         const line = d3.line();
         paths.push(

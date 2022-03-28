@@ -87,7 +87,6 @@ export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
     map((value) => value as AccountAssociation)
   );
 
-  
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router
@@ -100,14 +99,6 @@ export class SignUpComponent extends DestroyableMixin() implements OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.form.get('passwordConfirmation')?.updateValueAndValidity();
-      });
-
-    this.associationForm.valueChanges
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.form.get('account')?.get('name')?.updateValueAndValidity();
-        this.form.get('account')?.get('email')?.updateValueAndValidity();
-        this.form.get('account')?.get('accountId')?.updateValueAndValidity();
       });
   }
 
