@@ -13,6 +13,7 @@ import {
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
+import { BalancesOvertimeChartModule } from '../../components/balances-overtime-chart/balances-overtime-chart.module';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
 
@@ -31,6 +32,7 @@ import { HomeRoutingModule } from './home.routing';
     NgxCurrencyModule,
     POneColorPickerModule,
     RangeSliderModule,
+    BalancesOvertimeChartModule
   ],
 })
 export class HomeModule {}

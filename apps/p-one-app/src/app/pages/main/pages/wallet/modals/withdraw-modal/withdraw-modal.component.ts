@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CategoryModel, WalletModel } from '@p-one/core';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, takeUntil } from 'rxjs/operators';
 
-import { CategoryModel, WalletModel } from '../../../../../../../../../../../../libs/core/src';
 import { WithdrawModalStore } from './withdraw-modal.state';
 
 @Component({

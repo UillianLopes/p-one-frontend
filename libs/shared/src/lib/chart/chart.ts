@@ -1,29 +1,22 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { uniqueId } from 'lodash';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Directive()
-export abstract class Chart<T> implements OnInit, OnDestroy {
+export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   protected readonly uniqueId = `${this._nameId}-${uniqueId()}`;
 
   private readonly _updated$ = new Subject();
-  private readonly _resized$ = new Subject();
+  private readonly _resized$ = new Subject<DOMRect>();
   private readonly _resizeObserver = new ResizeObserver(() =>
     this._ngZone.run(() => {
-      this._resized$.next();
+      this._resized$.next(this._getContainerRect());
     })
   );
 
-  private _svg!: d3.Selection<SVGSVGElement, unknown, null, undefined>;
+  private _svg = d3.select(this._elementRef.nativeElement).append('svg');
   private _oldData!: T;
   private _data!: T;
 
@@ -44,6 +37,7 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
     protected readonly _ngZone: NgZone,
     private readonly _nameId: string
   ) {}
+  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     this.destroyed$.next();
@@ -52,8 +46,18 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._resizeObserver.observe(this._elementRef.nativeElement);
-    this._svg = this.init(this._data, this._getContainerRect());
+    this.init(this._svg, this.data, this._getContainerRect());
+
+    this._resized$
+      .pipe(
+        takeUntil(this.destroyed$),
+        distinctUntilChanged(
+          (a, b) => a.width === b.width && a.height === b.height
+        )
+      )
+      .subscribe((rect) => {
+        this.resize(this._svg, this._data, this._oldData, rect);
+      });
 
     this._updated$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.update(
@@ -64,20 +68,14 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
       );
     });
 
-    this._resized$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.resize(
-        this._svg,
-        this._data,
-        this._oldData,
-        this._getContainerRect()
-      );
-    });
+    this._resizeObserver.observe(this._elementRef.nativeElement);
   }
 
   abstract init(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: T,
     containerRect: DOMRect
-  ): d3.Selection<SVGSVGElement, unknown, null, undefined>;
+  ): void;
 
   abstract update(
     svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
@@ -95,5 +93,9 @@ export abstract class Chart<T> implements OnInit, OnDestroy {
 
   private _getContainerRect(): DOMRect {
     return this._elementRef.nativeElement.getBoundingClientRect();
+  }
+
+  public slugify(value: string) {
+    return value.replace(/ /g, '-').replace(/\//g, '-');
   }
 }

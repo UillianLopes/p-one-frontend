@@ -17,16 +17,13 @@ export class BarChartComponent extends Chart<BarChartData> {
   }
 
   public init(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: BarChartData,
     containerRect: DOMRect
   ): Selection<SVGSVGElement, unknown, null, undefined> {
     const { height, width } = this._getChartMetrics(containerRect, data);
 
-    const svg = d3
-      .select(this._elementRef.nativeElement)
-      .append('svg')
-      .attr('height', height)
-      .attr('width', width);
+    svg.attr('height', height).attr('width', width);
 
     const chart = svg.append('g').attr('id', `${this.uniqueId}__chart`);
 

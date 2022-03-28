@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { WalletModel } from '@p-one/core';
 
-import { WalletModel } from '../../../../../../../../../../../libs/core/src';
 import {
   loadWallets,
   openCreateWalletDialog,

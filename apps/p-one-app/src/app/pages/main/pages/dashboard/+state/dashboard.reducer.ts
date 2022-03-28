@@ -2,7 +2,10 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import { resetState } from './dashboard.actions';
 
-export interface DashboardState {}
+export const DASHBOARD_KEY = 'DASHBOARD';
+export interface DashboardState {
+  isLoadingBalancesOverTime?: boolean;
+}
 
 const initialState: DashboardState = {};
 

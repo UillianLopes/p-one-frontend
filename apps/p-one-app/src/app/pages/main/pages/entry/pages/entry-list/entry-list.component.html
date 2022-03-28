@@ -10,12 +10,12 @@
     </button>
 
     <h2 [ngSwitch]="entryType$ | async">
-      <ng-container *ngSwitchCase="EntryType.Debit"
-        >Contas a pagar</ng-container
-      >
-      <ng-container *ngSwitchCase="EntryType.Credit"
-        >Contas a receber</ng-container
-      >
+      <ng-container *ngSwitchCase="EntryType.Debit">
+        Contas a pagar
+      </ng-container>
+      <ng-container *ngSwitchCase="EntryType.Credit">
+        Contas a receber
+      </ng-container>
       <ng-container *ngSwitchDefault>Todas as contas</ng-container>
     </h2>
   </p-one-header>

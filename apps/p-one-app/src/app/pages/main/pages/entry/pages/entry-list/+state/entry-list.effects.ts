@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EEntryType, EntryFilter, EntryService } from '@p-one/core';
+import { DialogService } from '@p-one/shared';
 import * as _ from 'lodash';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { DialogService } from '../../../../../../../../../../../../../libs/shared/src';
 import { DeleteEntryModalComponent } from '../../../modals/delete-entry-modal/delete-entry-modal.component';
 import { PayEntryModalComponent } from '../../../modals/pay-entry-modal';
 import {

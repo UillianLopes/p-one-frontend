@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { WalletModel, WalletService } from '@p-one/core';
+import { DialogService } from '@p-one/shared';
 import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
-
-import { DialogService } from '../../../../../../../../../../../../libs/shared/src';
 
 interface DeleteWalletModalState {
   wallets: WalletModel[];

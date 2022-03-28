@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<p-one-container>
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2 i18n>Dashboard</h2>
+  </p-one-header>
+  <div class="p-one-dashboard__panel">
+    <p-one-balances-overtime-chart></p-one-balances-overtime-chart>
+  </div>
+</p-one-container>

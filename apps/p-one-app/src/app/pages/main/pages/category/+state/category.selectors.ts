@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { paginateArray } from '@p-one/core';
 import * as _ from 'lodash';
 
-import { paginateArray } from '../../../../../../../../../../../libs/core/src';
 import { CategoryListItemModel } from '../@types/category-item.model';
 import { CATEGORY_KEY, CategoryState } from './category.reducer';
 

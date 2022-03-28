@@ -11,4 +11,5 @@ export interface WalletModel {
   credits?: number;
   debits?: number;
   type: EWalletType;
+  color?: string;
 }

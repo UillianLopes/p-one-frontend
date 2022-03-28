@@ -23,6 +23,7 @@ export class CreateWalletModalComponent implements OnInit {
     agency: [],
     bank: [],
     number: [],
+    color: [],
   });
 
   public readonly isCreateWalletDisabled$ = this.form.statusChanges.pipe(

@@ -1,13 +1,14 @@
 <div
   class="p-one-sidenav-container"
-  [class.p-one-sidenav-container--opened]="this.isOpened$ | async"
-  [class.p-one-sidenav-container--closed]="this.isClosed$ | async"
-  [class.p-one-sidenav-container--floating]="this.isFloating$ | async"
-  [class.p-one-sidenav-container--fixed]="this.isFixed$ | async"
+  [class.p-one-sidenav-container--opened]="isOpened$ | async"
+  [class.p-one-sidenav-container--closed]="isClosed$ | async"
+  [class.p-one-sidenav-container--floating]="isFloating$ | async"
+  [class.p-one-sidenav-container--fixed]="isFixed$ | async"
 >
   <ng-content select="p-one-sidenav"></ng-content>
 
   <div
+    id="p-one-sidenav-container__content"
     class="p-one-sidenav-container__content"
     [style.padding-left.px]="paddingLeft$ | async"
   >

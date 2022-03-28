@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BankModel, EWalletType, WalletModel } from '@p-one/core';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
@@ -25,6 +30,7 @@ export class UpdateWalletModalComponent implements OnInit {
     agency: [this.data?.agency],
     bank: [this.data?.bank],
     number: [this.data?.number],
+    color: [this.data?.color],
   });
 
   public readonly isUpdateWalletDisabled$ = this.form.statusChanges.pipe(

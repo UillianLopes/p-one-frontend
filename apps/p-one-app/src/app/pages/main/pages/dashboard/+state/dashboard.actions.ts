@@ -9,3 +9,5 @@ export const resetState = createAction(EDashboardActions.RESET_STATE);
 export const dashboardActionsUnion = union({
   resetState,
 });
+
+export type DashboardActionsUnion = typeof dashboardActionsUnion;

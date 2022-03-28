@@ -10,3 +10,4 @@ export * from './pay-entry.request';
 export * from './deposit.request';
 export * from './withdraw.request';
 export * from './update-wallet.request';
+export * from './get-balances-overtime.request';

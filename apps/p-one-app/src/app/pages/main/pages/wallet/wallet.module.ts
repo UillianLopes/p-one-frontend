@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
   POneBreadcrumbModule,
+  POneColorPickerModule,
   POneContainerModule,
   POneContextMenuModule,
   POneDialogModule,
@@ -57,6 +58,7 @@ import { WalletRoutingModule } from './wallet.routing';
     NgxCurrencyModule,
     POneFlexModule,
     POneTooltipModule,
+    POneColorPickerModule,
   ],
   providers: [WalletFacade],
 })

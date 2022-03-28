@@ -38,7 +38,9 @@ export class SidenavContainerComponent extends DestroyableMixin() {
     })
   );
 
-  constructor(private readonly _store: SidenavStore) {
+  constructor(
+    private readonly _store: SidenavStore
+  ) {
     super();
   }
 

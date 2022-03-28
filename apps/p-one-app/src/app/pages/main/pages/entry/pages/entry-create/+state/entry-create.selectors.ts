@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { EEntryRecurrence } from '@p-one/core';
 import * as _ from 'lodash';
 
-import { EEntryRecurrence } from '../../../../../../../../../../../../../libs/core/src';
 import { ENTRY_CREATE_KEY, EntryCreateState } from './entry-create.reducer';
 
 export const stateSelector =
