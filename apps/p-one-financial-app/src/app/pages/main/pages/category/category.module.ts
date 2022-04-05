@@ -17,6 +17,7 @@ import {
   POneSidenavModule,
 } from '@p-one/shared';
 
+import { NotificationsModule } from '../../../../components/notifications';
 import { CategoryEffects } from './+state/category.effects';
 import { CategoryFacade } from './+state/category.facade';
 import { CATEGORY_KEY, categoryReducer } from './+state/category.reducer';
@@ -51,6 +52,7 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     POneGridModule,
     POneBreadcrumbModule,
     POneColorPickerModule,
+    NotificationsModule,
   ],
   providers: [CategoryFacade],
 })

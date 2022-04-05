@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NotificationsStoreModule } from '@p-one/financial';
 import {
   POneChartModule,
   POneContainerModule,
@@ -23,6 +24,7 @@ import { MainRoutingModule } from './main.routing';
     POneFlexModule,
     POnePipesModule,
     POneTooltipModule,
+    NotificationsStoreModule,
   ],
 })
 export class MainModule {}

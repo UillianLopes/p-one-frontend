@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  POneContainerModule,
-  POneHeaderModule,
-  POneSidenavModule,
-} from '@p-one/shared';
+import { POneContainerModule, POneHeaderModule, POneSidenavModule } from '@p-one/shared';
 
+import { NotificationsModule } from '../../../../components/notifications';
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings.routing';
 
@@ -17,6 +14,7 @@ import { SettingsRoutingModule } from './settings.routing';
     POneContainerModule,
     POneSidenavModule,
     POneHeaderModule,
+    NotificationsModule,
   ],
 })
 export class SettingsModule {}

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { from, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import {
   EUserStoreActions,
@@ -16,7 +16,7 @@ import {
 
 @Injectable()
 export class UserStoreEffects {
-  readonly loadEffect$ = createEffect(() =>
+  public readonly loadEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(EUserStoreActions.LOAD),
       switchMap((_) => {
@@ -32,10 +32,10 @@ export class UserStoreEffects {
     )
   );
 
-  readonly signInEffect$ = createEffect(() =>
+  public readonly signInEffect$ = createEffect(() =>
     this._actions$.pipe(ofType(EUserStoreActions.SIGN_IN)).pipe(
-      switchMap(() => {
-        return this._oidcService.checkAuth().pipe(
+      switchMap(() =>
+        this._oidcService.checkAuth().pipe(
           switchMap(({ isAuthenticated, userData: user, accessToken }) => {
             if (isAuthenticated) {
               return from(this._router.navigate(['/'])).pipe(
@@ -48,12 +48,20 @@ export class UserStoreEffects {
               );
             }
 
-            this._oidcService.authorize();
             return of(signInFailure());
           })
-        );
-      })
+        )
+      )
     )
+  );
+
+  public readonly signInFailure$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(EUserStoreActions.SIGN_IN_FAILURE),
+        tap(() => this._oidcService.authorize())
+      ),
+    { dispatch: false }
   );
 
   constructor(

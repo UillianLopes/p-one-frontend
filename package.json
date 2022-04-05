@@ -40,6 +40,7 @@
     "@angular/platform-browser-dynamic": "13.2.6",
     "@angular/router": "13.2.6",
     "@ctrl/tinycolor": "^3.4.0",
+    "@microsoft/signalr": "^6.0.3",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@ngrx/component-store": "13.0.2",
     "@ngrx/effects": "13.0.2",
@@ -56,6 +57,7 @@
     "jquery": "^1.9.1",
     "luxon": "^2.0.2",
     "material-colors": "^1.2.6",
+    "ngrx-signalr-core": "^12.0.1",
     "ngx-color": "^7.3.3",
     "ngx-currency": "^2.5.3",
     "ngx-mask": "^12.0.0",
@@ -97,10 +99,10 @@
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "27.2.3",
     "jest-preset-angular": "11.1.1",
+    "nx": "13.9.5",
     "prettier": "2.5.1",
     "ts-jest": "27.0.5",
     "ts-node": "~9.1.1",
-    "typescript": "4.5.5",
-    "nx": "13.9.5"
+    "typescript": "4.5.5"
   }
 }

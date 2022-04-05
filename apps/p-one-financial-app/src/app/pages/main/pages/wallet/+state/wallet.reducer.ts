@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { BalanceFilter, PaginatedFilter, WalletModel } from '@p-one/financial';
 
-import { loadWallets, loadWalletsFailure, loadWalletsSuccess, resetState } from './wallet.actions';
+import { filterWallets, loadWallets, loadWalletsFailure, loadWalletsSuccess, resetState } from './wallet.actions';
 
 export const WALLET_KEY = `WALLET`;
 
@@ -44,6 +44,16 @@ const _walletReducer = createReducer(
       ...state,
       error,
       isLoading: false,
+    };
+  }),
+
+  on(filterWallets, (state, { filter }) => {
+    return {
+      ...state,
+      filter: {
+        ...state.filter,
+        text: filter,
+      },
     };
   }),
 

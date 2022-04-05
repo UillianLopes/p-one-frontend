@@ -9,6 +9,7 @@
       <i class="bi bi-list"></i>
     </button>
     <h2 i18n>Contas / Carteiras</h2>
+    <p-one-notifications pOneTrailing></p-one-notifications>
   </p-one-header>
   <div pOneHeader class="p-one-balance__sub-header">
     <p-one-breadcrumb>
@@ -21,7 +22,7 @@
     </button>
 
     <p-one-form-field noPadding>
-      <input pOneSmallInput />
+      <input pOneSmallInput [formControl]="filterControl" />
     </p-one-form-field>
   </div>
   <div pOneFlexColumn gap="16px" style="padding: 16px">

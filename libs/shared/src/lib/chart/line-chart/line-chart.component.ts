@@ -1,6 +1,7 @@
-import { Component, ElementRef, NgZone } from '@angular/core';
+import { Component, ElementRef, Input, NgZone } from '@angular/core';
 import * as d3 from 'd3';
 import * as _ from 'lodash';
+
 import { Chart } from '../chart';
 import { LineChartData, LineChartSerie } from './line-chart.data';
 
@@ -11,6 +12,8 @@ import { LineChartData, LineChartSerie } from './line-chart.data';
 })
 export class LineChartComponent extends Chart<LineChartData> {
   public bigDots: string[] = [];
+
+  @Input() public valueFormater?: (value: number) => string;
 
   constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone) {
     super(_elementRef, _ngZone, 'p-one-line-chart');
@@ -72,7 +75,7 @@ export class LineChartComponent extends Chart<LineChartData> {
       leftGraphMargin,
       yAxisWidth,
       yLineValuesScale,
-    } = this._getChartConfig(containerRect, data);
+    } = this._getChartConfig(svg, containerRect, data);
 
     let graph = svg.select<SVGGElement>(`#${this.uniqueId}__graph`);
     let xAxis = svg.select<SVGGElement>(`#${this.uniqueId}__x-axis`);
@@ -107,6 +110,7 @@ export class LineChartComponent extends Chart<LineChartData> {
       .append('g')
       .attr('id', `${this.uniqueId}__graph`)
       .attr('transform', `translate(${leftGraphMargin}, ${graphMargin})`);
+
     const movingLines = graph
       .append('g')
       .attr('id', `${this.uniqueId}__moving-lines`);
@@ -202,18 +206,53 @@ export class LineChartComponent extends Chart<LineChartData> {
               .ease(d3.easeLinear)
               .attr('r', dotRadius);
           }
+
           this.bigDots = [];
 
-          valuesDisplay?.remove();
-          valuesDisplay = undefined;
+          if (valuesDisplay) {
+            valuesDisplay.remove();
+            valuesDisplay = undefined;
+          }
+
           return;
         }
-        const dotsHeight = dotsInThisX.length * 20 + 16;
+
+        const valuesDisplayHeight =
+          dotsInThisX.length * 16 + 16 + (dotsInThisX.length - 1) * 4;
+        const greaterLabelWidth = dotsInThisX
+          .map(
+            ({ groupName, value}) =>
+              `${groupName}: ${
+                this.valueFormater ? this.valueFormater(value) : value.toFixed(2)
+              }`
+          )
+          .map((a) => {
+            const fakeLabel = svg
+              .append('text')
+              .text(a)
+              .attr('id', `${this.uniqueId}__fake-label`)
+              .attr('font-size', 12)
+              .attr('font-weight', 600)
+              .attr('y', -99999)
+              .attr('x', -99999);
+
+            const width = fakeLabel.node()?.getBBox().width ?? 0;
+
+            fakeLabel.remove();
+
+            return width;
+          })
+          .reduce((a, b) => (a > b ? a : b));
+
+        const valuesDisplayWidth = 40 + greaterLabelWidth;
+
         const labelsX =
-          eventXInGraph > graphWidth / 2 ? eventXInGraph - 200 : eventXInGraph;
+          eventXInGraph > graphWidth / 2
+            ? eventXInGraph - valuesDisplayWidth
+            : eventXInGraph;
         const labelsY =
           eventYInGraph > graphHeight / 2
-            ? eventYInGraph - dotsHeight
+            ? eventYInGraph - valuesDisplayHeight
             : eventYInGraph;
 
         if (!valuesDisplay) {
@@ -225,8 +264,8 @@ export class LineChartComponent extends Chart<LineChartData> {
 
           valuesDisplay
             .append('rect')
-            .attr('height', dotsHeight)
-            .attr('width', 200)
+            .attr('height', valuesDisplayHeight)
+            .attr('width', valuesDisplayWidth)
             .attr('fill', 'rgba(0,0,0,0.75)')
             .attr('ry', 10);
 
@@ -248,7 +287,12 @@ export class LineChartComponent extends Chart<LineChartData> {
 
           valueLabelsGroup
             .append('text')
-            .text(({ groupName, value }) => `${groupName}: ${value}`)
+            .text(
+              ({ groupName, value }) =>
+                `${groupName}: ${
+                  this.valueFormater ? this.valueFormater(value) : value.toFixed(2)
+                }`
+            )
             .attr('alignment-baseline', 'middle')
             .attr('x', 16)
             .attr('fill', 'white')
@@ -498,7 +542,7 @@ export class LineChartComponent extends Chart<LineChartData> {
       .text((d) => d)
       .attr('alignment-baseline', 'middle')
       .attr('transform-orign', 'center')
-      .attr('transform', (_, i) => `translate(${xScale(i)}, 0) rotate(75)`)
+      .attr('transform', (_, i) => `translate(${xScale(i)}, 0) rotate(90)`)
       .attr('font-size', 12)
       .attr('font-weight', '600');
 
@@ -516,7 +560,11 @@ export class LineChartComponent extends Chart<LineChartData> {
       )
       .attr('font-size', 12)
       .attr('font-weight', '600')
-      .text((_, i) => yLineValuesScale(i));
+      .text((_, i) =>
+        this.valueFormater
+          ? this.valueFormater(yLineValuesScale(i))
+          : yLineValuesScale(i).toFixed(2)
+      );
   }
 
   private _getNormalValueLines(
@@ -614,7 +662,11 @@ export class LineChartComponent extends Chart<LineChartData> {
     return paths;
   }
 
-  private _getChartConfig(containerRect: DOMRect, data: LineChartData) {
+  private _getChartConfig(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    containerRect: DOMRect,
+    data: LineChartData
+  ) {
     const { height, width } = containerRect;
 
     const graphMargin = 10;
@@ -628,6 +680,24 @@ export class LineChartComponent extends Chart<LineChartData> {
 
     const values = _.uniq(series.map(({ value }) => value));
     const points = _.uniq(series.map(({ name }) => name));
+    const greaterPointWidth = points
+      .map((a) => {
+        const text = svg
+          .append('text')
+          .attr('y', -99999)
+          .attr('x', -99999)
+          .attr('id', `${this.uniqueId}__text__${this.slugify(a)}`)
+          .attr('font-size', 12)
+          .attr('font-weight', '600')
+          .text(a);
+
+        const computedTextLength = text.node()?.getComputedTextLength() ?? 0;
+
+        text.remove();
+
+        return computedTextLength;
+      })
+      .reduce((a, b) => (a > b ? a : b), 0);
 
     let minValue = values.reduce((a, b) => (a < b ? a : b), 0);
 
@@ -641,8 +711,7 @@ export class LineChartComponent extends Chart<LineChartData> {
     const minimumWidth = minimumNodeSpace * points.length;
     const graphWidth =
       (minimumWidth > innerWidth ? minimumWidth : innerWidth) - yAxisWidth;
-    const xAxisHeight = 45;
-
+    const xAxisHeight = greaterPointWidth + graphMargin;
     const graphHeight = innerHeight - xAxisHeight;
     const leftGraphMargin = graphMargin + yAxisWidth;
 

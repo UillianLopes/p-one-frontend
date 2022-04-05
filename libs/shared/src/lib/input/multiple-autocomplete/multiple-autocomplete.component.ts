@@ -69,7 +69,6 @@ export class MultipleAutocompleteComponent
       this._store.addMultiple(this.value);
     }
 
-    console.log(this.displayFn);
     if (!this.autocomplete.displayFn) {
       this.autocomplete.displayFn = this.displayFn;
     }

@@ -75,8 +75,6 @@ export class ColorPickerDirective implements OnDestroy {
     );
 
     const componentRef = overlayRef.attach(componentPortal);
-
-    console.log('INITIAL COLOR -> ', this._color);
     componentRef.instance.setInitialColor(this._color);
     componentRef.instance.color$
       .pipe(

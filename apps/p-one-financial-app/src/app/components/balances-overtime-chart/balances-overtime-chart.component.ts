@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BalancesOverTimeFilter } from '@p-one/financial';
 
 import { BalancesOverTimeChartStore } from './balances-overtime-chart.state';
 
@@ -9,20 +10,15 @@ import { BalancesOverTimeChartStore } from './balances-overtime-chart.state';
   providers: [BalancesOverTimeChartStore],
 })
 export class BalancesOvertimeChartComponent implements OnInit {
-  public readonly data$ = this._store.balancesOverTimeLineChartData$;
+  @Input()
+  public set filter(filter: BalancesOverTimeFilter) {
+    this._store.setFilter(filter);
+  }
+
+  public readonly balancesOverTimeLineChartData$ =
+    this._store.balancesOverTimeLineChartData$;
 
   constructor(private readonly _store: BalancesOverTimeChartStore) {}
 
-  ngOnInit(): void {
-    const end = new Date();
-    end.setMonth(end.getMonth() + 1);
-    const begin = new Date();
-    begin.setDate(begin.getDate() - 3);
-
-    this._store.setFilter({
-      begin,
-      end,
-      useMock: false,
-    });
-  }
+  public ngOnInit(): void {}
 }

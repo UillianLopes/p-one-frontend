@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { POneIdentityModule, TOKEN_REQUIRED_URLS } from '@p-one/identity';
 
 import { FINANCIAL_API_URL } from './contants';
 import { SERVICE_PROVIDERS } from './services';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, POneIdentityModule.forRoot()],
 })
 export class POneFinancialModule {
   static forRoot(config: {
@@ -17,6 +18,10 @@ export class POneFinancialModule {
         {
           provide: FINANCIAL_API_URL,
           useValue: config.financialApiUrl,
+        },
+        {
+          provide: TOKEN_REQUIRED_URLS,
+          useValue: [config.financialApiUrl],
         },
         ...SERVICE_PROVIDERS,
       ],

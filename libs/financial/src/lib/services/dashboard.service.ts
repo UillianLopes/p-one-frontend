@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../contants/tokens';
-import { GetBalanceOverTimeRequest, ResponseModel } from '../models';
+import { BalancesOverTimeFilter, ResponseModel } from '../models';
 
 @Injectable()
 export class DashboardService {
@@ -15,7 +15,7 @@ export class DashboardService {
   ) {}
 
   public getBalancesOvertime(
-    filter: Partial<GetBalanceOverTimeRequest>
+    filter: Partial<BalancesOverTimeFilter>
   ): Observable<any> {
     return this._httpClient
       .get<ResponseModel<any>>(`${this._apiUrl}/Dashboard/BalanceOverTime`, {

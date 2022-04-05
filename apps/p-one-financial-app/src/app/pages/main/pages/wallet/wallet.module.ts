@@ -19,6 +19,7 @@ import {
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
+import { NotificationsModule } from '../../../../components/notifications';
 import { WalletEffects } from './+state/wallet.effects';
 import { WalletFacade } from './+state/wallet.facade';
 import { WALLET_KEY, walletReducer } from './+state/wallet.reducer';
@@ -59,6 +60,7 @@ import { WalletRoutingModule } from './wallet.routing';
     POneFlexModule,
     POneTooltipModule,
     POneColorPickerModule,
+    NotificationsModule,
   ],
   providers: [WalletFacade],
 })

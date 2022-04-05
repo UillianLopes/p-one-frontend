@@ -128,7 +128,7 @@
           </p-one-multiple-autocomplete>
           <p-one-autocomplete #subGruposAutocomplete="pOneAutocomplete">
             <p-one-option
-              *ngFor="let subCategory of this.subCategories$ | async"
+              *ngFor="let subCategory of subCategories$ | async"
               [value]="subCategory"
             >
               {{ subCategory.name }}

@@ -1,25 +1,26 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { FINANCIAL_API_URL } from '@p-one/financial';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 
-import { UserStoreFacade } from '../stores/user-store/+state/user-store.facade';
+import { TOKEN_REQUIRED_URLS } from '../constants/token-required-urls.token';
+import { UserStoreFacade } from '../stores';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  private readonly requiredTokenUris = [this._financialApi].filter(
-    (url) => !!url
-  );
-
   constructor(
     private readonly _userStoreFacade: UserStoreFacade,
-    @Inject(FINANCIAL_API_URL) private readonly _financialApi: string
+    @Optional()
+    @Inject(TOKEN_REQUIRED_URLS)
+    private readonly _tokenRequiredUrls: string[]
   ) {}
 
   private _isTokenRequiredForThisUri(uri: string) {
-    return this.requiredTokenUris.some((requiredTokenUri) =>
-      uri.startsWith(requiredTokenUri)
+    return (
+      this._tokenRequiredUrls &&
+      this._tokenRequiredUrls.some((requiredTokenUri) =>
+        uri.startsWith(requiredTokenUri)
+      )
     );
   }
 

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { WalletModel } from '@p-one/financial';
 
 import {
+  filterWallets,
   loadWallets,
   openCreateWalletDialog,
   openDeleteWalletDialog,
@@ -34,6 +35,9 @@ export class WalletFacade {
 
   constructor(private readonly _store: Store<WalletState>) {}
 
+  public filterWallets(filter: string): void {
+    this._store.dispatch(filterWallets({ filter }));
+  }
   public loadWallets(): void {
     this._store.dispatch(loadWallets());
   }

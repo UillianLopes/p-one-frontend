@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -8,7 +8,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   imports: [CommonModule],
 })
 export class POneIdentityModule {
-  static forRoot() {
+  static forRoot(): ModuleWithProviders<POneIdentityModule> {
     return {
       ngModule: POneIdentityModule,
       providers: [

@@ -150,11 +150,10 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
     return event$.pipe(
       tap(() => this.setIsLoading(true)),
       withLatestFrom(this.wallet$),
-      tap((v) => console.log('WWALLET -> ', v)),
-      switchMap(([{ category, subCategory, ...rest }, { id: walletId }]) =>
+      switchMap(([{ category, subCategory, ...deposit }, { id: walletId }]) =>
         this._walletService
           .deposit(walletId, {
-            ...rest,
+            ...deposit,
             categoryId: category?.id,
             subCategoryId: subCategory?.id,
           })

@@ -7,20 +7,24 @@ import * as UserStoreSelectors from './user-store.selectors';
 
 @Injectable()
 export class UserStoreFacade {
-  loading$ = this._store.select(UserStoreSelectors.loadingSelector);
-  user$ = this._store.select(UserStoreSelectors.userSelector);
-  isAuthenticated$ = this._store.select(
+  public readonly loading$ = this._store.select(
+    UserStoreSelectors.loadingSelector
+  );
+  public readonly user$ = this._store.select(UserStoreSelectors.userSelector);
+  public readonly isAuthenticated$ = this._store.select(
     UserStoreSelectors.isAuthenticatedSelector
   );
-  accessToken$ = this._store.select(UserStoreSelectors.accessTokenSelector);
+  public readonly accessToken$ = this._store.select(
+    UserStoreSelectors.accessTokenSelector
+  );
 
   constructor(private readonly _store: Store<UserStoreState>) {}
 
-  signIn() {
+  public signIn() {
     this._store.dispatch(signIn());
   }
 
-  load() {
+  public load() {
     this._store.dispatch(load());
   }
 }

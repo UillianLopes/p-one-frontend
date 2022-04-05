@@ -16,12 +16,10 @@ import {
   POneSidenavModule,
 } from '@p-one/shared';
 
+import { NotificationsModule } from '../../../../components/notifications';
 import { SubCategoryEffects } from './+state/sub-category.effects';
 import { SubCategoryFacade } from './+state/sub-category.facade';
-import {
-  SUB_CATEGORY_KEY,
-  subCategoryReducer,
-} from './+state/sub-category.reducer';
+import { SUB_CATEGORY_KEY, subCategoryReducer } from './+state/sub-category.reducer';
 import { CreateSubCategoryModalComponent } from './modals/create-sub-category-modal/create-sub-category-modal.component';
 import { DeleteSubCategoryModalComponent } from './modals/delete-sub-category-modal/delete-sub-category-modal.component';
 import { UpdateSubCategoryModalComponent } from './modals/update-sub-category-modal/update-sub-category-modal.component';
@@ -52,6 +50,7 @@ import { SubCategoryRoutingModule } from './sub-category.routing';
     NgbPaginationModule,
     POneBreadcrumbModule,
     POneColorPickerModule,
+    NotificationsModule,
   ],
   providers: [SubCategoryFacade],
 })

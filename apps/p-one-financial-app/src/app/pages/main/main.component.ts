@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsStoreFacade } from '@p-one/financial';
 import { UserStoreFacade } from '@p-one/identity';
 
 @Component({
@@ -7,9 +8,15 @@ import { UserStoreFacade } from '@p-one/identity';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  public readonly user$ = this._userStoreService.user$;
+  public readonly user$ = this._userStoreFacade.user$;
 
-  constructor(private readonly _userStoreService: UserStoreFacade) {}
+  constructor(
+    private readonly _userStoreFacade: UserStoreFacade,
+    private readonly _notificationsStoreFacade: NotificationsStoreFacade
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._notificationsStoreFacade.startNotificationsHub();
+    this._notificationsStoreFacade.loadUnreadNotifications();
+  }
 }

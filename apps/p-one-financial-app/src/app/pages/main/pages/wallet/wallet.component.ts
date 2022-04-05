@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { BankModel, WalletModel } from '@p-one/financial';
-import { map } from 'rxjs/operators';
+import { DestroyableMixin } from '@p-one/shared';
+import { map, takeUntil } from 'rxjs/operators';
 
 import { WalletFacade } from './+state/wallet.facade';
 
@@ -10,7 +12,7 @@ import { WalletFacade } from './+state/wallet.facade';
   styleUrls: ['./wallet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent extends DestroyableMixin() implements OnInit {
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly filtredPaginatedWallets$ =
     this._facade.filtredPaginatedWallets$;
@@ -23,10 +25,19 @@ export class WalletComponent implements OnInit {
     map(({ page }) => page)
   );
 
-  constructor(private readonly _facade: WalletFacade) {}
+  public readonly filterControl = new FormControl('');
+
+  constructor(private readonly _facade: WalletFacade) {
+    super();
+  }
 
   ngOnInit(): void {
     this._facade.loadWallets();
+    this.filterControl.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((value) => {
+        this._facade.filterWallets(value);
+      });
   }
 
   public openCreateWalletDialog(): void {

@@ -12,6 +12,8 @@ export enum EWalletActions {
   OPEN_DEPOSIT_WALLET_DIALOG = '[Wallet] Open deposit wallet dialog',
   OPEN_WITHDRAW_WALLET_DIALOG = '[Wallet] Open withdraw wallet dialog',
 
+  FILTER_WALLETS = '[Wallet] Filter wallets',
+
   SET_WALLETS_PAGE = '[Wallet] Set wallets page',
 
   RESET_STATE = '[Wallet] Reset state',
@@ -56,6 +58,11 @@ export const openWithdrawWalletDialog = createAction(
 export const openDeleteWalletDialog = createAction(
   EWalletActions.OPEN_DELETE_WALLET_DIALOG,
   props<{ wallet: WalletModel }>()
+);
+
+export const filterWallets = createAction(
+  EWalletActions.FILTER_WALLETS,
+  props<{ filter: string }>()
 );
 
 export const resetState = createAction(EWalletActions.RESET_STATE);
