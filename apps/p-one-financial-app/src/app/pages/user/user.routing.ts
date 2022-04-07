@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { WithoutAuthGuard } from '@p-one/identity';
 
 import { UserComponent } from './user.component';
 
@@ -7,6 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: UserComponent,
+
     children: [
       { path: '', redirectTo: 'sign-up', pathMatch: 'full' },
       {
@@ -15,9 +17,17 @@ const routes: Routes = [
           import('./pages/sign-in/sign-in.module').then((e) => e.SignInModule),
       },
       {
+        path: 'sign-out',
+        loadChildren: () =>
+          import('./pages/sign-out/sign-out.module').then(
+            (e) => e.SignOutModule
+          ),
+      },
+      {
         path: 'sign-up',
         loadChildren: () =>
           import('./pages/sign-up/sign-up.module').then((e) => e.SignUpModule),
+        canActivate: [WithoutAuthGuard],
       },
     ],
   },

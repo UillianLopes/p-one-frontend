@@ -69,6 +69,9 @@ export class SidenavItemComponent extends StopPropagationDirective {
   }
 
   navigate(): void {
+    if (!this.link) {
+      return;
+    }
     this._router.navigate([this.link]);
   }
 }

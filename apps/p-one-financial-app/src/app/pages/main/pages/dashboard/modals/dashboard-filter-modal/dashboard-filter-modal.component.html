@@ -3,6 +3,16 @@
   <p-one-dialog-body>
     <form [formGroup]="form">
       <div pOneGrid gap="16px">
+        <p-one-form-field>
+          <div class="input-group">
+            <input pOneInput ngbDatepicker #d="ngbDatepicker" />
+            <button class="btn btn-outline-primary" (click)="d.toggle()">
+              <i class="bi bi-calendar"></i>
+            </button>
+          </div>
+        </p-one-form-field>
+      </div>
+      <div pOneGrid gap="16px">
         <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
           <label pOneLabel for="categoryMultipleAutocomplete" i18n>
             Categorias

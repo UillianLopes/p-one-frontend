@@ -28,11 +28,11 @@ import { HomeRoutingModule } from './home.routing';
     POneFlexModule,
     POnePipesModule,
     POneGridModule,
-    POneDatepickerModule,
     NgxCurrencyModule,
     POneColorPickerModule,
     RangeSliderModule,
     BalancesOvertimeChartModule,
+    POneDatepickerModule,
   ],
 })
 export class HomeModule {}

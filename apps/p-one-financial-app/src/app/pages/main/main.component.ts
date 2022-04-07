@@ -19,4 +19,8 @@ export class MainComponent implements OnInit {
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
   }
+
+  signOut(): void {
+    this._userStoreFacade.signOut();
+  }
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { from, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import {
   EUserStoreActions,
@@ -11,6 +11,8 @@ import {
   loadSuccess,
   signInFailure,
   signInSuccess,
+  signOutFailure,
+  signOutSuccess,
   UserStoreActionsUnion,
 } from './user-store.actions';
 
@@ -50,6 +52,17 @@ export class UserStoreEffects {
 
             return of(signInFailure());
           })
+        )
+      )
+    )
+  );
+
+  public readonly signOutEffect$ = createEffect(() =>
+    this._actions$.pipe(ofType(EUserStoreActions.SIGN_OUT)).pipe(
+      switchMap(() =>
+        this._oidcService.logoffAndRevokeTokens().pipe(
+          map(() => signOutSuccess()),
+          catchError(() => of(signOutFailure()))
         )
       )
     )

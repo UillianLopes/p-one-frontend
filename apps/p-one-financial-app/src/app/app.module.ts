@@ -16,9 +16,10 @@ import { POneFinancialModule } from '../../../../libs/financial/src';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { DatepickerDayComponent } from './datepicker/datepicker-day/datepicker-day.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DatepickerDayComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -49,7 +50,7 @@ import { AppRoutingModule } from './app.routing';
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
-        logLevel: LogLevel.None,
+        logLevel: LogLevel.None
       },
     }),
     NgxCurrencyModule.forRoot({

@@ -11,6 +11,10 @@ export enum EUserStoreActions {
   SIGN_IN_SUCCESS = '[User] Sign in success',
   SIGN_IN_FAILURE = '[User] Sign in failure',
 
+  SIGN_OUT = '[User] Sign out',
+  SIGN_OUT_SUCCESS = '[User] Sign out success',
+  SIGN_OUT_FAILURE = '[User] Sign out failure',
+
   SIGN_UP = '[User] Sign up',
   SIGN_UP_SUCCESS = '[User] Sign up success',
   SIGN_UP_FAILURE = '[User] Sign up failure',
@@ -29,6 +33,10 @@ export const signInSuccess = createAction(
   props<{ user: UserModel; accessToken: string }>()
 );
 export const signInFailure = createAction(EUserStoreActions.SIGN_IN_FAILURE);
+
+export const signOut = createAction(EUserStoreActions.SIGN_OUT);
+export const signOutSuccess = createAction(EUserStoreActions.SIGN_OUT_SUCCESS);
+export const signOutFailure = createAction(EUserStoreActions.SIGN_OUT_FAILURE);
 
 export const signUp = createAction(EUserStoreActions.SIGN_UP);
 export const signUpSuccess = createAction(EUserStoreActions.SIGN_UP_SUCCESS);

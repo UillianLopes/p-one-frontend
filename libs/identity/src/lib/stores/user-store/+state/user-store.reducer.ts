@@ -48,14 +48,19 @@ const _userStoreReducer = createReducer(
     return { ...state, loading: false };
   }),
 
-  on(UserStoreActions.signUp, (state) => {
-    return { ...state };
+  on(UserStoreActions.signOut, (state) => {
+    return { ...state, loading: true };
   }),
-  on(UserStoreActions.signUpSuccess, (state) => {
-    return { ...state };
+  on(UserStoreActions.signOutSuccess, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      user: undefined,
+      accessToken: undefined,
+    };
   }),
-  on(UserStoreActions.signUpFailure, (state) => {
-    return { ...state };
+  on(UserStoreActions.signInFailure, (state) => {
+    return { ...state, loading: false };
   })
 );
 

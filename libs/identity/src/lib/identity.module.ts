@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { AuthGuard, WithoutAuthGuard } from './guards';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
@@ -17,6 +18,8 @@ export class POneIdentityModule {
           useClass: TokenInterceptor,
           multi: true,
         },
+        AuthGuard,
+        WithoutAuthGuard,
       ],
     };
   }

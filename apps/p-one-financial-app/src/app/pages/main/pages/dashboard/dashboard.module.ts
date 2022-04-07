@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -49,6 +50,7 @@ import { DashboardFilterModalComponent } from './modals/dashboard-filter-modal/d
     POneFlexModule,
     BalancesOvertimeChartModule,
     NotificationsModule,
+    NgbDatepickerModule,
   ],
   providers: [DashboardFacade],
 })

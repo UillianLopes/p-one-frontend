@@ -2,92 +2,11 @@
   <div class="p-one-sign-up__stepper">
     <form [formGroup]="form">
       <p-one-stepper>
-        <p-one-step formGroupName="account" header="Conta">
-          <div pOneFlexRow justification="center">
-            <p-one-card>
-              <div>
-                <p>
-                  Para que um usuário, seja criado é necessário que o mesmo
-                  esteja vinculada a uma conta, essa conta pode ser uma pessoa,
-                  uma empresa, uma escola, etc.
-                </p>
-              </div>
-
-              <div
-                class="btn-group btn-group-toggle"
-                ngbRadioGroup
-                name="radioBasic"
-                formControlName="association"
-              >
-                <label ngbButtonLabel class="btn-primary">
-                  <input
-                    ngbButton
-                    type="radio"
-                    [value]="AccountAssociation.associate"
-                  />
-                  Quero me associar a uma conta existente
-                </label>
-                <label ngbButtonLabel class="btn-primary">
-                  <input
-                    ngbButton
-                    type="radio"
-                    [value]="AccountAssociation.create"
-                  />
-                  Quero criar uma nova conta
-                </label>
-              </div>
-
-              <ng-container [ngSwitch]="this.accountAssociation$ | async">
-                <p-one-form-field *ngSwitchCase="AccountAssociation.associate">
-                  <label pOneLabel for="accountIdInput" i18n>ID da conta</label>
-                  <input
-                    #accountIdInput
-                    pOneInput
-                    placeholder="Digite o id da conta passada pelo seu administrador"
-                    formControlName="accountId"
-                    i18n-placehoder
-                  />
-                </p-one-form-field>
-                <ng-container *ngSwitchCase="AccountAssociation.create">
-                  <p-one-form-field>
-                    <label pOneLabel for="accountNameInput" i18n>
-                      Nome da conta
-                    </label>
-                    <input
-                      #accountNameInput
-                      pOneInput
-                      placeholder="Nome da nova conta"
-                      formControlName="name"
-                      i18n-placehoder
-                    />
-                  </p-one-form-field>
-                  <p-one-form-field>
-                    <label pOneLabel for="accountEmailInput" i18n>
-                      E-mail da conta
-                    </label>
-
-                    <input
-                      #accountEmailInput
-                      pOneInput
-                      placeholder="conta@email.com"
-                      formControlName="email"
-                      i18n-placehoder
-                    />
-                  </p-one-form-field>
-                </ng-container>
-              </ng-container>
-
-              <div pOneFlexRow justification="flex-end">
-                <button class="btn btn-primary" pOneStepperNext>Próximo</button>
-              </div>
-            </p-one-card>
-          </div>
-        </p-one-step>
         <p-one-step formGroupName="personal" header="Inicio">
           <div pOneFlexRow justification="center">
             <p-one-card class="p-one-sign-up__form">
               <p-one-form-field>
-                <label pOneLabel for="nameInput" i18n>Full name</label>
+                <label pOneLabel for="nameInput" i18n>Nome completo</label>
                 <input
                   #nameInput
                   pOneInput
@@ -111,7 +30,7 @@
               <div pOneFlexRow gap="16px">
                 <p-one-form-field pOneFlex="1">
                   <label pOneLabel i18n for="birthDateInput">
-                    Birth date
+                    Data de nascimento
                   </label>
                   <div class="input-group">
                     <input
@@ -181,20 +100,24 @@
                   autocomplete="off"
                 />
 
-                <span pOneInvalidFeedback> Ocorreu um erro feio </span>
+                <span pOneInvalidFeedback> As senhas precisam ser iguais </span>
               </p-one-form-field>
 
               <div pOneFlexRow gap="16px">
                 <button class="btn btn-secondary" pOneStepperPrevious>
-                  Back
+                  Voltar
                 </button>
-
-                <button class="btn btn-primary" pOneStepperNext>Next</button>
+                <button class="btn btn-secondary" pOneStepperNext>
+                  Adicionar endereço
+                </button>
+                <button class="btn btn-primary" (click)="signUp()">
+                  Criar usuário
+                </button>
               </div>
             </p-one-card>
           </div>
         </p-one-step>
-        <p-one-step formGroupName="address" header="Endereço">
+        <p-one-step formGroupName="address" header="Endereço (opcional)">
           <div pOneFlexRow justification="center">
             <p-one-card class="p-one-sign-up__form">
               <p-one-address-form></p-one-address-form>
@@ -203,7 +126,7 @@
                 <button class="btn btn-secondary" pOneStepperPrevious>
                   Voltar
                 </button>
-                <button class="btn btn-primary">Confirmar</button>
+                <button class="btn btn-primary">Criar usuário</button>
               </div>
             </p-one-card>
           </div>

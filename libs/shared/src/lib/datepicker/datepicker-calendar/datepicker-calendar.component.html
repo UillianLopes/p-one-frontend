@@ -1,4 +1,21 @@
-<div class="p-one-date-picker-calendar">
+<div class="btn-group p-one-date-picker-calendar__month-year-picker">
+  <button
+    class="btn btn-outline-secondary btn-sm p-one-date-picker-calendar__previous"
+    (click)="previous()"
+  >
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  <button class="btn btn-outline-secondary btn-sm" trigger="click">
+    <b>{{ month$ | async }} / {{ year$ | async }}</b>
+  </button>
+  <button
+    class="btn btn-outline-secondary btn-sm p-one-date-picker-calendar__next"
+    (click)="next()"
+  >
+    <i class="bi bi-chevron-right"></i>
+  </button>
+</div>
+<div class="p-one-date-picker-calendar" (mouseleave)="resetHoverDay()">
   <div class="p-one-date-picker-calendar__item">dom</div>
   <div class="p-one-date-picker-calendar__item">seg</div>
   <div class="p-one-date-picker-calendar__item">ter</div>
@@ -7,8 +24,16 @@
   <div class="p-one-date-picker-calendar__item">sex</div>
   <div class="p-one-date-picker-calendar__item">sab</div>
   <ng-container *ngFor="let week of weeks$ | async">
-    <div class="p-one-date-picker-calendar__day" *ngFor="let day of week">
-      {{ day }}
-    </div>
+    <p-one-datepicker-day
+      *ngFor="let day of week"
+      (click)="setDay(day)"
+      (mouseenter)="setHover(day)"
+      [day]="day"
+      [year]="(year$ | async)!"
+      [month]="(month$ | async)!"
+      [begin]="(begin$ | async)!"
+      [end]="(end$ | async)!"
+      [hover]="(hover$ | async)!"
+    ></p-one-datepicker-day>
   </ng-container>
 </div>

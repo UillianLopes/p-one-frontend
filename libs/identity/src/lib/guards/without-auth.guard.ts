@@ -6,7 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { UserStoreFacade } from '../stores';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class WithoutAuthGuard implements CanActivate {
   constructor(
     private readonly _userStoreService: UserStoreFacade,
     private readonly _router: Router
@@ -19,11 +19,11 @@ export class AuthGuard implements CanActivate {
     return this._userStoreService.isAuthenticated$.pipe(
       take(1),
       map((isAuthenticated) => {
-        if (!isAuthenticated) {
-          return this._router.createUrlTree(['/user/sign-in']);
+        if (isAuthenticated) {
+          return this._router.createUrlTree(['/main']);
         }
 
-        return isAuthenticated;
+        return true;
       })
     );
   }

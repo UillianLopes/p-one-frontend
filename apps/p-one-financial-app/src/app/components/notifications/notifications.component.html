@@ -1,24 +1,25 @@
-<ng-template #unreadNotificationsTemplate>
-  <ul class="p-one-notifications__list">
-    <li *ngFor="let notification of unreadNotifications$ | async">
+<ng-template #contentTemplate>
+  <ul class="list-group">
+    <li
+      class="list-group-item list-group-flush"
+      *ngFor="let notification of unreadNotifications$ | async"
+    >
       <b>{{ notification.title }}</b>
       <br />
       <span>
         {{ notification.text }}
       </span>
-      <br />
-      <button class="btn btn-sm btn-outline-primary">Mark as read</button>
     </li>
   </ul>
 </ng-template>
-<ng-template #title>
+<ng-template #titleTemplate>
   <span class="p-one-notifications__title">Notificações não lidas</span>
 </ng-template>
 <button
   class="btn btn-outline-light"
-  [ngbPopover]="unreadNotificationsTemplate"
+  [ngbPopover]="contentTemplate"
   popoverClass="p-one-notifications__popover"
-  [popoverTitle]="title"
+  [popoverTitle]="titleTemplate"
   autoClose="outside"
 >
   <i class="bi bi-bell"></i>

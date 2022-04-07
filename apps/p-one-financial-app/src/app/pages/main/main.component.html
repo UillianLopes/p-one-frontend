@@ -59,6 +59,14 @@
       <i pOneIcon class="bi bi-bank"></i>
       Contas / Cateiras
     </p-one-sidenav-item>
+    <p-one-sidenav-item tooltip="Sair" (click)="signOut()">
+      <i
+        pOneIcon
+        class="bi bi-box-arrow-right"
+        [style.color]="'var(--bs-danger)'"
+      ></i>
+      Sair
+    </p-one-sidenav-item>
   </p-one-sidenav>
   <router-outlet></router-outlet>
 </p-one-sidenav-container>

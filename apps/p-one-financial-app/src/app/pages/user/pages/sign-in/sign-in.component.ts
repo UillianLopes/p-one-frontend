@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { UserStoreFacade } from '@p-one/identity';
 
 @Component({
   selector: 'p-one-sign-in',
@@ -8,15 +7,12 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  form = this._formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-  });
+  constructor(private readonly _userStoreFacade: UserStoreFacade) {}
 
-  constructor(
-    private readonly _formBuilder: FormBuilder,
-    private readonly _oidcService: OidcSecurityService
-  ) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this._userStoreFacade.signIn();
+    }, 100)
+    
+  }
 }

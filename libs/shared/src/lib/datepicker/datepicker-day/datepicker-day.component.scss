@@ -1,0 +1,99 @@
+$day-size: 35px;
+$half-day-size: 17.5px;
+
+.p-one-datepicker-day {
+  width: $day-size;
+  height: $day-size;
+  position: relative;
+  $self: &;
+  cursor: pointer;
+
+  &__number {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: $day-size;
+    height: $day-size;
+    border-radius: $half-day-size;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+
+  &--between-begin-and-hover {
+    position: relative;
+    &::before {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      border-top: 1px dashed var(--bs-gray-400);
+      border-bottom: 1px dashed var(--bs-gray-400);
+      content: '';
+      pointer-events: none;
+    }
+
+    &#{$self}--begin {
+      &::before {
+        left: $half-day-size;
+      }
+    }
+
+    &#{$self}--hover {
+      &::before {
+        right: $half-day-size;
+      }
+    }
+  }
+
+  &--between-begin-and-end {
+    position: relative;
+    > #{$self}__number {
+      color: white;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      content: '';
+      pointer-events: none;
+      background: var(--bs-secondary);
+    }
+
+    &#{$self}--begin {
+      &::before {
+        left: $half-day-size;
+      }
+    }
+
+    &#{$self}--end {
+      &::before {
+        right: $half-day-size;
+      }
+    }
+  }
+
+  &--selected {
+    #{$self}__number {
+      background-color: var(--bs-primary);
+      color: var(--bs-white);
+    }
+  }
+
+  &--hover {
+    #{$self}__number {
+      background-color: var(--bs-secondary);
+    }
+  }
+}
+
+:host {
+  display: block;
+}

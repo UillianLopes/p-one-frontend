@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { load, signIn } from './user-store.actions';
+import { load, signIn, signOut, signUp } from './user-store.actions';
 import { UserStoreState } from './user-store.reducer';
 import * as UserStoreSelectors from './user-store.selectors';
 
@@ -20,8 +20,17 @@ export class UserStoreFacade {
 
   constructor(private readonly _store: Store<UserStoreState>) {}
 
+  public signUp() {
+    this._store.dispatch(signUp());
+  }
+
+
   public signIn() {
     this._store.dispatch(signIn());
+  }
+
+  public signOut() {
+    this._store.dispatch(signOut());
   }
 
   public load() {

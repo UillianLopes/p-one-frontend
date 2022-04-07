@@ -1,0 +1,17 @@
+<div
+  class="p-one-datepicker-day"
+  [class.p-one-datepicker-day--selected]="isSelected$ | async"
+  [class.p-one-datepicker-day--between-begin-and-hover]="
+    isBetweenBeginAndHover$ | async
+  "
+  [class.p-one-datepicker-day--begin]="isBegin$ | async"
+  [class.p-one-datepicker-day--end]="isEnd$ | async"
+  [class.p-one-datepicker-day--hover]="isHover$ | async"
+  [class.p-one-datepicker-day--between-begin-and-end]="
+    isBetweenBeginAndEnd$ | async
+  "
+>
+  <div class="p-one-datepicker-day__number">
+    {{ day$ | async }}
+  </div>
+</div>

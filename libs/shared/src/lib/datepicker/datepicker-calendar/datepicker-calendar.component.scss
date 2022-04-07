@@ -1,12 +1,10 @@
-.p-one-date-picker-calendar {
-  display: block;
-  padding: 8px;
-  border: var(--bs-gray-200) 1px solid;
-  border-radius: 8px;
+$day-size: 35px;
+$half-day-size: 17.5px;
 
+.p-one-date-picker-calendar {
   display: grid;
-  grid-template-columns: repeat(7, 35px);
-  gap: 4px;
+  grid-template-columns: repeat(7, $day-size);
+  row-gap: 4px;
 
   &__item {
     text-align: center;
@@ -14,17 +12,25 @@
   }
 
   &__day {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    &:hover {
-      background: var(--bs-gray-200);
-    }
-
-    &--selected {
-      background: var(--bs-primary);
-    }
+    $day: &;
+    height: $day-size;
+    width: $day-size;
+    position: relative;
   }
+
+  &__month-year-picker {
+    width: 100%;
+  }
+  &__next,
+  &__previous {
+    max-width: 40px;
+  }
+}
+
+:host {
+  display: block;
+  max-width: fit-content;
+  padding: 8px;
+  border: var(--bs-gray-200) 1px solid;
+  border-radius: 8px;
 }
