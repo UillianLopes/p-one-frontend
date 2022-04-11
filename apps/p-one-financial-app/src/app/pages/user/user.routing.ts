@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: UserComponent,
-
     children: [
       { path: '', redirectTo: 'sign-up', pathMatch: 'full' },
       {

@@ -16,6 +16,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._userStoreFacade.load();
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
   }

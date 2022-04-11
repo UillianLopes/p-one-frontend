@@ -221,9 +221,11 @@ export class LineChartComponent extends Chart<LineChartData> {
           dotsInThisX.length * 16 + 16 + (dotsInThisX.length - 1) * 4;
         const greaterLabelWidth = dotsInThisX
           .map(
-            ({ groupName, value}) =>
+            ({ groupName, value }) =>
               `${groupName}: ${
-                this.valueFormater ? this.valueFormater(value) : value.toFixed(2)
+                this.valueFormater
+                  ? this.valueFormater(value)
+                  : value.toFixed(2)
               }`
           )
           .map((a) => {
@@ -290,7 +292,9 @@ export class LineChartComponent extends Chart<LineChartData> {
             .text(
               ({ groupName, value }) =>
                 `${groupName}: ${
-                  this.valueFormater ? this.valueFormater(value) : value.toFixed(2)
+                  this.valueFormater
+                    ? this.valueFormater(value)
+                    : value.toFixed(2)
                 }`
             )
             .attr('alignment-baseline', 'middle')
@@ -563,7 +567,7 @@ export class LineChartComponent extends Chart<LineChartData> {
       .text((_, i) =>
         this.valueFormater
           ? this.valueFormater(yLineValuesScale(i))
-          : yLineValuesScale(i).toFixed(2)
+          : yLineValuesScale(i)?.toFixed(2)
       );
   }
 

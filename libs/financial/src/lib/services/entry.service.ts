@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { ResponseModel } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -13,7 +14,6 @@ import {
   ErrorModel,
   PayEntryRequest,
   RecurrenceModel,
-  ResponseModel,
 } from '../models';
 
 function cleanFilter(filter: any) {

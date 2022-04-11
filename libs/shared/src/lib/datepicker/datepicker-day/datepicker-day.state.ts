@@ -8,6 +8,7 @@ export interface DatepickerDayState {
   hover?: DatepickerData;
   begin?: DatepickerData;
   end?: DatepickerData;
+  selected?: DatepickerData;
 
   day: number;
   year: number;
@@ -21,6 +22,7 @@ function isDataBetween(
 ) {
   return (
     compare &&
+    compare.day !== undefined &&
     begin &&
     end &&
     (compare.year < end.year ||
@@ -41,7 +43,9 @@ export class DatepickerDayStore extends ComponentStore<DatepickerDayState> {
   public readonly begin$ = this.select(({ begin }) => begin);
   public readonly end$ = this.select(({ end }) => end);
   public readonly hover$ = this.select(({ hover }) => hover);
+  public readonly selected$ = this.select(({ selected }) => selected);
   public readonly day$ = this.select(({ day }) => day);
+
   public readonly current$ = this.select(({ day, year, month }) => ({
     day,
     year,
@@ -82,7 +86,10 @@ export class DatepickerDayStore extends ComponentStore<DatepickerDayState> {
   public readonly isSelected$ = this.select(
     this.isBegin$,
     this.isEnd$,
-    (isBegin, isEnd) => isBegin || isEnd
+    this.selected$,
+    this.current$,
+    (isBegin, isEnd, selected, current) =>
+      isBegin || isEnd || _.isEqual(selected, current)
   );
 
   constructor() {
@@ -97,6 +104,7 @@ export class DatepickerDayStore extends ComponentStore<DatepickerDayState> {
     ...state,
     year,
   }));
+
   public readonly setMonth = this.updater((state, month: number) => ({
     ...state,
     month,
@@ -122,6 +130,15 @@ export class DatepickerDayStore extends ComponentStore<DatepickerDayState> {
       end,
     };
   });
+
+  public readonly setSelected = this.updater(
+    (state, selected: DatepickerData) => {
+      return {
+        ...state,
+        selected,
+      };
+    }
+  );
 
   public readonly setDay = this.updater((state, day: number) => {
     return {

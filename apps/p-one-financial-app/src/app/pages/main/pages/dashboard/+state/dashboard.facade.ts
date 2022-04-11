@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { openFilterModal, removeApplyedFilter } from './dashboard.actions';
+import { openFilterModal, removeApplyedFilter, resetState } from './dashboard.actions';
 import { DashboardState } from './dashboard.reducer';
 import * as DashboardSelectors from './dashboard.selectors';
 
@@ -26,5 +26,9 @@ export class DashboardFacade {
 
   public removeApplyedFilter(id: string) {
     this._store.dispatch(removeApplyedFilter({ id }));
+  }
+
+  public resetState() {
+    this._store.dispatch(resetState());
   }
 }

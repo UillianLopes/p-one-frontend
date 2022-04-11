@@ -17,8 +17,7 @@ export class DashboardFilterModalComponent
   implements OnInit
 {
   public readonly form = this._formBuilder.group({
-    begin: [this._filter?.begin],
-    end: [this._filter?.end],
+    range: [{ begin: this._filter?.begin, end: this._filter?.end }],
     wallets: [this._filter?.wallets],
     categories: [this._filter?.categories],
     subCategories: [this._filter?.subCategories],
@@ -92,7 +91,12 @@ export class DashboardFilterModalComponent
   }
 
   public confirm(): void {
-    this._store.confirm(this.form.value);
+    const { range, ...filter } = this.form.value;
+    this._store.confirm({
+      ...filter,
+      begin: range?.begin,
+      end: range?.end,
+    });
   }
 
   public setCategoriesFilter(categoriesFilter: string) {

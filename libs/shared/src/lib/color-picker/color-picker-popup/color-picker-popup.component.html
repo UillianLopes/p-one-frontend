@@ -1,4 +1,4 @@
 <color-chrome
-  [color]="initialColor$ | async"
+  [color]="(initialColor$ | async)!"
   (onChangeComplete)="setColor($event.color.hex)"
 ></color-chrome>

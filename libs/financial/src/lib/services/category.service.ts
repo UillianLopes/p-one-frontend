@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { ResponseModel } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../contants/tokens';
-import { CategoryModel, EEntryType, ErrorModel, ResponseModel } from '../models';
+import { CategoryModel, EEntryType, ErrorModel } from '../models';
 
 @Injectable()
 export class CategoryService {

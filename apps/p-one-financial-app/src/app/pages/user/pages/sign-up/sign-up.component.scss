@@ -17,11 +17,16 @@
   }
 
   &__form {
-    max-width: 500px;
-    width: 500px;
+    max-width: 800px;
+    width: 800px;
   }
 
   &__stepper {
-    width: 750px;
+    width: 800px;
   }
+}
+
+section {
+  width: 800px;
+  text-align: center;
 }

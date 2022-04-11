@@ -1,7 +1,7 @@
 :host {
   display: block;
-
   position: relative;
+  height: 66px;
 }
 
 .p-one-stepper-header {
@@ -10,6 +10,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;
   }
 
   &__background {
@@ -21,7 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: -1;
+    z-index: 0;
   }
 
   &__line {

@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { NotificationModel } from '@p-one/core';
+import { NotificationModel, ResponseModel } from '@p-one/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../contants';
-import { ResponseModel } from '../models';
 
 @Injectable()
 export class NotificationsService {

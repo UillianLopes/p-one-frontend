@@ -1,7 +1,7 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
 @Directive({
-  selector: '[pOneFlexRow]',
+  selector: '[pOneFlexRow]'
 })
 export class FlexRowDirective {
   @HostBinding('style.display')
@@ -21,4 +21,5 @@ export class FlexRowDirective {
   @HostBinding('style.gap')
   @Input()
   gap = '0px';
+
 }

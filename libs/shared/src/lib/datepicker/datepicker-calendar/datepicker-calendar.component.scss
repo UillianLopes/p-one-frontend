@@ -2,28 +2,14 @@ $day-size: 35px;
 $half-day-size: 17.5px;
 
 .p-one-date-picker-calendar {
+  z-index: 3;
   display: grid;
   grid-template-columns: repeat(7, $day-size);
   row-gap: 4px;
 
-  &__item {
+  &__header {
     text-align: center;
     vertical-align: middle;
-  }
-
-  &__day {
-    $day: &;
-    height: $day-size;
-    width: $day-size;
-    position: relative;
-  }
-
-  &__month-year-picker {
-    width: 100%;
-  }
-  &__next,
-  &__previous {
-    max-width: 40px;
   }
 }
 
@@ -33,4 +19,5 @@ $half-day-size: 17.5px;
   padding: 8px;
   border: var(--bs-gray-200) 1px solid;
   border-radius: 8px;
+  background: white;
 }

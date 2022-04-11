@@ -17,10 +17,8 @@ export class SignUpComponent extends DestroyableMixin() {
     personal: this._formBuilder.group({
       name: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
-      birthDate: [null, [Validators.required]],
+      birthDate: [new Date(1990, 0, 1), [Validators.required]],
       mobilePhone: [null, [Validators.required]],
-    }),
-    authentication: this._formBuilder.group({
       password: [null, [Validators.required]],
       passwordConfirmation: [
         null,
@@ -42,9 +40,6 @@ export class SignUpComponent extends DestroyableMixin() {
 
   public readonly addressForm = <FormGroup>this.form.get('address');
   public readonly personalForm = <FormGroup>this.form.get('personal');
-  public readonly authenticationForm = <FormGroup>(
-    this.form.get('authentication')
-  );
 
   public readonly isPersonalFormValid$ = this.personalForm.statusChanges.pipe(
     startWith(this.personalForm.status),
@@ -57,8 +52,8 @@ export class SignUpComponent extends DestroyableMixin() {
   );
 
   public readonly isAuthenticationFormValid$ =
-    this.authenticationForm.statusChanges.pipe(
-      startWith(this.authenticationForm.status),
+    this.personalForm.statusChanges.pipe(
+      startWith(this.personalForm.status),
       map((status) => status === 'VALID')
     );
 
@@ -79,34 +74,41 @@ export class SignUpComponent extends DestroyableMixin() {
   ) {
     super();
 
-    this.authenticationForm
+    this.personalForm
       ?.get('password')
       ?.valueChanges.pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
-        this.authenticationForm
-          .get('passwordConfirmation')
-          ?.updateValueAndValidity();
+        this.personalForm.get('passwordConfirmation')?.updateValueAndValidity();
       });
   }
 
   public signUp(): void {
-    if (this.authenticationForm.invalid || this.personalForm.invalid) {
+    if (this.personalForm.invalid || this.personalForm.invalid) {
       this._validatePersonalAndAuthenticationForms();
       return;
     }
-
-    this._userStoreFacade.signUp();
+    const personal = this.personalForm.value;
+    const address = this.personalForm.value;
+    this._userStoreFacade.signUp({
+      ...personal,
+      ...(address ?? {}),
+      countryCode: 55
+    });
   }
 
   private _validatePersonalAndAuthenticationForms(): void {
-    for (const controlName in this.authenticationForm.controls) {
-      this.authenticationForm.get(controlName).markAsDirty();
-      this.authenticationForm.get(controlName).updateValueAndValidity();
+    for (const controlName in this.personalForm.controls) {
+      this.personalForm.get(controlName).markAsDirty();
+      this.personalForm.get(controlName).updateValueAndValidity();
     }
 
     for (const controlName in this.personalForm.controls) {
       this.personalForm.get(controlName).markAsDirty();
       this.personalForm.get(controlName).updateValueAndValidity();
     }
+  }
+
+  public signIn(): void {
+    this._userStoreFacade.signIn();
   }
 }

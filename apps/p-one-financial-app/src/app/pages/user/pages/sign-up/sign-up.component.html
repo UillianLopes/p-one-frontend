@@ -1,137 +1,141 @@
-<div class="p-one-sign-up__container">
-  <div class="p-one-sign-up__stepper">
-    <form [formGroup]="form">
-      <p-one-stepper>
-        <p-one-step formGroupName="personal" header="Inicio">
-          <div pOneFlexRow justification="center">
-            <p-one-card class="p-one-sign-up__form">
-              <p-one-form-field>
-                <label pOneLabel for="nameInput" i18n>Nome completo</label>
-                <input
-                  #nameInput
-                  pOneInput
-                  placeholder="Full name"
-                  formControlName="name"
-                  i18n-placehoder
-                />
-              </p-one-form-field>
-
-              <p-one-form-field>
-                <label pOneLabel i18n for="emailInput">E-mail</label>
-                <input
-                  #emailInput
-                  pOneInput
-                  placeholder="example@email.com"
-                  formControlName="email"
-                  i18n-placehoder
-                />
-              </p-one-form-field>
-
-              <div pOneFlexRow gap="16px">
-                <p-one-form-field pOneFlex="1">
-                  <label pOneLabel i18n for="birthDateInput">
-                    Data de nascimento
-                  </label>
-                  <div class="input-group">
-                    <input
-                      class="form-control"
-                      placeholder="yyyy-mm-dd"
-                      formControlName="birthDate"
-                      ngbDatepicker
-                      pOneInput
-                      #birthDateInput="ngbDatepicker"
-                    />
-                    <div class="input-group-append">
-                      <button
-                        class="btn btn-outline-secondary"
-                        (click)="birthDateInput.toggle()"
-                        type="button"
-                      >
-                        <i class="bi bi-calendar"></i>
-                      </button>
-                    </div>
-                  </div>
-                </p-one-form-field>
-                <p-one-form-field pOneFlex="1">
-                  <label pOneLabel i18n [for]="mobilePhoneInput">Celular</label>
+<p-one-container>
+  <p-one-header>
+    <b pOneLeading routerLink="/landing" style="cursor: pointer"> POne </b>
+    <ng-container pOneTrailing>
+      <button class="btn btn-sm btn-outline-light" (click)="signIn()">
+        Ja tem uma conta?
+      </button>
+    </ng-container>
+  </p-one-header>
+  <div pOneFlexColumn alignment="center">
+    <section>
+      <br />
+      <h1>Quer se cadastrar?</h1>
+      <h6>Informe a baixo os dados para criar o seu usuário</h6>
+    </section>
+    <div class="p-one-sign-up__stepper">
+      <form [formGroup]="form">
+        <p-one-stepper>
+          <p-one-step formGroupName="personal" header="Inicio">
+            <div pOneFlexRow justification="center">
+              <p-one-card class="p-one-sign-up__form">
+                <p-one-form-field>
+                  <label pOneLabel for="nameInput" i18n>Nome completo</label>
                   <input
-                    #mobilePhoneInput
+                    #nameInput
                     pOneInput
-                    placeholder="(99) 99999-9999"
-                    formControlName="mobilePhone"
+                    placeholder="Full name"
+                    formControlName="name"
                     i18n-placehoder
-                    mask="(00) 00000-0000"
                   />
                 </p-one-form-field>
-              </div>
 
-              <button class="btn btn-primary" pOneStepperNext>Próximo</button>
-            </p-one-card>
-          </div>
-        </p-one-step>
-        <p-one-step formGroupName="authentication" header="Autenticação">
-          <div pOneFlexRow justification="center">
-            <p-one-card class="p-one-sign-up__form">
-              <p-one-form-field>
-                <label pOneLabel [for]="passwordInput" i18n>Senha</label>
-                <input
-                  #passwordInput
-                  pOneInput
-                  placeholder="********"
-                  formControlName="password"
-                  i18n-placehoder
-                  type="password"
-                  autocomplete="off"
-                />
-              </p-one-form-field>
+                <p-one-form-field>
+                  <label pOneLabel i18n for="emailInput">E-mail</label>
+                  <input
+                    #emailInput
+                    pOneInput
+                    placeholder="example@email.com"
+                    formControlName="email"
+                    i18n-placehoder
+                  />
+                </p-one-form-field>
 
-              <p-one-form-field>
-                <label pOneLabel i18n [for]="passwordConfirmationInput">
-                  Confirmação de senha
-                </label>
+                <div pOneFlexRow gap="16px">
+                  <p-one-form-field pOneFlex="1">
+                    <label pOneLabel i18n for="birthDateInput">
+                      Data de nascimento
+                    </label>
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        placeholder="dd/MM/yyyy"
+                        formControlName="birthDate"
+                        pOneInput
+                        pOneDatepicker
+                      />
+                    </div>
+                  </p-one-form-field>
+                  <p-one-form-field pOneFlex="1">
+                    <label pOneLabel i18n [for]="mobilePhoneInput"
+                      >Celular</label
+                    >
+                    <input
+                      #mobilePhoneInput
+                      pOneInput
+                      placeholder="(99) 99999-9999"
+                      formControlName="mobilePhone"
+                      i18n-placehoder
+                      mask="(00) 00000-0000"
+                    />
+                  </p-one-form-field>
+                </div>
 
-                <input
-                  #passwordConfirmationInput
-                  pOneInput
-                  placeholder="********"
-                  formControlName="passwordConfirmation"
-                  i18n-placehoder
-                  type="password"
-                  autocomplete="off"
-                />
+                <div pOneFlexRow gap="16px">
+                  <p-one-form-field pOneFlex="1">
+                    <label pOneLabel [for]="passwordInput" i18n>Senha</label>
+                    <input
+                      #passwordInput
+                      pOneInput
+                      placeholder="********"
+                      formControlName="password"
+                      i18n-placehoder
+                      type="password"
+                      autocomplete="off"
+                    />
+                  </p-one-form-field>
 
-                <span pOneInvalidFeedback> As senhas precisam ser iguais </span>
-              </p-one-form-field>
+                  <p-one-form-field pOneFlex="1">
+                    <label pOneLabel i18n [for]="passwordConfirmationInput">
+                      Confirmação de senha
+                    </label>
 
-              <div pOneFlexRow gap="16px">
-                <button class="btn btn-secondary" pOneStepperPrevious>
-                  Voltar
-                </button>
-                <button class="btn btn-secondary" pOneStepperNext>
-                  Adicionar endereço
-                </button>
-                <button class="btn btn-primary" (click)="signUp()">
-                  Criar usuário
-                </button>
-              </div>
-            </p-one-card>
-          </div>
-        </p-one-step>
-        <p-one-step formGroupName="address" header="Endereço (opcional)">
-          <div pOneFlexRow justification="center">
-            <p-one-card class="p-one-sign-up__form">
-              <p-one-address-form></p-one-address-form>
+                    <input
+                      #passwordConfirmationInput
+                      pOneInput
+                      placeholder="********"
+                      formControlName="passwordConfirmation"
+                      i18n-placehoder
+                      type="password"
+                      autocomplete="off"
+                    />
 
-              <div pOneFlexRow gap="16px">
-                <button class="btn btn-secondary" pOneStepperPrevious>
-                  Voltar
-                </button>
-                <button class="btn btn-primary">Criar usuário</button>
-              </div>
-            </p-one-card>
-          </div>
-        </p-one-step>
-      </p-one-stepper>
-    </form>
+                    <span pOneInvalidFeedback>
+                      As senhas precisam ser iguais
+                    </span>
+                  </p-one-form-field>
+                </div>
+                <div pOneFlexRow gap="16px">
+                  <button class="btn btn-secondary" pOneStepperPrevious>
+                    Voltar
+                  </button>
+                  <button class="btn btn-secondary" pOneStepperNext>
+                    Adicionar endereço
+                  </button>
+                  <button class="btn btn-primary" (click)="signUp()">
+                    Criar usuário
+                  </button>
+                </div>
+              </p-one-card>
+            </div>
+          </p-one-step>
+
+          <p-one-step formGroupName="address" header="Endereço (opcional)">
+            <div pOneFlexRow justification="center">
+              <p-one-card class="p-one-sign-up__form">
+                <p-one-address-form></p-one-address-form>
+
+                <div justification="flex-start" pOneFlexRow gap="16px">
+                  <button class="btn btn-secondary" pOneStepperPrevious>
+                    Voltar
+                  </button>
+                  <button class="btn btn-primary">Criar usuário</button>
+                </div>
+              </p-one-card>
+            </div>
+          </p-one-step>
+        </p-one-stepper>
+      </form>
+    </div>
   </div>
-</div>
+</p-one-container>

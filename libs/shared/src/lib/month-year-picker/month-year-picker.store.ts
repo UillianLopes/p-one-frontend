@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { map } from 'rxjs/operators';
+import { map, tap, withLatestFrom } from 'rxjs/operators';
 
 import { MonthYearPickerData } from './@types';
 
@@ -16,8 +16,8 @@ export interface MonthYearPickerState {
 @Injectable()
 export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
   public readonly value$ = this.select((s) => s.value);
-  public readonly year$ = this.value$.pipe(map((v) => v.year));
-  public readonly month$ = this.value$.pipe(map((v) => v.month));
+  public readonly year$ = this.value$.pipe(map(({ year }) => year));
+  public readonly month$ = this.value$.pipe(map(({ month }) => month));
 
   constructor() {
     super({
@@ -28,56 +28,60 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     });
   }
 
-  public next(): void {
-    this.setState((state) => {
-      let { year, month } = state.value;
+  public readonly previous = this.effect((event$) =>
+    event$.pipe(
+      withLatestFrom(this.year$, this.month$),
+      tap(([_, year, month]) => {
+        this.setValue({
+          year: month > 1 ? year : year - 1,
+          month: month > 1 ? month - 1 : 12,
+        });
+      })
+    )
+  );
 
-      if (month < 12) month++;
-      else {
-        month = 1;
-        year++;
-      }
+  public readonly next = this.effect((event$) =>
+    event$.pipe(
+      withLatestFrom(this.year$, this.month$),
+      tap(([_, year, month]) => {
+        this.setValue({
+          year: month < 12 ? year : year + 1,
+          month: month < 12 ? month + 1 : 1,
+        });
+      })
+    )
+  );
 
-      const value = {
-        year,
-        month,
-      };
-
+  public readonly setYear = this.updater(
+    ({ value, ...state }, year: number) => {
       return {
         ...state,
-        value: value,
+        value: {
+          ...value,
+          year,
+        },
       };
-    });
-  }
+    }
+  );
 
-  public previous(): void {
-    this.setState((state) => {
-      let { year, month } = state.value;
-
-      if (month > 1) month--;
-      else {
-        month = 12;
-        year--;
-      }
-
-      const value = {
-        year,
-        month,
+  public readonly setMonth = this.updater(
+    ({ value, ...state }, month: number) => {
+      return {
+        ...state,
+        value: {
+          ...value,
+          month,
+        },
       };
+    }
+  );
 
+  public readonly setValue = this.updater(
+    (state, value: MonthYearPickerData) => {
       return {
         ...state,
         value,
       };
-    });
-  }
-
-  public setValue(value: MonthYearPickerData): void {
-    this.setState((state) => {
-      return {
-        ...state,
-        value,
-      };
-    });
-  }
+    }
+  );
 }

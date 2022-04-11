@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FilterDisplayData } from '@p-one/shared';
+import { DateTime } from 'luxon';
 
 import { DASHBOARD_KEY, DashboardState } from './dashboard.reducer';
 
@@ -18,7 +19,7 @@ export const filterSelector = createSelector(
 
 export const applyedFiltersSelector = createSelector(
   filterSelector,
-  ({ categories, subCategories, wallets }) => {
+  ({ categories, subCategories, wallets, begin, end }) => {
     let data: FilterDisplayData[] = [];
 
     if (categories && categories.length > 0) {
@@ -50,6 +51,19 @@ export const applyedFiltersSelector = createSelector(
           id: 'WALLETS',
           name: 'Contas / Carteiras',
           value: wallets.map((c) => c.name),
+        },
+      ];
+    }
+
+    if (begin && end) {
+      data = [
+        ...data,
+        {
+          id: 'DATE',
+          name: 'Data',
+          value: `${DateTime.fromJSDate(begin).toFormat(
+            'dd/MM/yyyy'
+          )} - ${DateTime.fromJSDate(end).toFormat('dd/MM/yyyy')}`,
         },
       ];
     }

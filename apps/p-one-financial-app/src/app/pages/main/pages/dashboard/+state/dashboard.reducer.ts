@@ -23,14 +23,15 @@ const initialState: DashboardState = {
 const _dashboardReducer = createReducer(
   initialState,
 
-  on(setFilterSuccess, (state, {filter})  => {
-    return {
-      ...state, filter
-    }
-  }),
-  on(resetState, (state) => {
+  on(setFilterSuccess, (state, { filter }) => {
     return {
       ...state,
+      filter,
+    };
+  }),
+  on(resetState, () => {
+    return {
+      ...initialState,
     };
   })
 );

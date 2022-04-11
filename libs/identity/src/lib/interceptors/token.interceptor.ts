@@ -1,18 +1,19 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { Inject, Injectable, NgZone, Optional } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { TOKEN_REQUIRED_URLS } from '../constants/token-required-urls.token';
-import { UserStoreFacade } from '../stores';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private readonly _userStoreFacade: UserStoreFacade,
+    private readonly _oauthService: OAuthService,
     @Optional()
     @Inject(TOKEN_REQUIRED_URLS)
-    private readonly _tokenRequiredUrls: string[]
+    private readonly _tokenRequiredUrls: string[],
+    private readonly _ngZone: NgZone
   ) {}
 
   private _isTokenRequiredForThisUri(uri: string) {
@@ -24,40 +25,36 @@ export class TokenInterceptor implements HttpInterceptor {
     );
   }
 
-  intercept(
+  public intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!this._isTokenRequiredForThisUri(req.url)) {
+    if (
+      !this._isTokenRequiredForThisUri(req.url) ||
+      !this._oauthService.hasValidAccessToken()
+    ) {
       return next.handle(req);
     }
 
-    return combineLatest([
-      this._userStoreFacade.isAuthenticated$,
-      this._userStoreFacade.accessToken$,
-    ]).pipe(
-      take(1),
-      switchMap(([isAuthenticated, accessToken]) => {
-        if (isAuthenticated) {
-          return next.handle(
-            req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            })
-          );
-        }
-
-        return next.handle(req);
-      }),
-      tap((response) => {
-        if (
-          response instanceof HttpErrorResponse &&
-          [401].includes(response.status)
-        ) {
-          this._userStoreFacade.signIn();
-        }
-      })
-    );
+    return next
+      .handle(
+        req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${this._oauthService.getAccessToken()}`,
+          },
+        })
+      )
+      .pipe(
+        tap((response) => {
+          if (
+            response instanceof HttpErrorResponse &&
+            [401].includes(response.status)
+          ) {
+            this._ngZone.run(() => {
+              this._oauthService.initLoginFlow();
+            });
+          }
+        })
+      );
   }
 }

@@ -18,5 +18,15 @@
     flex-direction: column;
   }
 
-  
+  &__display {
+    width: 100%;
+  }
+
+  &__actions {
+    max-width: 40px;
+  }
+}
+
+:host {
+  display: block;
 }

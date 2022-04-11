@@ -8,7 +8,6 @@ export const USER_STORE_KEY = 'USER_STORE';
 export interface UserStoreState {
   loading: boolean;
   user?: UserModel;
-  accessToken?: string;
 }
 
 const initialState: UserStoreState = {
@@ -21,12 +20,11 @@ const _userStoreReducer = createReducer(
   on(UserStoreActions.load, (state) => {
     return { ...state, loading: true };
   }),
-  on(UserStoreActions.loadSuccess, (state, action) => {
+  on(UserStoreActions.loadSuccess, (state, { user }) => {
     return {
       ...state,
       loading: false,
-      user: action.user,
-      accessToken: action.accessToken,
+      user,
     };
   }),
   on(UserStoreActions.loadFailure, (state) => {
@@ -41,7 +39,6 @@ const _userStoreReducer = createReducer(
       ...state,
       loading: false,
       user: action.user,
-      accessToken: action.accessToken,
     };
   }),
   on(UserStoreActions.signInFailure, (state) => {

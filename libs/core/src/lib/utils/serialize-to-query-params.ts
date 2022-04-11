@@ -11,9 +11,10 @@ export function serializeToQueryParams(data: any): {
     .map((key) => ({
       [key]:
         data[key] instanceof Array
-          ? data[key].map((e: any) => getQueryValue(e))
+          ? data[key].map((value: any) => getQueryValue(value))
           : getQueryValue(data[key]),
     }))
+    .filter((item) => Object.keys(item).some((key) => item[key] !== undefined))
     .reduce((a, b) => ({ ...a, ...b }), {});
 }
 

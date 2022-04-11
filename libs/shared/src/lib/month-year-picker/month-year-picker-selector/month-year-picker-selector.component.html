@@ -5,10 +5,7 @@
   <ng-container *ngSwitchCase="MonthYearPickerMode.month">
     <div class="btn-group">
       <button
-        class="
-          btn btn-sm btn-outline-secondary
-          p-one-month-year-picker-selector__action
-        "
+        class="btn btn-sm btn-outline-secondary p-one-month-year-picker-selector__action"
         (click)="previousYear()"
       >
         <i class="bi bi-chevron-left"></i>
@@ -20,10 +17,7 @@
         <b>{{ year$ | async }}</b>
       </button>
       <button
-        class="
-          btn btn-sm btn-outline-secondary
-          p-one-month-year-picker-selector__action
-        "
+        class="btn btn-sm btn-outline-secondary p-one-month-year-picker-selector__action"
         (click)="nextYear()"
       >
         <i class="bi bi-chevron-right"></i>
@@ -41,17 +35,14 @@
         "
         (click)="setMonth(month.value)"
       >
-        {{ month.reference | date: 'MMM' | titlecase }}
+        {{ month.name | titlecase }}
       </div>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="MonthYearPickerMode.year">
     <div class="btn-group">
       <button
-        class="
-          btn btn-sm btn-outline-secondary
-          p-one-month-year-picker-selector__action
-        "
+        class="btn btn-sm btn-outline-secondary p-one-month-year-picker-selector__action"
         (click)="previousMonth()"
       >
         <i class="bi bi-chevron-left"></i>
@@ -60,13 +51,10 @@
         class="btn btn-sm btn-outline-secondary"
         (click)="setMode(MonthYearPickerMode.month); $event.stopPropagation()"
       >
-        <b>{{ monthToDisplay$ | async | date: 'MMMM' | titlecase }}</b>
+        <b>{{ monthToDisplay$ | async | titlecase }}</b>
       </button>
       <button
-        class="
-          btn btn-sm btn-outline-secondary
-          p-one-month-year-picker-selector__action
-        "
+        class="btn btn-sm btn-outline-secondary p-one-month-year-picker-selector__action"
         (click)="nextMonth()"
       >
         <i class="bi bi-chevron-right"></i>
@@ -88,13 +76,4 @@
       </div>
     </div>
   </ng-container>
-  <div pOneFlexRow justification="flex-end">
-    <button
-      class="btn btn-sm btn-outline-secondary"
-      (click)="this.confirm()"
-      i18n
-    >
-      Confirmar
-    </button>
-  </div>
 </div>

@@ -19,7 +19,6 @@ export const isAuthenticatedSelector = createSelector(
   userStoreStateSelector,
   (state) => !!state.user
 );
-export const accessTokenSelector = createSelector(
-  userStoreStateSelector,
-  (state) => state.accessToken
+export const accessTokenSelector = createSelector(userSelector, (user) =>
+  user ? user.accessToken : undefined
 );

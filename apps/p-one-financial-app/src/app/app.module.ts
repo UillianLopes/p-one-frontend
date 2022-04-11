@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,9 +7,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
-import { UserStoreModule } from '@p-one/identity';
+import { POneIdentityModule, UserStoreModule } from '@p-one/identity';
 import { POneToastModule } from '@p-one/shared';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -16,14 +17,25 @@ import { POneFinancialModule } from '../../../../libs/financial/src';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { DatepickerDayComponent } from './datepicker/datepicker-day/datepicker-day.component';
 
+// config: {
+//   authority: 'https://localhost:5001',
+//   redirectUrl: window.location.origin + '/user/sign-in',
+//   postLogoutRedirectUri: window.location.origin + '/user/sign-out',
+//   clientId: 'POne.App',
+//   scope: 'openid profile ponefinancialapi',
+//   responseType: 'code',
+//   silentRenew: true,
+//   useRefreshToken: true,
+//   logLevel: LogLevel.None,
+// },
 @NgModule({
-  declarations: [AppComponent, DatepickerDayComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     POneCoreModule.forRoot({
       locale: environment.locale,
       luxonDateFormat: environment.luxonDateFormat,
@@ -31,6 +43,20 @@ import { DatepickerDayComponent } from './datepicker/datepicker-day/datepicker-d
     POneFinancialModule.forRoot({
       financialApiUrl: environment.financialApiUrl,
     }),
+    POneIdentityModule.forRoot({
+      apiUrl: environment.identityApiUrl,
+      config: {
+        issuer: 'https://localhost:5001',
+        redirectUri: window.location.origin + '/user/sign-in',
+        postLogoutRedirectUri: window.location.origin + '/user/sign-out',
+        clientId: 'POne.App',
+        scope: 'openid profile ponefinancialapi',
+        responseType: 'code',
+        useSilentRefresh: true,
+        showDebugInformation: true,
+      },
+    }),
+    OAuthModule.forRoot(),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     UserStoreModule.forRoot(),
@@ -40,19 +66,6 @@ import { DatepickerDayComponent } from './datepicker/datepicker-day/datepicker-d
     POneToastModule.forRoot(),
     NgbModule,
     NgxMaskModule.forRoot(),
-    AuthModule.forRoot({
-      config: {
-        authority: 'https://localhost:5001',
-        redirectUrl: window.location.origin + '/user/sign-in',
-        postLogoutRedirectUri: window.location.origin + '/user/sign-out',
-        clientId: 'POne.App',
-        scope: 'openid profile ponefinancialapi',
-        responseType: 'code',
-        silentRenew: true,
-        useRefreshToken: true,
-        logLevel: LogLevel.None
-      },
-    }),
     NgxCurrencyModule.forRoot({
       align: 'right',
       allowNegative: true,

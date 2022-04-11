@@ -72,6 +72,9 @@ export class TooltipDirective implements OnDestroy {
   @Input()
   public canTooltipOpen = true;
 
+  @Input()
+  public autoClose = true;
+
   constructor(
     private readonly _overlay: Overlay,
     private readonly _elementRef: ElementRef<HTMLElement>,
@@ -105,6 +108,7 @@ export class TooltipDirective implements OnDestroy {
 
   private _open(): void {
     if (this._overlayRef || !this.tooltip || !this.canTooltipOpen) {
+      console.log('REF -> ');
       return;
     }
 
@@ -161,20 +165,22 @@ export class TooltipDirective implements OnDestroy {
 
     overlayRef.attach(componentPortal);
 
-    if (this.trigger == 'click') {
-      eventOutsideOverlay('click', overlayRef, this._elementRef.nativeElement)
-        .pipe(takeUntil(overlayRef.detachments()))
-        .subscribe(() => {
-          this._close();
-        });
-    } else {
-      this._mouseLeaveEventDispatcher = this._renderer2.listen(
-        this._elementRef.nativeElement,
-        'mouseleave',
-        () => {
-          this._close();
-        }
-      );
+    if (this.autoClose) {
+      if (this.trigger == 'click') {
+        eventOutsideOverlay('click', overlayRef, this._elementRef.nativeElement)
+          .pipe(takeUntil(overlayRef.detachments()))
+          .subscribe(() => {
+            this._close();
+          });
+      } else {
+        this._mouseLeaveEventDispatcher = this._renderer2.listen(
+          this._elementRef.nativeElement,
+          'mouseleave',
+          () => {
+            this._close();
+          }
+        );
+      }
     }
 
     this._overlayRef = overlayRef;

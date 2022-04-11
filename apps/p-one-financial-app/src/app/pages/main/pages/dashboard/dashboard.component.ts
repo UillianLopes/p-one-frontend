@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilterDisplayData } from '@p-one/shared';
 
 import { DashboardFacade } from './+state/dashboard.facade';
@@ -8,11 +8,12 @@ import { DashboardFacade } from './+state/dashboard.facade';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   public readonly filter$ = this._dashboardFacade.filter$;
   public readonly filtersToDisplay$ = this._dashboardFacade.applyedFilters$;
 
   constructor(private readonly _dashboardFacade: DashboardFacade) {}
+
 
   public ngOnInit(): void {}
 
@@ -22,5 +23,9 @@ export class DashboardComponent implements OnInit {
 
   public removeApplyedFilter({ id }: FilterDisplayData): void {
     this._dashboardFacade.removeApplyedFilter(id);
+  }
+
+  public ngOnDestroy(): void {
+    this._dashboardFacade.resetState();
   }
 }

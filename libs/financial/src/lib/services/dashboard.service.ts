@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { serializeToQueryParams } from '@p-one/core';
+import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../contants/tokens';
-import { BalancesOverTimeFilter, ResponseModel } from '../models';
+import { BalancesOverTimeFilter } from '../models';
+
+
 
 @Injectable()
 export class DashboardService {

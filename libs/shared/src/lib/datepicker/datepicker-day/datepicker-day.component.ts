@@ -14,9 +14,11 @@ export class DatepickerDayComponent implements OnInit {
   @Input() set begin(v: DatepickerData) {
     this._store.setBegin(v);
   }
+
   @Input() set end(v: DatepickerData) {
     this._store.setEnd(v);
   }
+
   @Input() set hover(v: DatepickerData) {
     this._store.setHover(v);
   }
@@ -31,6 +33,10 @@ export class DatepickerDayComponent implements OnInit {
 
   @Input() set month(v: number) {
     this._store.setMonth(v);
+  }
+
+  @Input() set selected(v: DatepickerData) {
+    this._store.setSelected(v);
   }
 
   public readonly isHover$ = this._store.isHover$;

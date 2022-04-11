@@ -1,32 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { from, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
+import { O_AUTH_CONFIG } from '../../../interceptors/oauth.config';
+import { UserService } from '../../../services';
 import {
+  configureSuccess,
   EUserStoreActions,
   loadFailure,
   loadSuccess,
-  signInFailure,
-  signInSuccess,
-  signOutFailure,
-  signOutSuccess,
+  signIn,
+  signUpFailure,
+  signUpSuccess,
   UserStoreActionsUnion,
 } from './user-store.actions';
+import { UserStoreFacade } from './user-store.facade';
 
 @Injectable()
 export class UserStoreEffects {
   public readonly loadEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(EUserStoreActions.LOAD),
-      switchMap((_) => {
-        return this._oidcService.checkAuth().pipe(
-          map(({ isAuthenticated, userData, accessToken }) => {
-            if (isAuthenticated && userData) {
-              return loadSuccess({ user: userData, accessToken });
+      map(() => this._oidcService.hasValidAccessToken()),
+      filter((hasValidAccessToken) => hasValidAccessToken),
+      switchMap(() => {
+        return from(this._oidcService.loadUserProfile()).pipe(
+          map((profile: any) => profile),
+          map((profile) => {
+            if (profile) {
+              const {
+                info: { email, name, id },
+              } = profile;
+              return loadSuccess({
+                user: {
+                  name,
+                  email,
+                  id,
+                  accessToken: this._oidcService.getAccessToken(),
+                  expires: this._oidcService.getIdTokenExpiration(),
+                },
+              });
             }
+
             return loadFailure();
           })
         );
@@ -34,52 +52,62 @@ export class UserStoreEffects {
     )
   );
 
-  public readonly signInEffect$ = createEffect(() =>
-    this._actions$.pipe(ofType(EUserStoreActions.SIGN_IN)).pipe(
-      switchMap(() =>
-        this._oidcService.checkAuth().pipe(
-          switchMap(({ isAuthenticated, userData: user, accessToken }) => {
-            if (isAuthenticated) {
-              return from(this._router.navigate(['/'])).pipe(
-                map(() => {
-                  return signInSuccess({
-                    user,
-                    accessToken,
-                  });
-                })
-              );
-            }
-
-            return of(signInFailure());
-          })
-        )
-      )
-    )
-  );
-
-  public readonly signOutEffect$ = createEffect(() =>
-    this._actions$.pipe(ofType(EUserStoreActions.SIGN_OUT)).pipe(
-      switchMap(() =>
-        this._oidcService.logoffAndRevokeTokens().pipe(
-          map(() => signOutSuccess()),
-          catchError(() => of(signOutFailure()))
-        )
-      )
-    )
-  );
-
-  public readonly signInFailure$ = createEffect(
+  public readonly signInEffect$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(EUserStoreActions.SIGN_IN_FAILURE),
-        tap(() => this._oidcService.authorize())
+        ofType(EUserStoreActions.SIGN_IN),
+        map(() => this._oidcService.hasValidAccessToken()),
+        filter((hasValidAccessToken) => !hasValidAccessToken),
+        tap(() => this._oidcService.initLoginFlow())
       ),
     { dispatch: false }
   );
 
+  public readonly configureEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EUserStoreActions.CONFIGURE),
+      tap(() => this._oidcService.configure(this._config)),
+      switchMap(() =>
+        from(this._oidcService.loadDiscoveryDocumentAndTryLogin()).pipe(
+          map(() => configureSuccess())
+        )
+      )
+    )
+  );
+
+  public readonly signOutEffect$ = createEffect(
+    () =>
+      this._actions$
+        .pipe(ofType(EUserStoreActions.SIGN_OUT))
+        .pipe(tap(() => this._oidcService.revokeTokenAndLogout())),
+    { dispatch: false }
+  );
+
+  public readonly signUpEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EUserStoreActions.SIGN_UP),
+      switchMap((action) =>
+        this._userService.create(action.user).pipe(
+          map(() => signUpSuccess()),
+          catchError((error) => of(signUpFailure({ error })))
+        )
+      )
+    )
+  );
+
+  public readonly signUpSuccessEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EUserStoreActions.SIGN_UP_SUCCESS),
+      map(() => signIn())
+    )
+  );
+
   constructor(
     private readonly _actions$: Actions<UserStoreActionsUnion>,
-    private readonly _oidcService: OidcSecurityService,
-    private readonly _router: Router
+    private readonly _oidcService: OAuthService,
+    private readonly _router: Router,
+    private readonly _userService: UserService,
+    private readonly _userStoreFacade: UserStoreFacade,
+    @Inject(O_AUTH_CONFIG) private readonly _config: AuthConfig
   ) {}
 }

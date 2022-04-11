@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserStoreModule } from '@p-one/identity';
 import { POneInputModule, POneStepperModule } from '@p-one/shared';
-import { AuthModule } from 'angular-auth-oidc-client';
 
 import { SignInComponent } from './sign-in.component';
 import { SignInRoutingModule } from './sing-in.routing';
@@ -18,7 +17,6 @@ import { SignInRoutingModule } from './sing-in.routing';
     FormsModule,
     ReactiveFormsModule,
     POneInputModule,
-    AuthModule,
   ],
 })
 export class SignInModule {}

@@ -1,22 +1,29 @@
-<div class="btn-group">
-  <button class="btn btn-outline-secondary btn-sm" (click)="previous()">
+<div class="btn-group p-one-month-year-picker__display">
+  <button
+    class="btn btn-outline-secondary btn-sm p-one-month-year-picker__actions"
+    (click)="previous()"
+  >
     <i class="bi bi-chevron-left"></i>
   </button>
   <button
     class="btn btn-outline-secondary btn-sm"
     [pOneTooltip]="tooltipTemplate"
+    [autoClose]="false"
     trigger="click"
   >
-    <b>{{ month$ | async }} / {{ year$ | async }}</b>
+    <b>{{ monthToDisplay$ | async | titlecase }} / {{ year$ | async }}</b>
   </button>
-  <button class="btn btn-outline-secondary btn-sm" (click)="next()">
+  <button
+    class="btn btn-outline-secondary btn-sm p-one-month-year-picker__actions"
+    (click)="next()"
+  >
     <i class="bi bi-chevron-right"></i>
   </button>
 </div>
 
 <ng-template #tooltipTemplate let-tooltipRef>
   <p-one-month-year-picker-selector
-    [value]="value$ | async"
+    [value]="(value$ | async)!"
     (change$)="setValue($event, tooltipRef)"
   ></p-one-month-year-picker-selector>
 </ng-template>

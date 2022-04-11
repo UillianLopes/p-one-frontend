@@ -1,8 +1,12 @@
 import { createAction, props, union } from '@ngrx/store';
 
 import { UserModel } from '../../../models';
+import { CreateUserRequest } from '../../../models/requests/create-user.request';
 
 export enum EUserStoreActions {
+  CONFIGURE = '[User] Configue',
+  CONFIGURE_SUCCESS = '[User] Configue Success',
+
   LOAD = '[User] Load',
   LOAD_SUCCESS = '[User] Load Success',
   LOAD_FAILURE = '[User] Load fail',
@@ -21,30 +25,46 @@ export enum EUserStoreActions {
 }
 
 export const load = createAction(EUserStoreActions.LOAD);
+
 export const loadSuccess = createAction(
   EUserStoreActions.LOAD_SUCCESS,
-  props<{ user: UserModel; accessToken: string }>()
+  props<{ user: UserModel }>()
 );
 export const loadFailure = createAction(EUserStoreActions.LOAD_FAILURE);
 
 export const signIn = createAction(EUserStoreActions.SIGN_IN);
+
 export const signInSuccess = createAction(
   EUserStoreActions.SIGN_IN_SUCCESS,
-  props<{ user: UserModel; accessToken: string }>()
+  props<{ user?: UserModel }>()
 );
+
 export const signInFailure = createAction(EUserStoreActions.SIGN_IN_FAILURE);
 
 export const signOut = createAction(EUserStoreActions.SIGN_OUT);
 export const signOutSuccess = createAction(EUserStoreActions.SIGN_OUT_SUCCESS);
 export const signOutFailure = createAction(EUserStoreActions.SIGN_OUT_FAILURE);
 
-export const signUp = createAction(EUserStoreActions.SIGN_UP);
+export const signUp = createAction(
+  EUserStoreActions.SIGN_UP,
+  props<{ user: CreateUserRequest }>()
+);
 export const signUpSuccess = createAction(EUserStoreActions.SIGN_UP_SUCCESS);
-export const signUpFailure = createAction(EUserStoreActions.SIGN_UP_SUCCESS);
+export const signUpFailure = createAction(
+  EUserStoreActions.SIGN_UP_FAILURE,
+  props<{ error: any }>()
+);
 
+export const configure = createAction(EUserStoreActions.CONFIGURE);
+
+export const configureSuccess = createAction(
+  EUserStoreActions.CONFIGURE_SUCCESS
+);
 const actionsUnion = union({
   load,
   loadSuccess,
+
+  configure,
 
   signIn,
   signInSuccess,

@@ -1,0 +1,22 @@
+<div class="input-group">
+  <input
+    #beginInput
+    type="text"
+    class="form-control"
+    type="date"
+    (change)="setBegin(beginInput.value)"
+    [value]="(beginDisplayDate$ | async)!"
+  />
+  <span class="input-group-text"> - </span>
+  <input
+    #endInput
+    type="text"
+    class="form-control"
+    type="date"
+    (change)="setEnd(endInput.value)"
+    [value]="(endDisplayDate$ | async)!"
+  />
+  <button class="btn btn-outline-primary" (click)="toggle()">
+    <i class="bi bi-calendar"></i>
+  </button>
+</div>

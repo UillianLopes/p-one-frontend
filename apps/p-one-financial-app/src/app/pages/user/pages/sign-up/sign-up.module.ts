@@ -6,8 +6,11 @@ import { UserStoreModule } from '@p-one/identity';
 import {
   POneAddressFormModule,
   POneCardModule,
+  POneContainerModule,
+  POneDatepickerModule,
   POneDynamicFormsModule,
   POneFlexModule,
+  POneHeaderModule,
   POneInputModule,
   POnePhoneFormModule,
   POneStepperModule,
@@ -34,6 +37,9 @@ import { SignUpRoutingModule } from './sign-up.routing';
     NgxMaskModule,
     NgbButtonsModule,
     POneAddressFormModule,
+    POneContainerModule,
+    POneHeaderModule,
+    POneDatepickerModule,
   ],
 })
 export class SignUpModule {}

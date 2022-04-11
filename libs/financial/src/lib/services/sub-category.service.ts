@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { serializeToQueryParams } from '@p-one/core';
+import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../contants/tokens';
-import { CreateSubCategoryRequest, ErrorModel, ResponseModel, SubCategoryModel, UpdateSubCategoryRequest } from '../models';
+import { CreateSubCategoryRequest, ErrorModel, SubCategoryModel, UpdateSubCategoryRequest } from '../models';
 
 @Injectable()
 export class SubCategoryService {

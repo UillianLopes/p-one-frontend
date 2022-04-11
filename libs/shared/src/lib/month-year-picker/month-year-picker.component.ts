@@ -1,7 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Input,
+  LOCALE_ID,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as _ from 'lodash';
-import { distinctUntilChanged, skip, takeUntil } from 'rxjs/operators';
+import { Info } from 'luxon';
+import { distinctUntilChanged, map, skip, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../@mixins/destroyable.mixin';
 import { TooltipRef } from '../tooltip';
@@ -33,6 +44,12 @@ export class MonthYearPickerComponent
   public readonly year$ = this._store.year$;
   public readonly month$ = this._store.month$;
 
+  public readonly months = Info.months('short', { locale: this._locale });
+  public readonly monthToDisplay$ = this.month$.pipe(
+    map((month) => month - 1),
+    map((month) => this.months[month])
+  );
+
   @Input()
   set value(value: MonthYearPickerData) {
     this._store.setValue(value);
@@ -44,7 +61,10 @@ export class MonthYearPickerComponent
   private _onChanged?: (value: any) => void;
   private _onTouched?: () => void;
 
-  constructor(private readonly _store: MonthYearPickerStore) {
+  constructor(
+    private readonly _store: MonthYearPickerStore,
+    @Inject(LOCALE_ID) private readonly _locale: string
+  ) {
     super();
   }
 
@@ -72,7 +92,10 @@ export class MonthYearPickerComponent
       });
   }
 
-  public setValue(value: MonthYearPickerData, tooltipRef: TooltipRef) {
+  public setValue(
+    value: MonthYearPickerData | undefined,
+    tooltipRef: TooltipRef
+  ) {
     this._store.setValue(value);
     tooltipRef.close();
   }

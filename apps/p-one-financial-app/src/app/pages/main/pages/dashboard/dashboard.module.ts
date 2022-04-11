@@ -9,6 +9,7 @@ import {
   POneCardModule,
   POneChartModule,
   POneContainerModule,
+  POneDatepickerModule,
   POneDialogModule,
   POneFilterDisplayModule,
   POneFlexModule,
@@ -51,6 +52,7 @@ import { DashboardFilterModalComponent } from './modals/dashboard-filter-modal/d
     BalancesOvertimeChartModule,
     NotificationsModule,
     NgbDatepickerModule,
+    POneDatepickerModule,
   ],
   providers: [DashboardFacade],
 })
