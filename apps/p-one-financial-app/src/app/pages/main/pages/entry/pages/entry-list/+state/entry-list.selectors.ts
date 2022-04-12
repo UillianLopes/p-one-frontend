@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { EEntryPaymentStatus } from '@p-one/financial';
 import { FilterDisplayData } from '@p-one/shared';
 
 import { ENTRY_LIST_KEY, EntryListState } from './entry-list.reducer';
@@ -48,7 +49,7 @@ export const entryTypeSelector = createSelector(
 
 export const filterToDisplaySelector = createSelector(
   filterSelector,
-  ({ categories, subCategories, text, minValue, maxValue }) => {
+  ({ categories, subCategories, text, minValue, maxValue, paymentStatus }) => {
     let data: FilterDisplayData[] = [];
 
     if (categories && categories.length > 0) {
@@ -91,6 +92,33 @@ export const filterToDisplaySelector = createSelector(
           id: 'TEXT',
           name: 'Texto',
           value: text,
+        },
+      ];
+    }
+    if (paymentStatus) {
+      let paymentName = '';
+
+      switch (paymentStatus) {
+        case EEntryPaymentStatus.Opened:
+          paymentName = 'Em aberto';
+          break;
+        case EEntryPaymentStatus.Overdue:
+          paymentName = 'Vencidas';
+          break;
+        case EEntryPaymentStatus.Paid:
+          paymentName = 'Pagas';
+          break;
+        case EEntryPaymentStatus.ToPayToday:
+          paymentName = 'A vencer hoje';
+          break;
+      }
+
+      data = [
+        ...data,
+        {
+          id: 'PAYMENT_STATUS',
+          name: 'Status',
+          value: paymentName,
         },
       ];
     }

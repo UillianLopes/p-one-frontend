@@ -105,7 +105,7 @@ export class EntryCreateEffects {
         ofType(EEntryCreateActions.CREATE_ENTRY_SUCCESS),
         tap(() => {
           this._toastService.open(`Entry created with success`);
-          this._router.navigate(['/main/financial/entries']);
+          this._router.navigate(['/main/entries']);
         })
       ),
     { dispatch: false }

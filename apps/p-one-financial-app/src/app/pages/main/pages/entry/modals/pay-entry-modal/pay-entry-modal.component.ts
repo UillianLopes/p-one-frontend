@@ -69,6 +69,9 @@ export class PayEntryModalComponent implements OnInit {
   }
 
   public payEntry(): void {
+    if (!this.form.valid) {
+      return;
+    }
     this._store.payEntry(this.form.value);
   }
 

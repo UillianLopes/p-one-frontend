@@ -1,12 +1,16 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>Pagar entrada</h5>
   <p-one-dialog-body>
+    <ng-template #walletErrorMessageTemplate>
+      <span class="text-warning">Por favor, selecione uma <b>conta/carteira</b></span>
+    </ng-template>
     <p-one-form-field>
       <label pOneLabel>Conta / carteira</label>
 
       <input
         placeholder="Selecione a conta ou carteira"
         [pOneAutocomplete]="balanceAutocomplete"
+        pOneInput
       />
 
       <p-one-autocomplete
@@ -38,7 +42,7 @@
           </ng-container>
         </p-one-option>
       </p-one-autocomplete>
-      <div *ngIf="balance$ | async as balance">
+      <div *ngIf="balance$ | async as balance; else walletErrorMessageTemplate">
         Saldo atual: <b> {{ balance.value | currency: 'BRL' }} </b> - Saldo após
         pagamento:
         <ng-container [ngSwitch]="type$ | async">

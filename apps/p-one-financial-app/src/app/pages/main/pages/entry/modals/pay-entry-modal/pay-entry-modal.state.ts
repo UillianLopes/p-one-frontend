@@ -3,7 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { EntryModel, EntryService, PayEntryRequest, WalletModel, WalletService } from '@p-one/financial';
 import { DialogService } from '@p-one/shared';
 import { Observable } from 'rxjs';
-import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 export interface PayEntryModalState {
   isLoading: boolean;
@@ -85,11 +85,14 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   public readonly loadBalances = this.effect((data$) => {
     return data$.pipe(
       tap(() => this.setIsLoading(true)),
-      switchMap(() => this._walletService.get()),
-      tap({
-        next: (balances) => this.loadBalancesSuccess(balances),
-        error: (error) => this.loadBalancesFailure(error),
-      })
+      switchMap(() =>
+        this._walletService.get().pipe(
+          tap({
+            next: (balances) => this.loadBalancesSuccess(balances),
+            error: (error) => this.loadBalancesFailure(error),
+          })
+        )
+      )
     );
   });
 
@@ -111,19 +114,21 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   public readonly payEntry = this.effect(
     (data$: Observable<PayEntryRequest>) => {
       return data$.pipe(
-        tap(() => this.setIsLoading(true)),
         withLatestFrom(this.entry$, this.balance$),
+        filter(([__, entry, balance]) => !!entry && !!balance),
+        tap(() => this.setIsLoading(true)),
         switchMap(([data, { id: entryId }, { id: balanceId }]) =>
-          this._entryService.payEntry(entryId, { ...data, balanceId })
-        ),
-        withLatestFrom(this.dialogId$),
-        tap({
-          next: ([__, dialogId]) => {
-            this.payEntrySuccess();
-            this._dialogServide.close(dialogId, true);
-          },
-          error: (error) => this.payEntryFailure(error),
-        })
+          this._entryService.payEntry(entryId, { ...data, balanceId }).pipe(
+            withLatestFrom(this.dialogId$),
+            tap({
+              next: ([__, dialogId]) => {
+                this.payEntrySuccess();
+                this._dialogServide.close(dialogId, true);
+              },
+              error: (error) => this.payEntryFailure(error),
+            })
+          )
+        )
       );
     }
   );
