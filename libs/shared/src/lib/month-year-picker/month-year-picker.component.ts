@@ -43,6 +43,7 @@ export class MonthYearPickerComponent
   public readonly value$ = this._store.value$;
   public readonly year$ = this._store.year$;
   public readonly month$ = this._store.month$;
+  public readonly notifiedValue$ = this._store.notifiedValue$;
 
   public readonly months = Info.months('short', { locale: this._locale });
   public readonly monthToDisplay$ = this.month$.pipe(
@@ -73,7 +74,7 @@ export class MonthYearPickerComponent
       this._store.setValue(this.value);
     }
 
-    this.value$
+    this.notifiedValue$
       .pipe(
         skip(1),
         takeUntil(this.destroyed$),
@@ -92,11 +93,8 @@ export class MonthYearPickerComponent
       });
   }
 
-  public setValue(
-    value: MonthYearPickerData | undefined,
-    tooltipRef: TooltipRef
-  ) {
-    this._store.setValue(value);
+  public setValue(value: MonthYearPickerData, tooltipRef: TooltipRef) {
+    this._store.setNotifiedValue(value);
     tooltipRef.close();
   }
 

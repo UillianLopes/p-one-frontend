@@ -12,6 +12,7 @@ export const observeResize$ = (element: HTMLElement) => {
     subscriber.next(element.getBoundingClientRect());
   });
 };
+
 export function eventOutsideOverlay(
   eventName: string,
   overlayRef: OverlayRef,

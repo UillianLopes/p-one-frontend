@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.data$ | async as data">
+<ng-container *ngIf="data$ | async as data">
   <ng-container *ngFor="let item of data">
     <ng-template #template>
       {{ item.value }}

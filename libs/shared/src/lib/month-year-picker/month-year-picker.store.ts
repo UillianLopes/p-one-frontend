@@ -11,13 +11,18 @@ export enum MonthYearPickerSelectionMode {
 
 export interface MonthYearPickerState {
   value: MonthYearPickerData;
+  notifiedValue?: MonthYearPickerData;
 }
 
 @Injectable()
 export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
-  public readonly value$ = this.select((s) => s.value);
+  public readonly value$ = this.select(({ value }) => value);
   public readonly year$ = this.value$.pipe(map(({ year }) => year));
   public readonly month$ = this.value$.pipe(map(({ month }) => month));
+
+  public readonly notifiedValue$ = this.select(
+    ({ notifiedValue }) => notifiedValue
+  );
 
   constructor() {
     super({
@@ -32,7 +37,7 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     event$.pipe(
       withLatestFrom(this.year$, this.month$),
       tap(([_, year, month]) => {
-        this.setValue({
+        this.setNotifiedValue({
           year: month > 1 ? year : year - 1,
           month: month > 1 ? month - 1 : 12,
         });
@@ -44,7 +49,7 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     event$.pipe(
       withLatestFrom(this.year$, this.month$),
       tap(([_, year, month]) => {
-        this.setValue({
+        this.setNotifiedValue({
           year: month < 12 ? year : year + 1,
           month: month < 12 ? month + 1 : 1,
         });
@@ -52,35 +57,21 @@ export class MonthYearPickerStore extends ComponentStore<MonthYearPickerState> {
     )
   );
 
-  public readonly setYear = this.updater(
-    ({ value, ...state }, year: number) => {
-      return {
-        ...state,
-        value: {
-          ...value,
-          year,
-        },
-      };
-    }
-  );
-
-  public readonly setMonth = this.updater(
-    ({ value, ...state }, month: number) => {
-      return {
-        ...state,
-        value: {
-          ...value,
-          month,
-        },
-      };
-    }
-  );
-
   public readonly setValue = this.updater(
     (state, value: MonthYearPickerData) => {
       return {
         ...state,
         value,
+      };
+    }
+  );
+
+  public readonly setNotifiedValue = this.updater(
+    (state, notifiedValue: MonthYearPickerData) => {
+      return {
+        ...state,
+        notifiedValue,
+        value: notifiedValue,
       };
     }
   );
