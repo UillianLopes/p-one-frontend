@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'p-one-sign-out',
@@ -8,10 +7,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   styleUrls: ['./sign-out.component.scss'],
 })
 export class SignOutComponent implements OnInit {
-  constructor(
-    private readonly _router: Router,
-    private readonly _oidcService: OAuthService
-  ) {}
+  constructor(private readonly _router: Router) {}
 
   ngOnInit(): void {
     localStorage.clear();

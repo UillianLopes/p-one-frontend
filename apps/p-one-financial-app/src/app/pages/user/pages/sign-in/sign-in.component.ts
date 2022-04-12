@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStoreFacade } from '@p-one/identity';
 
 @Component({
   selector: 'p-one-sign-in',
@@ -8,14 +7,11 @@ import { UserStoreFacade } from '@p-one/identity';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  constructor(
-    private readonly _router: Router,
-    private readonly _userStoreFacade: UserStoreFacade
-  ) {}
+  constructor(private readonly _router: Router) {}
   ngOnInit(): void {
-    this._userStoreFacade.load();
     setTimeout(() => {
       this._router.navigate(['/main']);
     }, 100);
+    
   }
 }

@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
 import { POneIdentityModule, UserStoreModule } from '@p-one/identity';
 import { POneToastModule } from '@p-one/shared';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -45,18 +45,21 @@ import { AppRoutingModule } from './app.routing';
     }),
     POneIdentityModule.forRoot({
       apiUrl: environment.identityApiUrl,
+    }),
+    AuthModule.forRoot({
       config: {
-        issuer: 'https://localhost:5001',
-        redirectUri: window.location.origin + '/user/sign-in',
+        configId: 'POne.App',
+        authority: 'https://localhost:5001',
+        redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
         clientId: 'POne.App',
         scope: 'openid profile ponefinancialapi',
+        silentRenew: false,
         responseType: 'code',
-        useSilentRefresh: true,
-        showDebugInformation: true,
+        useRefreshToken: false,
+        logLevel: LogLevel.None,
       },
     }),
-    OAuthModule.forRoot(),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     UserStoreModule.forRoot(),

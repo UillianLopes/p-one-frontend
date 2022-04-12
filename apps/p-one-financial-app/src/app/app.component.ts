@@ -10,6 +10,6 @@ export class AppComponent implements OnInit {
   constructor(private readonly _userStoreService: UserStoreFacade) {}
 
   ngOnInit(): void {
-    this._userStoreService.configure();
+    this._userStoreService.load();
   }
 }

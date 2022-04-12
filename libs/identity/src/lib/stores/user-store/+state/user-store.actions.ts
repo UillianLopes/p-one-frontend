@@ -4,9 +4,6 @@ import { UserModel } from '../../../models';
 import { CreateUserRequest } from '../../../models/requests/create-user.request';
 
 export enum EUserStoreActions {
-  CONFIGURE = '[User] Configue',
-  CONFIGURE_SUCCESS = '[User] Configue Success',
-
   LOAD = '[User] Load',
   LOAD_SUCCESS = '[User] Load Success',
   LOAD_FAILURE = '[User] Load fail',
@@ -54,17 +51,9 @@ export const signUpFailure = createAction(
   EUserStoreActions.SIGN_UP_FAILURE,
   props<{ error: any }>()
 );
-
-export const configure = createAction(EUserStoreActions.CONFIGURE);
-
-export const configureSuccess = createAction(
-  EUserStoreActions.CONFIGURE_SUCCESS
-);
 const actionsUnion = union({
   load,
   loadSuccess,
-
-  configure,
 
   signIn,
   signInSuccess,

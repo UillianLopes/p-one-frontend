@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpTransportType } from '@microsoft/signalr';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreFacade } from '@p-one/identity';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { createSignalRHub, mergeMapHubToAction, SIGNALR_HUB_UNSTARTED, startSignalRHub } from 'ngrx-signalr-core';
 import { merge, of } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { FINANCIAL_API_URL } from '../../../contants';
 import { NotificationsService } from '../../../services';
@@ -37,8 +38,7 @@ export class NotificationsStoreEffects {
   public readonly startNotificationsHubEffect$ = createEffect(() =>
     this._actions.pipe(
       ofType(ENotificationsStoreActions.START_NOTIFICATIONS_HUB),
-      withLatestFrom(this._userStoreFacade.accessToken$),
-      map(([_, accessToken]) => {
+      map(() => {
         return createSignalRHub({
           hubName: 'Notifications HUB',
           url: `${this._financialApiUrl}/hubs/notifications`,
@@ -46,7 +46,7 @@ export class NotificationsStoreEffects {
             skipNegotiation: true,
             transport: HttpTransportType.WebSockets,
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
             },
             logMessageContent: true,
           },
@@ -74,6 +74,7 @@ export class NotificationsStoreEffects {
     private readonly _notificationsService: NotificationsService,
     private readonly _actions: Actions<NotificationsStoreActionsUnion>,
     private readonly _userStoreFacade: UserStoreFacade,
+    private readonly _oidcSecurityService: OidcSecurityService,
     @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
   ) {}
 }

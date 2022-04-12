@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { TOKEN_REQUIRED_URLS } from '../constants/token-required-urls.token';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private readonly _oauthService: OAuthService,
+    private readonly _oidcSecurityService: OidcSecurityService,
     @Optional()
     @Inject(TOKEN_REQUIRED_URLS)
     private readonly _tokenRequiredUrls: string[],
@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (
       !this._isTokenRequiredForThisUri(req.url) ||
-      !this._oauthService.hasValidAccessToken()
+      !this._oidcSecurityService.isAuthenticated()
     ) {
       return next.handle(req);
     }
@@ -40,7 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
       .handle(
         req.clone({
           setHeaders: {
-            Authorization: `Bearer ${this._oauthService.getAccessToken()}`,
+            Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
           },
         })
       )
@@ -51,7 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
             [401].includes(response.status)
           ) {
             this._ngZone.run(() => {
-              this._oauthService.initLoginFlow();
+              this._oidcSecurityService.authorize();
             });
           }
         })

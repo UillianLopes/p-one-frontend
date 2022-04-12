@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private readonly _oauthService: OAuthService,
+    private readonly _oidcSecurityService: OidcSecurityService,
     private readonly _router: Router
   ) {}
 
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     _: ActivatedRouteSnapshot,
     __: RouterStateSnapshot
   ): boolean | UrlTree {
-    if (!this._oauthService.hasValidAccessToken()) {
+    if (!this._oidcSecurityService.isAuthenticated()) {
       return this._router.createUrlTree(['/landing']);
     }
 
