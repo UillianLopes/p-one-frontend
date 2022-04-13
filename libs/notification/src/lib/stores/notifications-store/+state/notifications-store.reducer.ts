@@ -1,9 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { NotificationModel } from '@p-one/core';
 
+import { NotificationModel } from '../../../models';
 import * as NotificationsActions from './notifications-store.actions';
 
 export const NOTIFICATIONS_STORE_FEATURE_KEY = 'NOTIFICATIONS_STORE';
+
 export interface NotificationsStoreState {
   unreadNotifications: NotificationModel[];
   isUnreadNotificationsLoading?: boolean;

@@ -12,9 +12,9 @@ import { UserService } from './services';
 })
 export class POneIdentityModule {
   static forRoot({
-    apiUrl: identityApiUrl,
+    endpoint: identityApiUrl,
   }: {
-    apiUrl: string;
+    endpoint: string;
   }): ModuleWithProviders<POneIdentityModule> {
     return {
       ngModule: POneIdentityModule,

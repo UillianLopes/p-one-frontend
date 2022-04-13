@@ -1,14 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpTransportType } from '@microsoft/signalr';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { UserStoreFacade } from '@p-one/identity';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { createSignalRHub, mergeMapHubToAction, SIGNALR_HUB_UNSTARTED, startSignalRHub } from 'ngrx-signalr-core';
 import { merge, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../../../contants';
-import { NotificationsService } from '../../../services';
+import { NOTIFICATION_ENDPOINT } from '../../../contants';
+import { NotificationService } from '../../../services';
 import {
   ENotificationsStoreActions,
   loadUnreadNotificationsFailure,
@@ -23,7 +22,7 @@ export class NotificationsStoreEffects {
     this._actions.pipe(
       ofType(ENotificationsStoreActions.LOAD_UNREAD_NOTIFICATIONS),
       switchMap(() =>
-        this._notificationsService.getUnreadNotifications().pipe(
+        this._notificationsService.unreadNotifications().pipe(
           map((unreadNotifications) =>
             loadUnreadNotificationsSuccess({
               unreadNotifications,
@@ -41,13 +40,11 @@ export class NotificationsStoreEffects {
       map(() => {
         return createSignalRHub({
           hubName: 'Notifications HUB',
-          url: `${this._financialApiUrl}/hubs/notifications`,
+          url: `${this._notificationEndpoint}/hubs/notifications`,
           options: {
-            skipNegotiation: true,
             transport: HttpTransportType.WebSockets,
-            headers: {
-              Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
-            },
+            accessTokenFactory: () =>
+              this._oidcSecurityService.getAccessToken(),
             logMessageContent: true,
           },
         });
@@ -71,10 +68,10 @@ export class NotificationsStoreEffects {
   );
 
   constructor(
-    private readonly _notificationsService: NotificationsService,
+    private readonly _notificationsService: NotificationService,
     private readonly _actions: Actions<NotificationsStoreActionsUnion>,
-    private readonly _userStoreFacade: UserStoreFacade,
     private readonly _oidcSecurityService: OidcSecurityService,
-    @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
+    @Inject(NOTIFICATION_ENDPOINT)
+    private readonly _notificationEndpoint: string
   ) {}
 }

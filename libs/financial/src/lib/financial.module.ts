@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TOKEN_REQUIRED_URLS } from '@p-one/identity';
 
-import { FINANCIAL_API_URL } from './contants';
+import { FINANCIAL_ENDPOINT } from './contants';
 import { SERVICE_PROVIDERS } from './services';
 
 @NgModule({
@@ -10,18 +9,14 @@ import { SERVICE_PROVIDERS } from './services';
 })
 export class POneFinancialModule {
   static forRoot(config: {
-    financialApiUrl: string;
+    endpoint: string;
   }): ModuleWithProviders<POneFinancialModule> {
     return {
       ngModule: POneFinancialModule,
       providers: [
         {
-          provide: FINANCIAL_API_URL,
-          useValue: config.financialApiUrl,
-        },
-        {
-          provide: TOKEN_REQUIRED_URLS,
-          useValue: [config.financialApiUrl],
+          provide: FINANCIAL_ENDPOINT,
+          useValue: config.endpoint,
         },
         ...SERVICE_PROVIDERS,
       ],

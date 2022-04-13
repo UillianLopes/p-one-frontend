@@ -7,28 +7,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { POneCoreModule } from '@p-one/core';
-import { POneIdentityModule, UserStoreModule } from '@p-one/identity';
+import { POneFinancialModule } from '@p-one/financial';
+import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
+import { POneNotificationModule } from '@p-one/notification';
 import { POneToastModule } from '@p-one/shared';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { POneFinancialModule } from '../../../../libs/financial/src';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 
-// config: {
-//   authority: 'https://localhost:5001',
-//   redirectUrl: window.location.origin + '/user/sign-in',
-//   postLogoutRedirectUri: window.location.origin + '/user/sign-out',
-//   clientId: 'POne.App',
-//   scope: 'openid profile ponefinancialapi',
-//   responseType: 'code',
-//   silentRenew: true,
-//   useRefreshToken: true,
-//   logLevel: LogLevel.None,
-// },
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -41,10 +31,13 @@ import { AppRoutingModule } from './app.routing';
       luxonDateFormat: environment.luxonDateFormat,
     }),
     POneFinancialModule.forRoot({
-      financialApiUrl: environment.financialApiUrl,
+      endpoint: environment.financialEndpoint,
     }),
     POneIdentityModule.forRoot({
-      apiUrl: environment.identityApiUrl,
+      endpoint: environment.identityEndpoint,
+    }),
+    POneNotificationModule.forRoot({
+      endpoint: environment.notificationEndpoint,
     }),
     AuthModule.forRoot({
       config: {
@@ -53,7 +46,7 @@ import { AppRoutingModule } from './app.routing';
         redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
         clientId: 'POne.App',
-        scope: 'openid profile ponefinancialapi',
+        scope: 'openid profile ponefinancialapi ponenotifierapi',
         silentRenew: false,
         responseType: 'code',
         useRefreshToken: false,
@@ -83,5 +76,14 @@ import { AppRoutingModule } from './app.routing';
     }),
   ],
   bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: TOKEN_REQUIRED_ENDPOINTS,
+      useValue: [
+        environment.financialEndpoint,
+        environment.notificationEndpoint,
+      ],
+    },
+  ],
 })
 export class AppModule {}

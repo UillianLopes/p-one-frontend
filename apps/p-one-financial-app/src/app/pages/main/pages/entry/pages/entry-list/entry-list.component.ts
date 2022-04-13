@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EEntryPaymentStatus, EEntryType, EntryModel } from '@p-one/financial';
 import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { EntryListFacade } from './+state/entry-list.facade';
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
@@ -24,7 +24,7 @@ export class EntryListComponent
   public readonly filterToDisplay$ = this._facade.filterToDisplay$;
 
   public readonly filter$ = this._facade.filter$;
-  public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date), tap((date) => console.log('CHANGED -> ', date)));
+  public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
   public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
   public readonly entryType$ = this._facade.entryType$;
 
@@ -45,7 +45,7 @@ export class EntryListComponent
       );
 
       dialogRef.afterClosed$.subscribe((data) => {
-        console.log(data);
+      
         if (data) {
           this._facade.patchEntriesFilter(data);
         }

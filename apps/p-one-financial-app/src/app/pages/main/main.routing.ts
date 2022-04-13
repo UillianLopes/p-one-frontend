@@ -53,6 +53,12 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
+
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./pages/home/home.module').then((m) => m.HomeModule),
+      },
     ],
   },
 ];

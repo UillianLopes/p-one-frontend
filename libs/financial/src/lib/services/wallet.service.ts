@@ -4,7 +4,7 @@ import { ResponseModel } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../contants';
+import { FINANCIAL_ENDPOINT } from '../contants';
 import {
   CreateWalletRequest,
   DepositRequest,
@@ -18,12 +18,12 @@ import {
 export class WalletService {
   constructor(
     private readonly _httpClient: HttpClient,
-    @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
+    @Inject(FINANCIAL_ENDPOINT) private readonly _financialEndpoint: string
   ) {}
 
   public get(): Observable<WalletModel[]> {
     return this._httpClient
-      .get<ResponseModel<WalletModel[]>>(`${this._financialApiUrl}/Wallet`)
+      .get<ResponseModel<WalletModel[]>>(`${this._financialEndpoint}/Wallet`)
       .pipe(
         map((resposne) => resposne.data),
         catchError((err) =>
@@ -35,7 +35,7 @@ export class WalletService {
   public create(balance: CreateWalletRequest): Observable<WalletModel> {
     return this._httpClient
       .post<ResponseModel<WalletModel>>(
-        `${this._financialApiUrl}/Wallet`,
+        `${this._financialEndpoint}/Wallet`,
         balance
       )
       .pipe(
@@ -52,7 +52,7 @@ export class WalletService {
   ): Observable<WalletModel> {
     return this._httpClient
       .put<ResponseModel<WalletModel>>(
-        `${this._financialApiUrl}/Wallet/${balanceId}`,
+        `${this._financialEndpoint}/Wallet/${balanceId}`,
         wallet
       )
       .pipe(
@@ -66,7 +66,7 @@ export class WalletService {
   public delete(walletId: string): Observable<WalletModel> {
     return this._httpClient
       .delete<ResponseModel<WalletModel>>(
-        `${this._financialApiUrl}/Wallet/${walletId}`
+        `${this._financialEndpoint}/Wallet/${walletId}`
       )
       .pipe(
         map((resposne) => resposne.data),
@@ -78,7 +78,7 @@ export class WalletService {
 
   public deleteMultiple(ids: string[]): Observable<WalletModel> {
     return this._httpClient
-      .delete<ResponseModel<WalletModel>>(`${this._financialApiUrl}/Wallet`, {
+      .delete<ResponseModel<WalletModel>>(`${this._financialEndpoint}/Wallet`, {
         params: {
           ids: ids,
         },
@@ -94,7 +94,7 @@ export class WalletService {
   public deposit(walletId: string, deposit: DepositRequest): Observable<any> {
     return this._httpClient
       .put<ResponseModel<any>>(
-        `${this._financialApiUrl}/Wallet/${walletId}/Deposit`,
+        `${this._financialEndpoint}/Wallet/${walletId}/Deposit`,
         { ...deposit }
       )
       .pipe(
@@ -111,7 +111,7 @@ export class WalletService {
   ): Observable<any> {
     return this._httpClient
       .put<ResponseModel<any>>(
-        `${this._financialApiUrl}/Wallet/${walletId}/Withdraw`,
+        `${this._financialEndpoint}/Wallet/${walletId}/Withdraw`,
         { ...withdraw }
       )
       .pipe(

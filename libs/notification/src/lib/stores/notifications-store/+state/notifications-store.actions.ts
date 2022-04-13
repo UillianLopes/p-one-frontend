@@ -1,5 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import { NotificationModel } from '@p-one/core';
+
+import { NotificationModel } from '../../../models';
 
 export enum ENotificationsStoreActions {
   START_NOTIFICATIONS_HUB = '[Notifications] Start Notifications Hub',

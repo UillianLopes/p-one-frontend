@@ -6,8 +6,9 @@ export const environment = {
   production: false,
   locale: 'pt-BR',
   luxonDateFormat: 'dd/MM/yyyy',
-  financialApiUrl: 'https://localhost:6001',
-  identityApiUrl: 'https://localhost:5001',
+  financialEndpoint: 'https://localhost:6001',
+  identityEndpoint: 'https://localhost:5001',
+  notificationEndpoint: 'https://localhost:7001',
 };
 
 /*

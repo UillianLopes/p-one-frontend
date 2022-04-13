@@ -8,6 +8,7 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 
 import { DeleteEntryModalComponent } from '../../../modals/delete-entry-modal/delete-entry-modal.component';
 import { PayEntryModalComponent } from '../../../modals/pay-entry-modal';
+import { EntryListFilterComponent } from '../modals/entry-list-filter/entry-list-filter.component';
 import {
   EEntryListActions,
   EntryListActionsUnion,
@@ -145,6 +146,21 @@ export class EntryListEffects {
           .open(PayEntryModalComponent, { minWidth: '600px' }, entry)
           .afterClosed$.pipe(
             filter((value) => value),
+            map(() => filterEntries())
+          );
+      })
+    )
+  );
+
+  public readonly openFilterEntriesDialogEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EEntryListActions.OPEN_FILTER_ENTRIES_DIALOG),
+      withLatestFrom(this._facade.filter$),
+      switchMap(([_, entryFilter]) => {
+        return this._dialogService
+          .open(EntryListFilterComponent, { minWidth: '600px' }, entryFilter)
+          .afterClosed$.pipe(
+            filter((value) => !!value),
             map(() => filterEntries())
           );
       })

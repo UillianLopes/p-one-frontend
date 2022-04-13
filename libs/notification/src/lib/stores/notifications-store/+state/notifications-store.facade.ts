@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { NotificationsService } from '../../../services';
 import { loadUnreadNotifications, startNotificationsHub } from './notifications-store.actions';
 import { NotificationsStoreState } from './notifications-store.reducer';
 import * as NotificationsStoreSelectors from './notifications-store.selectors';
@@ -16,10 +15,7 @@ export class NotificationsStoreFacade {
     NotificationsStoreSelectors.isUnreadNotificationsLoadingSelector
   );
 
-  constructor(
-    private readonly _store: Store<NotificationsStoreState>,
-    private readonly _service: NotificationsService
-  ) {}
+  constructor(private readonly _store: Store<NotificationsStoreState>) {}
 
   public loadUnreadNotifications(): void {
     this._store.dispatch(loadUnreadNotifications());

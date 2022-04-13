@@ -4,19 +4,19 @@ import { ResponseModel } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../contants/tokens';
+import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
 import { BankModel, ErrorModel } from '../models';
 
 @Injectable()
 export class BankService {
   constructor(
     private readonly _httpClient: HttpClient,
-    @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
+    @Inject(FINANCIAL_ENDPOINT) private readonly _financialEndpoint: string
   ) {}
 
   getAll(): Observable<BankModel[]> {
     return this._httpClient
-      .get<ResponseModel<BankModel[]>>(`${this._financialApiUrl}/bank`)
+      .get<ResponseModel<BankModel[]>>(`${this._financialEndpoint}/bank`)
       .pipe(
         map(({ data }) => data),
         catchError((err) =>

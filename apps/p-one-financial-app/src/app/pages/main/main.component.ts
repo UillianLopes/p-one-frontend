@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsStoreFacade } from '@p-one/financial';
 import { UserStoreFacade } from '@p-one/identity';
+import { NotificationsStoreFacade } from '@p-one/notification';
 
 @Component({
   selector: 'p-one-main',

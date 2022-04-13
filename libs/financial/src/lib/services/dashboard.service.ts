@@ -4,7 +4,7 @@ import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../contants/tokens';
+import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
 import { BalancesOverTimeFilter } from '../models';
 
 
@@ -13,7 +13,7 @@ import { BalancesOverTimeFilter } from '../models';
 export class DashboardService {
   constructor(
     private readonly _httpClient: HttpClient,
-    @Inject(FINANCIAL_API_URL) private readonly _apiUrl: string
+    @Inject(FINANCIAL_ENDPOINT) private readonly _apiUrl: string
   ) {}
 
   public getBalancesOvertime(

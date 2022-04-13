@@ -108,7 +108,6 @@ export class TooltipDirective implements OnDestroy {
 
   private _open(): void {
     if (this._overlayRef || !this.tooltip || !this.canTooltipOpen) {
-      console.log('REF -> ');
       return;
     }
 

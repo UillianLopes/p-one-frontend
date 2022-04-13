@@ -4,14 +4,14 @@ import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_API_URL } from '../contants/tokens';
+import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
 import { CreateSubCategoryRequest, ErrorModel, SubCategoryModel, UpdateSubCategoryRequest } from '../models';
 
 @Injectable()
 export class SubCategoryService {
   constructor(
     private readonly _httpClient: HttpClient,
-    @Inject(FINANCIAL_API_URL) private readonly _financialApiUrl: string
+    @Inject(FINANCIAL_ENDPOINT) private readonly _financialApiUrl: string
   ) {}
 
   get(categoryId?: string): Observable<SubCategoryModel[]> {

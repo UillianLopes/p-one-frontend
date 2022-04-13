@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NotificationsStoreModule } from '@p-one/financial';
+import { NotificationsStoreModule } from '@p-one/notification';
 import {
   POneChartModule,
   POneContainerModule,

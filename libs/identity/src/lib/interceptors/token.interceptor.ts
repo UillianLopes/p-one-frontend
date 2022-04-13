@@ -1,17 +1,17 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-import { TOKEN_REQUIRED_URLS } from '../constants/token-required-urls.token';
+import { TOKEN_REQUIRED_ENDPOINTS } from '../constants/token-required-urls.token';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private readonly _oidcSecurityService: OidcSecurityService,
     @Optional()
-    @Inject(TOKEN_REQUIRED_URLS)
+    @Inject(TOKEN_REQUIRED_ENDPOINTS)
     private readonly _tokenRequiredUrls: string[],
     private readonly _ngZone: NgZone
   ) {}
@@ -29,10 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (
-      !this._isTokenRequiredForThisUri(req.url) ||
-      !this._oidcSecurityService.isAuthenticated()
-    ) {
+    if (!this._isTokenRequiredForThisUri(req.url)) {
       return next.handle(req);
     }
 
@@ -45,15 +42,16 @@ export class TokenInterceptor implements HttpInterceptor {
         })
       )
       .pipe(
-        tap((response) => {
+        catchError((error) => {
           if (
-            response instanceof HttpErrorResponse &&
-            [401].includes(response.status)
+            error instanceof HttpErrorResponse &&
+            [401].includes(error.status)
           ) {
             this._ngZone.run(() => {
               this._oidcSecurityService.authorize();
             });
           }
+          return throwError(error);
         })
       );
   }
