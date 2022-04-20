@@ -42,7 +42,7 @@ import { AppRoutingModule } from './app.routing';
     AuthModule.forRoot({
       config: {
         configId: 'POne.App',
-        authority: 'https://localhost:5001',
+        authority: environment.issuer,
         redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
         clientId: 'POne.App',

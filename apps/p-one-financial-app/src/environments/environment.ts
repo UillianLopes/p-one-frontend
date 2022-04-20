@@ -9,6 +9,7 @@ export const environment = {
   financialEndpoint: 'https://localhost:6001',
   identityEndpoint: 'https://localhost:5001',
   notificationEndpoint: 'https://localhost:7001',
+  issuer: 'https://localhost:5001'
 };
 
 /*
