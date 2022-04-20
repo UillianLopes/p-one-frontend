@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
   POneColorPickerModule,
@@ -16,7 +17,6 @@ import {
   POneSidenavModule,
 } from '@p-one/shared';
 
-import { NotificationsModule } from '../../../../components/notifications';
 import { SubCategoryEffects } from './+state/sub-category.effects';
 import { SubCategoryFacade } from './+state/sub-category.facade';
 import { SUB_CATEGORY_KEY, subCategoryReducer } from './+state/sub-category.reducer';
@@ -50,7 +50,7 @@ import { SubCategoryRoutingModule } from './sub-category.routing';
     NgbPaginationModule,
     POneBreadcrumbModule,
     POneColorPickerModule,
-    NotificationsModule,
+    POneNotificationsDisplayButtonModule,
   ],
   providers: [SubCategoryFacade],
 })

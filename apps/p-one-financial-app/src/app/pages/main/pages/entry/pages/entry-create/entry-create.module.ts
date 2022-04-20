@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
   POneContainerModule,
@@ -19,10 +20,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 
 import { EntryCreateEffects } from './+state/entry-create.effects';
 import { EntryCreateFacade } from './+state/entry-create.facade';
-import {
-  ENTRY_CREATE_KEY,
-  entryCreateReducer,
-} from './+state/entry-create.reducer';
+import { ENTRY_CREATE_KEY, entryCreateReducer } from './+state/entry-create.reducer';
 import { FirstStepComponent } from './components/first-step/first-step.component';
 import { SecondStepComponent } from './components/second-step/second-step.component';
 import { ThirdStepComponent } from './components/third-step/third-step.component';
@@ -54,6 +52,7 @@ import { EntryCreateRoutingModule } from './entry-create.routing';
     NgbDatepickerModule,
     NgxCurrencyModule,
     POneBreadcrumbModule,
+    POneNotificationsDisplayButtonModule,
   ],
   providers: [EntryCreateFacade],
 })

@@ -1,8 +1,9 @@
 :host {
   display: block;
 }
-.p-one-notifications {
+.p-one-notifications-display-button {
   &__popover {
+    position: relative;
     .popover-body {
       padding: 0px;
     }

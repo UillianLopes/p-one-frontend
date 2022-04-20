@@ -1,0 +1,51 @@
+<ng-template #contentTemplate>
+  <ng-container
+    *ngIf="
+      hasUnreadNotifications$ | async;
+      else hasNotUnreadNotificationsTemplate
+    "
+    [ngTemplateOutlet]="hasUnreadNotificationsTemplate"
+  >
+  </ng-container>
+</ng-template>
+
+<ng-template #hasNotUnreadNotificationsTemplate>
+  Você não tem nenhuma notificação não lida
+</ng-template>
+
+<ng-template #hasUnreadNotificationsTemplate>
+  <button
+    class="btn btn-primary btn-sm"
+    i18n
+    (click)="markAllNotificationsAsRead()"
+  >
+    Marcar todas como lidas
+  </button>
+  <ul class="list-group">
+    <li
+      class="list-group-item list-group-flush"
+      *ngFor="let notification of unreadNotifications$ | async"
+    >
+      <b>{{ notification.title }}</b>
+      <br />
+      <span>
+        {{ notification.text }}
+      </span>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <span class="p-one-notifications-display-button__title">
+    Notificações não lidas
+  </span>
+</ng-template>
+<button
+  class="btn btn-outline-light"
+  [ngbPopover]="contentTemplate"
+  popoverClass="p-one-notifications-display-button__popover"
+  [popoverTitle]="titleTemplate"
+  autoClose="outside"
+>
+  <i class="bi bi-bell"></i>
+</button>

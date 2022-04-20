@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import { POneContainerModule, POneHeaderModule, POneSidenavModule } from '@p-one/shared';
-import { NotificationsModule } from 'apps/p-one-financial-app/src/app/components/notifications';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
@@ -14,7 +14,7 @@ import { HomeRoutingModule } from './home.routing';
     POneContainerModule,
     POneHeaderModule,
     POneSidenavModule,
-    NotificationsModule,
+    POneNotificationsDisplayButtonModule,
   ],
 })
 export class HomeModule {}

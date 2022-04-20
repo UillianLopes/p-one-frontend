@@ -21,4 +21,35 @@ export class NotificationService {
       )
       .pipe(map(({ data }) => data));
   }
+
+  public markNotificationAsRead(
+    notificationId: string
+  ): Observable<NotificationModel[]> {
+    return this._httpClient
+      .put<ResponseModel<NotificationModel[]>>(
+        `${this._endpoint}/Notification/${notificationId}/MarkAsRead`,
+        {}
+      )
+      .pipe(map(({ data }) => data));
+  }
+
+  public markNotificationAsUnread(
+    notificationId: string
+  ): Observable<NotificationModel[]> {
+    return this._httpClient
+      .put<ResponseModel<NotificationModel[]>>(
+        `${this._endpoint}/Notification/${notificationId}/MarkAsUnread`,
+        {}
+      )
+      .pipe(map(({ data }) => data));
+  }
+
+  public markAllNotificationsAsRead(): Observable<NotificationModel[]> {
+    return this._httpClient
+      .put<ResponseModel<NotificationModel[]>>(
+        `${this._endpoint}/Notification/MarkAllNotificationsAsRead`,
+        {}
+      )
+      .pipe(map(({ data }) => data));
+  }
 }

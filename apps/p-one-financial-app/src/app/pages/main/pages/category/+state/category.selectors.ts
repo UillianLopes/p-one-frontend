@@ -9,22 +9,22 @@ export const stateSelector = createFeatureSelector<CategoryState>(CATEGORY_KEY);
 
 const categoriesSelector = createSelector(
   stateSelector,
-  (state) => state.categories
+  ({ categories }) => categories
 );
 
 export const filterSelector = createSelector(
   stateSelector,
-  (state) => state.filter
+  ({ filter }) => filter
 );
 
 export const paginationSelector = createSelector(
   stateSelector,
-  (state) => state.pagination
+  ({ pagination }) => pagination
 );
 
 export const selectedCategoryIdsSelector = createSelector(
   stateSelector,
-  (state) => state.selectedCategoryIds
+  ({ selectedCategoryIds }) => selectedCategoryIds
 );
 
 export const filtredCategoriesSelector = createSelector(

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
   POneCardModule,
@@ -21,7 +22,6 @@ import {
 } from '@p-one/shared';
 
 import { BalancesOvertimeChartModule } from '../../../../components/balances-overtime-chart/balances-overtime-chart.module';
-import { NotificationsModule } from '../../../../components/notifications';
 import { DashboardEffects } from './+state/dashboard.effects';
 import { DashboardFacade } from './+state/dashboard.facade';
 import { DASHBOARD_KEY, dashboardReducer } from './+state/dashboard.reducer';
@@ -50,7 +50,7 @@ import { DashboardFilterModalComponent } from './modals/dashboard-filter-modal/d
     POneGridModule,
     POneFlexModule,
     BalancesOvertimeChartModule,
-    NotificationsModule,
+    POneNotificationsDisplayButtonModule,
     NgbDatepickerModule,
     POneDatepickerModule,
   ],

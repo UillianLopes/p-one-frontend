@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
   POneChipModule,
@@ -20,7 +21,6 @@ import {
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
-import { NotificationsModule } from '../../../../../../components/notifications';
 import { EntryListEffects } from './+state/entry-list.effects';
 import { EntryListFacade } from './+state/entry-list.facade';
 import { entityListReducer as entryListReducer, ENTRY_LIST_KEY } from './+state/entry-list.reducer';
@@ -51,7 +51,7 @@ import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-
     POneContextMenuModule,
     NgxCurrencyModule,
     POneTooltipModule,
-    NotificationsModule,
+    POneNotificationsDisplayButtonModule,
   ],
   providers: [EntryListFacade],
 })

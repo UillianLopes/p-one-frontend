@@ -8,10 +8,5 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   constructor(private readonly _router: Router) {}
-  ngOnInit(): void {
-    setTimeout(() => {
-      this._router.navigate(['/main']);
-    }, 100);
-    
-  }
+  ngOnInit(): void {}
 }

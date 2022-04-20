@@ -10,8 +10,13 @@ import { NOTIFICATION_ENDPOINT } from '../../../contants';
 import { NotificationService } from '../../../services';
 import {
   ENotificationsStoreActions,
+  loadUnreadNotifications,
   loadUnreadNotificationsFailure,
   loadUnreadNotificationsSuccess,
+  markAllNotificationsAsReadFailure,
+  markAllNotificationsAsReadSuccess,
+  markNotificationAsReadFailure,
+  markNotificationAsReadSuccess,
   newNotificationArrived,
   NotificationsStoreActionsUnion,
 } from './notifications-store.actions';
@@ -19,7 +24,7 @@ import {
 @Injectable()
 export class NotificationsStoreEffects {
   public readonly loadUnreadNotificationsEffect$ = createEffect(() =>
-    this._actions.pipe(
+    this._actions$.pipe(
       ofType(ENotificationsStoreActions.LOAD_UNREAD_NOTIFICATIONS),
       switchMap(() =>
         this._notificationsService.unreadNotifications().pipe(
@@ -34,8 +39,41 @@ export class NotificationsStoreEffects {
     )
   );
 
+  public readonly markNotificationAsReadEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ENotificationsStoreActions.MARK_NOTIFICATION_AS_READ),
+      switchMap(({ notificationId }) =>
+        this._notificationsService.markNotificationAsRead(notificationId).pipe(
+          map(() => markNotificationAsReadSuccess({ notificationId })),
+          catchError((error) => of(markNotificationAsReadFailure({ error })))
+        )
+      )
+    )
+  );
+
+  public readonly markAllNotificationsAsReadEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ENotificationsStoreActions.MARK_ALL_NOTIFICATIONS_AS_READ),
+      switchMap(() =>
+        this._notificationsService.markAllNotificationsAsRead().pipe(
+          map(() => markAllNotificationsAsReadSuccess()),
+          catchError((error) =>
+            of(markAllNotificationsAsReadFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  public readonly markAllNotificationsAsReadSuccesEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ENotificationsStoreActions.MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS),
+      map(() => loadUnreadNotifications())
+    )
+  );
+
   public readonly startNotificationsHubEffect$ = createEffect(() =>
-    this._actions.pipe(
+    this._actions$.pipe(
       ofType(ENotificationsStoreActions.START_NOTIFICATIONS_HUB),
       map(() => {
         return createSignalRHub({
@@ -53,7 +91,7 @@ export class NotificationsStoreEffects {
   );
 
   public readonly signalRHubUnstarted$ = createEffect(() =>
-    this._actions.pipe(
+    this._actions$.pipe(
       ofType(SIGNALR_HUB_UNSTARTED),
       mergeMapHubToAction(({ hub }) => {
         const onNewNotification$ = hub.on<any>('NOTIFICATE').pipe(
@@ -68,8 +106,8 @@ export class NotificationsStoreEffects {
   );
 
   constructor(
+    private readonly _actions$: Actions<NotificationsStoreActionsUnion>,
     private readonly _notificationsService: NotificationService,
-    private readonly _actions: Actions<NotificationsStoreActionsUnion>,
     private readonly _oidcSecurityService: OidcSecurityService,
     @Inject(NOTIFICATION_ENDPOINT)
     private readonly _notificationEndpoint: string

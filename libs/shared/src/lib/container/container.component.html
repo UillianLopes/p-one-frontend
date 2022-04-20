@@ -5,7 +5,7 @@
 </section>
 <section class="p-one-container__content" cdkScrollable>
   <ng-content></ng-content>
-  <p-one-loading *ngIf="this.isLoading$ | async"></p-one-loading>
+  <p-one-loading *ngIf="isLoading$ | async"></p-one-loading>
 </section>
 <section class="p-one-container__footer">
   <ng-content select="[pOneFooter]"></ng-content>

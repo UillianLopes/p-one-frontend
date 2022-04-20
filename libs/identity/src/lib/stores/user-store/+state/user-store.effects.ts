@@ -19,7 +19,7 @@ export class UserStoreEffects {
     this._actions$.pipe(
       ofType(EUserStoreActions.LOAD),
       switchMap(() =>
-        this._oidcService.checkAuth().pipe(
+        this._oidcService.checkAuth(window.location.toString()).pipe(
           map(({ userData, isAuthenticated }) => {
             if (!isAuthenticated) {
               return loadFailure();

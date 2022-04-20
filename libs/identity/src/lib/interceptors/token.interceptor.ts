@@ -1,10 +1,9 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { TOKEN_REQUIRED_ENDPOINTS } from '../constants/token-required-urls.token';
+import { TOKEN_REQUIRED_ENDPOINTS } from '../constants';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -33,26 +32,12 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    return next
-      .handle(
-        req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
-          },
-        })
-      )
-      .pipe(
-        catchError((error) => {
-          if (
-            error instanceof HttpErrorResponse &&
-            [401].includes(error.status)
-          ) {
-            this._ngZone.run(() => {
-              this._oidcSecurityService.authorize();
-            });
-          }
-          return throwError(error);
-        })
-      );
+    return next.handle(
+      req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
+        },
+      })
+    );
   }
 }

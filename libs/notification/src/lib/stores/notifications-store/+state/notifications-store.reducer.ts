@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { NotificationModel } from '../../../models';
@@ -45,6 +46,31 @@ const _notificationsStoreReducer = createReducer(
       };
     }
   ),
+  on(NotificationsActions.markNotificationAsRead, (state) => {
+    return {
+      ...state,
+      isUnreadNotificationsLoading: true,
+    };
+  }),
+  on(
+    NotificationsActions.markNotificationAsReadSuccess,
+    ({ unreadNotifications, ...state }, { notificationId }) => {
+      return {
+        ...state,
+        isUnreadNotificationsLoading: false,
+        unreadNotifications: unreadNotifications.filter(
+          ({ id }) => id !== notificationId
+        ),
+      };
+    }
+  ),
+  on(NotificationsActions.markNotificationAsReadFailure, (state, { error }) => {
+    return {
+      ...state,
+      isUnreadNotificationsLoading: false,
+      error,
+    };
+  }),
   on(
     NotificationsActions.loadUnreadNotificationsFailure,
     (state, { error }) => {

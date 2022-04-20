@@ -3,22 +3,32 @@ import { BaseSignalRStoreState } from 'ngrx-signalr-core';
 
 import { NOTIFICATIONS_STORE_FEATURE_KEY, NotificationsStoreState } from './notifications-store.reducer';
 
-const notificationsStoreSelector =
-  createFeatureSelector<{ notifications: NotificationsStoreState, signalr: BaseSignalRStoreState}>(
-    NOTIFICATIONS_STORE_FEATURE_KEY
-  );
+const notificationsStoreSelector = createFeatureSelector<{
+  notifications: NotificationsStoreState;
+  signalr: BaseSignalRStoreState;
+}>(NOTIFICATIONS_STORE_FEATURE_KEY);
 
 const notificationsStateSelecor = createSelector(
-    notificationsStoreSelector,
-    ({ notifications }) => notifications
-)
+  notificationsStoreSelector,
+  ({ notifications }) => notifications
+);
 
 export const isUnreadNotificationsLoadingSelector = createSelector(
-    notificationsStateSelecor,
+  notificationsStateSelecor,
   ({ isUnreadNotificationsLoading }) => isUnreadNotificationsLoading
 );
 
 export const unreadNotificationsSelector = createSelector(
-    notificationsStateSelecor,
+  notificationsStateSelecor,
   ({ unreadNotifications }) => unreadNotifications
+);
+
+export const unreadNotificationsCountSelector = createSelector(
+  unreadNotificationsSelector,
+  (unreadNotifications) => unreadNotifications.length
+);
+
+export const hasUnreadNotificationsSelector = createSelector(
+  unreadNotificationsCountSelector,
+  (unreadNotificationsCount) => unreadNotificationsCount > 0
 );
