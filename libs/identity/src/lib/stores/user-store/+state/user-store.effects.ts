@@ -90,7 +90,7 @@ export class UserStoreEffects {
     { dispatch: false }
   );
 
-  public readonly signUpFailureSuccess$ = createEffect(
+  public readonly signUpFailureEffect$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(EUserStoreActions.SIGN_IN_FAILURE),
