@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - ponefinancial
+name: Build and deploy angular app to azure
 
 on:
   push:
@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'ponefinancial'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_079101D53F0E40409EDFFB35140EAFD2 }}
+          publish-profile: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_RIVER_09E838210 }}
           package: .
