@@ -2,5 +2,8 @@ export const environment = {
   production: true,
   locale: 'pt-BR',
   luxonDateFormat: 'dd/MM/yyyy',
-  financialApiUrl: 'https://localhost:6001',
+  financialEndpoint: 'https://ponefinancialapi.azurewebsites.net',
+  identityEndpoint: 'https://poneidentityapi.azurewebsites.net',
+  notificationEndpoint: 'https://ponenotifierapi.azurewebsites.net',
+  issuer: 'https://poneidentityapi.azurewebsites.net'
 };
