@@ -11,6 +11,7 @@
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
+    "build-financial-app-prod": "node node_modules/@angular/cli/bin/ng build --prod --project p-one-financial-app --output-path dist/financial-app-prod",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
