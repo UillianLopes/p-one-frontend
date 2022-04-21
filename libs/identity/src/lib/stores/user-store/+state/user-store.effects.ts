@@ -93,7 +93,7 @@ export class UserStoreEffects {
   public readonly signUpFailureEffect$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(EUserStoreActions.SIGN_IN_FAILURE),
+        ofType(EUserStoreActions.SIGN_UP_FAILURE),
         tap(() => {
           this._toastService.open(
             'Não foi possivel criar seu usuário, verifique os dados e tente novamente',
