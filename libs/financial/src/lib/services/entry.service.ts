@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ResponseModel } from '@p-one/core';
+import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -16,29 +16,6 @@ import {
   RecurrenceModel,
 } from '../models';
 
-function cleanFilter(filter: any) {
-  if (!filter) {
-    return {};
-  }
-
-  const keys = Object.keys(filter);
-  let param = {};
-
-  for (const key of keys) {
-    if (filter[key] === undefined || filter[key] === null) {
-      continue;
-    }
-
-    param = {
-      ...param,
-      [key]: filter[key],
-    };
-  }
-
-  return {
-    ...param,
-  };
-}
 
 @Injectable()
 export class EntryService {
@@ -50,9 +27,7 @@ export class EntryService {
   public get(filter: Partial<EntryFilterRequest>): Observable<EntryModel[]> {
     return this._httpClient
       .get<ResponseModel<EntryModel[]>>(`${this._financialApiUrl}/Entry`, {
-        params: {
-          ...cleanFilter(filter),
-        },
+        params: serializeToQueryParams(filter),
       })
       .pipe(
         map((resposne) => resposne.data),

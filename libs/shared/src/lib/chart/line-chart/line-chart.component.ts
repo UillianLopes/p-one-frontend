@@ -710,11 +710,8 @@ export class LineChartComponent extends Chart<LineChartData> {
     }
 
     const maxValue = values.reduce((a, b) => (a > b ? a : b), 0);
-    const minimumNodeSpace = 30;
     const yAxisWidth = 50;
-    const minimumWidth = minimumNodeSpace * points.length;
-    const graphWidth =
-      (minimumWidth > innerWidth ? minimumWidth : innerWidth) - yAxisWidth;
+    const graphWidth = innerWidth - yAxisWidth;
     const xAxisHeight = greaterPointWidth + graphMargin;
     const graphHeight = innerHeight - xAxisHeight;
     const leftGraphMargin = graphMargin + yAxisWidth;
