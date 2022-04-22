@@ -25,10 +25,8 @@ export class WalletService {
     return this._httpClient
       .get<ResponseModel<WalletModel[]>>(`${this._financialEndpoint}/Wallet`)
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
-        )
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -39,10 +37,8 @@ export class WalletService {
         balance
       )
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
-        )
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -56,10 +52,8 @@ export class WalletService {
         wallet
       )
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
-        )
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -69,10 +63,8 @@ export class WalletService {
         `${this._financialEndpoint}/Wallet/${walletId}`
       )
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
-        )
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -84,9 +76,9 @@ export class WalletService {
         },
       })
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
+        map(({ data }) => data),
+        catchError(({ messages }) =>
+          throwError({ messages } as ErrorModel)
         )
       );
   }
@@ -98,9 +90,9 @@ export class WalletService {
         { ...deposit }
       )
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
+        map(({ data }) => data),
+        catchError(({ messages }) =>
+          throwError({ messages } as ErrorModel)
         )
       );
   }
@@ -115,9 +107,9 @@ export class WalletService {
         { ...withdraw }
       )
       .pipe(
-        map((resposne) => resposne.data),
-        catchError((err) =>
-          throwError({ messages: err.messages } as ErrorModel)
+        map(({ data }) => data),
+        catchError(({ messages }) =>
+          throwError({ messages } as ErrorModel)
         )
       );
   }

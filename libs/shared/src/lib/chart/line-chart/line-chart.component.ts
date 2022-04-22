@@ -3,7 +3,18 @@ import * as d3 from 'd3';
 import * as _ from 'lodash';
 
 import { Chart } from '../chart';
-import { LineChartData, LineChartSerie } from './line-chart.data';
+import { LineChartData, LineChartGroup, LineChartSerie } from './line-chart.data';
+
+function findGroupInOldData(
+  group: LineChartGroup,
+  oldData?: LineChartData
+): LineChartGroup | undefined {
+  if (!oldData) {
+    return undefined;
+  }
+
+  return oldData.groups.find((group) => group.name === group.name);
+}
 
 @Component({
   selector: 'p-one-line-chart',
@@ -12,6 +23,9 @@ import { LineChartData, LineChartSerie } from './line-chart.data';
 })
 export class LineChartComponent extends Chart<LineChartData> {
   public bigDots: string[] = [];
+  private readonly _svg = d3
+    .select(this._elementRef.nativeElement)
+    .append('svg');
 
   @Input() public valueFormater?: (value: number) => string;
 
@@ -19,49 +33,47 @@ export class LineChartComponent extends Chart<LineChartData> {
     super(_elementRef, _ngZone, 'p-one-line-chart');
   }
 
-  public init(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
-    data: LineChartData,
-    containerRect: DOMRect
-  ): void {
-    svg.attr('width', containerRect.width).attr('height', containerRect.height);
+  public init(data: LineChartData, containerRect: DOMRect): void {
+    this._svg
+      .attr('width', containerRect.width)
+      .attr('height', containerRect.height);
     if (!data) {
       return;
     }
 
-    this._render(svg, data, containerRect);
+    this._render(data, containerRect);
   }
 
   public update(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: LineChartData,
     oldData: LineChartData,
     containerRect: DOMRect
   ): void {
-    this._render(svg, data, containerRect, oldData);
+    this._render(data, containerRect, oldData);
   }
 
   public resize(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: LineChartData,
     oldData: LineChartData,
     containerRect: DOMRect
   ): void {
-    svg.attr('width', containerRect.width).attr('height', containerRect.height);
+    this._svg
+      .attr('width', containerRect.width)
+      .attr('height', containerRect.height);
 
     if (!data) {
       return;
     }
 
-    this._render(svg, data, containerRect, oldData);
+    this._render(data, containerRect, oldData);
   }
 
   private _render(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: LineChartData,
     containerRect: DOMRect,
     oldData?: LineChartData
   ) {
+    const svg = this._svg;
     const {
       yScale,
       xScale,
@@ -426,21 +438,28 @@ export class LineChartComponent extends Chart<LineChartData> {
       .attr('id', (__, i) => `${this.uniqueId}__group--${i}`);
 
     groups.call((group) => {
-      group
+      const paths = group
         .append('g')
         .attr('pointer-events', 'none')
         .attr(
           'id',
           ({ name }) =>
             `${this.uniqueId}__normal-values-lines__${this.slugify(name)}`
-        )
+        );
+      paths
         .selectAll('path')
-        .data(({ series, color }) =>
-          this._getNormalValueLines(series, xScale, yScale).map((path) => ({
+        .data((group) => {
+          const oldGroup = findGroupInOldData(group, oldData);
+
+          return this._getNormalValueLines(
+            oldGroup?.series ?? group.series,
+            xScale,
+            yScale
+          ).map((path) => ({
             path,
-            color,
-          }))
-        )
+            color: oldGroup?.color ?? group.color,
+          }));
+        })
         .enter()
         .append('path')
         .attr('stroke', (d) => d.color)
@@ -710,11 +729,8 @@ export class LineChartComponent extends Chart<LineChartData> {
     }
 
     const maxValue = values.reduce((a, b) => (a > b ? a : b), 0);
-    const minimumNodeSpace = 30;
     const yAxisWidth = 50;
-    const minimumWidth = minimumNodeSpace * points.length;
-    const graphWidth =
-      (minimumWidth > innerWidth ? minimumWidth : innerWidth) - yAxisWidth;
+    const graphWidth = innerWidth - yAxisWidth;
     const xAxisHeight = greaterPointWidth + graphMargin;
     const graphHeight = innerHeight - xAxisHeight;
     const leftGraphMargin = graphMargin + yAxisWidth;

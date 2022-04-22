@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ResponseModel } from '@p-one/core';
+import { ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -15,14 +15,11 @@ export class CategoryService {
   ) {}
 
   get(type?: EEntryType): Observable<CategoryModel[]> {
-    const params: any = {
-      type,
-    };
     return this._httpClient
       .get<ResponseModel<CategoryModel[]>>(
         `${this._financialApiUrl}/Category`,
         {
-          params,
+          params: serializeToQueryParams({ type }),
         }
       )
       .pipe(
