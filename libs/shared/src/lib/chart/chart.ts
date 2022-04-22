@@ -1,5 +1,4 @@
 import { AfterViewInit, Directive, ElementRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import * as d3 from 'd3';
 import { uniqueId } from 'lodash';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -16,7 +15,6 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
     })
   );
 
-  private _svg = d3.select(this._elementRef.nativeElement).append('svg');
   private _oldData!: T;
   private _data!: T;
 
@@ -46,7 +44,7 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.init(this._svg, this.data, this._getContainerRect());
+    this.init(this.data, this._getContainerRect());
 
     this._resized$
       .pipe(
@@ -56,12 +54,11 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
         )
       )
       .subscribe((rect) => {
-        this.resize(this._svg, this._data, this._oldData, rect);
+        this.resize(this._data, this._oldData, rect);
       });
 
     this._updated$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.update(
-        this._svg,
         this._data,
         this._oldData,
         this._getContainerRect()
@@ -72,20 +69,17 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   abstract init(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: T,
     containerRect: DOMRect
   ): void;
 
   abstract update(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: T,
     oldData: T,
     containerRect: DOMRect
   ): void;
 
   abstract resize(
-    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
     data: T,
     oldData: T,
     containerRect: DOMRect
