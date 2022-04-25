@@ -1,0 +1,36 @@
+.p-one-chart-legend {
+  &__list {
+    margin: 0px;
+    margin-inline: 0px;
+    padding-inline: 0px;
+    list-style: none;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 150px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px;
+
+    &:hover {
+      font-weight: 600;
+    }
+    cursor: pointer;
+  }
+
+  &__color {
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+  }
+  &__content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+}

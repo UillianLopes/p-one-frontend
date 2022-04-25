@@ -2,5 +2,8 @@
   &__container {
     height: 350px;
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
   }
 }

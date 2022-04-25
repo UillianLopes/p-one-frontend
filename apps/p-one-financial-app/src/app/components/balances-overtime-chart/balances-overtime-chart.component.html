@@ -2,7 +2,9 @@
   <ng-container pOneCardTitle>Saldos durante o tempo</ng-container>
   <div class="balances-overtime-chart__container">
     <p-one-line-chart
+      #lineChart
       [data]="balancesOverTimeLineChartData$ | async"
     ></p-one-line-chart>
+    <p-one-chart-legend [for]="lineChart"></p-one-chart-legend>
   </div>
 </p-one-card>

@@ -1,0 +1,9 @@
+<ul class="p-one-chart-legend__list">
+  <li class="p-one-chart-legend__item" *ngFor="let legend of legends$ | async">
+    <div
+      class="p-one-chart-legend__color"
+      [style.background]="legend.color"
+    ></div>
+    <div class="p-one-chart-legend__content">{{ legend.name }}</div>
+  </li>
+</ul>
