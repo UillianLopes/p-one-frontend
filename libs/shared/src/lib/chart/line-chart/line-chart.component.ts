@@ -1,8 +1,11 @@
 import { Component, ElementRef, Input, NgZone } from '@angular/core';
 import * as d3 from 'd3';
 import * as _ from 'lodash';
+import { Subject } from 'rxjs';
 
 import { Chart } from '../chart';
+import { ChartLegendData } from '../chart-legend/chart-legend.data';
+import { ICanHaveALegend } from '../chart-legend/i-can-have-an-legend';
 import { LineChartData, LineChartGroup, LineChartSerie } from './line-chart.data';
 
 function findGroupInOldData(
@@ -21,7 +24,12 @@ function findGroupInOldData(
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends Chart<LineChartData> {
+export class LineChartComponent
+  extends Chart<LineChartData>
+  implements ICanHaveALegend
+{
+  public readonly updateLegends$ = new Subject<ChartLegendData[]>();
+
   public bigDots: string[] = [];
   private readonly _svg = d3
     .select(this._elementRef.nativeElement)
@@ -73,6 +81,9 @@ export class LineChartComponent extends Chart<LineChartData> {
     containerRect: DOMRect,
     oldData?: LineChartData
   ) {
+    this.updateLegends$.next(
+      data.groups.map(({ name, color }) => ({ name, color }))
+    );
     const svg = this._svg;
     const {
       yScale,
