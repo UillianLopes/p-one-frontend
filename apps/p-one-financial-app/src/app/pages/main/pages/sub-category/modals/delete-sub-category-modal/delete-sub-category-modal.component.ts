@@ -25,20 +25,11 @@ export class DeleteSubCategoryModalComponent implements OnInit {
   );
 
   readonly toBeDeletedSubCategoriesNames$ = this.toBeDeleteSubCategories$.pipe(
-    map((toBeDeleteCategories) => toBeDeleteCategories.map((c) => c.name))
+    map((toBeDeleteCategories) => ({
+      count: toBeDeleteCategories.length,
+      subCategoryNames: toBeDeleteCategories.map(({ name }) => name).join(', '),
+    }))
   );
-
-  readonly willMoreThanOneSubCategoryBeDeleted$ =
-    this.toBeDeleteSubCategories$.pipe(
-      map((toBeDeleteCategories) => toBeDeleteCategories.length > 1)
-    );
-
-  readonly willOnlyOneSubCategoryBeDeleted$ =
-    this.willMoreThanOneSubCategoryBeDeleted$.pipe(
-      map(
-        (willMoreThanOneCategoryBeDeleted) => !willMoreThanOneCategoryBeDeleted
-      )
-    );
 
   constructor(
     @Inject(PONE_DIALOG_DATA) private readonly subCategoryId: string,

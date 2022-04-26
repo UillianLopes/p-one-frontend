@@ -9,7 +9,7 @@ export abstract class DynamicFormField extends DynamicFormElement {
   validators?: ValidatorFn[];
   mask?: string;
 
-  constructor(args?: DynamicFormField) {
+  constructor(args?: Partial<DynamicFormField>) {
     super();
 
     if (args) {
@@ -24,7 +24,7 @@ export class DyanamicTextFormField extends DynamicFormField {
   mask?: string;
   type?: 'text' | 'number' | 'password' | 'tel';
 
-  constructor(args?: DyanamicTextFormField) {
+  constructor(args?: Partial<DyanamicTextFormField>) {
     super();
 
     if (args) {

@@ -6,7 +6,7 @@ export class DynamicFormGroup extends DynamicFormStructure {
   name?: string;
   validators?: ValidatorFn[];
 
-  constructor(args?: DynamicFormGroup) {
+  constructor(args?: Partial<DynamicFormGroup>) {
     super();
 
     if (args) {

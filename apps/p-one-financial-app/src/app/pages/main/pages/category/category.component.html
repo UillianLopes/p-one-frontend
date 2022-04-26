@@ -8,19 +8,21 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2 i18n>Categorias</h2>
+    <h2>{{ '@PONE.CATEGORIES.TITLE' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
   </p-one-header>
   <div pOneHeader class="p-one-category__sub-header">
     <p-one-breadcrumb>
-      <p-one-breadcrumb-item> Categorias </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.CATEGORIES.TITLE' | translate }}
+      </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </div>
   <div pOneHeader class="p-one-category__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateCategoryDialog()">
-      Criar categoria
+      {{ '@PONE.CATEGORIES.BUTTONS.CREATE_CATEGORY' | translate }}
     </button>
 
     <button
@@ -28,7 +30,7 @@
       *ngIf="isSomeFiltredCategoriesSelected$ | async"
       (click)="openDeleteCategoryDialog()"
     >
-      Deletar categorias selecionadas
+      {{ '@PONE.CATEGORIES.BUTTONS.DELETE_SELECTED_CATEGORIES' | translate }}
     </button>
 
     <p-one-form-field noPadding>
@@ -49,9 +51,15 @@
               (ngModelChange)="toggleSelectMultipleCategories()"
             ></p-one-checkbox>
           </th>
-          <th scope="col">Nome</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Tipo</th>
+          <th scope="col">
+            {{ '@PONE.CATEGORIES.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.CATEGORIES.TABLE.COLUMNS.DESCRIPTION' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.CATEGORIES.TABLE.COLUMNS.TYPE' | translate }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -107,7 +115,7 @@
       [page]="page$ | async"
       [pageSize]="pageSize$ | async"
       (pageChange)="setCategoriesPage($event)"
-      aria-label="Paginação da lista de categorias"
+      [attr.aria-label]="'@PONE.CATEGORIES.PAGINATION.LABEL' | translate"
     ></ngb-pagination>
   </div>
 </p-one-container>

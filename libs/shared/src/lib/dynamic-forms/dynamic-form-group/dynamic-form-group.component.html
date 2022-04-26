@@ -1,21 +1,18 @@
-<form
-  *ngIf="this.formGroup as formGroup"
-  [formGroup]="formGroup"
->
-  <ng-container *ngIf="this.config && this.config.elements as elements">
+<form *ngIf="formGroup as formGroup" [formGroup]="formGroup">
+  <ng-container *ngIf="config && config.elements as elements">
     <ng-container *ngFor="let element of elements">
       <p-one-dynamic-form-row
-        *ngIf="this.formElementAsRow(element) as dynamicFormRow"
+        *ngIf="formElementAsRow(element) as dynamicFormRow"
         [config]="dynamicFormRow"
       ></p-one-dynamic-form-row>
 
       <p-one-dynamic-form-group
-        *ngIf="this.formElementAsGroup(element) as dynamicFormGroup"
+        *ngIf="formElementAsGroup(element) as dynamicFormGroup"
         [config]="dynamicFormGroup"
       ></p-one-dynamic-form-group>
 
       <p-one-dynamic-form-field
-        *ngIf="this.formElementAsField(element) as dynamicFormField"
+        *ngIf="formElementAsField(element) as dynamicFormField"
         [config]="dynamicFormField"
       ></p-one-dynamic-form-field>
     </ng-container>
