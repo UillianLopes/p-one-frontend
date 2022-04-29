@@ -76,6 +76,9 @@
             "CANCEL": "Cancelar"
           }
         }
+      },
+      "MESSAGES": {
+        "CREATE_SUB_CATEGORY_SUCCESS": "The sub category were created successfully"
       }
     }
   }

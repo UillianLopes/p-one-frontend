@@ -2,11 +2,12 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpTransportType } from '@microsoft/signalr';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { createSignalRHub, mergeMapHubToAction, SIGNALR_HUB_UNSTARTED, startSignalRHub } from 'ngrx-signalr-core';
+import { createSignalRHub, mergeMapHubToAction, ofHub, SIGNALR_HUB_UNSTARTED, startSignalRHub } from 'ngrx-signalr-core';
 import { merge, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { NOTIFICATION_ENDPOINT } from '../../../contants';
+import { NotificationModel } from '../../../models';
 import { NotificationService } from '../../../services';
 import {
   ENotificationsStoreActions,
@@ -23,6 +24,10 @@ import {
 
 @Injectable()
 export class NotificationsStoreEffects {
+  private readonly _hub = {
+    hubName: 'NOTIFICATIONS HUB',
+    url: `${this._notificationEndpoint}/hubs/notifications`,
+  };
   public readonly loadUnreadNotificationsEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ENotificationsStoreActions.LOAD_UNREAD_NOTIFICATIONS),
@@ -77,8 +82,7 @@ export class NotificationsStoreEffects {
       ofType(ENotificationsStoreActions.START_NOTIFICATIONS_HUB),
       map(() => {
         return createSignalRHub({
-          hubName: 'Notifications HUB',
-          url: `${this._notificationEndpoint}/hubs/notifications`,
+          ...this._hub,
           options: {
             transport: HttpTransportType.WebSockets,
             accessTokenFactory: () =>
@@ -93,12 +97,13 @@ export class NotificationsStoreEffects {
   public readonly signalRHubUnstarted$ = createEffect(() =>
     this._actions$.pipe(
       ofType(SIGNALR_HUB_UNSTARTED),
+      ofHub(this._hub),
       mergeMapHubToAction(({ hub }) => {
-        const onNewNotification$ = hub.on<any>('NOTIFICATE').pipe(
-          map((json) => {
-            return newNotificationArrived({ notification: json });
-          })
-        );
+        const onNewNotification$ = hub
+          .on<NotificationModel>('NOTIFICATE')
+          .pipe(
+            map((notification) => newNotificationArrived({ notification }))
+          );
 
         return merge(onNewNotification$, of(startSignalRHub(hub)));
       })

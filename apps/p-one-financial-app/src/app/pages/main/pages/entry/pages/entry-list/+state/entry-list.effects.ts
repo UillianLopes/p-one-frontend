@@ -6,9 +6,9 @@ import * as _ from 'lodash';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { DeleteEntryModalComponent } from '../../../modals/delete-entry-modal/delete-entry-modal.component';
-import { PayEntryModalComponent } from '../../../modals/pay-entry-modal';
+import { DeleteEntryModalComponent } from '../modals/delete-entry-modal/delete-entry-modal.component';
 import { EntryListFilterComponent } from '../modals/entry-list-filter/entry-list-filter.component';
+import { PayEntryModalComponent } from '../modals/pay-entry-modal/pay-entry-modal.component';
 import {
   EEntryListActions,
   EntryListActionsUnion,

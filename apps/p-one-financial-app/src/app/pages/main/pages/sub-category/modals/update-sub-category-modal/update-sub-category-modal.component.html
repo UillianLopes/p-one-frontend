@@ -5,7 +5,7 @@
   <p-one-dialog-body>
     <form [formGroup]="this.form">
       <p-one-form-field>
-        <label pOneLabel for="categoryNameInput" i18n>
+        <label pOneLabel for="categoryNameInput">
           {{
             '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.NAME.LABEL' | translate
           }}
@@ -18,12 +18,11 @@
               | translate
           "
           formControlName="name"
-          i18n-placehoder
         />
       </p-one-form-field>
 
       <p-one-form-field>
-        <label pOneLabel for="categoryNameInput" i18n>
+        <label pOneLabel for="categoryNameInput">
           {{
             '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.CATEGORY.LABEL'
               | translate
@@ -38,7 +37,6 @@
           "
           formControlName="category"
           [pOneAutocomplete]="categoryAutocomplete"
-          i18n-placehoder
         />
 
         <p-one-autocomplete
@@ -54,7 +52,7 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel for="descriptionInput" i18n>
+        <label pOneLabel for="descriptionInput">
           {{
             '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.LABEL'
               | translate
@@ -68,7 +66,6 @@
               | translate
           "
           formControlName="description"
-          i18n-placeholder
         ></textarea>
       </p-one-form-field>
       <p-one-form-field>
@@ -85,14 +82,13 @@
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>
-    <button class="btn btn-outline-danger btn-sm" pOneDialogClose i18n>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
       {{ '@PONE.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isCreateSubCategoryDisabled$ | async"
       (click)="updateSubCategory()"
-      i18n
     >
       {{
         '@PONE.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.UPDATE_SUB_CATEGORY'
