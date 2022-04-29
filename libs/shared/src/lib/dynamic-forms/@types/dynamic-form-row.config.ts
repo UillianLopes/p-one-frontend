@@ -1,7 +1,7 @@
 import { DynamicFormStructure } from './dynamic-form-structure.config';
 
 export class DynamicFormRow extends DynamicFormStructure {
-  constructor(args?: DynamicFormRow) {
+  constructor(args?: Partial<DynamicFormRow>) {
     super(args);
   }
 }

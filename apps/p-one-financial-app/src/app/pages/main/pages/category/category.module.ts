@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { TranslateCompiler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@p-one/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -17,6 +20,7 @@ import {
   POneInputModule,
   POneSidenavModule,
 } from '@p-one/shared';
+import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
 
 import { CategoryEffects } from './+state/category.effects';
 import { CategoryFacade } from './+state/category.facade';
@@ -27,6 +31,9 @@ import { CreateCategoryModalComponent } from './modals/create-category-modal/cre
 import { DeleteCategoryModalComponent } from './modals/delete-category-modal/delete-category-modal.component';
 import { UpdateCategoryModalComponent } from './modals/update-category-modal/update-category-modal.component';
 
+function httpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/categories/', '.json');
+}
 @NgModule({
   declarations: [
     CategoryComponent,
@@ -53,7 +60,23 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     POneBreadcrumbModule,
     POneColorPickerModule,
     POneNotificationsDisplayButtonModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient],
+      },
+      isolate: true,
+      compiler: {
+        provide: TranslateCompiler,
+        useClass: TranslateMessageFormatCompiler,
+      },
+    }),
   ],
   providers: [CategoryFacade],
 })
-export class CategoryModule {}
+export class CategoryModule {
+  constructor(service: TranslateService, @Inject(LOCALE_ID) locale: string) {
+    service.use(locale);
+  }
+}

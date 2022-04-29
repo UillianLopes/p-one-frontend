@@ -1,16 +1,14 @@
-<ng-container *ngIf="data$ | async as data">
-  <ng-container *ngFor="let item of data">
-    <ng-template #template>
-      {{ item.value }}
-    </ng-template>
-    <p-one-chip [pOneTooltip]="template" trigger="hover">
-      <div class="p-one-filter-display__row">
-        <b>{{ item.name }}: </b>
-        <div class="p-one-filter-display__badge">
-          {{ item.value }}
-        </div>
-        <i class="bi bi-x-circle" (click)="remove(item)"></i>
+<ng-container *ngFor="let item of data$ | async">
+  <ng-template #template>
+    {{ item.value | pOneTranslate }}
+  </ng-template>
+  <p-one-chip [pOneTooltip]="template" trigger="hover">
+    <div class="p-one-filter-display__row">
+      <b>{{ item.name | pOneTranslate }}: </b>
+      <div class="p-one-filter-display__badge">
+        {{ item.value | pOneTranslate }}
       </div>
-    </p-one-chip>
-  </ng-container>
+      <i class="bi bi-x-circle" (click)="remove(item)"></i>
+    </div>
+  </p-one-chip>
 </ng-container>

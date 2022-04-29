@@ -57,7 +57,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'CATEGORY',
-          name: 'Categorias',
+          name: '@PONE.ENTRIES.LIST.FILTER.CATEGORIES',
           value: categories.map((c) => c.name),
         },
       ];
@@ -68,7 +68,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'SUB_CATEGORY',
-          name: 'Sub categorias',
+          name: '@PONE.ENTRIES.LIST.FILTER.SUB_CATEGORIES',
           value: subCategories.map((c) => c.name),
         },
       ];
@@ -79,7 +79,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'RANGE',
-          name: 'Range',
+          name: '@PONE.ENTRIES.LIST.FILTER.RANGE',
           value: `${minValue ?? '~'} a ${maxValue ?? '~'}`,
         },
       ];
@@ -90,7 +90,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'TEXT',
-          name: 'Texto',
+          name: '@PONE.ENTRIES.LIST.FILTER.TEXT',
           value: text,
         },
       ];
@@ -100,16 +100,16 @@ export const filterToDisplaySelector = createSelector(
 
       switch (paymentStatus) {
         case EEntryPaymentStatus.Opened:
-          paymentName = 'Em aberto';
+          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OPENED';
           break;
         case EEntryPaymentStatus.Overdue:
-          paymentName = 'Vencidas';
+          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OVERDUE';
           break;
         case EEntryPaymentStatus.Paid:
-          paymentName = 'Pagas';
+          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.PAID';
           break;
         case EEntryPaymentStatus.ToPayToday:
-          paymentName = 'A vencer hoje';
+          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TO_PAY_TODAY';
           break;
       }
 
@@ -117,7 +117,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'PAYMENT_STATUS',
-          name: 'Status',
+          name: '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TITLE',
           value: paymentName,
         },
       ];

@@ -8,19 +8,21 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2 i18n>Sub categorias</h2>
+    <h2 i18n>{{ '@PONE.SUB_CATEGORIES.TITLE' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
   </p-one-header>
   <div pOneHeader class="p-one-sub-category__sub-header">
     <p-one-breadcrumb>
-      <p-one-breadcrumb-item> Sub categorias </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.SUB_CATEGORIES.TITLE' | translate }}
+      </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </div>
   <div pOneHeader class="p-one-sub-category__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateCategoryDialog()">
-      Criar sub categoria
+      {{ '@PONE.SUB_CATEGORIES.BUTTONS.CREATE_SUB_CATEGORY' | translate }}
     </button>
 
     <button
@@ -28,7 +30,10 @@
       *ngIf="isSomeFiltredSubCategoriesSelected$ | async"
       (click)="openDeleteCategoryDialog()"
     >
-      Deletar sub categorias selecionadas
+      {{
+        '@PONE.SUB_CATEGORIES.BUTTONS.DELETE_SELECTED_SUB_CATEGORIES'
+          | translate
+      }}
     </button>
 
     <p-one-form-field noPadding>
@@ -49,10 +54,18 @@
               (ngModelChange)="toggleSelectMultipleCategories()"
             ></p-one-checkbox>
           </th>
-          <th scope="col">Nome</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Categoria</th>
-          <th scope="col">Tipo</th>
+          <th scope="col">
+            {{ '@PONE.SUB_CATEGORIES.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.SUB_CATEGORIES.TABLE.COLUMNS.DESCRIPTION' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.SUB_CATEGORIES.TABLE.COLUMNS.CATEGORY' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.SUB_CATEGORIES.TABLE.COLUMNS.TYPE' | translate }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -109,7 +122,7 @@
       [page]="this.page$ | async"
       [pageSize]="this.pageSize$ | async"
       (pageChange)="setCategoriesPage($event)"
-      aria-label="Paginação da lista de sub categorias"
+      [attr.aria-label]="'@PONE.SUB_CATEGORIES.PAGINATION.LABEL' | translate"
     ></ngb-pagination>
   </div>
 </p-one-container>

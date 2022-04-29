@@ -25,6 +25,12 @@ export class DynamicFormGroupComponent
   @Output()
   formReady$ = new EventEmitter<boolean>();
 
+  @Input() set data(value: any) {
+    if (this.formGroup) {
+      this.formGroup.patchValue(value);
+    }
+  }
+
   constructor(
     @SkipSelf()
     @Optional()

@@ -19,25 +19,19 @@ export class DeleteCategoryModalComponent implements OnInit {
   ]).pipe(
     map(([filtredAndSelectedCategories, filtredCategories, categoryId]) =>
       categoryId
-        ? [filtredCategories.find((c) => c.id === categoryId)].filter((x) => !!x)
+        ? [filtredCategories.find((c) => c.id === categoryId)].filter(
+            (x) => !!x
+          )
         : filtredAndSelectedCategories
     )
   );
 
   readonly toBeDeletedCategoriesNames$ = this.toBeDeleteCategories$.pipe(
-    map((toBeDeleteCategories) => toBeDeleteCategories.map((c) => c.name))
+    map((toBeDeleteCategories) => ({
+      count: toBeDeleteCategories.length,
+      categoryNames: toBeDeleteCategories.map(({ name }) => name).join(', '),
+    }))
   );
-
-  readonly willMoreThanOneCategoryBeDeleted$ = this.toBeDeleteCategories$.pipe(
-    map((toBeDeleteCategories) => toBeDeleteCategories.length > 1)
-  );
-
-  readonly willOnlyOneCategoryBeDeleted$ =
-    this.willMoreThanOneCategoryBeDeleted$.pipe(
-      map(
-        (willMoreThanOneCategoryBeDeleted) => !willMoreThanOneCategoryBeDeleted
-      )
-    );
 
   constructor(
     @Inject(PONE_DIALOG_DATA) private readonly cateogryId: string,

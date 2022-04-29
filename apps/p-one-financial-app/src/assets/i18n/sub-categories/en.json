@@ -1,0 +1,85 @@
+{
+  "@PONE": {
+    "SUB_CATEGORIES": {
+      "TITLE": "Sub categories",
+      "BUTTONS": {
+        "CREATE_CATEGORY": "Create sub category",
+        "DELETE_SELECTED_CATEGORIES": "Delete selected sub categories"
+      },
+      "TABLE": {
+        "COLUMNS": {
+          "NAME": "Name",
+          "DESCRIPTION": "Description",
+          "TYPE": "Type",
+          "CATEGORY": "Category"
+        }
+      },
+      "PAGINATION": {
+        "LABEL": "Sub categories list pagination"
+      },
+      "MODALS": {
+        "CREATE": {
+          "TITLE": "Sub categories creation",
+          "FIELDS": {
+            "NAME": {
+              "LABEL": "Name",
+              "PLACEHOLDER": "Type the sub category name"
+            },
+            "DESCRIPTION": {
+              "LABEL": "Description",
+              "PLACEHOLDER": "Type the sub category description"
+            },
+            "CATEGORY": {
+              "LABEL": "Category",
+              "PLACEHOLDER": "Select the category to which the sub category belongs"
+            },
+            "COLOR": {
+              "LABEL": "Color",
+              "PLACEHOLDER": "Select the sub category color"
+            }
+          },
+          "BUTTONS": {
+            "CREATE_CATEGORY": "Create sub category",
+            "CANCEL": "Cancel"
+          }
+        },
+        "UPDATE": {
+          "TITLE": "Categories edition",
+          "FIELDS": {
+            "NAME": {
+              "LABEL": "Name",
+              "PLACEHOLDER": "Type the sub category name"
+            },
+            "DESCRIPTION": {
+              "LABEL": "Description",
+              "PLACEHOLDER": "Type the sub category description"
+            },
+            "CATEGORY": {
+              "LABEL": "Category",
+              "PLACEHOLDER": "Select the category to which the sub category belongs"
+            },
+            "COLOR": {
+              "LABEL": "Color",
+              "PLACEHOLDER": "Select the sub category color"
+            }
+          },
+          "BUTTONS": {
+            "UPDATE_SUB_CATEGORY": "Update sub category",
+            "CANCEL": "Cancel"
+          }
+        },
+        "DELETE": {
+          "TITLE": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
+          "QUESTION": "Are you sure you want to delete the following {count, plural, =0{sub category} one {sub category} other {sub categories}}: <b>{subCategoryNames}</b>?",
+          "BUTTONS": {
+            "DELETE_SUB_CATEGORY": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
+            "CANCEL": "Cancel"
+          }
+        }
+      },
+      "MESSAGES": {
+        "CREATE_SUB_CATEGORY_SUCCESS": "The sub category were created successfully"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "PONE": {
+    "FORMATS": {
+      "DATE_TIME": "MM/dd/yyyy HH:mm:ss",
+      "DATE": "MM/dd/yyyy",
+      "CURRENCY": "USD"
+    }
+  }
+}

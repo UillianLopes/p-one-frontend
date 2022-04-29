@@ -33,9 +33,7 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel for="autoCompleteSubCategory" i18n>
-          Sub categoria
-        </label>
+        <label pOneLabel for="autoCompleteSubCategory"> Sub categoria </label>
         <input
           pOneInput
           [pOneAutocomplete]="autoCompleteSubCategory"
@@ -60,7 +58,6 @@
       class="btn btn-outline-primary"
       [disabled]="isFirstStepInvalid$ | async"
       pOneStepperNext
-      i18n
     >
       <ng-container> Continuar </ng-container>
     </button>
