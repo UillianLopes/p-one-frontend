@@ -1,27 +1,42 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h5 p-one-dialog-header>Alteração de sub categria</h5>
+  <h5 p-one-dialog-header>
+    {{ '@PONE.SUB_CATEGORIES.MODALS.UPDATE.TITLE' | translate }}
+  </h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
       <p-one-form-field>
-        <label pOneLabel for="categoryNameInput" i18n>Nome</label>
+        <label pOneLabel for="categoryNameInput">
+          {{
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.NAME.LABEL' | translate
+          }}
+        </label>
         <input
           #categoryNameInput
           pOneInput
-          placeholder="Digite o nome da sub categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.NAME.PLACEHOLDER'
+              | translate
+          "
           formControlName="name"
-          i18n-placehoder
         />
       </p-one-form-field>
 
       <p-one-form-field>
-        <label pOneLabel for="subCategoryCategory" i18n>Categoria</label>
+        <label pOneLabel for="categoryNameInput">
+          {{
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.CATEGORY.LABEL'
+              | translate
+          }}
+        </label>
         <input
           #categoryNameInput
           pOneInput
-          placeholder="Digite a categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.CATEGORY.PLACEHOLDER'
+              | translate
+          "
           formControlName="category"
           [pOneAutocomplete]="categoryAutocomplete"
-          i18n-placehoder
         />
 
         <p-one-autocomplete
@@ -37,17 +52,28 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel for="descriptionInput" i18n>Descrição</label>
+        <label pOneLabel for="descriptionInput">
+          {{
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.LABEL'
+              | translate
+          }}
+        </label>
         <textarea
           #descriptionInput
           pOneInput
-          placeholder="Digite a descrição da sub categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.PLACEHOLDER'
+              | translate
+          "
           formControlName="description"
-          i18n-placeholder
         ></textarea>
       </p-one-form-field>
       <p-one-form-field>
-        <label for="colorInput">Cor</label>
+        <label for="colorInput">
+          {{
+            '@PONE.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.COLOR.LABEL' | translate
+          }}
+        </label>
         <p-one-color-picker
           #colorInput
           formControlName="color"
@@ -56,16 +82,18 @@
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>
-    <button class="btn btn-outline-danger btn-sm" pOneDialogClose i18n>
-      Cancelar
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isCreateSubCategoryDisabled$ | async"
-      (click)="this.updateSubCategory()"
-      i18n
+      (click)="updateSubCategory()"
     >
-      Alterar sub categoria
+      {{
+        '@PONE.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.UPDATE_SUB_CATEGORY'
+          | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

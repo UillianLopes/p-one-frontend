@@ -1,30 +1,28 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { FilterDisplayData } from './filter-display.data';
+import { FilterDisplayStore } from './filter-display.state';
 
 @Component({
   selector: 'p-one-filter-display',
   templateUrl: './filter-display.component.html',
   styleUrls: ['./filter-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [FilterDisplayStore],
 })
-export class FilterDisplayComponent implements OnInit {
-  public readonly data$ = new BehaviorSubject<FilterDisplayData[]>([]);
-
+export class FilterDisplayComponent {
   @Output()
   public readonly removed$ = new EventEmitter<FilterDisplayData>();
+  public readonly data$ = this._store.data$;
 
   @Input()
-  set data(v: FilterDisplayData[]) {
-    this.data$.next(v);
+  set data(data: FilterDisplayData[]) {
+    this._store.setData(data);
   }
 
-  constructor() {}
+  constructor(private readonly _store: FilterDisplayStore) {}
 
-  ngOnInit(): void {}
-
-  remove(item: FilterDisplayData) {
+  public remove(item: FilterDisplayData): void {
     this.removed$.emit(item);
   }
 }

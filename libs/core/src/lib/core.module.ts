@@ -32,8 +32,7 @@ export class POneCoreModule {
         },
         {
           provide: NgbDateParserFormatter,
-          useFactory: () =>
-            new LuxonDateFormatterParser(config.luxonDateFormat),
+          useFactory: () => new LuxonDateFormatterParser(config.luxonDateFormat),
         },
       ],
     };

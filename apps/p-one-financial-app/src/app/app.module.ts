@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { POneCoreModule } from '@p-one/core';
 import { POneFinancialModule } from '@p-one/financial';
 import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
@@ -14,6 +16,7 @@ import { POneToastModule } from '@p-one/shared';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
+import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -27,7 +30,7 @@ import { AppRoutingModule } from './app.routing';
     AppRoutingModule,
     HttpClientModule,
     POneCoreModule.forRoot({
-      locale: environment.locale,
+      locale: navigator.language ?? environment.locale,
       luxonDateFormat: environment.luxonDateFormat,
     }),
     POneFinancialModule.forRoot({
@@ -73,6 +76,19 @@ import { AppRoutingModule } from './app.routing';
       thousands: '.',
       nullable: true,
       inputMode: CurrencyMaskInputMode.FINANCIAL,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (client: HttpClient) =>
+          new TranslateHttpLoader(client, '/assets/i18n/core/', '.json'),
+        deps: [HttpClient],
+      },
+      compiler: {
+        provide: TranslateCompiler,
+        useClass: TranslateMessageFormatCompiler,
+      },
+      defaultLanguage: 'en',
     }),
   ],
   bootstrap: [AppComponent],

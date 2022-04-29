@@ -1,24 +1,36 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h5 class="card-header">Criação de sub categoria</h5>
+  <h5 class="card-header">
+    {{ '@PONE.SUB_CATEGORIES.MODALS.CREATE.TITLE' | translate }}
+  </h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
       <p-one-form-field>
-        <label pOneLabel for="categoryNameInput" i18n>Nome</label>
+        <label pOneLabel for="categoryNameInput" i18n>{{
+          '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.NAME.LABEL' | translate
+        }}</label>
         <input
           #categoryNameInput
           pOneInput
-          placeholder="Digite o nome da sub categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.NAME.PLACEHOLDER'
+              | translate
+          "
           formControlName="name"
           i18n-placehoder
         />
       </p-one-form-field>
 
       <p-one-form-field>
-        <label pOneLabel for="subCategoryCategory" i18n>Categoria</label>
+        <label pOneLabel for="subCategoryCategory" i18n>{{
+          '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.CATEGORY.LABEL' | translate
+        }}</label>
         <input
           #categoryNameInput
           pOneInput
-          placeholder="Digite a categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.CATEGORY.PLACEHOLDER'
+              | translate
+          "
           formControlName="category"
           [pOneAutocomplete]="categoryAutocomplete"
           i18n-placehoder
@@ -37,16 +49,24 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel for="descriptionInput" i18n>Descrição</label>
+        <label pOneLabel for="descriptionInput" i18n>{{
+          '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.DESCRIPTION.LABEL'
+            | translate
+        }}</label>
         <textarea
           #descriptionInput
           pOneInput
-          placeholder="Digite a descrição da sub categoria"
+          [placeholder]="
+            '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.DESCRIPTION.LABEL'
+              | translate
+          "
           formControlName="description"
         ></textarea>
       </p-one-form-field>
       <p-one-form-field>
-        <label for="colorInput">Cor</label>
+        <label for="colorInput">{{
+          '@PONE.SUB_CATEGORIES.MODALS.CREATE.FIELDS.COLOR.LABEL' | translate
+        }}</label>
         <p-one-color-picker
           #colorInput
           formControlName="color"
@@ -56,14 +76,17 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.SUB_CATEGORIES.MODALS.CREATE.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isCreateSubCategoryDisabled$ | async"
-      (click)="this.createSubCategory()"
+      (click)="createSubCategory()"
     >
-      Criar sub categoria
+      {{
+        '@PONE.SUB_CATEGORIES.MODALS.CREATE.BUTTONS.CREATE_SUB_CATEGORY'
+          | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TranslateService } from '@ngx-translate/core';
 import { CategoryService, SubCategoryService } from '@p-one/financial';
 import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
@@ -67,12 +68,17 @@ export class SubCategoryEffects {
   readonly createSubCategorySucessEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ESubCategoryActions.CREATE_SUB_CATEGORY_SUCCESS),
-      map((_) => closeCreateSubCategoryDialog()),
-      tap(() => {
-        this._toastService.open('Sub categoria criada com sucesso', {
+      withLatestFrom(
+        this._translateService.get(
+          '@PONE.SUB_CATEGORIES.MESSAGES.CREATE_SUB_CATEGORY_SUCCESS'
+        )
+      ),
+      tap(([_, successMessage]) =>
+        this._toastService.open(successMessage, {
           color: 'success',
-        });
-      })
+        })
+      ),
+      map(() => closeCreateSubCategoryDialog())
     )
   );
 
@@ -239,6 +245,7 @@ export class SubCategoryEffects {
     private readonly _categoryService: CategoryService,
     private readonly _facade: SubCategoryFacade,
     private readonly _dialogService: DialogService,
-    private readonly _toastService: ToastService
+    private readonly _toastService: ToastService,
+    private readonly _translateService: TranslateService
   ) {}
 }
