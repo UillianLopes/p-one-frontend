@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@p-one/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
@@ -66,19 +66,10 @@ function httpLoaderFactory(http: HttpClient) {
     NgxCurrencyModule,
     POneTooltipModule,
     POneNotificationsDisplayButtonModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-      isolate: true,
-    }),
+    TranslateModule,
   ],
   providers: [EntryListFacade],
 })
 export class EntryListModule {
-  constructor(service: TranslateService, @Inject(LOCALE_ID) locale: string) {
-    service.use(locale);
-  }
+  constructor() {}
 }

@@ -149,7 +149,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/p-one-financial-app/src/favicon.ico",
-              "apps/p-one-financial-app/src/assets"
+              "apps/p-one-financial-app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./libs/shared-assets/",
+                "output": "./assets"
+              }
             ],
             "styles": [
               "apps/p-one-financial-app/src/styles.scss",
@@ -259,6 +264,32 @@
             "lintFilePatterns": [
               "libs/shared/src/**/*.ts",
               "libs/shared/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-assets": {
+      "projectType": "library",
+      "root": "libs/shared-assets",
+      "sourceRoot": "libs/shared-assets/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-assets"],
+          "options": {
+            "jestConfig": "libs/shared-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-assets/src/**/*.ts",
+              "libs/shared-assets/src/**/*.html"
             ]
           }
         }

@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Inject, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateCompiler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -19,7 +17,6 @@ import {
   POneInputModule,
   POneSidenavModule,
 } from '@p-one/shared';
-import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
 
 import { SubCategoryEffects } from './+state/sub-category.effects';
 import { SubCategoryFacade } from './+state/sub-category.facade';
@@ -29,14 +26,6 @@ import { DeleteSubCategoryModalComponent } from './modals/delete-sub-category-mo
 import { UpdateSubCategoryModalComponent } from './modals/update-sub-category-modal/update-sub-category-modal.component';
 import { SubCategoryComponent } from './sub-category.component';
 import { SubCategoryRoutingModule } from './sub-category.routing';
-
-function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(
-    http,
-    './assets/i18n/sub-categories/',
-    '.json'
-  );
-}
 
 @NgModule({
   declarations: [
@@ -63,23 +52,8 @@ function httpLoaderFactory(http: HttpClient) {
     POneBreadcrumbModule,
     POneColorPickerModule,
     POneNotificationsDisplayButtonModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-      isolate: true,
-      compiler: {
-        provide: TranslateCompiler,
-        useClass: TranslateMessageFormatCompiler,
-      },
-    }),
+    TranslateModule,
   ],
   providers: [SubCategoryFacade],
 })
-export class SubCategoryModule {
-  constructor(service: TranslateService, @Inject(LOCALE_ID) locale: string) {
-    service.use(locale);
-  }
-}
+export class SubCategoryModule {}

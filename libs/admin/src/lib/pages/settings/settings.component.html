@@ -8,7 +8,7 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2>{{ 'Configurações' }}</h2>
+    <h2>{{ '@PONE.LIBS.ADMIN.SETTINGS.TITLE' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
@@ -16,33 +16,56 @@
   <p-one-sub-header>
     <p-one-breadcrumb>
       <p-one-breadcrumb-item>
-        {{ '@PONE.SETTINGS.TITLE' | translate }}
+        {{ '@PONE.LIBS.ADMIN.SETTINGS.TITLE' | translate }}
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </p-one-sub-header>
   <p-one-sub-header>
     <div pOneFlexRow>
       <button class="btn btn-sm btn-primary" (click)="updateSettings()">
-        Salvar configurações
+        {{ '@PONE.LIBS.ADMIN.SETTINGS.BUTTONS.SAVE_SETTINGS' | translate }}
       </button>
     </div>
   </p-one-sub-header>
   <main class="p-one-settings__content">
     <form [formGroup]="form">
       <p-one-card>
-        <ng-container pOneCardTitle>Configurações gerais</ng-container>
+        <ng-container pOneCardTitle>{{
+          '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.TITLE'
+            | translate
+        }}</ng-container>
         <section class="p-one-settings__fields-grid">
           <p-one-form-field>
-            <label>Language</label>
-            <select pOneInput formControlName="language">
+            <label>{{
+              '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.FIELDS.LANGUAGE.LABEL'
+                | translate
+            }}</label>
+            <select
+              pOneInput
+              formControlName="language"
+              [attr.aria-placeholder]="
+                '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.FIELDS.LANGUAGE.PLACEHOLDER'
+                  | translate
+              "
+            >
               <option ngValue="pt-BR">Português (BR)</option>
               <option ngValue="en">English (US)</option>
             </select>
           </p-one-form-field>
 
           <p-one-form-field>
-            <label>Moeda</label>
-            <select pOneInput formControlName="currency">
+            <label>{{
+              '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.FIELDS.CURRENCY.LABEL'
+                | translate
+            }}</label>
+            <select
+              pOneInput
+              formControlName="currency"
+              [attr.aria-placeholder]="
+                '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.FIELDS.CURRENCY.PLACEHOLDER'
+                  | translate
+              "
+            >
               <option ngValue="BRL">Real (BRL)</option>
               <option ngValue="USD">Dolar (USD)</option>
             </select>

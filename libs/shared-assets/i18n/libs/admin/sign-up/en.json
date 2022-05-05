@@ -1,0 +1,29 @@
+{
+  "@PONE": {
+    "LIBS": {
+      "ADMIN": {
+        "SIGN_UP": {
+          "TITLE": "Sign Up",
+          "BUTTONS": {
+            "SAVE_SETTINGS": "Save settings"
+          },
+          "SECTIONS": {
+            "GENERAL_SETTINGS": {
+              "TITLE": "General settings",
+              "FIELDS": {
+                "LANGUAGE": {
+                  "LABEL": "Language",
+                  "PLACEHOLDER": "Select a language..."
+                },
+                "CURRENCY": {
+                  "LABEL": "Currency",
+                  "PLACEHOLDER": "Select a currency..."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

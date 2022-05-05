@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { POneAdminModule } from '@p-one/admin';
+import { POneAdminModule, SettingsFacade, SettingsStoreModule, UserService } from '@p-one/admin';
 import { POneCoreModule } from '@p-one/core';
 import { POneFinancialModule } from '@p-one/financial';
 import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
@@ -18,6 +18,7 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
+import { tap } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -62,7 +63,7 @@ import { AppRoutingModule } from './app.routing';
     }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    UserStoreModule,
+
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
@@ -85,7 +86,7 @@ import { AppRoutingModule } from './app.routing';
       loader: {
         provide: TranslateLoader,
         useFactory: (client: HttpClient) =>
-          new TranslateHttpLoader(client, '/assets/i18n/core/', '.json'),
+          new TranslateHttpLoader(client, '/assets/i18n/', '.json'),
         deps: [HttpClient],
       },
       compiler: {
@@ -94,6 +95,8 @@ import { AppRoutingModule } from './app.routing';
       },
       defaultLanguage: 'en',
     }),
+    UserStoreModule,
+    SettingsStoreModule,
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -105,6 +108,20 @@ import { AppRoutingModule } from './app.routing';
         environment.identityEndpoint,
         environment.adminEndpoint,
       ],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (
+        userService: UserService,
+        settingsFacade: SettingsFacade
+      ) => {
+        return () =>
+          userService
+            .settings()
+            .pipe(tap((settings) => settingsFacade.setUserSettings(settings)));
+      },
+      deps: [UserService, SettingsFacade],
+      multi: true,
     },
   ],
 })

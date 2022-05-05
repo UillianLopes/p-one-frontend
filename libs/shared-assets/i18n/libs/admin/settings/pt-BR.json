@@ -1,0 +1,14 @@
+{
+  "@PONE": {
+    "LIBS": {
+      "ADMIN": {
+        "SETTINGS": {
+          "TITLE": "Cadastro",
+          "BUTTONS": {
+            "ALREADY_HAVE_AN_ACCOUNT": "Já possui uma conta?"
+          }
+        }
+      }
+    }
+  }
+}

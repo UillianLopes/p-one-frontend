@@ -5,6 +5,7 @@ import {
   loadUserSettings,
   loadUserSettingsFailure,
   loadUserSettingsSuccess,
+  setUserSettings,
   updateUserSettings,
   updateUserSettingsFailure,
   updateUserSettingsSuccess,
@@ -44,15 +45,18 @@ const _settingsReducer = createReducer<SettingsState>(
     isSettingsLoading: true,
     error: undefined,
   })),
-  on(updateUserSettingsSuccess, (state) => ({
+  on(updateUserSettingsSuccess, (state, { settings }) => ({
     ...state,
+    settings,
     isSettingsLoading: false,
   })),
   on(updateUserSettingsFailure, (state, { error }) => ({
     ...state,
     isSettingsLoading: false,
     error,
-  }))
+  })),
+
+  on(setUserSettings, (state, { settings }) => ({ ...state, settings }))
 );
 
 export function settingsReducer(state: SettingsState, action: Action) {

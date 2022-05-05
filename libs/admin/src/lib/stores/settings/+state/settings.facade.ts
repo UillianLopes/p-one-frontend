@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { SettingsModel } from '../../../models';
-import { loadUserSettings, updateUserSettings } from './settings.actions';
+import { loadUserSettings, manageUpdateUserSettings, setUserSettings } from './settings.actions';
 import { SettingsState } from './settings.reducer';
 import * as SettingsSelectors from './settings.selectors';
 
@@ -24,9 +24,13 @@ export class SettingsFacade {
 
   public updateUserSettings(settings: SettingsModel) {
     this._store.dispatch(
-      updateUserSettings({
+      manageUpdateUserSettings({
         settings,
       })
     );
+  }
+
+  public setUserSettings(settings: SettingsModel) {
+    this._store.dispatch(setUserSettings({ settings }));
   }
 }

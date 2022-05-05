@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
-import { SettingsFacade } from './+state/settings.facade';
+import { SettingsFacade } from '../../stores/settings/+state/settings.facade';
 
 @Component({
   selector: 'p-one-settings',
@@ -16,6 +16,7 @@ export class SettingsComponent extends DestroyableMixin() implements OnInit {
   public readonly form = this._formBuilder.group({
     language: ['pt-BR'],
     currency: ['BRL'],
+    financial: [null],
   });
 
   constructor(
