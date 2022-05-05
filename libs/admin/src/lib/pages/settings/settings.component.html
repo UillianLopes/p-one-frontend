@@ -1,0 +1,54 @@
+<p-one-container [isLoading]="(isSettingsLoading$ | async)!">
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2>{{ 'Configurações' }}</h2>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <p-one-sub-header>
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.SETTINGS.TITLE' | translate }}
+      </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </p-one-sub-header>
+  <p-one-sub-header>
+    <div pOneFlexRow>
+      <button class="btn btn-sm btn-primary" (click)="updateSettings()">
+        Salvar configurações
+      </button>
+    </div>
+  </p-one-sub-header>
+  <main class="p-one-settings__content">
+    <form [formGroup]="form">
+      <p-one-card>
+        <ng-container pOneCardTitle>Configurações gerais</ng-container>
+        <section class="p-one-settings__fields-grid">
+          <p-one-form-field>
+            <label>Language</label>
+            <select pOneInput formControlName="language">
+              <option ngValue="pt-BR">Português (BR)</option>
+              <option ngValue="en">English (US)</option>
+            </select>
+          </p-one-form-field>
+
+          <p-one-form-field>
+            <label>Moeda</label>
+            <select pOneInput formControlName="currency">
+              <option ngValue="BRL">Real (BRL)</option>
+              <option ngValue="USD">Dolar (USD)</option>
+            </select>
+          </p-one-form-field>
+        </section>
+      </p-one-card>
+    </form>
+  </main>
+</p-one-container>

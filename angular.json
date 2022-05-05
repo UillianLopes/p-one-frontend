@@ -1,6 +1,32 @@
 {
   "version": 1,
   "projects": {
+    "admin": {
+      "projectType": "library",
+      "root": "libs/admin",
+      "sourceRoot": "libs/admin/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin"],
+          "options": {
+            "jestConfig": "libs/admin/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/src/**/*.ts",
+              "libs/admin/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "core": {
       "projectType": "library",
       "root": "libs/core",

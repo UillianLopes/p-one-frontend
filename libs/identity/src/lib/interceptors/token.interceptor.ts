@@ -28,10 +28,11 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!this._isTokenRequiredForThisUri(req.url)) {
+    if (!this._isTokenRequiredForThisUri(req.url) || !this._oidcSecurityService.isAuthenticated()) {
       return next.handle(req);
     }
 
+    
     return next.handle(
       req.clone({
         setHeaders: {

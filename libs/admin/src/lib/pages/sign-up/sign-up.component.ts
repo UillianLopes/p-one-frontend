@@ -6,6 +6,8 @@ import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
+import { SignUpFacade } from './+state/sign-up-store.facade';
+
 @Component({
   selector: 'p-one-sign-up',
   templateUrl: './sign-up.component.html',
@@ -70,6 +72,7 @@ export class SignUpComponent extends DestroyableMixin() {
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router,
+    private readonly _signUpFacade: SignUpFacade,
     private readonly _userStoreFacade: UserStoreFacade
   ) {
     super();
@@ -89,22 +92,22 @@ export class SignUpComponent extends DestroyableMixin() {
     }
     const personal = this.personalForm.value;
     const address = this.personalForm.value;
-    this._userStoreFacade.signUp({
+    this._signUpFacade.signUp({
       ...personal,
       ...(address ?? {}),
-      countryCode: 55
+      countryCode: 55,
     });
   }
 
   private _validatePersonalAndAuthenticationForms(): void {
     for (const controlName in this.personalForm.controls) {
-      this.personalForm.get(controlName).markAsDirty();
-      this.personalForm.get(controlName).updateValueAndValidity();
+      this.personalForm.get(controlName)?.markAsDirty();
+      this.personalForm.get(controlName)?.updateValueAndValidity();
     }
 
     for (const controlName in this.personalForm.controls) {
-      this.personalForm.get(controlName).markAsDirty();
-      this.personalForm.get(controlName).updateValueAndValidity();
+      this.personalForm.get(controlName)?.markAsDirty();
+      this.personalForm.get(controlName)?.updateValueAndValidity();
     }
   }
 

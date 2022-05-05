@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { POneAdminModule } from '@p-one/admin';
 import { POneCoreModule } from '@p-one/core';
 import { POneFinancialModule } from '@p-one/financial';
 import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
@@ -42,6 +43,9 @@ import { AppRoutingModule } from './app.routing';
     POneNotificationModule.forRoot({
       endpoint: environment.notificationEndpoint,
     }),
+    POneAdminModule.forRoot({
+      adminEndpoint: environment.adminEndpoint,
+    }),
     AuthModule.forRoot({
       config: {
         configId: 'POne.App',
@@ -49,7 +53,7 @@ import { AppRoutingModule } from './app.routing';
         redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
         clientId: 'POne.App',
-        scope: 'openid profile ponefinancialapi ponenotifierapi',
+        scope: 'openid profile ponefinancialapi ponenotifierapi poneadminapi',
         silentRenew: true,
         responseType: 'code',
         logLevel: LogLevel.None,
@@ -58,7 +62,7 @@ import { AppRoutingModule } from './app.routing';
     }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    UserStoreModule.forRoot(),
+    UserStoreModule,
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
@@ -98,6 +102,8 @@ import { AppRoutingModule } from './app.routing';
       useValue: [
         environment.financialEndpoint,
         environment.notificationEndpoint,
+        environment.identityEndpoint,
+        environment.adminEndpoint,
       ],
     },
   ],

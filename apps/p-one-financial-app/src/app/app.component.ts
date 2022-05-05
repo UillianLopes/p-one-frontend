@@ -9,13 +9,13 @@ import { UserStoreFacade } from '@p-one/identity';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private readonly _userStoreService: UserStoreFacade,
-    private readonly _translateService: TranslateService,
+    private readonly _userStoreFacade: UserStoreFacade,
+    private readonly _translateFacade: TranslateService,
     @Inject(LOCALE_ID) private readonly _locale: string
   ) {}
 
   ngOnInit(): void {
-    this._userStoreService.load();
-    this._translateService.setDefaultLang(this._locale);
+    this._userStoreFacade.load();
+    this._translateFacade.setDefaultLang(this._locale);
   }
 }

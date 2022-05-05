@@ -1,15 +1,20 @@
-import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
+import { BaseSignalRStoreState } from 'ngrx-signalr-core';
 
 import { NotificationModel } from '../../../models';
 import * as NotificationsActions from './notifications-store.actions';
 
 export const NOTIFICATIONS_STORE_FEATURE_KEY = 'NOTIFICATIONS_STORE';
 
+export interface NotificationsStoreRootState {
+  signalr: BaseSignalRStoreState;
+  notifications: NotificationsStoreState;
+}
+
 export interface NotificationsStoreState {
   unreadNotifications: NotificationModel[];
   isUnreadNotificationsLoading?: boolean;
-  error?: any;
+  error?: unknown;
   isHubConnectionEstablished?: boolean;
 }
 

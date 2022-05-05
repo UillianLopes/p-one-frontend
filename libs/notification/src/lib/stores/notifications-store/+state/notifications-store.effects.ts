@@ -28,6 +28,7 @@ export class NotificationsStoreEffects {
     hubName: 'NOTIFICATIONS HUB',
     url: `${this._notificationEndpoint}/hubs/notifications`,
   };
+
   public readonly loadUnreadNotificationsEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ENotificationsStoreActions.LOAD_UNREAD_NOTIFICATIONS),

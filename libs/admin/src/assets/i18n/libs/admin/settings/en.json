@@ -1,0 +1,11 @@
+{
+  "@PONE": {
+    "LIBS": {
+      "ADMIN": {
+        "SETTINGS": {
+          "TITLE": "Settings"
+        }
+      }
+    }
+  }
+}
