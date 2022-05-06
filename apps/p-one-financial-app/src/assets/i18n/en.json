@@ -259,5 +259,75 @@
       "ENTRIES": "Input and search of financial entries, such as bills to pay or bills to be received.",
       "ORGANIZATION": "Organization of entries using categories and sub categories."
     }
+  },
+  "WALLETS": {
+    "TITLE": "Accounts/Wallets",
+    "BUTTONS": {
+      "CREATE_ACCOUNT_OR_WALLET": "Create account or wallet",
+      "DELETE_SELECTED_ACCOUNTS_OR_WALLETS": "Delete selected accounts or wallets"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "BALANCE": "Balance",
+        "BANK": "Bank",
+        "ACCOUNT_AGENCY": "Account/agency"
+      }
+    },
+    "MODALS": {
+      "FIELDS": {
+        "NAME": {
+          "LABEL": "Name",
+          "PLACEHOLDER": "Type the account or wallet name"
+        },
+        "CURRENCY": {
+          "LABEL": "Currency",
+          "PLACEHOLDER": "Select the account or wallet currency"
+        },
+        "ADDRESS": {
+          "LABEL": "Address",
+          "PLACEHOLDER": "Type the account or wallet address"
+        },
+        "COLOR": {
+          "LABEL": "Color",
+          "PLACEHOLDER": "Select the account or wallet color"
+        },
+        "BANK": {
+          "LABEL": "Bank",
+          "PLACEHOLDER": "Select the account or wallet bank"
+        },
+        "ACCOUNT_NUMBER": {
+          "LABEL": "Account number",
+          "PLACEHOLDER": "Type the account or wallet number"
+        },
+        "AGENCY": {
+          "LABEL": "Agency",
+          "PLACEHOLDER": "Type the account or wallet agency"
+        }
+      },
+      "CREATE_WALLET": {
+        "TITLE": "Create account or wallet",
+        "TYPES": {
+          "BANK_ACCOUNT": "Bank account",
+          "DIGITAL_WALLET": "Digital wallet"
+        },
+        "BUTTONS": {
+          "CREATE_WALLET": "Create account or wallet",
+          "CANCEL": "Cancel"
+        }
+      },
+      "UPDATE_WALLET": {
+        "TITLE": "Update account or wallet",
+        "TYPES": {
+          "BANK_ACCOUNT": "Bank account",
+          "DIGITAL_WALLET": "Digital wallet"
+        },
+        "BUTTONS": {
+          "UPDATE_WALLET": "Update account or wallet",
+          "CANCEL": "Cancel"
+        }
+      }
+    }
   }
 }

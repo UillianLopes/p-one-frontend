@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { generateColor } from '@p-one/core';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
@@ -21,7 +22,7 @@ export class CreateSubCategoryModalComponent
     type: [EEntryType.Credit, Validators.required],
     category: [null, [CustomValidators.requireToBeObject]],
     description: [''],
-    color: [''],
+    color: [generateColor()],
   });
 
   readonly isCreateSubCategoryDisabled$ = this.form.statusChanges.pipe(

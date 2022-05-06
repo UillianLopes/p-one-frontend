@@ -1,38 +1,56 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h5 class="card-header">Criação de contas / cateiras</h5>
+  <h5 class="card-header">
+    {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+  </h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
       <p-one-form-field>
         <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
           <p-one-radio-button [value]="EWalletType.Balance">
-            Conta bancária
+            {{
+              '@PONE.WALLETS.MODALS.CREATE_WALLET.TYPES.BANK_ACCOUNT'
+                | translate
+            }}
           </p-one-radio-button>
           <p-one-radio-button [value]="EWalletType.Wallet">
-            Carteira digital
+            {{
+              '@PONE.WALLETS.MODALS.CREATE_WALLET.TYPES.DIGITAL_WALLET'
+                | translate
+            }}
           </p-one-radio-button>
         </p-one-radio>
       </p-one-form-field>
-      <div pOneGrid gap="16px">
-        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-          <label pOneLabel for="nameInput" i18n>Name</label>
-          <input
-            #categoryNameInput
-            pOneInput
-            placeholder="Digite o nome da conta ou carteira"
-            formControlName="name"
-            i18n-placehoder
-          />
+
+      <p-one-form-field>
+        <label pOneLabel>{{
+          '@PONE.WALLETS.MODALS.FIELDS.NAME.LABEL' | translate
+        }}</label>
+        <input
+          pOneInput
+          formControlName="name"
+          [placeholder]="
+            '@PONE.WALLETS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
+          "
+        />
+      </p-one-form-field>
+      <div class="row">
+        <p-one-form-field class="col">
+          <label pOneLabel>{{
+            '@PONE.WALLETS.MODALS.FIELDS.CURRENCY.LABEL' | translate
+          }}</label>
+          <select pOneInput formControlName="currency">
+            <option ngValue="BRL">Real (BRL)</option>
+            <option ngValue="USD">Dollar (USD)</option>
+          </select>
         </p-one-form-field>
-        <p-one-form-field pOneGridColumn="200px">
-          <label pOneLabel for="valueInput" i18n>Valor</label>
-          <input
-            #valueInput
-            pOneInput
-            placeholder="R$ 0,00"
-            formControlName="value"
-            type="tel"
-            currencyMask
-          />
+        <p-one-form-field class="col">
+          <label pOneLabel for="colorInput">
+            {{ '@PONE.WALLETS.MODALS.FIELDS.COLOR.LABEL' | translate }}
+          </label>
+          <p-one-color-picker
+            #colorInput
+            formControlName="color"
+          ></p-one-color-picker>
         </p-one-form-field>
       </div>
 
@@ -61,47 +79,53 @@
         </p-one-form-field>
         <div pOneGrid gap="16px">
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-            <label pOneLabel for="agencyInput" i18n>Agência</label>
+            <label pOneLabel for="agencyInput">
+              {{ '@PONE.WALLETS.MODALS.FIELDS.AGENCY.LABEL' | translate }}
+            </label>
             <input
               #agencyInput
               pOneInput
-              placeholder="Digite o nome da conta"
+              [placeholder]="
+                '@PONE.WALLETS.MODALS.FIELDS.AGENCY.PLACEHOLDER' | translate
+              "
               formControlName="agency"
               type="tel"
             />
           </p-one-form-field>
 
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-            <label pOneLabel for="numberInput" i18n>Conta</label>
+            <label pOneLabel for="numberInput" i18n>
+              {{
+                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.LABEL' | translate
+              }}
+            </label>
             <input
               #numberInput
               pOneInput
-              placeholder="Digite o numero da conta"
+              [placeholder]="
+                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.PLACEHOLDER'
+                  | translate
+              "
               formControlName="number"
               type="tel"
             />
           </p-one-form-field>
         </div>
-        <p-one-form-field>
-          <label for="colorInput">Cor</label>
-          <p-one-color-picker
-            #colorInput
-            formControlName="color"
-          ></p-one-color-picker>
-        </p-one-form-field>
       </ng-container>
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isCreateWalletDisabled$ | async"
       (click)="createWallet()"
     >
-      Criar conta / carteira
+      {{
+        '@PONE.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CREATE_WALLET' | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

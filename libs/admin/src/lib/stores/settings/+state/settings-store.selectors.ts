@@ -14,3 +14,8 @@ export const settingsSelector = createSelector(
   settingsStateSelector,
   ({ settings }) => settings
 );
+
+export const settingsCurrencySelector = createSelector(
+  settingsSelector,
+  (settings) => settings?.currency
+);

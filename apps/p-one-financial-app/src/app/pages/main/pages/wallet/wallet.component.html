@@ -8,19 +8,21 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2 i18n>Contas / Carteiras</h2>
+    <h2>{{ '@PONE.WALLETS.TITLE' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
   </p-one-header>
   <div pOneHeader class="p-one-balance__sub-header">
     <p-one-breadcrumb>
-      <p-one-breadcrumb-item i18n> Contas / Carteiras </p-one-breadcrumb-item>
+      <p-one-breadcrumb-item i18n>
+        {{ '@PONE.WALLETS.TITLE' | translate }}
+      </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </div>
   <div pOneHeader class="p-one-balance__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateWalletDialog()">
-      Criar conta / carteira
+      {{ '@PONE.WALLETS.BUTTONS.CREATE_ACCOUNT_OR_WALLET' | translate }}
     </button>
 
     <p-one-form-field noPadding>
@@ -31,10 +33,18 @@
     <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Saldo</th>
-          <th scope="col">Banco</th>
-          <th scope="col">Agência / conta</th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.BALANCE' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.BANK' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.ACCOUNT_AGENCY' | translate }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +81,16 @@
             </div>
           </ng-template>
           <td>{{ wallet.name }}</td>
-          <td>{{ wallet.value | currency: 'BRL' }}</td>
+          <td>
+            <ng-container
+              *ngIf="wallet.currency as currency; else settingsCurrencyTemplate"
+            >
+              {{ wallet.value | currency: currency }}
+            </ng-container>
+            <ng-template #settingsCurrencyTemplate>
+              {{ wallet.value | currency: (settingsCurrency$ | async) }}
+            </ng-template>
+          </td>
           <td>{{ displayBankFn(wallet.bank) }}</td>
           <td>
             <ng-container *ngIf="wallet.agency">
