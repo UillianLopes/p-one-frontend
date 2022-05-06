@@ -1,79 +1,23 @@
-<!-- <p-one-container class="bg-primary">
-  <p-one-header>
-    <b pOneLeading>POne Financeiro</b>
-
-    <div pOneTrailing pOneFlexRow gap="10px">
-      <button class="btn btn-sm btn-outline-light" routerLink="/user/sign-up">
-        Quero me cadastrar
-      </button>
-      <button class="btn btn-sm btn-secondary" (click)="signIn()">
-        Entrar
-      </button>
-    </div>
-  </p-one-header>
-
-  <div class="container text-white">
-    <section>
-      <h1>Bem vindo ao POne Financeiro</h1>
-
-      <p>No momento o sistema conta com as seguintes funcionalidades:</p>
-    </section>
-
-    <section>
-      <h3>Dashboard</h3>
-      <p>
-        Com o dashboard você pode ver como esta sua vida financeira visualizando
-        gráficos de saldos em diferentes carteiras, balanço mensal de entradas e
-        saidas, e alguns outros gráficos que podem te ajudar a se organizar.
-      </p>
-    </section>
-
-    <img src="assets/img/analytics.svg" style="width: 200px" />
-
-    <section>
-      <h3>Entradas</h3>
-      <p>
-        As entradas possibilitam que você faça lançamentos de boletos, contas de
-        cartão de crédito e recebimentos, de forma rapida, para que você possa
-        ter uma visão geral de suas finanças.
-      </p>
-    </section>
-    <img src="assets/img/money.svg" style="width: 200px" />
-
-    <section>
-      <h3>Cadastros</h3>
-      <p>
-        Para organizar as entradas o sistema possui cadastros de carteiras,
-        categorias e sub categorias, que são utilizadas no dashboard para que
-        você consiga acompahar de forma mais organizada, o que está acontecendo
-        com suas contas.
-      </p>
-    </section>
-    <section>
-      <p>
-        Esse sistema foi feito para demonstrar algumas das minhas habilidates na
-        programação.
-      </p>
-
-      <p>
-        Com isso em mente se você chegou até aqui, e pretente usar o sistema,
-        pode aproveitar para me dar feedback sobre o que preciso melhorar no
-        sistema no contato do email:
-        <a href="mailto://uilliansl@outlook.com">uilliansl@outlook.com</a>
-      </p>
-      <br />
-    </section>
-  </div>
-</p-one-container> -->
-
 <main class="p-one-landing__main">
   <div class="container">
     <nav class="p-one-landing__nav">
       <div class="p-one-landing__leading">
-        <h4>POne Financeiro</h4>
+        <h4>{{ '@PONE.LANDING.TITLE' | translate }}</h4>
       </div>
+
       <div class="p-one-landing__trailing">
-        <button class="btn btn-outline-light" (click)="signIn()">Entrar</button>
+        <p-one-radio
+          appearance="outline"
+          color="light"
+          [formControl]="languageControl"
+          size="md"
+        >
+          <p-one-radio-button value="en">en-US</p-one-radio-button>
+          <p-one-radio-button value="pt-BR">pt-BR</p-one-radio-button>
+        </p-one-radio>
+        <button class="btn btn-outline-light" (click)="signIn()">
+          {{ '@PONE.LANDING.BUTTONS.SIGN_IN' | translate }}
+        </button>
       </div>
     </nav>
     <br />
@@ -83,19 +27,17 @@
         <img src="assets/img/analytics.svg" />
       </div>
       <div class="col-lg-8">
-        <h1>Bem vindo ao POne Financeiro</h1>
+        <h1>{{ '@PONE.LANDING.WELCOME' | translate }}</h1>
         <br />
-        <h3>Aqui você pode organizar suas finanças de forma rapida e fácil</h3>
+        <h3>{{ '@PONE.LANDING.PARAGRAPHS.FIRST' | translate }}</h3>
         <h4>
-          Atualmente o sistema encontra-se em desenvolvimento, por isso contamos
-          apenas com as seguintes funcionalidades liberadas para nossos usuários
+          {{ '@PONE.LANDING.PARAGRAPHS.SECOND' | translate }}
         </h4>
         <ul>
-          <li>Dashboard</li>
-          <li>Lançamento e consulta de dados financieros</li>
-          <li>Organização por categorias e sub categorias</li>
+          <li>{{ '@PONE.LANDING.TOPICS.DASHBOARD' | translate }}</li>
+          <li>{{ '@PONE.LANDING.TOPICS.ENTRIES' | translate }}</li>
+          <li>{{ '@PONE.LANDING.TOPICS.ORGANIZATION' | translate }}</li>
         </ul>
-
         <p-one-sign-up-card></p-one-sign-up-card>
       </div>
     </div>

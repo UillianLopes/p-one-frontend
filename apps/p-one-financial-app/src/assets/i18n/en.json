@@ -243,5 +243,21 @@
       "ACCOUNTS_OR_WALLETS": "Accounts/Wallets",
       "SIGN_OUT": "Sign out"
     }
+  },
+  "LANDING": {
+    "TITLE": "POne Financeiro",
+    "WELCOME": "Welcome to POne Financeiro",
+    "BUTTONS": {
+      "SIGN_IN": "Sign in"
+    },
+    "PARAGRAPHS": {
+      "FIRST": "Here you can manage your finances by a simple and intuitive interface.",
+      "SECOND": "Actualy the application is under development, so we have a limited number of features avaliable."
+    },
+    "TOPICS": {
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": "Input and search of financial entries, such as bills to pay or bills to be received.",
+      "ORGANIZATION": "Organization of entries using categories and sub categories."
+    }
   }
 }

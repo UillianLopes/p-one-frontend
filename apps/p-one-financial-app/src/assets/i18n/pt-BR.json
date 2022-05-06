@@ -243,5 +243,21 @@
       "ACCOUNTS_OR_WALLETS": "Contas/Carteiras",
       "SIGN_OUT": "Sair"
     }
+  },
+  "LANDING": {
+    "TITLE": "POne Financeiro",
+    "WELCOME": "Bem vindo ao POne Financeiro",
+    "BUTTONS": {
+      "SIGN_IN": "Entrar"
+    },
+    "PARAGRAPHS": {
+      "FIRST": "Aqui você pode organizar suas finanças de forma rapida e fácil",
+      "SECOND": "Atualmente o sistema encontra-se em desenvolvimento, por isso contamos apenas com as seguintes funcionalidades liberadas para nossos usuários"
+    },
+    "TOPICS": {
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": "Lançamento e consulta de dados financieros",
+      "ORGANIZATION": "Organização por categorias e sub categorias"
+    }
   }
 }

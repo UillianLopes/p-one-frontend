@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CustomTranslateLoader } from '@p-one/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserStoreModule } from '@p-one/identity';
 import {
   POneAddressFormModule,
@@ -48,30 +46,10 @@ import { SignUpRoutingModule } from './sign-up.routing';
     EffectsModule.forFeature([SignUpEffects]),
     POneDatepickerModule,
     NgxMaskModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (client: HttpClient) =>
-          new CustomTranslateLoader(client, [
-            {
-              prefix: './assets/i18n/libs/',
-              suffix: '.json',
-            },
-          ]),
-        deps: [HttpClient],
-      },
-      isolate: true,
-      defaultLanguage: 'en',
-    }),
+    TranslateModule,
     SettingsStoreModule,
   ],
   providers: [SignUpFacade],
   exports: [SignUpCardComponent],
 })
-export class POneSignUpModule {
-  constructor(translateService: TranslateService) {
-    if (['pt-BR', 'en'].includes(navigator.language)) {
-      translateService.use(navigator.language);
-    }
-  }
-}
+export class POneSignUpModule {}
