@@ -17,7 +17,7 @@ import { distinctUntilChanged, map, skip, startWith, takeUntil } from 'rxjs/oper
 import { DestroyableMixin } from '../../@mixins/destroyable.mixin';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
 import { RadioStore } from './radio.store';
-import { RadioAppearance, RadioColor } from './radio.types';
+import { RadioAppearance, RadioColor, RadioSize } from './radio.types';
 
 const NORMAL_COLORS: { [color: string]: string[] } = {
   primary: ['btn-primary'],
@@ -25,6 +25,7 @@ const NORMAL_COLORS: { [color: string]: string[] } = {
   danger: ['btn-danger'],
   warning: ['btn-warning'],
   secondary: ['btn-secondary'],
+  light: ['btn-light'],
 };
 
 const OUTLINE_COLORS: { [color: string]: string[] } = {
@@ -33,18 +34,32 @@ const OUTLINE_COLORS: { [color: string]: string[] } = {
   danger: ['btn-outline-danger'],
   warning: ['btn-outline-warning'],
   secondary: ['btn-outline-secondary'],
+  light: ['btn-outline-light'],
+};
+
+const SIZES: { [size: string]: string } = {
+  sm: 'btn-sm',
+  lg: 'btn-lg',
+  md: 'btn-md',
 };
 
 function getCorrectClass(
   color?: RadioColor,
-  apperance?: RadioAppearance
+  apperance?: RadioAppearance,
+  size?: string
 ): string[] {
+  let classes: string[] = [];
+
   switch (apperance) {
     case 'outline':
-      return [...OUTLINE_COLORS[color ?? 'primary']];
+      classes = [...classes, ...OUTLINE_COLORS[color ?? 'primary']];
+      break;
     default:
-      return [...NORMAL_COLORS[color ?? 'primary']];
+      classes = [...classes, ...NORMAL_COLORS[color ?? 'primary']];
+      break;
   }
+
+  return [...classes, SIZES[size ?? 'sm']];
 }
 
 @Component({
@@ -70,9 +85,10 @@ export class RadioComponent
   public readonly buttonClass$ = combineLatest([
     this._store.color$,
     this._store.appearance$,
+    this._store.size$,
   ]).pipe(
-    map(([color, appearance]) => {
-      return getCorrectClass(color, appearance);
+    map(([color, appearance, size]) => {
+      return getCorrectClass(color, appearance, size);
     })
   );
 
@@ -82,6 +98,11 @@ export class RadioComponent
   @Input()
   set value(v: any) {
     this._store.setValue(v);
+  }
+
+  @Input()
+  set size(v: RadioSize) {
+    this._store.setSize(v);
   }
 
   @Input()

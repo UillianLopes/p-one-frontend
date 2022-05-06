@@ -1,0 +1,11 @@
+.p-one-settings {
+  &__content {
+    padding: 16px;
+  }
+
+  &__fields-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    gap: 16px;
+  }
+}

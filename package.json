@@ -82,6 +82,7 @@
     "@angular/cli": "13.2.6",
     "@angular/compiler-cli": "13.2.6",
     "@angular/language-service": "13.2.6",
+    "@ngrx/schematics": "^13.2.0",
     "@nrwl/angular": "13.9.5",
     "@nrwl/cli": "13.8.8",
     "@nrwl/cypress": "13.9.5",

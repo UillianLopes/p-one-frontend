@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@p-one/admin": ["libs/admin/src/index.ts"],
       "@p-one/core": ["libs/core/src/index.ts"],
       "@p-one/financial": ["libs/financial/src/index.ts"],
       "@p-one/identity": ["libs/identity/src/index.ts"],

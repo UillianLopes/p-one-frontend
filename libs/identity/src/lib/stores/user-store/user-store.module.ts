@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
@@ -13,12 +13,6 @@ import { USER_STORE_KEY, userStoreReducer } from './+state/user-store.reducer';
     StoreModule.forFeature(USER_STORE_KEY, userStoreReducer),
     EffectsModule.forFeature([UserStoreEffects]),
   ],
+  providers: [UserStoreFacade],
 })
-export class UserStoreModule {
-  static forRoot(): ModuleWithProviders<UserStoreModule> {
-    return {
-      ngModule: UserStoreModule,
-      providers: [UserStoreFacade],
-    };
-  }
-}
+export class UserStoreModule {}

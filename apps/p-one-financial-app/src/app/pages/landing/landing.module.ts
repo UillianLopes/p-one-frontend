@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { POneContainerModule, POneFlexModule, POneHeaderModule } from '@p-one/shared';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { POneSignUpModule } from '@p-one/admin';
+import { POneContainerModule, POneFlexModule, POneHeaderModule, POneInputModule } from '@p-one/shared';
 
 import { LandingComponent } from './landing.component';
 import { LandingRoutingModule } from './landing.routing';
@@ -13,6 +16,10 @@ import { LandingRoutingModule } from './landing.routing';
     POneContainerModule,
     POneHeaderModule,
     POneFlexModule,
+    POneSignUpModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    POneInputModule,
   ],
 })
 export class LandingModule {}

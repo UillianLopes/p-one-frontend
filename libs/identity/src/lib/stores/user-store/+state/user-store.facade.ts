@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { CreateUserRequest } from '../../../models/requests/create-user.request';
-import { load, signIn, signOut, signUp } from './user-store.actions';
+import { load, signIn, signOut } from './user-store.actions';
 import { UserStoreState } from './user-store.reducer';
 import * as UserStoreSelectors from './user-store.selectors';
 
@@ -17,10 +16,6 @@ export class UserStoreFacade {
   );
 
   constructor(private readonly _store: Store<UserStoreState>) {}
-
-  public signUp(user: CreateUserRequest) {
-    this._store.dispatch(signUp({ user }));
-  }
 
   public signIn() {
     this._store.dispatch(signIn());

@@ -1,7 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 
 import { UserModel } from '../../../models';
-import { CreateUserRequest } from '../../../models/requests/create-user.request';
 
 export enum EUserStoreActions {
   LOAD = '[User] Load',
@@ -15,10 +14,6 @@ export enum EUserStoreActions {
   SIGN_OUT = '[User] Sign out',
   SIGN_OUT_SUCCESS = '[User] Sign out success',
   SIGN_OUT_FAILURE = '[User] Sign out failure',
-
-  SIGN_UP = '[User] Sign up',
-  SIGN_UP_SUCCESS = '[User] Sign up success',
-  SIGN_UP_FAILURE = '[User] Sign up failure',
 }
 
 export const load = createAction(EUserStoreActions.LOAD);
@@ -42,15 +37,6 @@ export const signOut = createAction(EUserStoreActions.SIGN_OUT);
 export const signOutSuccess = createAction(EUserStoreActions.SIGN_OUT_SUCCESS);
 export const signOutFailure = createAction(EUserStoreActions.SIGN_OUT_FAILURE);
 
-export const signUp = createAction(
-  EUserStoreActions.SIGN_UP,
-  props<{ user: CreateUserRequest }>()
-);
-export const signUpSuccess = createAction(EUserStoreActions.SIGN_UP_SUCCESS);
-export const signUpFailure = createAction(
-  EUserStoreActions.SIGN_UP_FAILURE,
-  props<{ error: any }>()
-);
 const actionsUnion = union({
   load,
   loadSuccess,
@@ -58,10 +44,6 @@ const actionsUnion = union({
   signIn,
   signInSuccess,
   signInFailure,
-
-  signUp,
-  signUpSuccess,
-  signUpFailure,
 });
 
 export type UserStoreActionsUnion = typeof actionsUnion;

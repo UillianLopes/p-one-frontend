@@ -1,12 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { BaseSignalRStoreState } from 'ngrx-signalr-core';
 
-import { NOTIFICATIONS_STORE_FEATURE_KEY, NotificationsStoreState } from './notifications-store.reducer';
+import { NOTIFICATIONS_STORE_FEATURE_KEY, NotificationsStoreRootState } from './notifications-store.reducer';
 
-const notificationsStoreSelector = createFeatureSelector<{
-  notifications: NotificationsStoreState;
-  signalr: BaseSignalRStoreState;
-}>(NOTIFICATIONS_STORE_FEATURE_KEY);
+const notificationsStoreSelector =
+  createFeatureSelector<NotificationsStoreRootState>(
+    NOTIFICATIONS_STORE_FEATURE_KEY
+  );
 
 const notificationsStateSelecor = createSelector(
   notificationsStoreSelector,

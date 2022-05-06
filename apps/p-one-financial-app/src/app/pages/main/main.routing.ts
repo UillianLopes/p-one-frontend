@@ -18,9 +18,7 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () =>
-          import('./pages/settings/settings.module').then(
-            (m) => m.SettingsModule
-          ),
+          import('@p-one/admin').then((m) => m.SettingsModule),
       },
       {
         path: 'entries',
