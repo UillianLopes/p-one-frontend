@@ -25,7 +25,7 @@ export class CreateWalletModalStore extends ComponentStore<CreateWalletModalStat
     private readonly _dialogService: DialogService
   ) {
     super({
-      mode: EWalletType.Balance,
+      mode: EWalletType.Wallet,
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { generateColor } from '@p-one/core';
 import { EEntryType } from '@p-one/financial';
 import { map, startWith } from 'rxjs/operators';
 
@@ -16,7 +17,7 @@ export class CreateCategoryModalComponent implements OnInit {
     name: ['', [Validators.required]],
     type: [EEntryType.Credit, [Validators.required]],
     description: [''],
-    color: ['#ffffff', [Validators.required]],
+    color: [generateColor(), [Validators.required]],
   });
 
   public readonly isCreateCategoryDisabled$ = this.form.statusChanges.pipe(

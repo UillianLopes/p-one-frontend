@@ -16,6 +16,10 @@ export class SettingsStoreFacade {
     SettingsSelectors.settingsSelector
   );
 
+  public readonly settingsCurrency$ = this._store.select(
+    SettingsSelectors.settingsCurrencySelector
+  );
+
   constructor(private readonly _store: Store<SettingsState>) {}
 
   public loadUserSettings(): void {

@@ -259,5 +259,75 @@
       "ENTRIES": "Lançamento e consulta de dados financieros",
       "ORGANIZATION": "Organização por categorias e sub categorias"
     }
+  },
+  "WALLETS": {
+    "TITLE": "Contas/Carteiras",
+    "BUTTONS": {
+      "CREATE_ACCOUNT_OR_WALLET": "Criar conta/carteira",
+      "DELETE_SELECTED_ACCOUNTS_OR_WALLETS": "Excluir contas/carteiras selecionadas"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Nome",
+        "DESCRIPTION": "Descrição",
+        "BALANCE": "Saldo",
+        "BANK": "Banco",
+        "ACCOUNT_AGENCY": "Agência / conta"
+      }
+    },
+    "MODALS": {
+      "FIELDS": {
+        "NAME": {
+          "LABEL": "Nome",
+          "PLACEHOLDER": "Digite o nome da conta / carteira..."
+        },
+        "CURRENCY": {
+          "LABEL": "Moeda",
+          "PLACEHOLDER": "Selecione a moeda da conta / carteira..."
+        },
+        "ADDRESS": {
+          "LABEL": "Endereço",
+          "PLACEHOLDER": "Digite o endereço da conta/carteira..."
+        },
+        "COLOR": {
+          "LABEL": "Cor",
+          "PLACEHOLDER": "Selecione a cor da conta/carteira..."
+        },
+        "BANK": {
+          "LABEL": "Banco",
+          "PLACEHOLDER": "Selecione o banco da conta/carteira..."
+        },
+        "ACCOUNT_NUMBER": {
+          "LABEL": "Número da conta",
+          "PLACEHOLDER": "Digite o número da conta/carteira..."
+        },
+        "AGENCY": {
+          "LABEL": "Agência",
+          "PLACEHOLDER": "Digite a agência da conta/carteira..."
+        }
+      },
+      "CREATE_WALLET": {
+        "TITLE": "Criação de contas/carteiras",
+        "TYPES": {
+          "BANK_ACCOUNT": "Conta bancária",
+          "DIGITAL_WALLET": "Carteira digital"
+        },
+        "BUTTONS": {
+          "CREATE_WALLET": "Criar conta/cateira",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "UPDATE_WALLET": {
+        "TITLE": "Alteração de contas/carteiras",
+        "TYPES": {
+          "BANK_ACCOUNT": "Conta bancária",
+          "DIGITAL_WALLET": "Carteira digital"
+        },
+        "BUTTONS": {
+          "UPDATE_WALLET": "Alterar conta/cateira",
+          "CANCEL": "Cancelar"
+        }
+      }
+    }
   }
 }
