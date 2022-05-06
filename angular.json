@@ -152,7 +152,7 @@
               "apps/p-one-financial-app/src/assets",
               {
                 "glob": "**/*",
-                "input": "./libs/shared-assets/",
+                "input": "./assets",
                 "output": "./assets"
               }
             ],
@@ -264,32 +264,6 @@
             "lintFilePatterns": [
               "libs/shared/src/**/*.ts",
               "libs/shared/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "shared-assets": {
-      "projectType": "library",
-      "root": "libs/shared-assets",
-      "sourceRoot": "libs/shared-assets/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared-assets"],
-          "options": {
-            "jestConfig": "libs/shared-assets/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/shared-assets/src/**/*.ts",
-              "libs/shared-assets/src/**/*.html"
             ]
           }
         }

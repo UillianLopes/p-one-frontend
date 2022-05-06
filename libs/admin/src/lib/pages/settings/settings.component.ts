@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
-import { SettingsFacade } from '../../stores/settings/+state/settings.facade';
+import { SettingsStoreFacade } from '../../stores/settings/+state/settings-store.facade';
 
 @Component({
   selector: 'p-one-settings',
@@ -20,7 +20,7 @@ export class SettingsComponent extends DestroyableMixin() implements OnInit {
   });
 
   constructor(
-    private readonly _settingsFacade: SettingsFacade,
+    private readonly _settingsFacade: SettingsStoreFacade,
     private readonly _formBuilder: FormBuilder
   ) {
     super();

@@ -6,21 +6,21 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 
 import { UserService } from '../../../services';
 import {
-  ESettingsActions,
+  ESettingsStoreActions,
   loadUserSettingsFailure,
   loadUserSettingsSuccess,
-  SettingsActionsUnion,
+  SettingsStoreActionsUnion,
   updateUserSettings,
   updateUserSettingsFailure,
   updateUserSettingsSuccess,
-} from './settings.actions';
-import { SettingsFacade } from './settings.facade';
+} from './settings-store.actions';
+import { SettingsStoreFacade } from './settings-store.facade';
 
 @Injectable()
-export class SettingsEffects {
+export class SettingsStoreEffects {
   public readonly loadUserSettingsEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(ESettingsActions.LOAD_USER_SETTINGS),
+      ofType(ESettingsStoreActions.LOAD_USER_SETTINGS),
       switchMap(() =>
         this._userService.settings().pipe(
           map((settings) => loadUserSettingsSuccess({ settings })),
@@ -32,8 +32,8 @@ export class SettingsEffects {
 
   public readonly manageUpdateUserSettingsEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(ESettingsActions.MANAGE_UPDATE_USER_SETTINGS),
-      withLatestFrom(this._settingsFacade.settings$),
+      ofType(ESettingsStoreActions.MANAGE_UPDATE_USER_SETTINGS),
+      withLatestFrom(this._settingsStoreFacade.settings$),
       filter(
         ([{ settings }, currentSettings]) =>
           !_.isEqual(settings, currentSettings)
@@ -44,7 +44,7 @@ export class SettingsEffects {
 
   public readonly updateUserSettingsEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(ESettingsActions.UPDATE_USER_SETTINGS),
+      ofType(ESettingsStoreActions.UPDATE_USER_SETTINGS),
       switchMap(({ settings }) =>
         this._userService.updateSettings(settings).pipe(
           map(() => updateUserSettingsSuccess({ settings })),
@@ -55,8 +55,8 @@ export class SettingsEffects {
   );
 
   constructor(
-    private readonly _actions$: Actions<SettingsActionsUnion>,
+    private readonly _actions$: Actions<SettingsStoreActionsUnion>,
     private readonly _userService: UserService,
-    private readonly _settingsFacade: SettingsFacade
+    private readonly _settingsStoreFacade: SettingsStoreFacade
   ) {}
 }

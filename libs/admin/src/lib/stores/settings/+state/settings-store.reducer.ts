@@ -9,7 +9,7 @@ import {
   updateUserSettings,
   updateUserSettingsFailure,
   updateUserSettingsSuccess,
-} from './settings.actions';
+} from './settings-store.actions';
 
 export const SETTINGS_FEATURE_KEY = 'SETTINGS';
 
@@ -21,7 +21,7 @@ export interface SettingsState {
 
 const initialState = {};
 
-const _settingsReducer = createReducer<SettingsState>(
+const _settingsStoreReducer = createReducer<SettingsState>(
   initialState,
 
   on(loadUserSettings, (state) => ({
@@ -59,6 +59,6 @@ const _settingsReducer = createReducer<SettingsState>(
   on(setUserSettings, (state, { settings }) => ({ ...state, settings }))
 );
 
-export function settingsReducer(state: SettingsState, action: Action) {
-  return _settingsReducer(state, action);
+export function settingsStoreReducer(state: SettingsState, action: Action) {
+  return _settingsStoreReducer(state, action);
 }

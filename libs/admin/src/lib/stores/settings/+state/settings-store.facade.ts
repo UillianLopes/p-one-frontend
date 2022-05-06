@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { SettingsModel } from '../../../models';
-import { loadUserSettings, manageUpdateUserSettings, setUserSettings } from './settings.actions';
-import { SettingsState } from './settings.reducer';
-import * as SettingsSelectors from './settings.selectors';
+import { loadUserSettings, manageUpdateUserSettings, setUserSettings } from './settings-store.actions';
+import { SettingsState } from './settings-store.reducer';
+import * as SettingsSelectors from './settings-store.selectors';
 
 @Injectable()
-export class SettingsFacade {
+export class SettingsStoreFacade {
   public readonly isSettingsLoading$ = this._store.select(
     SettingsSelectors.isSettingsLoadingSelector
   );

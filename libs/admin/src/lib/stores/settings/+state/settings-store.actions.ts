@@ -2,7 +2,7 @@ import { createAction, props, union } from '@ngrx/store';
 
 import { SettingsModel } from '../../../models';
 
-export enum ESettingsActions {
+export enum ESettingsStoreActions {
   LOAD_USER_SETTINGS = '[Settings] Load User Settings',
   LOAD_USER_SETTINGS_SUCCESS = '[Settings] Load User Settings Success',
   LOAD_USER_SETTINGS_FAILURE = '[Settings] Load User Settings Failure',
@@ -18,46 +18,46 @@ export enum ESettingsActions {
 }
 
 export const loadUserSettings = createAction(
-  ESettingsActions.LOAD_USER_SETTINGS
+  ESettingsStoreActions.LOAD_USER_SETTINGS
 );
 export const loadUserSettingsSuccess = createAction(
-  ESettingsActions.LOAD_USER_SETTINGS_SUCCESS,
+  ESettingsStoreActions.LOAD_USER_SETTINGS_SUCCESS,
   props<{ settings: SettingsModel }>()
 );
 
 export const loadUserSettingsFailure = createAction(
-  ESettingsActions.LOAD_USER_SETTINGS_FAILURE,
+  ESettingsStoreActions.LOAD_USER_SETTINGS_FAILURE,
   props<{ error: unknown }>()
 );
 
 export const updateUserSettings = createAction(
-  ESettingsActions.UPDATE_USER_SETTINGS,
+  ESettingsStoreActions.UPDATE_USER_SETTINGS,
   props<{ settings: SettingsModel }>()
 );
 
 export const manageUpdateUserSettings = createAction(
-  ESettingsActions.MANAGE_UPDATE_USER_SETTINGS,
+  ESettingsStoreActions.MANAGE_UPDATE_USER_SETTINGS,
   props<{ settings: SettingsModel }>()
 );
 
 export const updateUserSettingsSuccess = createAction(
-  ESettingsActions.UPDATE_USER_SETTINGS_SUCCESS,
+  ESettingsStoreActions.UPDATE_USER_SETTINGS_SUCCESS,
   props<{ settings: SettingsModel }>()
 );
 
 export const updateUserSettingsFailure = createAction(
-  ESettingsActions.UPDATE_USER_SETTINGS_FAILURE,
+  ESettingsStoreActions.UPDATE_USER_SETTINGS_FAILURE,
   props<{ error: unknown }>()
 );
 
 export const setUserSettings = createAction(
-  ESettingsActions.SET_USER_SETTINGS,
+  ESettingsStoreActions.SET_USER_SETTINGS,
   props<{ settings: SettingsModel }>()
 );
 
-export const resetState = createAction(ESettingsActions.RESET_STATE);
+export const resetState = createAction(ESettingsStoreActions.RESET_STATE);
 
-const settingsActionsUnion = union({
+const settingsStoreActionsUnion = union({
   loadUserSettings,
   loadUserSettingsSuccess,
   loadUserSettingsFailure,
@@ -70,4 +70,4 @@ const settingsActionsUnion = union({
   resetState,
 });
 
-export type SettingsActionsUnion = typeof settingsActionsUnion;
+export type SettingsStoreActionsUnion = typeof settingsStoreActionsUnion;

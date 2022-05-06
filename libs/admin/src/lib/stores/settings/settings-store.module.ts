@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { SettingsEffects } from './+state/settings.effects';
-import { SettingsFacade } from './+state/settings.facade';
-import { SETTINGS_FEATURE_KEY, settingsReducer } from './+state/settings.reducer';
+import { SettingsStoreEffects } from './+state/settings-store.effects';
+import { SettingsStoreFacade } from './+state/settings-store.facade';
+import { SETTINGS_FEATURE_KEY, settingsStoreReducer } from './+state/settings-store.reducer';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(SETTINGS_FEATURE_KEY, settingsReducer),
-    EffectsModule.forFeature([SettingsEffects]),
+    StoreModule.forFeature(SETTINGS_FEATURE_KEY, settingsStoreReducer),
+    EffectsModule.forFeature([SettingsStoreEffects]),
   ],
-  providers: [SettingsFacade],
+  providers: [SettingsStoreFacade],
 })
 export class SettingsStoreModule {}

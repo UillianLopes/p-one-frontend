@@ -1,0 +1,35 @@
+{
+  "LIBS": {
+    "ADMIN": {
+      "SETTINGS": {
+        "TITLE": "Cadastro de usuários",
+        "BUTTONS": {
+          "SAVE_SETTINGS": "Salvar configurações"
+        },
+        "SECTIONS": {
+          "GENERAL_SETTINGS": {
+            "TITLE": "Configurações Gerais",
+            "FIELDS": {
+              "LANGUAGE": {
+                "LABEL": "Idioma",
+                "PLACEHOLDER": "Selecione um idioma..."
+              },
+              "CURRENCY": {
+                "LABEL": "Moeda",
+                "PLACEHOLDER": "Selecione uma moeda..."
+              }
+            }
+          }
+        }
+      }
+    },
+    "SIGN_UP": {
+      "SETTINGS": {
+        "TITLE": "Cadastro",
+        "BUTTONS": {
+          "ALREADY_HAVE_AN_ACCOUNT": "Já possui uma conta?"
+        }
+      }
+    }
+  }
+}

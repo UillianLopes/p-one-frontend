@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingsFacade } from '@p-one/admin';
+import { SettingsStoreFacade } from '@p-one/admin';
 import { UserStoreFacade } from '@p-one/identity';
 import { DestroyableMixin } from '@p-one/shared';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'p-one-root',
@@ -14,7 +14,7 @@ export class AppComponent extends DestroyableMixin() implements OnInit {
   constructor(
     private readonly _userStoreFacade: UserStoreFacade,
     private readonly _translateService: TranslateService,
-    private readonly _settingsStoreFacade: SettingsFacade
+    private readonly _settingsStoreFacade: SettingsStoreFacade
   ) {
     super();
   }
@@ -22,7 +22,9 @@ export class AppComponent extends DestroyableMixin() implements OnInit {
   ngOnInit(): void {
     this._userStoreFacade.load();
     this._settingsStoreFacade.settings$
-      .pipe(takeUntil(this.destroyed$), tap((settings) => console.log('SETTINGS -> ', settings)))
-      .subscribe((settings) => this._translateService.use(settings.language));
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((settings) =>
+        this._translateService.use(settings?.language ?? 'en')
+      );
   }
 }

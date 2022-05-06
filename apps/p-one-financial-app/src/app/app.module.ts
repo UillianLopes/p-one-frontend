@@ -7,8 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { POneAdminModule, SettingsFacade, SettingsStoreModule, UserService } from '@p-one/admin';
+import { POneAdminModule, SettingsStoreFacade, SettingsStoreModule, UserService } from '@p-one/admin';
 import { POneCoreModule } from '@p-one/core';
 import { POneFinancialModule } from '@p-one/financial';
 import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
@@ -18,11 +17,28 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
-import { tap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+
+export class CustomTranslateLoader implements TranslateLoader {
+  constructor(
+    private readonly _httpClient: HttpClient,
+    private readonly configs: { prefix: string; suffix: string }[]
+  ) {}
+  getTranslation(lang: string): Observable<any> {
+    return forkJoin([
+      ...this.configs.map(({ prefix, suffix }) =>
+        this._httpClient.get<any>(`${prefix}${lang}${suffix}`)
+      ),
+    ]).pipe(
+      map((a) => ({ '@PONE': { ...a.reduce((a, b) => ({ ...a, ...b })) } }))
+    );
+  }
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -86,7 +102,10 @@ import { AppRoutingModule } from './app.routing';
       loader: {
         provide: TranslateLoader,
         useFactory: (client: HttpClient) =>
-          new TranslateHttpLoader(client, '/assets/i18n/', '.json'),
+          new CustomTranslateLoader(client, [
+            { prefix: './assets/i18n/', suffix: '.json' },
+            { prefix: './assets/i18n/libs/', suffix: '.json' },
+          ]),
         deps: [HttpClient],
       },
       compiler: {
@@ -113,14 +132,15 @@ import { AppRoutingModule } from './app.routing';
       provide: APP_INITIALIZER,
       useFactory: (
         userService: UserService,
-        settingsFacade: SettingsFacade
+        settingsFacade: SettingsStoreFacade
       ) => {
         return () =>
-          userService
-            .settings()
-            .pipe(tap((settings) => settingsFacade.setUserSettings(settings)));
+          userService.settings().pipe(
+            catchError(() => of(null)),
+            tap((settings) => settingsFacade.setUserSettings(settings))
+          );
       },
-      deps: [UserService, SettingsFacade],
+      deps: [UserService, SettingsStoreFacade],
       multi: true,
     },
   ],

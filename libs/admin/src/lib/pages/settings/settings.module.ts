@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -19,14 +17,6 @@ import {
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings.routing';
 
-function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(
-    http,
-    './assets/i18n/libs/admin/settings/',
-    '.json'
-  );
-}
-
 @NgModule({
   declarations: [SettingsComponent],
   imports: [
@@ -39,20 +29,12 @@ function httpLoaderFactory(http: HttpClient) {
     POneDynamicFormsModule,
     ReactiveFormsModule,
     FormsModule,
-
     POneInputModule,
     FormsModule,
     POneCardModule,
     POneBreadcrumbModule,
     POneFlexModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-      isolate: true,
-    }),
+    TranslateModule,
   ],
 })
 export class SettingsModule {}

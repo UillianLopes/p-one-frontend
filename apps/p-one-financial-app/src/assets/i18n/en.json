@@ -1,230 +1,228 @@
 {
-  "@PONE": {
-    "ENTRIES": {
-      "LIST": {
-        "TITLE": "Entries",
-        "ENTRY_TYPES": {
-          "BILLS_TO_BE_RECEIVED": "Bills to be received",
-          "BILLS_TO_PAY": "Bills to pay",
-          "ALL_BILLS": "All bills",
-          "CREDIT": "Credit",
-          "DEBIT": "Debit"
+  "ENTRIES": {
+    "LIST": {
+      "TITLE": "Entries",
+      "ENTRY_TYPES": {
+        "BILLS_TO_BE_RECEIVED": "Bills to be received",
+        "BILLS_TO_PAY": "Bills to pay",
+        "ALL_BILLS": "All bills",
+        "CREDIT": "Credit",
+        "DEBIT": "Debit"
+      },
+      "BUTTONS": {
+        "CREATE_ENTRY": "Create entry",
+        "OPEN_COMPLETE_FILTER": "Open complete filter"
+      },
+      "TABLE": {
+        "COLUMNS": {
+          "PARCEL_NUMBER": "Parcel Nº",
+          "TITLE": "Title",
+          "DUE_DATE": "Sude date",
+          "CATEGORY": "Category",
+          "SUB_CATEGORY": "Sub category",
+          "AMOUNT": "Amount",
+          "TYPE": "Type",
+          "STATUS": "Status"
+        }
+      },
+      "FILTER": {
+        "CATEGORIES": "Categories",
+        "SUB_CATEGORIES": "Sub categories",
+        "RANGE": "Range",
+        "TEXT": "Text",
+        "PAYMENT_STATUS": {
+          "TITLE": "Status",
+          "ALL": "All",
+          "OPENED": "Opened",
+          "OVERDUE": "Overdue",
+          "PAID": "Paid",
+          "TO_PAY_TODAY": "To pay today"
+        }
+      }
+    },
+    "MODALS": {
+      "DELETE": {},
+      "PAY": {},
+      "FILTER": {
+        "FIELDS": {
+          "CATEGORIES": {
+            "TITLE": "Categories",
+            "PLACEHOLDER": "Select a category"
+          }
+        }
+      }
+    }
+  },
+  "CATEGORIES": {
+    "TITLE": "Categories",
+    "BUTTONS": {
+      "CREATE_CATEGORY": "Create category",
+      "DELETE_SELECTED_CATEGORIES": "Delete selected categories"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "TYPE": "Type"
+      }
+    },
+    "PAGINATION": {
+      "LABEL": "Categories list pagination"
+    },
+    "MODALS": {
+      "CREATE": {
+        "TITLE": "Categories creation",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Name",
+            "PLACEHOLDER": "Type the category name"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Description",
+            "PLACEHOLDER": "Type the category description"
+          },
+          "TYPE": {
+            "LABEL": "Tipo",
+            "PLACEHOLDER": "Select the category type",
+            "OPTIONS": {
+              "CREDIT": "Credit",
+              "DEBIT": "Debit"
+            }
+          },
+          "COLOR": {
+            "LABEL": "Color",
+            "PLACEHOLDER": "Select the category color"
+          }
         },
         "BUTTONS": {
-          "CREATE_ENTRY": "Create entry",
-          "OPEN_COMPLETE_FILTER": "Open complete filter"
-        },
-        "TABLE": {
-          "COLUMNS": {
-            "PARCEL_NUMBER": "Parcel Nº",
-            "TITLE": "Title",
-            "DUE_DATE": "Sude date",
-            "CATEGORY": "Category",
-            "SUB_CATEGORY": "Sub category",
-            "AMOUNT": "Amount",
-            "TYPE": "Type",
-            "STATUS": "Status"
-          }
-        },
-        "FILTER": {
-          "CATEGORIES": "Categories",
-          "SUB_CATEGORIES": "Sub categories",
-          "RANGE": "Range",
-          "TEXT": "Text",
-          "PAYMENT_STATUS": {
-            "TITLE": "Status",
-            "ALL": "All",
-            "OPENED": "Opened",
-            "OVERDUE": "Overdue",
-            "PAID": "Paid",
-            "TO_PAY_TODAY": "To pay today"
-          }
+          "CREATE_CATEGORY": "Create category",
+          "CANCEL": "Cancel"
         }
       },
-      "MODALS": {
-        "DELETE": {},
-        "PAY": {},
-        "FILTER": {
-          "FIELDS": {
-            "CATEGORIES": {
-              "TITLE": "Categories",
-              "PLACEHOLDER": "Select a category"
+      "UPDATE": {
+        "TITLE": "Categories edition",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Name",
+            "PLACEHOLDER": "Type the category name"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Description",
+            "PLACEHOLDER": "Type the category description"
+          },
+          "TYPE": {
+            "LABEL": "Type",
+            "PLACEHOLDER": "Select the category type",
+            "OPTIONS": {
+              "CREDIT": "Credit",
+              "DEBIT": "Debit"
             }
+          },
+          "COLOR": {
+            "LABEL": "Color",
+            "PLACEHOLDER": "Select the category color"
           }
+        },
+        "BUTTONS": {
+          "UPDATE_CATEGORY": "Update category",
+          "CANCEL": "Cancel"
+        }
+      },
+      "DELETE": {
+        "TITLE": "Delete {count, plural, =0{category} one {category} other {categories}}",
+        "QUESTION": "Are you sure you want to delete the following {count, plural, =0{category} one {category} other {categories}}: <b>{categoryNames}</b>?",
+        "BUTTONS": {
+          "DELETE_CATEGORY": "Delete {count, plural, =0{category} one {category} other {categories}}",
+          "CANCEL": "Cancel"
+        }
+      }
+    }
+  },
+  "SUB_CATEGORIES": {
+    "TITLE": "Sub categories",
+    "BUTTONS": {
+      "CREATE_SUB_CATEGORY": "Create sub category",
+      "DELETE_SELECTED_CATEGORIES": "Delete selected sub categories"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "TYPE": "Type",
+        "CATEGORY": "Category"
+      }
+    },
+    "PAGINATION": {
+      "LABEL": "Sub categories list pagination"
+    },
+    "MODALS": {
+      "CREATE": {
+        "TITLE": "Sub categories creation",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Name",
+            "PLACEHOLDER": "Type the sub category name"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Description",
+            "PLACEHOLDER": "Type the sub category description"
+          },
+          "CATEGORY": {
+            "LABEL": "Category",
+            "PLACEHOLDER": "Select the category to which the sub category belongs"
+          },
+          "COLOR": {
+            "LABEL": "Color",
+            "PLACEHOLDER": "Select the sub category color"
+          }
+        },
+        "BUTTONS": {
+          "CREATE_CATEGORY": "Create sub category",
+          "CANCEL": "Cancel"
+        }
+      },
+      "UPDATE": {
+        "TITLE": "Categories edition",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Name",
+            "PLACEHOLDER": "Type the sub category name"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Description",
+            "PLACEHOLDER": "Type the sub category description"
+          },
+          "CATEGORY": {
+            "LABEL": "Category",
+            "PLACEHOLDER": "Select the category to which the sub category belongs"
+          },
+          "COLOR": {
+            "LABEL": "Color",
+            "PLACEHOLDER": "Select the sub category color"
+          }
+        },
+        "BUTTONS": {
+          "UPDATE_SUB_CATEGORY": "Update sub category",
+          "CANCEL": "Cancel"
+        }
+      },
+      "DELETE": {
+        "TITLE": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
+        "QUESTION": "Are you sure you want to delete the following {count, plural, =0{sub category} one {sub category} other {sub categories}}: <b>{subCategoryNames}</b>?",
+        "BUTTONS": {
+          "DELETE_SUB_CATEGORY": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
+          "CANCEL": "Cancel"
         }
       }
     },
-    "CATEGORIES": {
-      "TITLE": "Categories",
-      "BUTTONS": {
-        "CREATE_CATEGORY": "Create category",
-        "DELETE_SELECTED_CATEGORIES": "Delete selected categories"
-      },
-      "TABLE": {
-        "COLUMNS": {
-          "NAME": "Name",
-          "DESCRIPTION": "Description",
-          "TYPE": "Type"
-        }
-      },
-      "PAGINATION": {
-        "LABEL": "Categories list pagination"
-      },
-      "MODALS": {
-        "CREATE": {
-          "TITLE": "Categories creation",
-          "FIELDS": {
-            "NAME": {
-              "LABEL": "Name",
-              "PLACEHOLDER": "Type the category name"
-            },
-            "DESCRIPTION": {
-              "LABEL": "Description",
-              "PLACEHOLDER": "Type the category description"
-            },
-            "TYPE": {
-              "LABEL": "Tipo",
-              "PLACEHOLDER": "Select the category type",
-              "OPTIONS": {
-                "CREDIT": "Credit",
-                "DEBIT": "Debit"
-              }
-            },
-            "COLOR": {
-              "LABEL": "Color",
-              "PLACEHOLDER": "Select the category color"
-            }
-          },
-          "BUTTONS": {
-            "CREATE_CATEGORY": "Create category",
-            "CANCEL": "Cancel"
-          }
-        },
-        "UPDATE": {
-          "TITLE": "Categories edition",
-          "FIELDS": {
-            "NAME": {
-              "LABEL": "Name",
-              "PLACEHOLDER": "Type the category name"
-            },
-            "DESCRIPTION": {
-              "LABEL": "Description",
-              "PLACEHOLDER": "Type the category description"
-            },
-            "TYPE": {
-              "LABEL": "Type",
-              "PLACEHOLDER": "Select the category type",
-              "OPTIONS": {
-                "CREDIT": "Credit",
-                "DEBIT": "Debit"
-              }
-            },
-            "COLOR": {
-              "LABEL": "Color",
-              "PLACEHOLDER": "Select the category color"
-            }
-          },
-          "BUTTONS": {
-            "UPDATE_CATEGORY": "Update category",
-            "CANCEL": "Cancel"
-          }
-        },
-        "DELETE": {
-          "TITLE": "Delete {count, plural, =0{category} one {category} other {categories}}",
-          "QUESTION": "Are you sure you want to delete the following {count, plural, =0{category} one {category} other {categories}}: <b>{categoryNames}</b>?",
-          "BUTTONS": {
-            "DELETE_CATEGORY": "Delete {count, plural, =0{category} one {category} other {categories}}",
-            "CANCEL": "Cancel"
-          }
-        }
-      }
-    },
-    "SUB_CATEGORIES": {
-      "TITLE": "Sub categories",
-      "BUTTONS": {
-        "CREATE_SUB_CATEGORY": "Create sub category",
-        "DELETE_SELECTED_CATEGORIES": "Delete selected sub categories"
-      },
-      "TABLE": {
-        "COLUMNS": {
-          "NAME": "Name",
-          "DESCRIPTION": "Description",
-          "TYPE": "Type",
-          "CATEGORY": "Category"
-        }
-      },
-      "PAGINATION": {
-        "LABEL": "Sub categories list pagination"
-      },
-      "MODALS": {
-        "CREATE": {
-          "TITLE": "Sub categories creation",
-          "FIELDS": {
-            "NAME": {
-              "LABEL": "Name",
-              "PLACEHOLDER": "Type the sub category name"
-            },
-            "DESCRIPTION": {
-              "LABEL": "Description",
-              "PLACEHOLDER": "Type the sub category description"
-            },
-            "CATEGORY": {
-              "LABEL": "Category",
-              "PLACEHOLDER": "Select the category to which the sub category belongs"
-            },
-            "COLOR": {
-              "LABEL": "Color",
-              "PLACEHOLDER": "Select the sub category color"
-            }
-          },
-          "BUTTONS": {
-            "CREATE_CATEGORY": "Create sub category",
-            "CANCEL": "Cancel"
-          }
-        },
-        "UPDATE": {
-          "TITLE": "Categories edition",
-          "FIELDS": {
-            "NAME": {
-              "LABEL": "Name",
-              "PLACEHOLDER": "Type the sub category name"
-            },
-            "DESCRIPTION": {
-              "LABEL": "Description",
-              "PLACEHOLDER": "Type the sub category description"
-            },
-            "CATEGORY": {
-              "LABEL": "Category",
-              "PLACEHOLDER": "Select the category to which the sub category belongs"
-            },
-            "COLOR": {
-              "LABEL": "Color",
-              "PLACEHOLDER": "Select the sub category color"
-            }
-          },
-          "BUTTONS": {
-            "UPDATE_SUB_CATEGORY": "Update sub category",
-            "CANCEL": "Cancel"
-          }
-        },
-        "DELETE": {
-          "TITLE": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
-          "QUESTION": "Are you sure you want to delete the following {count, plural, =0{sub category} one {sub category} other {sub categories}}: <b>{subCategoryNames}</b>?",
-          "BUTTONS": {
-            "DELETE_SUB_CATEGORY": "Delete {count, plural, =0{sub category} one {sub category} other {sub categories}}",
-            "CANCEL": "Cancel"
-          }
-        }
-      },
-      "MESSAGES": {
-        "CREATE_SUB_CATEGORY_SUCCESS": "The sub category were created successfully"
-      }
-    },
-    "CORE": {
-      "FORMATS": {
-        "DATE_TIME": "MM/dd/yyyy HH:mm:ss",
-        "DATE": "MM/dd/yyyy"
-      }
+    "MESSAGES": {
+      "CREATE_SUB_CATEGORY_SUCCESS": "The sub category were created successfully"
+    }
+  },
+  "CORE": {
+    "FORMATS": {
+      "DATE_TIME": "MM/dd/yyyy HH:mm:ss",
+      "DATE": "MM/dd/yyyy"
     }
   }
 }
