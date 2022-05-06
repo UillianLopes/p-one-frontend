@@ -9,4 +9,8 @@ import { UserRoutingModule } from './user.routing';
   declarations: [UserComponent],
   imports: [CommonModule, UserRoutingModule, POneContainerModule],
 })
-export class UserModule {}
+export class UserModule {
+  constructor() {
+
+  }
+}

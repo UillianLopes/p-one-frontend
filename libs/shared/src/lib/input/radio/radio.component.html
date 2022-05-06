@@ -2,7 +2,7 @@
 
 <div class="btn-group" *ngIf="buttons$">
   <button
-    class="btn btn-sm"
+    class="btn"
     [ngClass]="buttonClass$ | async"
     *ngFor="let button of buttons$ | async"
     [class.active]="(value$ | async) === button.value"

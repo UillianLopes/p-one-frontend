@@ -23,16 +23,17 @@ export class POneCoreModule {
       ngModule: POneCoreModule,
       providers: [
         {
-          provide: LOCALE_ID,
-          useValue: config.locale,
-        },
-        {
           provide: NgbDateAdapter,
           useClass: NgbCustomDateAdapter,
         },
         {
           provide: NgbDateParserFormatter,
-          useFactory: () => new LuxonDateFormatterParser(config.luxonDateFormat),
+          useFactory: () =>
+            new LuxonDateFormatterParser(config.luxonDateFormat),
+        },
+        {
+          provide: LOCALE_ID,
+          useValue: config.locale,
         },
       ],
     };

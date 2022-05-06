@@ -1,0 +1,55 @@
+{
+  "LIBS": {
+    "ADMIN": {
+      "SETTINGS": {
+        "TITLE": "Sign Up",
+        "BUTTONS": {
+          "SAVE_SETTINGS": "Save settings"
+        },
+        "SECTIONS": {
+          "GENERAL_SETTINGS": {
+            "TITLE": "General settings",
+            "FIELDS": {
+              "LANGUAGE": {
+                "LABEL": "Language",
+                "PLACEHOLDER": "Select a language..."
+              },
+              "CURRENCY": {
+                "LABEL": "Currency",
+                "PLACEHOLDER": "Select a currency..."
+              }
+            }
+          }
+        }
+      },
+      "SIGN_UP": {
+        "TITLE": "Sign Up",
+        "BUTTONS": {
+          "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
+          "CANCEL": "Cancel",
+          "CREATE_USER": "Create user"
+        },
+        "WANT_TO_REGISTER": "Want to register?",
+        "PLEASE_FILL_THE_FORM_BELOW": "Please, fill the form below",
+        "FIELDS": {
+          "FULL_NAME": {
+            "LABEL": "Full name",
+            "PLACEHOLDER": "Type your full name..."
+          },
+          "EMAIL": {
+            "LABEL": "E-mail",
+            "PLACEHOLDER": "Type your e-mail address..."
+          },
+          "PASSWORD": {
+            "LABEL": "Password",
+            "PLACEHOLDER": "Type your password..."
+          },
+          "PASSWORD_CONFIRMATION": {
+            "LABEL": "Password confirmation",
+            "PLACEHOLDER": "Type your password again..."
+          }
+        }
+      }
+    }
+  }
+}

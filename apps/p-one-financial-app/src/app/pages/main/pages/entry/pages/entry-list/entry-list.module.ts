@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Inject, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@p-one/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -33,9 +31,6 @@ import { DeleteEntryModalComponent } from './modals/delete-entry-modal/delete-en
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
 import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal.component';
 
-function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/entries/list/', '.json');
-}
 
 @NgModule({
   declarations: [
@@ -66,19 +61,10 @@ function httpLoaderFactory(http: HttpClient) {
     NgxCurrencyModule,
     POneTooltipModule,
     POneNotificationsDisplayButtonModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-      isolate: true,
-    }),
+    TranslateModule,
   ],
   providers: [EntryListFacade],
 })
 export class EntryListModule {
-  constructor(service: TranslateService, @Inject(LOCALE_ID) locale: string) {
-    service.use(locale);
-  }
+  constructor() {}
 }

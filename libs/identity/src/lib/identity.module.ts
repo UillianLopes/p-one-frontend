@@ -5,7 +5,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { IDENTITY_API_URL } from './constants';
 import { AuthGuard, WithoutAuthGuard } from './guards';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { UserService } from './services';
 
 @NgModule({
   imports: [CommonModule],
@@ -19,7 +18,6 @@ export class POneIdentityModule {
     return {
       ngModule: POneIdentityModule,
       providers: [
-        UserService,
         {
           provide: IDENTITY_API_URL,
           useValue: identityApiUrl,

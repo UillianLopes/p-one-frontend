@@ -7,8 +7,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { POneCoreModule } from '@p-one/core';
+import { POneAdminModule, SettingsStoreModule } from '@p-one/admin';
+import { CustomTranslateLoader, POneCoreModule } from '@p-one/core';
 import { POneFinancialModule } from '@p-one/financial';
 import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
 import { POneNotificationModule } from '@p-one/notification';
@@ -42,6 +42,9 @@ import { AppRoutingModule } from './app.routing';
     POneNotificationModule.forRoot({
       endpoint: environment.notificationEndpoint,
     }),
+    POneAdminModule.forRoot({
+      adminEndpoint: environment.adminEndpoint,
+    }),
     AuthModule.forRoot({
       config: {
         configId: 'POne.App',
@@ -49,7 +52,7 @@ import { AppRoutingModule } from './app.routing';
         redirectUrl: window.location.origin + '/user/sign-in',
         postLogoutRedirectUri: window.location.origin + '/user/sign-out',
         clientId: 'POne.App',
-        scope: 'openid profile ponefinancialapi ponenotifierapi',
+        scope: 'openid profile ponefinancialapi ponenotifierapi poneadminapi',
         silentRenew: true,
         responseType: 'code',
         logLevel: LogLevel.None,
@@ -58,7 +61,7 @@ import { AppRoutingModule } from './app.routing';
     }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    UserStoreModule.forRoot(),
+
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
@@ -81,7 +84,10 @@ import { AppRoutingModule } from './app.routing';
       loader: {
         provide: TranslateLoader,
         useFactory: (client: HttpClient) =>
-          new TranslateHttpLoader(client, '/assets/i18n/core/', '.json'),
+          new CustomTranslateLoader(client, [
+            { prefix: './assets/i18n/', suffix: '.json' },
+            { prefix: './assets/i18n/libs/', suffix: '.json' },
+          ]),
         deps: [HttpClient],
       },
       compiler: {
@@ -90,6 +96,8 @@ import { AppRoutingModule } from './app.routing';
       },
       defaultLanguage: 'en',
     }),
+    UserStoreModule,
+    SettingsStoreModule,
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -98,6 +106,8 @@ import { AppRoutingModule } from './app.routing';
       useValue: [
         environment.financialEndpoint,
         environment.notificationEndpoint,
+        environment.identityEndpoint,
+        environment.adminEndpoint,
       ],
     },
   ],

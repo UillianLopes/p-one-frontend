@@ -7,7 +7,7 @@ import {
   markNotificationAsRead,
   startNotificationsHub,
 } from './notifications-store.actions';
-import { NotificationsStoreState } from './notifications-store.reducer';
+import { NotificationsStoreRootState } from './notifications-store.reducer';
 import * as NotificationsStoreSelectors from './notifications-store.selectors';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class NotificationsStoreFacade {
     NotificationsStoreSelectors.isUnreadNotificationsLoadingSelector
   );
 
-  constructor(private readonly _store: Store<NotificationsStoreState>) {}
+  constructor(private readonly _store: Store<NotificationsStoreRootState>) {}
 
   public loadUnreadNotifications(): void {
     this._store.dispatch(loadUnreadNotifications());
