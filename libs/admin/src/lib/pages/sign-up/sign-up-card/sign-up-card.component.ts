@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserStoreFacade } from '@p-one/identity';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
@@ -12,6 +12,8 @@ import { SignUpFacade } from '../+state/sign-up-store.facade';
   styleUrls: ['./sign-up-card.component.scss'],
 })
 export class SignUpCardComponent extends DestroyableMixin() {
+  @Input() public language = 'pt-BR';
+
   public readonly form = this._formBuilder.group({
     name: [null, Validators.required],
     email: [null, Validators.required],
@@ -23,6 +25,7 @@ export class SignUpCardComponent extends DestroyableMixin() {
   });
 
   public readonly isSignUpLoading$ = this._signUpFacade.isSignUpLoading$;
+  public readonly isUserCreated$ = this._signUpFacade.isUserCreated$;
 
   constructor(
     private readonly _formBuilder: FormBuilder,
@@ -47,6 +50,7 @@ export class SignUpCardComponent extends DestroyableMixin() {
 
     this._signUpFacade.signUp({
       ...this.form.value,
+      language: this.language,
     });
   }
 

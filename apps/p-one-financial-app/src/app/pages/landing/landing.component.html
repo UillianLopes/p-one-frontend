@@ -38,7 +38,7 @@
           <li>{{ '@PONE.LANDING.TOPICS.ENTRIES' | translate }}</li>
           <li>{{ '@PONE.LANDING.TOPICS.ORGANIZATION' | translate }}</li>
         </ul>
-        <p-one-sign-up-card></p-one-sign-up-card>
+        <p-one-sign-up-card [language]="language$ | async"></p-one-sign-up-card>
       </div>
     </div>
   </div>

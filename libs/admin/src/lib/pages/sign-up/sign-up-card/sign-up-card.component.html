@@ -1,5 +1,25 @@
-<form [formGroup]="form" style="width: 100%">
-  <p-one-card class="text-black">
+<form [formGroup]="form">
+  <p-one-card
+    class="text-black"
+    *ngIf="isUserCreated$ | async; else signUpTemplate"
+  >
+    <h4>
+      <i class="bi bi-check-circle-fill text-success"></i>
+      {{ '@PONE.LIBS.ADMIN.SIGN_UP.USER_CREATED_WITH_SUCCESS' | translate }}
+      <a (click)="signIn()" class="link">{{
+        '@PONE.LIBS.ADMIN.SIGN_UP.CLICK_HERE' | translate
+      }}</a>
+      {{ '@PONE.LIBS.ADMIN.SIGN_UP.TO_SIGN_IN' | translate }}
+    </h4>
+  </p-one-card>
+</form>
+
+<ng-template #signUpTemplate>
+  <p-one-card
+    [formGroup]="form"
+    class="text-black"
+    [isLoading]="isSignUpLoading$ | async"
+  >
     <ng-container pOneCardHeader>
       <h3>
         {{ '@PONE.LIBS.ADMIN.SIGN_UP.WANT_TO_REGISTER' | translate }}
@@ -19,6 +39,7 @@
           '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.FULL_NAME.PLACEHOLDER' | translate
         "
         formControlName="name"
+        autocomplete="none"
       />
     </p-one-form-field>
     <p-one-form-field>
@@ -31,6 +52,7 @@
           '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.EMAIL.PLACEHOLDER' | translate
         "
         formControlName="email"
+        autocomplete="none"
       />
     </p-one-form-field>
 
@@ -41,6 +63,8 @@
         }}</label>
         <input
           pOneInput
+          type="password"
+          autocomplete="none"
           [placeholder]="
             '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD.PLACEHOLDER' | translate
           "
@@ -58,6 +82,8 @@
             '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD_CONFIRMATION.PLACEHOLDER'
               | translate
           "
+          autocomplete="none"
+          type="password"
           formControlName="passwordConfirmation"
         />
       </p-one-form-field>
@@ -72,4 +98,4 @@
       </button>
     </section>
   </p-one-card>
-</form>
+</ng-template>

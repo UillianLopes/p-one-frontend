@@ -5,6 +5,7 @@ import * as SignUpActions from './sign-up-store.actions';
 export const SIGN_UP_KEY = 'SIGN_UP';
 export interface SignUpState {
   isSignUpLoading?: boolean;
+  isUserCreated?: boolean;
 }
 
 const initialState: SignUpState = {};
@@ -20,6 +21,7 @@ const _signUpReducer = createReducer(
   on(SignUpActions.signUpSuccess, (state) => ({
     ...state,
     isSignUpLoading: false,
+    isUserCreated: true,
   })),
   on(SignUpActions.signUpFailure, (state, { error }) => ({
     ...state,

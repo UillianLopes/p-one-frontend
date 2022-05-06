@@ -12,6 +12,10 @@ export class SignUpFacade {
     SignUpSelectors.isSignUpLoadingSelector
   );
 
+  public readonly isUserCreated$ = this._store.select(
+    SignUpSelectors.isUserCreatedSelector
+  );
+
   constructor(private readonly _store: Store<SignUpState>) {}
 
   public signUp(user: CreateUserRequest) {

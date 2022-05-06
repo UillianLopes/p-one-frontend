@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreFacade } from '@p-one/identity';
 import { of } from 'rxjs';
-import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { UserService } from '../../../services';
 import { ESignUpActions, signUpFailure, signUpSuccess, UserStoreActionsUnion } from './sign-up-store.actions';
@@ -19,16 +19,6 @@ export class SignUpEffects {
         )
       )
     )
-  );
-
-  public readonly signUpSuccessEffect$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(ESignUpActions.SIGN_UP_SUCCESS),
-        delay(1000),
-        tap(() => this._userStoreFacade.signIn())
-      ),
-    { dispatch: false }
   );
 
   constructor(

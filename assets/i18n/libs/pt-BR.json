@@ -29,6 +29,9 @@
           "CANCEL": "Cancelar",
           "CREATE_USER": "Criar usuário"
         },
+        "USER_CREATED_WITH_SUCCESS": "Usuário criado com sucesso!",
+        "CLICK_HERE": "Clique aqui",
+        "TO_SIGN_IN": "para entrar",
         "WANT_TO_REGISTER": "Quer se cadastrar?",
         "PLEASE_FILL_THE_FORM_BELOW": "Por favor, preencha o formulário abaixo",
         "FIELDS": {

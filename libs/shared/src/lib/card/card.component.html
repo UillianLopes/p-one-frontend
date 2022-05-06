@@ -1,5 +1,10 @@
-<div class="card">
-  <img *ngIf="this.image" [src]="this.image" class="card-img-top" alt="..." />
+<div class="card" style="position: relative">
+  <img
+    *ngIf="image$ | async as image"
+    [src]="image"
+    class="card-img-top"
+    alt="..."
+  />
 
   <div class="card-header p-one-card__header">
     <ng-content select="[pOneCardHeader]"></ng-content>
@@ -15,4 +20,5 @@
   <div class="card-footer p-one-card__footer">
     <ng-content select="[pOneCardFooter]"></ng-content>
   </div>
+  <p-one-loading *ngIf="isLoading$ | async"></p-one-loading>
 </div>

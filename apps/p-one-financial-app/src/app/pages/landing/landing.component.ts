@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserStoreFacade } from '@p-one/identity';
 import { DestroyableMixin } from '@p-one/shared';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'p-one-landing',
@@ -12,6 +12,11 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LandingComponent extends DestroyableMixin() implements OnInit {
   public readonly languageControl = new FormControl(navigator.language ?? 'en');
+
+  public readonly language$ = this.languageControl.valueChanges.pipe(
+    startWith(this.languageControl.value)
+  );
+
   constructor(
     private readonly _userFacade: UserStoreFacade,
     private readonly _translateService: TranslateService
@@ -21,7 +26,7 @@ export class LandingComponent extends DestroyableMixin() implements OnInit {
 
   ngOnInit(): void {
     this._translateService.use(navigator.language ?? 'en');
-    this.languageControl.valueChanges
+    this.language$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((language) => this._translateService.use(language));
   }

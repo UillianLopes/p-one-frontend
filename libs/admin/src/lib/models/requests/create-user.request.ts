@@ -3,4 +3,5 @@ export interface CreateUserRequest {
   password: string;
   passwordConfirmation: string;
   email: string;
+  language: string;
 }

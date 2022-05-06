@@ -31,6 +31,9 @@
         },
         "WANT_TO_REGISTER": "Want to register?",
         "PLEASE_FILL_THE_FORM_BELOW": "Please, fill the form below",
+        "USER_CREATED_WITH_SUCCESS": "User create successfuly!",
+        "CLICK_HERE": "Click here",
+        "TO_SIGN_IN": "to sign in",
         "FIELDS": {
           "FULL_NAME": {
             "LABEL": "Full name",

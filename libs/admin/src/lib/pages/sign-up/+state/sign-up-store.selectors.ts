@@ -8,3 +8,8 @@ export const isSignUpLoadingSelector = createSelector(
   signUpStateSelector,
   ({ isSignUpLoading }) => isSignUpLoading
 );
+
+export const isUserCreatedSelector = createSelector(
+  signUpStateSelector,
+  ({ isUserCreated }) => isUserCreated
+);
