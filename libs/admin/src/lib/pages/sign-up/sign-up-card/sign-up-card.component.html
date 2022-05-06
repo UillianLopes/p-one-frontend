@@ -1,0 +1,75 @@
+<form [formGroup]="form" style="width: 100%">
+  <p-one-card class="text-black">
+    <ng-container pOneCardHeader>
+      <h3>
+        {{ '@PONE.LIBS.ADMIN.SIGN_UP.WANT_TO_REGISTER' | translate }}
+      </h3>
+    </ng-container>
+
+    <ng-container pOneCardTitle>
+      {{ '@PONE.LIBS.ADMIN.SIGN_UP.PLEASE_FILL_THE_FORM_BELOW' | translate }}
+    </ng-container>
+    <p-one-form-field>
+      <label>{{
+        '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.FULL_NAME.LABEL' | translate
+      }}</label>
+      <input
+        pOneInput
+        [placeholder]="
+          '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.FULL_NAME.PLACEHOLDER' | translate
+        "
+        formControlName="name"
+      />
+    </p-one-form-field>
+    <p-one-form-field>
+      <label>{{
+        '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.EMAIL.LABEL' | translate
+      }}</label>
+      <input
+        pOneInput
+        [placeholder]="
+          '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.EMAIL.PLACEHOLDER' | translate
+        "
+        formControlName="email"
+      />
+    </p-one-form-field>
+
+    <div class="row">
+      <p-one-form-field class="col-lg-6 col-sm-12">
+        <label>{{
+          '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD.LABEL' | translate
+        }}</label>
+        <input
+          pOneInput
+          [placeholder]="
+            '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD.PLACEHOLDER' | translate
+          "
+          formControlName="password"
+        />
+      </p-one-form-field>
+      <p-one-form-field class="col-lg-6 col-sm-12">
+        <label>{{
+          '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD_CONFIRMATION.LABEL'
+            | translate
+        }}</label>
+        <input
+          pOneInput
+          [placeholder]="
+            '@PONE.LIBS.ADMIN.SIGN_UP.FIELDS.PASSWORD_CONFIRMATION.PLACEHOLDER'
+              | translate
+          "
+          formControlName="passwordConfirmation"
+        />
+      </p-one-form-field>
+    </div>
+
+    <section pOneCardFooter pOneFlexRow gap="12px" justification="flex-end">
+      <button class="btn btn-secondary" routerLink="/landing">
+        {{ '@PONE.LIBS.ADMIN.SIGN_UP.BUTTONS.CANCEL' | translate }}
+      </button>
+      <button class="btn btn-primary" (click)="signUp()">
+        {{ '@PONE.LIBS.ADMIN.SIGN_UP.BUTTONS.CREATE_USER' | translate }}
+      </button>
+    </section>
+  </p-one-card>
+</form>

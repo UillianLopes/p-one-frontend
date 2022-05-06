@@ -224,5 +224,24 @@
       "DATE_TIME": "dd/MM/yyyy HH:mm:ss",
       "DATE": "dd/MM/yyyy"
     }
+  },
+  "MAIN": {
+    "WELCOME": "Bem vindo, {username}",
+    "SIDENAV": {
+      "HOME": "Home",
+      "SETTINGS": "Configurações",
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": {
+        "TITLE": "Entradas",
+        "BILLS_TO_PAY": "Contas a pagar",
+        "BILLS_TO_BE_RECEIVED": "Contas a receber",
+        "CREATE_ENTRY": "Criar entrada",
+        "ALL_BILLS": "Todas as contas"
+      },
+      "CATEGORIES": "Categorias",
+      "SUB_CATEGORIES": "Sub categorias",
+      "ACCOUNTS_OR_WALLETS": "Contas/Carteiras",
+      "SIGN_OUT": "Sair"
+    }
   }
 }

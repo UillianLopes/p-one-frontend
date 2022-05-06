@@ -1,6 +1,6 @@
-<p-one-container>
+<!-- <p-one-container class="bg-primary">
   <p-one-header>
-    <b pOneLeading>POne</b>
+    <b pOneLeading>POne Financeiro</b>
 
     <div pOneTrailing pOneFlexRow gap="10px">
       <button class="btn btn-sm btn-outline-light" routerLink="/user/sign-up">
@@ -12,9 +12,8 @@
     </div>
   </p-one-header>
 
-  <div pOneFlexColumn alignment="center">
+  <div class="container text-white">
     <section>
-      <br />
       <h1>Bem vindo ao POne Financeiro</h1>
 
       <p>No momento o sistema conta com as seguintes funcionalidades:</p>
@@ -65,4 +64,40 @@
       <br />
     </section>
   </div>
-</p-one-container>
+</p-one-container> -->
+
+<main class="p-one-landing__main">
+  <div class="container">
+    <nav class="p-one-landing__nav">
+      <div class="p-one-landing__leading">
+        <h4>POne Financeiro</h4>
+      </div>
+      <div class="p-one-landing__trailing">
+        <button class="btn btn-outline-light" (click)="signIn()">Entrar</button>
+      </div>
+    </nav>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="assets/img/analytics.svg" />
+      </div>
+      <div class="col-lg-8">
+        <h1>Bem vindo ao POne Financeiro</h1>
+        <br />
+        <h3>Aqui você pode organizar suas finanças de forma rapida e fácil</h3>
+        <h4>
+          Atualmente o sistema encontra-se em desenvolvimento, por isso contamos
+          apenas com as seguintes funcionalidades liberadas para nossos usuários
+        </h4>
+        <ul>
+          <li>Dashboard</li>
+          <li>Lançamento e consulta de dados financieros</li>
+          <li>Organização por categorias e sub categorias</li>
+        </ul>
+
+        <p-one-sign-up-card></p-one-sign-up-card>
+      </div>
+    </div>
+  </div>
+</main>

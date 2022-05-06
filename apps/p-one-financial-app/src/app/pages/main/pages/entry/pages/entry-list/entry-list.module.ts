@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@p-one/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -33,9 +31,6 @@ import { DeleteEntryModalComponent } from './modals/delete-entry-modal/delete-en
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
 import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal.component';
 
-function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/entries/list/', '.json');
-}
 
 @NgModule({
   declarations: [

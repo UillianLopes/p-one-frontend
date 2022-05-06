@@ -20,13 +20,13 @@
     max-width: 800px;
     width: 800px;
   }
-
   &__stepper {
-    width: 800px;
+    width: 600px;
   }
-}
 
-section {
-  width: 800px;
-  text-align: center;
+  &__fields {
+    display: grid;
+    grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
+    gap: 16px;
+  }
 }

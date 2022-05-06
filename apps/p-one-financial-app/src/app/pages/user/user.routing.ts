@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'sign-up',
-        loadChildren: () => import('@p-one/admin').then((e) => e.SignUpModule),
+        loadChildren: () => import('@p-one/admin').then((e) => e.POneSignUpModule),
         canActivate: [WithoutAuthGuard],
       },
     ],

@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CustomTranslateLoader } from '@p-one/core';
 import { UserStoreModule } from '@p-one/identity';
 import {
   POneAddressFormModule,
@@ -24,18 +24,12 @@ import { SettingsStoreModule } from '../../stores';
 import { SignUpEffects } from './+state/sign-up-store.effects';
 import { SignUpFacade } from './+state/sign-up-store.facade';
 import { SIGN_UP_KEY, signUpReducer } from './+state/sign-up-store.reducer';
+import { SignUpCardComponent } from './sign-up-card/sign-up-card.component';
 import { SignUpComponent } from './sign-up.component';
 import { SignUpRoutingModule } from './sign-up.routing';
 
-function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(
-    http,
-    './assets/i18n/libs/admin/settings/',
-    '.json'
-  );
-}
 @NgModule({
-  declarations: [SignUpComponent],
+  declarations: [SignUpComponent, SignUpCardComponent],
   imports: [
     CommonModule,
     SignUpRoutingModule,
@@ -57,12 +51,27 @@ function httpLoaderFactory(http: HttpClient) {
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
+        useFactory: (client: HttpClient) =>
+          new CustomTranslateLoader(client, [
+            {
+              prefix: './assets/i18n/libs/',
+              suffix: '.json',
+            },
+          ]),
+        deps: [HttpClient],
       },
       isolate: true,
+      defaultLanguage: 'en',
     }),
     SettingsStoreModule,
   ],
   providers: [SignUpFacade],
+  exports: [SignUpCardComponent],
 })
-export class SignUpModule {}
+export class POneSignUpModule {
+  constructor(translateService: TranslateService) {
+    if (['pt-BR', 'en'].includes(navigator.language)) {
+      translateService.use(navigator.language);
+    }
+  }
+}

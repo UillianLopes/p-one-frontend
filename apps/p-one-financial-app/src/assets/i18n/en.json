@@ -224,5 +224,24 @@
       "DATE_TIME": "MM/dd/yyyy HH:mm:ss",
       "DATE": "MM/dd/yyyy"
     }
+  },
+  "MAIN": {
+    "WELCOME": "Welcome, {username}",
+    "SIDENAV": {
+      "HOME": "Home",
+      "SETTINGS": "Settings",
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": {
+        "TITLE": "Entries",
+        "BILLS_TO_PAY": "Bills to pay",
+        "BILLS_TO_BE_RECEIVED": "Bills to be received",
+        "CREATE_ENTRY": "Create entry",
+        "ALL_BILLS": "All bills"
+      },
+      "CATEGORIES": "Categories",
+      "SUB_CATEGORIES": "Sub categories",
+      "ACCOUNTS_OR_WALLETS": "Accounts/Wallets",
+      "SIGN_OUT": "Sign out"
+    }
   }
 }

@@ -1,3 +1,12 @@
 :host {
   display: block;
 }
+.p-one-card {
+  &__header,
+  &__footer,
+  &__title {
+    &:empty {
+      display: none;
+    }
+  }
+}

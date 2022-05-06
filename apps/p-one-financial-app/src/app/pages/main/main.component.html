@@ -1,71 +1,115 @@
 <p-one-sidenav-container>
   <p-one-sidenav>
     <section pOneSidenavHeader>
-      <ng-container *ngIf="this.user$ | async as user">
-        <h1>Olá, {{ user.name | pOneFirstName }}</h1>
+      <ng-container *ngIf="user$ | async as user">
+        <h3>
+          {{
+            '@PONE.MAIN.WELCOME'
+              | translate: { username: user.name | pOneFirstName }
+          }}
+        </h3>
       </ng-container>
     </section>
-    <p-one-sidenav-item link="/main/home" tooltip="Home">
+    <p-one-sidenav-item
+      link="/main/home"
+      [tooltip]="'@PONE.MAIN.SIDENAV.HOME' | translate"
+    >
       <i pOneIcon class="bi bi-house"></i>
-      Home
+      {{ '@PONE.MAIN.SIDENAV.HOME' | translate }}
     </p-one-sidenav-item>
 
-    <p-one-sidenav-item link="/main/settings">
+    <p-one-sidenav-item
+      link="/main/settings"
+      [tooltip]="'@PONE.MAIN.SIDENAV.SETTINGS' | translate"
+    >
       <i pOneIcon class="bi bi-gear"></i>
-      Configurações
+      {{ '@PONE.MAIN.SIDENAV.SETTINGS' | translate }}
     </p-one-sidenav-item>
 
-    <p-one-sidenav-item link="/main/dashboard" tooltip="Dashboard">
+    <p-one-sidenav-item
+      link="/main/dashboard"
+      [tooltip]="'@PONE.MAIN.SIDENAV.DASHBOARD' | translate"
+    >
       <i pOneIcon class="bi bi-bar-chart"></i>
-      Dashboard
+      {{ '@PONE.MAIN.SIDENAV.DASHBOARD' | translate }}
     </p-one-sidenav-item>
 
-    <p-one-sidenav-collapse link="/main/entries" tooltip="Entradas">
+    <p-one-sidenav-collapse
+      link="/main/entries"
+      [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate"
+    >
       <i pOneIcon class="bi bi-clipboard"></i>
-      Entradas
+      {{ '@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate }}
 
-      <p-one-sidenav-item link="/main/entries/list" tooltip="Todas as contas">
+      <p-one-sidenav-item
+        link="/main/entries/list"
+        [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate"
+      >
         <i pOneIcon class="bi bi-arrow-down-up"></i>
-        Todas as contas
+        {{ '@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate }}
       </p-one-sidenav-item>
 
-      <p-one-sidenav-item link="/main/entries/credits" tooltip="Créditos">
+      <p-one-sidenav-item
+        link="/main/entries/credits"
+        [tooltip]="
+          '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate
+        "
+      >
         <i pOneIcon class="bi bi-arrow-up"></i>
-        Contas a receber
+        {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate }}
       </p-one-sidenav-item>
 
-      <p-one-sidenav-item link="/main/entries/debits" tooltip="Débitos">
+      <p-one-sidenav-item
+        link="/main/entries/debits"
+        [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate"
+      >
         <i pOneIcon class="bi bi-arrow-down"></i>
-        Contas a pagar
+        {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate }}
       </p-one-sidenav-item>
 
-      <p-one-sidenav-item link="/main/entries/create" tooltip="Criar entrada">
+      <p-one-sidenav-item
+        link="/main/entries/create"
+        [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate"
+      >
         <i pOneIcon class="bi bi-clipboard-plus"></i>
-        Criar entrada
+        {{ '@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate }}
       </p-one-sidenav-item>
     </p-one-sidenav-collapse>
 
-    <p-one-sidenav-item link="/main/categories" tooltip="Categorias">
+    <p-one-sidenav-item
+      link="/main/categories"
+      [tooltip]="'@PONE.MAIN.SIDENAV.CATEGORIES' | translate"
+    >
       <i pOneIcon class="bi bi-tag"></i>
-      Categorias
+      {{ '@PONE.MAIN.SIDENAV.CATEGORIES' | translate }}
     </p-one-sidenav-item>
 
-    <p-one-sidenav-item link="/main/sub-categories" tooltip="Sub categorias">
+    <p-one-sidenav-item
+      link="/main/sub-categories"
+      [tooltip]="'@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate"
+    >
       <i pOneIcon class="bi bi-tags"></i>
-      Sub categorias
+      {{ '@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate }}
     </p-one-sidenav-item>
 
-    <p-one-sidenav-item link="/main/wallets" tooltip="Contas / carteiras">
+    <p-one-sidenav-item
+      link="/main/wallets"
+      [tooltip]="'@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate"
+    >
       <i pOneIcon class="bi bi-bank"></i>
-      Contas / Cateiras
+      {{ '@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate }}
     </p-one-sidenav-item>
-    <p-one-sidenav-item tooltip="Sair" (click)="signOut()">
+    <p-one-sidenav-item
+      tooltip="Sair"
+      (click)="signOut()"
+      [tooltip]="'@PONE.MAIN.SIDENAV.SIGN_OUT' | translate"
+    >
       <i
         pOneIcon
         class="bi bi-box-arrow-right"
         [style.color]="'var(--bs-danger)'"
       ></i>
-      Sair
+      {{ '@PONE.MAIN.SIDENAV.SIGN_OUT' | translate }}
     </p-one-sidenav-item>
   </p-one-sidenav>
   <router-outlet></router-outlet>

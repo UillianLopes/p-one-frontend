@@ -1,3 +1,33 @@
-section {
-    width: 800px;
+.p-one-landing {
+  &__main {
+    background: var(--bs-secondary);
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 32px;
+    color: white;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding-inline: 0px;
+      margin-inline: 0px;
+      margin: 0px;
+    }
+  }
+
+  &__leading {
+  }
+  &__trailing {
+  }
 }

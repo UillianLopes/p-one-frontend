@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserStoreFacade } from '@p-one/identity';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
-import { SignUpFacade } from './+state/sign-up-store.facade';
+import { SignUpFacade } from '../+state/sign-up-store.facade';
 
 @Component({
-  selector: 'p-one-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'p-one-sign-up-card',
+  templateUrl: './sign-up-card.component.html',
+  styleUrls: ['./sign-up-card.component.scss'],
 })
-export class SignUpComponent extends DestroyableMixin() {
+export class SignUpCardComponent extends DestroyableMixin() {
   public readonly form = this._formBuilder.group({
     name: [null, Validators.required],
     email: [null, Validators.required],
@@ -24,7 +23,7 @@ export class SignUpComponent extends DestroyableMixin() {
   });
 
   public readonly isSignUpLoading$ = this._signUpFacade.isSignUpLoading$;
-  
+
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _signUpFacade: SignUpFacade,
