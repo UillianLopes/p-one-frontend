@@ -1,27 +1,57 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h5 class="card-header">Alteração de contas / cateiras</h5>
+  <h5 class="card-header">
+    {{ '@PONE.WALLETS.MODALS.UPDATE_WALLET.TITLE' | translate }}
+  </h5>
   <p-one-dialog-body>
     <form [formGroup]="form">
-      <div pOneGrid gap="16px">
-        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-          <label pOneLabel for="nameInput" i18n>Name</label>
+      <div class="row">
+        <p-one-form-field class="col">
+          <label pOneLabel for="nameInput">
+            {{ '@PONE.WALLETS.MODALS.FIELDS.NAME.LABEL' | translate }}
+          </label>
           <input
             #categoryNameInput
             pOneInput
-            placeholder="Digite o nome da conta ou carteira"
+            [placeholder]="
+              '@PONE.WALLETS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
+            "
             formControlName="name"
             i18n-placehoder
           />
         </p-one-form-field>
       </div>
+      <div class="row">
+        <p-one-form-field class="col">
+          <label pOneLabel for="colorInput">
+            {{ '@PONE.WALLETS.MODALS.FIELDS.COLOR.LABEL' | translate }}
+          </label>
+          <p-one-color-picker
+            #colorInput
+            formControlName="color"
+          ></p-one-color-picker>
+        </p-one-form-field>
+        <p-one-form-field class="col">
+          <label pOneLabel>{{
+            '@PONE.WALLETS.MODALS.FIELDS.CURRENCY.LABEL' | translate
+          }}</label>
+          <select pOneInput formControlName="currency">
+            <option ngValue="BRL">Real (BRL)</option>
+            <option ngValue="USD">Dollar (USD)</option>
+          </select>
+        </p-one-form-field>
+      </div>
 
       <ng-container *ngIf="(type$ | async) === EWalletType.Balance">
         <p-one-form-field>
-          <label pOneLabel for="agencyInput" i18n>Banco</label>
+          <label pOneLabel for="bankInput" i18n>
+            {{ '@PONE.WALLETS.MODALS.FIELDS.BANK.LABEL' | translate }}
+          </label>
           <input
-            #agencyInput
+            #bankInput
             pOneInput
-            placeholder="Selecione a instituição"
+            [placeholder]="
+              '@PONE.WALLETS.MODALS.FIELDS.BANK.PLACEHOLDER' | translate
+            "
             formControlName="bank"
             type="text"
             [pOneAutocomplete]="banksAutocomplete"
@@ -40,34 +70,38 @@
         </p-one-form-field>
         <div pOneGrid gap="16px">
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-            <label pOneLabel for="agencyInput" i18n>Agência</label>
+            <label pOneLabel for="agencyInput" i18n>
+              {{ '@PONE.WALLETS.MODALS.FIELDS.AGENCY.LABEL' | translate }}
+            </label>
             <input
               #agencyInput
               pOneInput
-              placeholder="Digite o nome da conta"
+              [placeholder]="
+                '@PONE.WALLETS.MODALS.FIELDS.AGENCY.PLACEHOLDER' | translate
+              "
               formControlName="agency"
               type="tel"
             />
           </p-one-form-field>
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-            <label pOneLabel for="numberInput" i18n>Conta</label>
+            <label pOneLabel for="numberInput" i18n>
+              {{
+                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.LABEL' | translate
+              }}
+            </label>
             <input
               #numberInput
               pOneInput
-              placeholder="Digite o numero da conta"
+              [placeholder]="
+                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.PLACEHOLDER'
+                  | translate
+              "
               formControlName="number"
               type="tel"
             />
           </p-one-form-field>
         </div>
       </ng-container>
-      <p-one-form-field>
-        <label for="colorInput">Cor</label>
-        <p-one-color-picker
-          #colorInput
-          formControlName="color"
-        ></p-one-color-picker>
-      </p-one-form-field>
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>

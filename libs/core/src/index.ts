@@ -3,3 +3,4 @@ export * from './lib/utils';
 export * from './lib/models';
 export * from './lib/enums';
 export * from './lib/loaders';
+export * from './lib/functions';

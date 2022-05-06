@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
 import {
   POneBreadcrumbModule,
@@ -61,6 +62,7 @@ import { WalletRoutingModule } from './wallet.routing';
     POneTooltipModule,
     POneColorPickerModule,
     POneNotificationsDisplayButtonModule,
+    TranslateModule,
   ],
   providers: [WalletFacade],
 })

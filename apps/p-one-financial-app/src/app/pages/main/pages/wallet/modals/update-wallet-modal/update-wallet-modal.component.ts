@@ -26,6 +26,7 @@ export class UpdateWalletModalComponent implements OnInit {
     bank: [this.data?.bank],
     number: [this.data?.number],
     color: [this.data?.color],
+    currency: [this.data?.currency],
   });
 
   public readonly isUpdateWalletDisabled$ = this.form.statusChanges.pipe(

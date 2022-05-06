@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SettingsStoreFacade } from '@p-one/admin';
+import { generateColor } from '@p-one/core';
 import { BankModel, EWalletType } from '@p-one/financial';
 import { DialogRef } from '@p-one/shared';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { filter, map, startWith, take } from 'rxjs/operators';
 
 import { CreateWalletModalStore } from './create-wallet-modal.state';
 
@@ -23,7 +25,8 @@ export class CreateWalletModalComponent implements OnInit {
     agency: [],
     bank: [],
     number: [],
-    color: [],
+    color: [generateColor(), [Validators.required]],
+    currency: [],
   });
 
   public readonly isCreateWalletDisabled$ = this.form.statusChanges.pipe(
@@ -58,6 +61,7 @@ export class CreateWalletModalComponent implements OnInit {
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _store: CreateWalletModalStore,
+    private readonly _settingsStoreFacade: SettingsStoreFacade,
     dialogRef: DialogRef
   ) {
     this._store.setDialogId(dialogRef.dialogId);
@@ -65,9 +69,20 @@ export class CreateWalletModalComponent implements OnInit {
 
   public ngOnInit(): void {
     this._store.loadBanks();
+    this._settingsStoreFacade.settings$
+      .pipe(take(1))
+      .subscribe((settings) =>
+        this.form.get('currency').setValue(settings.currency)
+      );
   }
 
   public createWallet(): void {
+    this.form.updateValueAndValidity();
+
+    if (this.form.invalid) {
+      return;
+    }
+
     this._store.createWallet(this.form.value);
   }
 
