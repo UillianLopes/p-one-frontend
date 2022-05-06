@@ -106,14 +106,16 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.WALLETS.MODALS.UPDATE_WALLET.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isUpdateWalletDisabled$ | async"
       (click)="updateWallet()"
     >
-      Alterar conta / carteira
+      {{
+        '@PONE.WALLETS.MODALS.UPDATE_WALLET.BUTTONS.UPDATE_WALLET' | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>
