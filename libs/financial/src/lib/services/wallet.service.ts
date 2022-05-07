@@ -21,9 +21,13 @@ export class WalletService {
     @Inject(FINANCIAL_ENDPOINT) private readonly _financialEndpoint: string
   ) {}
 
-  public get(): Observable<WalletModel[]> {
+  public get(
+    params?: Partial<{ currency: string }>
+  ): Observable<WalletModel[]> {
     return this._httpClient
-      .get<ResponseModel<WalletModel[]>>(`${this._financialEndpoint}/Wallet`)
+      .get<ResponseModel<WalletModel[]>>(`${this._financialEndpoint}/Wallet`, {
+        params,
+      })
       .pipe(
         map(({ data }) => data),
         catchError(({ messages }) => throwError({ messages } as ErrorModel))
@@ -77,9 +81,7 @@ export class WalletService {
       })
       .pipe(
         map(({ data }) => data),
-        catchError(({ messages }) =>
-          throwError({ messages } as ErrorModel)
-        )
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -91,9 +93,7 @@ export class WalletService {
       )
       .pipe(
         map(({ data }) => data),
-        catchError(({ messages }) =>
-          throwError({ messages } as ErrorModel)
-        )
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 
@@ -108,9 +108,7 @@ export class WalletService {
       )
       .pipe(
         map(({ data }) => data),
-        catchError(({ messages }) =>
-          throwError({ messages } as ErrorModel)
-        )
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
       );
   }
 }

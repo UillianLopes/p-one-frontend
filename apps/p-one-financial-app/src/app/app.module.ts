@@ -74,7 +74,7 @@ import { AppRoutingModule } from './app.routing';
       allowZero: true,
       decimal: ',',
       precision: 2,
-      prefix: 'R$ ',
+      prefix: '',
       suffix: '',
       thousands: '.',
       nullable: true,

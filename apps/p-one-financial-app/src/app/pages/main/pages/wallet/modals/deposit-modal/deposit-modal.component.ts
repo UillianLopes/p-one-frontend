@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SettingsStoreFacade } from '@p-one/admin';
 import { CategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import * as _ from 'lodash';
@@ -92,10 +93,14 @@ export class DepositModalComponent
   );
 
   public readonly displayFn = (obj: any) => obj?.name;
+  public readonly currency$ = this._store.wallet$.pipe(
+    map((wallet) => wallet.currency)
+  );
 
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _store: DepositModalStore,
+    private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) wallet: WalletModel,
     { dialogId }: DialogRef
   ) {
