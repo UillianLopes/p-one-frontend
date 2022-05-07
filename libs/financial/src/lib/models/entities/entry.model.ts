@@ -17,4 +17,5 @@ export interface EntryModel {
   subCategory: AutocompleteModel;
   barCode: string;
   paymentStatus: EEntryPaymentStatus;
+  currency: string;
 }

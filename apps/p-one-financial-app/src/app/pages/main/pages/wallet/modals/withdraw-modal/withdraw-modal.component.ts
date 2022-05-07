@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SettingsStoreFacade } from '@p-one/admin';
 import { CategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import * as _ from 'lodash';
@@ -99,10 +100,15 @@ export class WithdrawModalComponent
   );
 
   public readonly displayFn = (obj: any) => obj?.name;
+  public readonly currency$ = combineLatest([
+    this._settingsStoreFacade.settingsCurrency$,
+    this._store.wallet$,
+  ]).pipe(map(([currency, wallet]) => wallet.currency ?? currency));
 
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _store: WithdrawModalStore,
+    private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel,
     { dialogId }: DialogRef
   ) {

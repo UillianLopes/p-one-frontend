@@ -1,15 +1,26 @@
 <section class="card" [formGroup]="this.form">
   <div class="card-body">
-    <div pOneGrid columns="minmax(0px, 1fr) 200px" gap="16px">
-      <p-one-form-field>
-        <label for="titleInput" pOneLabel>Titulo</label>
-        <input #titleInput type="text" pOneInput formControlName="title" />
-      </p-one-form-field>
-      <p-one-form-field>
+    <p-one-form-field class="col">
+      <label for="titleInput" pOneLabel>Titulo</label>
+      <input #titleInput type="text" pOneInput formControlName="title" />
+    </p-one-form-field>
+    <div class="row">
+      <p-one-form-field class="col">
         <label pOneLabel for="entryTypeSelect" i18n>Tipo</label>
         <select #entryTypeSelect class="form-control" formControlName="type">
           <option [ngValue]="EntryType.Credit">Crédito</option>
           <option [ngValue]="EntryType.Debit">Débito</option>
+        </select>
+      </p-one-form-field>
+      <p-one-form-field class="col">
+        <label pOneLabel for="entryTypeSelect">Moéda</label>
+        <select
+          #entryTypeSelect
+          class="form-control"
+          formControlName="currency"
+        >
+          <option ngValue="BRL">Real (BRL)</option>
+          <option ngValue="USD">Dolar (USD)</option>
         </select>
       </p-one-form-field>
     </div>

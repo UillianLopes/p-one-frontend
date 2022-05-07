@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private readonly _dashboardFacade: DashboardFacade) {}
 
-
   public ngOnInit(): void {}
 
   public openFilterModal(): void {

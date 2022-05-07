@@ -85,8 +85,9 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   public readonly loadBalances = this.effect((data$) => {
     return data$.pipe(
       tap(() => this.setIsLoading(true)),
-      switchMap(() =>
-        this._walletService.get().pipe(
+      withLatestFrom(this.entry$),
+      switchMap(([_, entry]) =>
+        this._walletService.get({ currency: entry.currency }).pipe(
           tap({
             next: (balances) => this.loadBalancesSuccess(balances),
             error: (error) => this.loadBalancesFailure(error),

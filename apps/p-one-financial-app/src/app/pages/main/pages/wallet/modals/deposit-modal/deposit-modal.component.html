@@ -44,14 +44,14 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel>Valor do depósito</label>
+        <label pOneLabel>Valor do depósito ({{ currency$ | async }})</label>
         <input pOneInput currencyMask formControlName="deposit" />
       </p-one-form-field>
     </form>
     <p>
       Com esse depósito o saldo vai de
-      <b>{{ currentBalance$ | async | currency: 'BRL' }} </b> para
-      <b>{{ newBalance$ | async | currency: 'BRL' }} </b>
+      <b>{{ currentBalance$ | async | currency: (currency$ | async) }} </b> para
+      <b>{{ newBalance$ | async | currency: (currency$ | async) }} </b>
     </p>
   </p-one-dialog-body>
   <p-one-dialog-footer>
