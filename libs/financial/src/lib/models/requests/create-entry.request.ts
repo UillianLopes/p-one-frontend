@@ -13,4 +13,5 @@ export interface CreateEntryRequest {
   categoryId: string;
   subCategoryId?: string;
   recurrences: CreateEntryRequestRecurrence[];
+  currency?: string;
 }

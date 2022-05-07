@@ -142,7 +142,7 @@
           <td>{{ entry.dueDate | date }}</td>
           <td>{{ entry.category?.title }}</td>
           <td>{{ entry.subCategory?.title }}</td>
-          <td>{{ entry.value | currency: 'BRL' }}</td>
+          <td>{{ entry.value | currency: (entry.currency ? entry.currency : (settingsCurrency$ | async)) }}</td>
           <td [ngSwitch]="entry.type">
             <i
               *ngSwitchCase="EntryType.Debit"

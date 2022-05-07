@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SettingsStoreFacade } from '@p-one/admin';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
@@ -19,6 +20,7 @@ export class FirstStepComponent extends DestroyableMixin() implements OnInit {
     type: [EEntryType.Credit],
     category: [null, [Validators.required]],
     subCategory: [null],
+    currency: [null, Validators.required],
   });
 
   public readonly categories$ = this._facade.filtredCategories$;
@@ -27,7 +29,8 @@ export class FirstStepComponent extends DestroyableMixin() implements OnInit {
 
   constructor(
     private readonly _formBuilder: FormBuilder,
-    private readonly _facade: EntryCreateFacade
+    private readonly _facade: EntryCreateFacade,
+    private readonly _settingsStoreFacade: SettingsStoreFacade
   ) {
     super();
   }
@@ -35,6 +38,10 @@ export class FirstStepComponent extends DestroyableMixin() implements OnInit {
   displayFn = (obj: any) => obj.name;
 
   ngOnInit(): void {
+    this._settingsStoreFacade.settingsCurrency$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((value) => this.form.get('currency').setValue(value ?? 'BRL'));
+
     this.form
       .get('type')
       .valueChanges.pipe(
@@ -50,7 +57,7 @@ export class FirstStepComponent extends DestroyableMixin() implements OnInit {
       .get('category')
       .valueChanges.pipe(
         takeUntil(this.destroyed$),
-        filter((value) => !!value && typeof value != 'string'),
+        filter((value) => !!value && typeof value !== 'string'),
         map((value) => value as CategoryModel)
       )
       .subscribe((category) => {

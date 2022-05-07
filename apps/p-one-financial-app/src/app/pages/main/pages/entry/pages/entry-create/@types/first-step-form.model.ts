@@ -6,4 +6,5 @@ export interface FirstStepFormModel {
   type: EEntryType;
   category: CategoryModel;
   subCategory?: SubCategoryModel;
+  currency?: string;
 }
