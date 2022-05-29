@@ -1,16 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, Optional, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormControlDirective,
   FormControlName,
+  FormControlStatus,
   FormGroup,
   FormGroupDirective,
   FormGroupName,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { v4 } from 'uuid';
 
-import { StepperStateService } from '../stepper-state.service';
+import { DestroyableMixin } from '../../@mixins';
+import { StepperStore } from '../stepper.state';
 
 @Component({
   selector: 'p-one-step',
@@ -18,23 +22,23 @@ import { StepperStateService } from '../stepper-state.service';
   styleUrls: ['./step.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StepComponent {
+export class StepComponent extends DestroyableMixin() implements OnInit {
   @Input()
-  header?: string;
+  public identifier = v4();
 
   @ViewChild('headerTemplate', { static: true })
-  haderTemplate!: TemplateRef<any>;
+  public haderTemplate!: TemplateRef<any>;
 
   @ViewChild('contentTemplate', { static: true })
-  contentTemplate!: TemplateRef<any>;
+  public contentTemplate!: TemplateRef<any>;
 
   @Input()
-  identifier?: string;
+  public set isInvalid(isInvalid: boolean) {}
 
   @Input()
-  public isInvalid?: boolean;
+  public header?: string;
 
-  get control(): AbstractControl | undefined {
+  public get control(): AbstractControl | undefined {
     return (
       this._formControlName?.control ??
       this._formControlDirective?.control ??
@@ -43,33 +47,39 @@ export class StepComponent {
     );
   }
 
-  readonly uinqueId = v4();
+  public readonly status$ = new Subject<FormControlStatus>();
 
   constructor(
-    private readonly _stepperStateService: StepperStateService,
+    private readonly _stepperStore: StepperStore,
     @Optional() private readonly _formGroupDirective?: FormGroupDirective,
     @Optional() private readonly _formGroupName?: FormGroupName,
     @Optional() private readonly _formControlDirective?: FormControlDirective,
     @Optional() private readonly _formControlName?: FormControlName
-  ) {}
+  ) {
+    super();
+  }
 
-  next() {
-    if (!this._validate()) {
+  public ngOnInit(): void {
+    if (!this.control) {
       return;
     }
 
-    this._stepperStateService.next();
+    this.control.statusChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => this.status$.next(status));
   }
 
-  previous() {
-    this._stepperStateService.previous();
+  public next(): void {
+    this._stepperStore.next();
+    this._validate();
+  }
+
+  public previous(): void {
+    this._stepperStore.previous();
+    this._validate();
   }
 
   private _validate(): boolean {
-    if (this.isInvalid) {
-      return false;
-    }
-
     if (!this.control || this.control.valid) {
       return true;
     }

@@ -8,6 +8,7 @@ import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { CreateWalletModalComponent } from '../modals/create-wallet-modal/create-wallet-modal.component';
 import { DeleteWalletModalComponent } from '../modals/delete-wallet-modal/delete-wallet-modal.component';
 import { DepositModalComponent } from '../modals/deposit-modal/deposit-modal.component';
+import { FoundTransferModalComponent } from '../modals/found-transfer-modal/found-transfer-modal.component';
 import { UpdateWalletModalComponent } from '../modals/update-wallet-modal/update-wallet-modal.component';
 import { WithdrawModalComponent } from '../modals/withdraw-modal/withdraw-modal.component';
 import { EWalletActions, loadWallets, loadWalletsFailure, loadWalletsSuccess, WalletActionsUnion } from './wallet.actions';
@@ -118,6 +119,26 @@ export class WalletEffects {
               maxWidth: '800px',
             },
             [wallet]
+          )
+          .afterClosed$.pipe(
+            filter((value) => !!value),
+            map(() => loadWallets())
+          )
+      )
+    )
+  );
+  public readonly openTransferFoundsDialogEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EWalletActions.OPEN_TRANSFER_FOUNDS_DIALOG),
+      switchMap(({ wallet }) =>
+        this._dialogService
+          .open(
+            FoundTransferModalComponent,
+            {
+              minWidth: '600px',
+              maxWidth: '600px',
+            },
+            wallet
           )
           .afterClosed$.pipe(
             filter((value) => !!value),
