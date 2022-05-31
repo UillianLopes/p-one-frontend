@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { ControlContainer, FormGroupName } from '@angular/forms';
+import { FormGroup, FormGroupName } from '@angular/forms';
 import { CategoryModel, SubCategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin } from '@p-one/shared';
 import { Subject } from 'rxjs';
@@ -13,7 +13,6 @@ import { FoundTransferStepStore } from './found-transfer-step.state';
   styleUrls: ['./found-transfer-step.component.scss'],
   providers: [FoundTransferStepStore],
   encapsulation: ViewEncapsulation.None,
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupName }],
 })
 export class FoundTransferStepComponent
   extends DestroyableMixin()
@@ -24,9 +23,6 @@ export class FoundTransferStepComponent
   public readonly subCategories$ = this._foundTransferStepStore.subCategories$;
   public readonly isWalletDisabled$ =
     this._foundTransferStepStore.isWalletDisabled$;
-
-  // @Input()
-  // public form: FormGroup = null;
 
   @Input()
   set isWalletDisabled(isWalletDisabled: boolean) {
@@ -54,7 +50,7 @@ export class FoundTransferStepComponent
   private _onChange?: (value: any) => void;
   private _onTouched?: () => void;
 
-  public readonly form = this._formGroupName.control;
+  public form: FormGroup;
 
   constructor(
     private readonly _foundTransferStepStore: FoundTransferStepStore,
@@ -64,6 +60,7 @@ export class FoundTransferStepComponent
   }
 
   public ngOnInit(): void {
+    this.form = this._formGroupName.control;
     if (!this.form) {
       return;
     }
@@ -72,16 +69,17 @@ export class FoundTransferStepComponent
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isWalletDisabled) => {
         if (isWalletDisabled) {
-          console.log(this.form);
           this.form.get('wallet').disable();
         }
       });
+
     this.form.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((value) => {
         if (this._onChange) this._onChange(value);
         if (this._onTouched) this._onTouched();
       });
+
     this.form
       .get('category')
       .valueChanges.pipe(takeUntil(this.destroyed$))

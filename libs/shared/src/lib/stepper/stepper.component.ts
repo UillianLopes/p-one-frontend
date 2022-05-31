@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { FormControlStatus } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../@mixins';
 import { StepComponent } from './step/step.component';
@@ -54,7 +54,8 @@ export class StepperComponent
   public ngAfterContentInit(): void {
     this.steps$ = this.steps.changes.pipe(
       startWith(this.steps?.map((step) => step) ?? []),
-      map((steps: StepComponent[]) => steps)
+      map((steps: StepComponent[]) => steps),
+      tap((steps) => this._stepperStore.setStepAmmount(steps.length))
     );
   }
 

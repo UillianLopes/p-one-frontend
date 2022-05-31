@@ -11,7 +11,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/admin"],
           "options": {
-            "jestConfig": "libs/admin/jest.config.js",
+            "jestConfig": "libs/admin/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -37,7 +37,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/core"],
           "options": {
-            "jestConfig": "libs/core/jest.config.js",
+            "jestConfig": "libs/core/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -63,7 +63,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/financial"],
           "options": {
-            "jestConfig": "libs/financial/jest.config.js",
+            "jestConfig": "libs/financial/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -89,7 +89,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/identity"],
           "options": {
-            "jestConfig": "libs/identity/jest.config.js",
+            "jestConfig": "libs/identity/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -115,7 +115,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/notification"],
           "options": {
-            "jestConfig": "libs/notification/jest.config.js",
+            "jestConfig": "libs/notification/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -230,7 +230,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/p-one-financial-app"],
           "options": {
-            "jestConfig": "apps/p-one-financial-app/jest.config.js",
+            "jestConfig": "apps/p-one-financial-app/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -254,7 +254,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared"],
           "options": {
-            "jestConfig": "libs/shared/jest.config.js",
+            "jestConfig": "libs/shared/jest.config.ts",
             "passWithNoTests": true
           }
         },
