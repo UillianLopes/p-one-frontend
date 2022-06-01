@@ -8,6 +8,7 @@ import {
   openCreateWalletDialog,
   openDeleteWalletDialog,
   openDepositWalletDialog,
+  openTransferFoundsDialog,
   openUpdateWalletDialog,
   openWithdrawWalletDialog,
   setWalletsPage,
@@ -64,5 +65,9 @@ export class WalletFacade {
 
   public openDeleteWalletDialog(balance: WalletModel) {
     this._store.dispatch(openDeleteWalletDialog({ wallet: balance }));
+  }
+
+  public openTransferFoundsDialog(wallet: WalletModel) {
+    this._store.dispatch(openTransferFoundsDialog({ wallet }));
   }
 }

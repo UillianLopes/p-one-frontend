@@ -1,8 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { map, withLatestFrom } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormControlStatus } from '@angular/forms';
+import { map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
+import { DestroyableMixin } from '../../@mixins';
 import { StepComponent } from '../step/step.component';
-import { StepperStateService } from '../stepper-state.service';
+import { StepperStore } from '../stepper.state';
 import { stepBodyAnimation } from './step-body.animations';
 
 export enum EStepBodyState {
@@ -23,7 +32,7 @@ export enum EStepBodyState {
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [stepBodyAnimation],
 })
-export class StepBodyComponent {
+export class StepBodyComponent extends DestroyableMixin() implements OnInit {
   @Input()
   public step!: StepComponent;
 
@@ -33,7 +42,6 @@ export class StepBodyComponent {
   public readonly state$ = this._stepper.selectedStep$.pipe(
     withLatestFrom(this._stepper.previousSelectedStep$),
     map(([selectedStepIndex, previousSelectedStepIndex]) => {
-      
       if (this.stepIndex != selectedStepIndex) {
         if (previousSelectedStepIndex == this.stepIndex) {
           return selectedStepIndex > this.stepIndex
@@ -57,5 +65,18 @@ export class StepBodyComponent {
     })
   );
 
-  constructor(private readonly _stepper: StepperStateService) {}
+  @Output()
+  public readonly status$ = new EventEmitter<FormControlStatus>();
+
+  constructor(private readonly _stepper: StepperStore) {
+    super();
+  }
+
+  public ngOnInit(): void {
+    this.step.status$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => this.status$.next(status));
+
+    this.step.validate();
+  }
 }

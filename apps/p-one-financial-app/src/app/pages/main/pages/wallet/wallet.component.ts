@@ -27,7 +27,8 @@ export class WalletComponent extends DestroyableMixin() implements OnInit {
   );
 
   public readonly filterControl = new FormControl('');
-  public readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
+  public readonly settingsCurrency$ =
+    this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: WalletFacade,
@@ -63,6 +64,10 @@ export class WalletComponent extends DestroyableMixin() implements OnInit {
 
   public openWithdrawWalletDialog(wallet: WalletModel): void {
     this._facade.openWithdrawWalletDialog(wallet);
+  }
+
+  public openTransferFoundsDialog(wallet: WalletModel): void {
+    this._facade.openTransferFoundsDialog(wallet);
   }
 
   public setWalletsPage(page: number) {
