@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { WalletModel } from '@p-one/financial';
 import { PONE_DIALOG_DATA } from '@p-one/shared';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -18,12 +20,12 @@ export class FoundTransferModalComponent implements OnInit {
     origin: this._formBuilder.group({
       wallet: [this.wallet, Validators.required],
       category: [null, Validators.required],
-      subCategory: [null, Validators.required],
+      subCategory: [null],
     }),
     destination: this._formBuilder.group({
       wallet: [this.wallet, Validators.required],
       category: [null, Validators.required],
-      subCategory: [null, Validators.required],
+      subCategory: [null],
     }),
     value: [0.0, Validators.required],
   });
@@ -35,8 +37,11 @@ export class FoundTransferModalComponent implements OnInit {
   public readonly debitCategories$ = this._store.debitCategories$;
   public readonly creditCategories$ = this._store.creditCategories$;
   public readonly wallets$ = this._store.wallets$;
-  public readonly settingsCurrency$ =
-    this._settingsStoreFacade.settingsCurrency$;
+  public readonly currency$ = combineLatest([
+    this._store.currency$,
+    this._settingsStoreFacade.settingsCurrency$,
+  ]).pipe(map(([currency, settingsCurrency]) => currency ?? settingsCurrency));
+
   public readonly hasData$ = this._store.hasData$;
 
   constructor(

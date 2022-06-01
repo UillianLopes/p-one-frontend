@@ -101,12 +101,18 @@ export class StepperStore extends ComponentStore<StepperState> {
     )
   );
 
-  public readonly setSelectedStep = this.updater(
-    (state, selectedStep: number) => {
-      return {
-        ...state,
-        selectedStep,
-      };
-    }
+  public readonly setSelectedStep = this.effect((data$: Observable<number>) =>
+    data$.pipe(
+      withLatestFrom(this.selectedStep$, this.steps$),
+      filter(
+        ([newSelectedStep, selectedStep, steps]) =>
+          newSelectedStep < selectedStep ||
+          !['INVALID', 'DISABLED'].includes(steps[selectedStep])
+      ),
+      tap({
+        next: ([selectedStep]) =>
+          this.patchState((state) => ({ ...state, selectedStep })),
+      })
+    )
   );
 }

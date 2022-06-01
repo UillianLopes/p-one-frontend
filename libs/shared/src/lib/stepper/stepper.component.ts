@@ -1,4 +1,11 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+} from '@angular/core';
 import { FormControlStatus } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';

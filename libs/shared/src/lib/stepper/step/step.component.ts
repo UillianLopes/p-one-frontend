@@ -10,7 +10,7 @@ import {
   FormGroupName,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil, tap } from 'rxjs/operators';
 import { v4 } from 'uuid';
 
 import { DestroyableMixin } from '../../@mixins';
@@ -71,27 +71,13 @@ export class StepComponent extends DestroyableMixin() implements OnInit {
 
   public next(): void {
     this._stepperStore.next();
-    this._validate();
   }
 
   public previous(): void {
     this._stepperStore.previous();
-    this._validate();
   }
 
-  private _validate(): boolean {
-    if (!this.control || this.control.valid) {
-      return true;
-    }
-
-    if (this.control instanceof FormGroup) {
-      for (const key of Object.keys(this.control.controls)) {
-        this.control.get(key)?.updateValueAndValidity();
-      }
-    } else if (this.control instanceof FormControl) {
-      this.control.updateValueAndValidity();
-    }
-
-    return false;
+  public validate(): void {
+    this.control?.updateValueAndValidity()
   }
 }

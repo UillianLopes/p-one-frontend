@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControlStatus } from '@angular/forms';
 import { map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -67,10 +74,9 @@ export class StepBodyComponent extends DestroyableMixin() implements OnInit {
 
   public ngOnInit(): void {
     this.step.status$
-      .pipe(
-        takeUntil(this.destroyed$),
-        tap((result) => console.log('RESULT -> ', result))
-      )
+      .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => this.status$.next(status));
+
+    this.step.validate();
   }
 }
