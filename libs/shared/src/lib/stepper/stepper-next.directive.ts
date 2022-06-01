@@ -6,6 +6,7 @@ import { StepComponent } from './step/step.component';
   selector: '[pOneStepperNext]',
 })
 export class StepperNextDirective {
+  
   constructor(private readonly _stepComponent: StepComponent) {}
 
   @HostListener('click')

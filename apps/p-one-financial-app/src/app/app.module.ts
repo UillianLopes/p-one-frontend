@@ -94,7 +94,7 @@ import { AppRoutingModule } from './app.routing';
         provide: TranslateCompiler,
         useClass: TranslateMessageFormatCompiler,
       },
-      defaultLanguage: 'en',
+      defaultLanguage: 'en-US',
     }),
     UserStoreModule,
     SettingsStoreModule,

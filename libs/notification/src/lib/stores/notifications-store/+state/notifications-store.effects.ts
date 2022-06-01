@@ -90,6 +90,7 @@ export class NotificationsStoreEffects {
               this._oidcSecurityService.getAccessToken(),
             logMessageContent: true,
           },
+          
         });
       })
     )

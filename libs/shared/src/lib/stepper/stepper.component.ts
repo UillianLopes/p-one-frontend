@@ -4,25 +4,36 @@ import {
   Component,
   ContentChildren,
   Input,
+  Output,
   QueryList,
 } from '@angular/core';
+import { FormControlStatus } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 
+import { DestroyableMixin } from '../@mixins';
 import { StepComponent } from './step/step.component';
-import { StepperStateService } from './stepper-state.service';
+import { StepperStore } from './stepper.state';
 
 @Component({
   selector: 'p-one-stepper',
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [StepperStateService],
+  providers: [StepperStore],
 })
-export class StepperComponent implements AfterContentInit {
+export class StepperComponent
+  extends DestroyableMixin()
+  implements AfterContentInit
+{
   @Input()
   public set isCompleted(value: boolean) {
-    this._stepperStateService.setIsCompleted(value);
+    this._stepperStore.setIsCompleted(value);
+  }
+
+  @Input()
+  public set validate(validate: boolean) {
+    this._stepperStore.setValidate(validate);
   }
 
   @ContentChildren(StepComponent, { descendants: true })
@@ -31,12 +42,37 @@ export class StepperComponent implements AfterContentInit {
   public steps$?: Observable<StepComponent[]>;
   public isValid$?: Observable<boolean>;
 
-  constructor(private readonly _stepperStateService: StepperStateService) {}
+  @Output()
+  public readonly selectedStep$ = this._stepperStore.selectedStep$;
 
-  ngAfterContentInit(): void {
+  constructor(private readonly _stepperStore: StepperStore) {
+    super();
+  }
+
+  public setSelectedStep(stepIndex: number): void {
+    this._stepperStore.setSelectedStep(stepIndex);
+  }
+
+  public setStepStatus(index: number, status: FormControlStatus): void {
+    this._stepperStore.setStepStatus({
+      index,
+      status,
+    });
+  }
+
+  public ngAfterContentInit(): void {
     this.steps$ = this.steps.changes.pipe(
       startWith(this.steps?.map((step) => step) ?? []),
-      map((steps: StepComponent[]) => steps)
+      map((steps: StepComponent[]) => steps),
+      tap((steps) => this._stepperStore.setStepAmmount(steps.length))
     );
+  }
+
+  public next(): void {
+    this._stepperStore.next();
+  }
+
+  public previous(): void {
+    this._stepperStore.previous();
   }
 }

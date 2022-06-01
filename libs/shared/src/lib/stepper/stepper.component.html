@@ -3,8 +3,10 @@
 <p-one-stepper-header>
   <p-one-step-header
     *ngFor="let step of steps$ | async; index as index"
-    [stepIndex]="index"
+    [isSelected]="(selectedStep$ | async) === index"
+    (click)="setSelectedStep(index)"
   >
+    <ng-container pOneStepIndex> {{ index + 1 }}</ng-container>
     <ng-container *ngIf="step.header as headerContent; else step.haderTemplate">
       {{ headerContent }}
     </ng-container>
@@ -15,5 +17,6 @@
     *ngFor="let step of steps$ | async; index as index"
     [step]="step"
     [stepIndex]="index"
+    (status$)="setStepStatus(index, $event)"
   ></p-one-step-body>
 </p-one-stepper-body>

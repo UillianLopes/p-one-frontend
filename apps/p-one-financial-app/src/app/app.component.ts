@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { UserStoreFacade } from '@p-one/identity';
 
 @Component({
@@ -12,4 +12,5 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._userStoreFacade.load();
   }
+  
 }

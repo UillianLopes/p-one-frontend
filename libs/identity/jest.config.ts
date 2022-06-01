@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'notification',
+/* eslint-disable */
+export default {
+  displayName: 'identity',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/notification',
+  coverageDirectory: '../../coverage/libs/identity',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

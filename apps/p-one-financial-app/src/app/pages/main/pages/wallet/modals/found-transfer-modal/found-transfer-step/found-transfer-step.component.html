@@ -1,0 +1,64 @@
+<form [formGroup]="form">
+  <p-one-form-field>
+    <label pOneLabel>Conta / Cateira</label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteWallet"
+      formControlName="wallet"
+    />
+
+    <p-one-autocomplete
+      #autoCompleteWallet="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
+        {{ wallet.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+
+  <p-one-form-field>
+    <label pOneLabel>Categoria</label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteCategory"
+      formControlName="category"
+    />
+
+    <p-one-autocomplete
+      #autoCompleteCategory="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option
+        *ngFor="let category of categories$ | async"
+        [value]="category"
+      >
+        {{ category.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+
+  <p-one-form-field>
+    <label pOneLabel>Sub categoria</label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteSubCategory"
+      formControlName="subCategory"
+    />
+
+    <p-one-autocomplete
+      #autoCompleteSubCategory="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option
+        *ngFor="let subCategory of subCategories$ | async"
+        [value]="subCategory"
+      >
+        {{ subCategory.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+</form>

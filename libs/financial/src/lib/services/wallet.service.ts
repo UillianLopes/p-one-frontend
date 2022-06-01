@@ -13,6 +13,7 @@ import {
   WalletModel,
   WithdrawRequest,
 } from '../models';
+import { TransferRequest } from '../models/requests';
 
 @Injectable()
 export class WalletService {
@@ -106,6 +107,17 @@ export class WalletService {
         `${this._financialEndpoint}/Wallet/${walletId}/Withdraw`,
         { ...withdraw }
       )
+      .pipe(
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
+      );
+  }
+
+  public transfer(transfer: TransferRequest): Observable<any> {
+    return this._httpClient
+      .put<ResponseModel<any>>(`${this._financialEndpoint}/Wallet/Transfer`, {
+        ...transfer,
+      })
       .pipe(
         map(({ data }) => data),
         catchError(({ messages }) => throwError({ messages } as ErrorModel))
