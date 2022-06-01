@@ -2,7 +2,11 @@
   <p-one-form-field>
     <label pOneLabel>Conta / Cateira</label>
 
-    <input [pOneAutocomplete]="autoCompleteWallet" formControlName="wallet" />
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteWallet"
+      formControlName="wallet"
+    />
 
     <p-one-autocomplete
       #autoCompleteWallet="pOneAutocomplete"
@@ -18,6 +22,7 @@
     <label pOneLabel>Categoria</label>
 
     <input
+      pOneInput
       [pOneAutocomplete]="autoCompleteCategory"
       formControlName="category"
     />
@@ -39,6 +44,7 @@
     <label pOneLabel>Sub categoria</label>
 
     <input
+      pOneInput
       [pOneAutocomplete]="autoCompleteSubCategory"
       formControlName="subCategory"
     />

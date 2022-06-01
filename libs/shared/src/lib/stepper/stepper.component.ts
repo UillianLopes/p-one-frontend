@@ -4,6 +4,7 @@ import {
   Component,
   ContentChildren,
   Input,
+  Output,
   QueryList,
 } from '@angular/core';
 import { FormControlStatus } from '@angular/forms';
@@ -41,6 +42,7 @@ export class StepperComponent
   public steps$?: Observable<StepComponent[]>;
   public isValid$?: Observable<boolean>;
 
+  @Output()
   public readonly selectedStep$ = this._stepperStore.selectedStep$;
 
   constructor(private readonly _stepperStore: StepperStore) {

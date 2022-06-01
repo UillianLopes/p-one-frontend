@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import {
   CategoryModel,
@@ -6,9 +6,12 @@ import {
   EEntryType,
   SubCategoryModel,
   SubCategoryService,
+  TransferRequest,
   WalletModel,
   WalletService,
 } from '@p-one/financial';
+import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 export interface FoundTransferModalState {
@@ -62,6 +65,7 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly wallet$ = this.select((data) => data);
 
   constructor(
+    private readonly _dialogRef: DialogRef,
     private readonly _categoryService: CategoryService,
     private readonly _subCategoryService: SubCategoryService,
     private readonly _walletService: WalletService
@@ -139,6 +143,23 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
       )
     );
   });
+
+  public readonly transfer = this.effect((data$: Observable<TransferRequest>) =>
+    data$.pipe(
+      tap(() => this.patchState({ isLoading: true })),
+      switchMap((request) =>
+        this._walletService.transfer(request).pipe(
+          tap({
+            next: () => {
+              this.patchState({ isLoading: false });
+              this._dialogRef.close();
+            },
+            error: (error) => this.patchState({ error, isLoading: false }),
+          })
+        )
+      )
+    )
+  );
 
   public readonly setOrigin = this.updater((state, origin: WalletModel) => ({
     ...state,

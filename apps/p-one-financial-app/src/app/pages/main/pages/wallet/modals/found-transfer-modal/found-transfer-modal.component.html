@@ -19,13 +19,13 @@
           <p-one-found-transfer-step
             [isWalletDisabled]="hasData$ | async"
             [categories]="debitCategories$ | async"
-            [wallets]="wallets$ | async"
+            [wallets]="originWallets$ | async"
           ></p-one-found-transfer-step>
         </p-one-step>
         <p-one-step header="Destino" formGroupName="destination">
           <p-one-found-transfer-step
             [categories]="creditCategories$ | async"
-            [wallets]="wallets$ | async"
+            [wallets]="destinationWallets$ | async"
           ></p-one-found-transfer-step>
         </p-one-step>
       </p-one-stepper>

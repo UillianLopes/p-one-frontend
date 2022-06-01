@@ -11,3 +11,4 @@ export * from './deposit.request';
 export * from './withdraw.request';
 export * from './update-wallet.request';
 export * from './create-entry.request';
+export * from './transfer.request';

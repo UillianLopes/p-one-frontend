@@ -51,3 +51,5 @@ export * from './lib/breadcrumb';
 export * from './lib/datepicker';
 export * from './lib/color-picker';
 export * from './lib/range-slider';
+
+export * from './lib/@functions';

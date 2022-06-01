@@ -2,9 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { WalletModel } from '@p-one/financial';
-import { PONE_DIALOG_DATA } from '@p-one/shared';
+import {
+  updateValueAndValidityMarkingControlsAreDirty,
+  PONE_DIALOG_DATA,
+} from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith, withLatestFrom } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -17,26 +20,32 @@ import { FoundTransferModalStore } from './found-transfer-modal.state';
 export class FoundTransferModalComponent implements OnInit {
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
+    value: [0.0, Validators.required],
     origin: this._formBuilder.group({
       wallet: [this.wallet, Validators.required],
       category: [null, Validators.required],
       subCategory: [null],
     }),
     destination: this._formBuilder.group({
-      wallet: [this.wallet, Validators.required],
+      wallet: [null, Validators.required],
       category: [null, Validators.required],
       subCategory: [null],
     }),
-    value: [0.0, Validators.required],
   });
 
   public readonly origin = this.form.get('origin') as FormGroup;
   public readonly destination = this.form.get('destination') as FormGroup;
 
+  public readonly originWallet = this.origin.get('wallet');
+  public readonly destinationWallet = this.destination.get('wallet');
+
   public readonly isLoading$ = this._store.isLoading$;
   public readonly debitCategories$ = this._store.debitCategories$;
   public readonly creditCategories$ = this._store.creditCategories$;
-  public readonly wallets$ = this._store.wallets$;
+
+  public readonly destinationWallets$ = this._store.wallets$;
+  public readonly originWallets$ = this._store.wallets$;
+
   public readonly currency$ = combineLatest([
     this._store.currency$,
     this._settingsStoreFacade.settingsCurrency$,
@@ -53,9 +62,40 @@ export class FoundTransferModalComponent implements OnInit {
     this._store.setData(wallet);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._store.load();
   }
 
-  transfer(): void {}
+  public transfer(): void {
+    updateValueAndValidityMarkingControlsAreDirty(this.form);
+
+    if (this.form.invalid) return;
+
+    const wasDisabled = this.originWallet.disabled;
+
+    if (wasDisabled) {
+      this.originWallet.enable();
+    }
+
+    const { title, value, origin, destination } = this.form.value;
+
+    if (wasDisabled) {
+      this.originWallet.enable();
+    }
+
+    this._store.transfer({
+      title,
+      value,
+      origin: {
+        walletId: origin.wallet.id,
+        categoryId: origin.category.id,
+        subCategoryId: origin.subCategory?.id,
+      },
+      destination: {
+        walletId: destination.wallet.id,
+        categoryId: destination.category.id,
+        subCategoryId: destination.subCategory?.id,
+      },
+    });
+  }
 }
