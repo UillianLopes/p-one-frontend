@@ -21,7 +21,6 @@ export class UserStoreEffects {
       switchMap(() =>
         this._oidcService.checkAuth(window.location.toString()).pipe(
           map(({ userData, isAuthenticated }) => {
-            console.log(isAuthenticated);
             if (!isAuthenticated) {
               return loadFailure();
             }
