@@ -1,34 +1,28 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>
-    <ng-container *ngIf="willMoreThanOneWalletBeDeleted$ | async">
-      Excluir carteira/conta
-    </ng-container>
-    <ng-container *ngIf="willOnlyOneWalletBeDeleted$ | async">
-      Excluir carteira/conta
-    </ng-container>
+    {{
+      '@PONE.WALLETS.MODALS.DELETE.TITLE'
+        | translate: { count: walletsLength$ | async }
+    }}
   </h5>
   <p-one-dialog-body>
-    <p>
-      <ng-container *ngIf="willMoreThanOneWalletBeDeleted$ | async">
-        Tem certeza que deseja apagar as contas/carteiras
-      </ng-container>
-      <ng-container *ngIf="willOnlyOneWalletBeDeleted$ | async">
-        Tem certeza que deseja apagar a conta/carteira
-      </ng-container>
-      <b> {{ walletNames$ | async }} </b>?
-    </p>
+    <p
+      [innerHtml]="
+        '@PONE.WALLETS.MODALS.DELETE.QUESTION'
+          | translate
+            : {
+                walletNames: walletNames$ | async,
+                count: walletsLength$ | async
+              }
+      "
+    ></p>
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.WALLETS.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="deleteBalances()">
-      <ng-container *ngIf="willMoreThanOneWalletBeDeleted$ | async">
-        Excluir entradas
-      </ng-container>
-      <ng-container *ngIf="willOnlyOneWalletBeDeleted$ | async">
-        Excluir entrada
-      </ng-container>
+      {{ '@PONE.WALLETS.MODALS.DELETE.BUTTONS.DELETE_WALLET' | translate: { count: walletsLength$ | async } }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

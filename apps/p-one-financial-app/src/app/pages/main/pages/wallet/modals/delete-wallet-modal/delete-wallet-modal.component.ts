@@ -17,6 +17,7 @@ export class DeleteWalletModalComponent {
   public readonly willOnlyOneWalletBeDeleted$ =
     this._store.willOnlyOneWalletBeDeleted$;
   public readonly walletNames$ = this._store.walletNames$;
+  public readonly walletsLength$  = this._store.walletsLength$;
 
   constructor(
     private readonly _store: DeleteWalletModalStore,

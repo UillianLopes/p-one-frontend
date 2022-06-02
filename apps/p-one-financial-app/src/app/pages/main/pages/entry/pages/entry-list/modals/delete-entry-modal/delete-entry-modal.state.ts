@@ -20,15 +20,18 @@ export class DeleteEntryModalStore extends ComponentStore<DeleteEntryModalState>
   public readonly dialogId$ = this.select((s) => s.dialogId);
   public readonly data$ = this.select((s) => s.data);
   public readonly entries$ = this.select(this.data$, (d) => d?.entries);
+  public readonly entriesLength$ = this.select(this.entries$, (entries) =>
+    entries ? entries.length : 0
+  );
 
   public readonly willMoreThanOneEntryBeDeleted$ = this.select(
-    this.entries$,
-    (entries) => entries && entries.length > 1
+    this.entriesLength$,
+    (entriesLength) => entriesLength > 1
   );
 
   public readonly willOnlyOneEntryBeDeleted$ = this.select(
-    this.entries$,
-    (entries) => entries && entries.length === 1
+    this.entriesLength$,
+    (entriesLength) => entriesLength === 1
   );
 
   public readonly entriesTitles$ = this.select(this.entries$, (entries) =>

@@ -1,17 +1,32 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h2 p-one-dialog-header>Depósito</h2>
+  <h2 p-one-dialog-header>
+    {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+  </h2>
   <p-one-dialog-body>
     <form [formGroup]="form">
       <p-one-form-field>
-        <label pOneLabel>Titulo</label>
-        <input pOneInput formControlName="title" />
+        <label pOneLabel>
+          {{ '@PONE.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
+        </label>
+        <input
+          pOneInput
+          formControlName="title"
+          [placeholder]="
+            '@PONE.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
+          "
+        />
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel>Categoria</label>
+        <label pOneLabel>
+          {{ '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
+        </label>
         <input
           pOneInput
           [pOneAutocomplete]="autoCompleteCategory"
           formControlName="category"
+          [placeholder]="
+            '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
+          "
         />
         <p-one-autocomplete
           #autoCompleteCategory="pOneAutocomplete"
@@ -26,10 +41,15 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel>Sub categoria</label>
+        <label pOneLabel>
+          {{ '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
+        </label>
         <input
           [pOneAutocomplete]="autoCompleteSubCategory"
           formControlName="subCategory"
+          [placeholder]="
+            '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
+          "
         />
         <p-one-autocomplete
           #autoCompleteSubCategory="pOneAutocomplete"
@@ -44,26 +64,36 @@
         </p-one-autocomplete>
       </p-one-form-field>
       <p-one-form-field>
-        <label pOneLabel>Valor do depósito ({{ currency$ | async }})</label>
+        <label pOneLabel
+          >{{
+            '@PONE.WALLETS.MODALS.FIELDS.DEPOSIT_VALUE.LABEL' | translate
+          }}
+          ({{ currency$ | async }})</label
+        >
         <input pOneInput currencyMask formControlName="deposit" />
       </p-one-form-field>
     </form>
-    <p>
-      Com esse depósito o saldo vai de
-      <b>{{ currentBalance$ | async | currency: (currency$ | async) }} </b> para
-      <b>{{ newBalance$ | async | currency: (currency$ | async) }} </b>
-    </p>
+    <p
+      [innerHtml]="
+        '@PONE.WALLETS.MODALS.DEPOSIT.NEW_BALANCE'
+          | translate
+            : {
+                currentBalance: currentBalance$ | async | currency: (currency$ | async),
+                newBalance: newBalance$ | async | currency: (currency$ | async)
+              }
+      "
+    ></p>
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.WALLETS.MODALS.DEPOSIT.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isConfirmFormDisabled$ | async"
       (click)="confirmDeposit()"
     >
-      Confirmar depósito
+      {{ '@PONE.WALLETS.MODALS.DEPOSIT.BUTTONS.CONFIRM_DEPOSIT' | translate }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

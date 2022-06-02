@@ -13,7 +13,8 @@ import {
   DestroyableMixin,
 } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
+
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -53,8 +54,8 @@ export class FoundTransferModalComponent
   public readonly debitCategories$ = this._store.debitCategories$;
   public readonly creditCategories$ = this._store.creditCategories$;
 
-  public readonly destinationWallets$ = this._store.destinationWallets$;
-  public readonly originWallets$ = this._store.originWallets$;
+  public readonly destinationWallets$ = this._store.destinations$;
+  public readonly originWallets$ = this._store.origins$;
 
   public readonly currency$ = combineLatest([
     this._store.currency$,
@@ -86,9 +87,10 @@ export class FoundTransferModalComponent
     this.originWallet.valueChanges
       .pipe(
         takeUntil(this.destroyed$),
+        startWith(this.originWallet.value),
         map((wallet) => (typeof wallet === 'string' ? null : wallet))
       )
-      .subscribe((wallet) => this._store.setOrigin(wallet));
+      .subscribe((value) => this._store.setOrigin(value));
   }
 
   public transfer(): void {

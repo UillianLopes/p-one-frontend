@@ -41,7 +41,14 @@
       }
     },
     "MODALS": {
-      "DELETE": {},
+      "DELETE": {
+        "TITLE": "Delete {count, plural, =0{entry} one {entry} other {entries}}",
+        "QUESTION":"Are you sure you want to delete the following {count, plural, =0{entry} one {entry} other {entries}}: <b>{entriesTitles}</b>?",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "DELETE_ENTRY": "Delete {count, plural, =0{entry} one {entry} other {entries}}"
+        }
+      },
       "PAY": {},
       "FILTER": {
         "FIELDS": {
@@ -273,6 +280,13 @@
         "BALANCE": "Balance",
         "BANK": "Bank",
         "ACCOUNT_AGENCY": "Account/agency"
+      },
+      "CONTEXT_MENU": {
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "DEPOSIT": "Deposit",
+        "WITHDRAW": "Withdraw",
+        "TRANSFER_FUNDS": "Transfer funds"
       }
     },
     "MODALS": {
@@ -304,6 +318,32 @@
         "AGENCY": {
           "LABEL": "Agency",
           "PLACEHOLDER": "Type the account or wallet agency"
+        },
+        "TITLE": {
+          "LABEL": "Title",
+          "PLACEHOLDER": "Type the entry title"
+        },
+        "VALUE": {
+          "LABEL": "Value",
+          "PLACEHOLDER": "Type the value"
+        },
+        "CATEGORY": {
+          "LABEL": "Category",
+          "PLACEHOLDER": "Select a category"
+        },
+        "SUB_CATEGORY": {
+          "LABEL": "Sub category",
+          "PLACEHOLDER": "Select a sub category"
+        },
+        "WALLET": {
+          "LABEL": "Account / Wallet",
+          "PLACEHOLDER": "Select an account or a wallet"
+        },
+        "DEPOSIT_VALUE": {
+          "LABEL": "Deposit value"
+        },
+        "WITHDRAW_VALUE": {
+          "LABEL": "Withdraw value"
         }
       },
       "CREATE_WALLET": {
@@ -326,6 +366,43 @@
         "BUTTONS": {
           "UPDATE_WALLET": "Update account or wallet",
           "CANCEL": "Cancel"
+        }
+      },
+      "FOUND_TRANSFER": {
+        "TITLE": "Found transfer",
+        "STEPS": {
+          "ORIGIN": "Origin",
+          "DESTINATION": "Destination"
+        },
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "PREVIOUS": "Previous",
+          "NEXT": "Next",
+          "CONFIRM_DEPOSIT": "Confirm deposit"
+        }
+      },
+      "DEPOSIT": {
+        "TITLE": "Deposit",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "CONFIRM_DEPOSIT": "Cofirm deposit"
+        },
+        "NEW_BALANCE": "With this deposit the balance go from <b>{currentBalance}</b> to <b>{newBalance}</b>"
+      },
+      "WITHDRAW": {
+        "TITLE": "Withdraw",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "CONFIRM_WITHDRAW": "Confirm deposit"
+        },
+        "NEW_BALANCE": "With this withdraw the balance go from <b>{currentBalance}</b> para <b>{newBalance}</b>"
+      },
+      "DELETE": {
+        "TITLE": "{count, plural, =0{Delete account/wallet} one {Delete account/wallet} other {Delete accounts/wallets}}",
+        "QUESTION":"Are you sure you want to delete the following {count, plural, =0{account/wallet} one {account/wallet} other {accounts/wallets}}: <b>{walletNames}</b>?",
+        "BUTTONS":{
+          "CANCEL":"Cancel",
+          "DELETE_WALLET": "{count, plural, =0{Delete account/wallet} one {Delete account/wallet} other {Delete accounts/wallets}}"
         }
       }
     }

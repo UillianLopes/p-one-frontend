@@ -1,5 +1,11 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, Optional, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Optional,
+  TemplateRef,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
 import { delay, filter, map, startWith, withLatestFrom } from 'rxjs/operators';
@@ -17,7 +23,7 @@ import { sidenavItemPaddingLeftAnimation } from './sidenav-item.animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [sidenavItemPaddingLeftAnimation],
 })
-export class SidenavItemComponent extends StopPropagationDirective {
+export class SidenavItemComponent {
   @Input()
   link?: string;
 
@@ -64,9 +70,7 @@ export class SidenavItemComponent extends StopPropagationDirective {
     private readonly _location: Location,
     private readonly _sidenavStore: SidenavStore,
     @Optional() private readonly _collapseStore: SidenavCollapseStore
-  ) {
-    super();
-  }
+  ) {}
 
   navigate(): void {
     if (!this.link) {
