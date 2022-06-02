@@ -1,11 +1,16 @@
 <form [formGroup]="form">
   <p-one-form-field>
-    <label pOneLabel>Conta / Cateira</label>
+    <label pOneLabel>
+      {{ '@PONE.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
+    </label>
 
     <input
       pOneInput
       [pOneAutocomplete]="autoCompleteWallet"
       formControlName="wallet"
+      [placeholder]="
+        '@PONE.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER' | translate
+      "
     />
 
     <p-one-autocomplete
@@ -19,12 +24,17 @@
   </p-one-form-field>
 
   <p-one-form-field>
-    <label pOneLabel>Categoria</label>
+    <label pOneLabel>
+      {{ '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
+    </label>
 
     <input
       pOneInput
       [pOneAutocomplete]="autoCompleteCategory"
       formControlName="category"
+      [placeholder]="
+        '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
+      "
     />
 
     <p-one-autocomplete
@@ -41,12 +51,17 @@
   </p-one-form-field>
 
   <p-one-form-field>
-    <label pOneLabel>Sub categoria</label>
+    <label pOneLabel>
+      {{ '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
+    </label>
 
     <input
       pOneInput
       [pOneAutocomplete]="autoCompleteSubCategory"
       formControlName="subCategory"
+      [placeholder]="
+        '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
+      "
     />
 
     <p-one-autocomplete

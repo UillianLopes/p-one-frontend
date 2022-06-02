@@ -304,6 +304,26 @@
         "AGENCY": {
           "LABEL": "Agência",
           "PLACEHOLDER": "Digite a agência da conta/carteira..."
+        },
+        "TITLE": {
+          "LABEL": "Titulo",
+          "PLACEHOLDER": "Digite o titulo da entrada"
+        },
+        "VALUE": {
+          "LABEL": "Valor",
+          "PLACEHOLDER": "Informe o valor"
+        },
+        "CATEGORY": {
+          "LABEL": "Categoria",
+          "PLACEHOLDER": "Selecione uma categoria"
+        },
+        "SUB_CATEGORY": {
+          "LABEL": "Sub categoria",
+          "PLACEHOLDER": "Selecione uma sub categoria"
+        },
+        "WALLET": {
+          "LABEL": "Conta / Carteira",
+          "PLACEHOLDER": "Selecione uma conta ou carteira"
         }
       },
       "CREATE_WALLET": {
@@ -326,6 +346,19 @@
         "BUTTONS": {
           "UPDATE_WALLET": "Alterar conta/cateira",
           "CANCEL": "Cancelar"
+        }
+      },
+      "FOUND_TRANSFER": {
+        "TITLE": "Transferir fundos",
+        "STEPS": {
+          "ORIGIN": "Origem",
+          "DESTINATION": "Destino"
+        },
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "PREVIOUS": "Anterior",
+          "NEXT": "Próximo",
+          "CONFIRM_DEPOSIT": "Confirmar depósito"
         }
       }
     }

@@ -34,14 +34,14 @@
         </p-one-form-field>
       </div>
       <p-one-stepper #stepper [validate]="true">
-        <p-one-step header="Origem" formGroupName="origin">
+        <p-one-step [header]="'@PONE.WALLETS.MODALS.FOUND_TRANSFER.STEPS.ORIGIN' | translate" formGroupName="origin">
           <p-one-found-transfer-step
             [isWalletDisabled]="hasData$ | async"
             [categories]="debitCategories$ | async"
             [wallets]="originWallets$ | async"
           ></p-one-found-transfer-step>
         </p-one-step>
-        <p-one-step header="Destino" formGroupName="destination">
+        <p-one-step [header]="'@PONE.WALLETS.MODALS.FOUND_TRANSFER.STEPS.DESTINATION' | translate"  formGroupName="destination">
           <p-one-found-transfer-step
             [categories]="creditCategories$ | async"
             [wallets]="destinationWallets$ | async"

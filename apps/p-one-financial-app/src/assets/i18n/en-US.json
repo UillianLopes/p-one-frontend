@@ -312,6 +312,18 @@
         "VALUE": {
           "LABEL": "Value",
           "PLACEHOLDER": "Type the value"
+        },
+        "CATEGORY": {
+          "LABEL": "Category",
+          "PLACEHOLDER": "Select a category"
+        },
+        "SUB_CATEGORY": {
+          "LABEL": "Sub category",
+          "PLACEHOLDER": "Select a sub category"
+        },
+        "WALLET": {
+          "LABEL": "Account / Wallet",
+          "PLACEHOLDER": "Select an account or a wallet"
         }
       },
       "CREATE_WALLET": {
@@ -338,6 +350,10 @@
       },
       "FOUND_TRANSFER": {
         "TITLE": "Found transfer",
+        "STEPS": {
+          "ORIGIN": "Origin",
+          "DESTINATION": "Destination"
+        },
         "BUTTONS": {
           "CANCEL": "Cancel",
           "PREVIOUS": "Previous",
