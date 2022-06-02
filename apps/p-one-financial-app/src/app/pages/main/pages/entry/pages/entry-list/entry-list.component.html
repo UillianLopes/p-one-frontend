@@ -59,7 +59,9 @@
         [value]="typeFilter$ | async"
         (change$)="setTypeFilter($event)"
       >
-        <p-one-radio-button [value]="null">Todos</p-one-radio-button>
+        <p-one-radio-button [value]="null">
+          {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
+        </p-one-radio-button>
         <p-one-radio-button [value]="EntryType.Credit">
           <span>
             {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.CREDIT' | translate }}
@@ -142,7 +144,15 @@
           <td>{{ entry.dueDate | date }}</td>
           <td>{{ entry.category?.title }}</td>
           <td>{{ entry.subCategory?.title }}</td>
-          <td>{{ entry.value | currency: (entry.currency ? entry.currency : (settingsCurrency$ | async)) }}</td>
+          <td>
+            {{
+              entry.value
+                | currency
+                  : (entry.currency
+                      ? entry.currency
+                      : (settingsCurrency$ | async))
+            }}
+          </td>
           <td [ngSwitch]="entry.type">
             <i
               *ngSwitchCase="EntryType.Debit"

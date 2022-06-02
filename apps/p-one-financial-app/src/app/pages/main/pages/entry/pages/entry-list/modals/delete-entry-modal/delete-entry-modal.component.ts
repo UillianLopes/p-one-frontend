@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 
-import { DeleteEntryModalData, DeleteEntryModalStore } from './delete-entry-modal.state';
+import {
+  DeleteEntryModalData,
+  DeleteEntryModalStore,
+} from './delete-entry-modal.state';
 
 @Component({
   selector: 'p-one-delete-entry-modal',
@@ -11,8 +14,11 @@ import { DeleteEntryModalData, DeleteEntryModalStore } from './delete-entry-moda
   providers: [DeleteEntryModalStore],
 })
 export class DeleteEntryModalComponent {
-  public readonly willMoreThanOneEntryBeDeleted$ = this._store.willMoreThanOneEntryBeDeleted$;
-  public readonly willOnlyOneEntryBeDeleted$ = this._store.willOnlyOneEntryBeDeleted$;
+  public readonly willMoreThanOneEntryBeDeleted$ =
+    this._store.willMoreThanOneEntryBeDeleted$;
+  public readonly willOnlyOneEntryBeDeleted$ =
+    this._store.willOnlyOneEntryBeDeleted$;
+  public readonly entriesLength$ = this._store.entriesLength$;
   public readonly entriesTitles$ = this._store.entriesTitles$;
   public readonly isLoading$ = this._store.isLoading$;
 

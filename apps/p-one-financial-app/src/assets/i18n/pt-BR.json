@@ -122,8 +122,35 @@
       }
     },
     "MODALS": {
-      "DELETE": {},
-      "PAY": {},
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{entrada} one {entrada} other {entradas}}",
+        "QUESTION":"Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{entrada} one {entrada} other {entradas}} <b>{entriesTitles}</b>?",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "DELETE_ENTRY": "Excluir {count, plural, =0{entrada} one {entrada} other {entradas}}"
+        }
+      },
+      "PAY": {
+        "TITLE": "Pagar entrada",
+        "FIELDS": {
+          "WALLET": {
+            "LABEL": "Conta / Carteira",
+            "PLACEHOLDER": "Selecione uma conta ou carteira"
+          },
+          "VALUE": {
+            "LABEL": "Valor",
+            "PLACEHOLDER": "Informe o valor"
+          },
+          "FEES": {
+            "LABEL": "Juros",
+            "PLACEHOLDER": "Informe os juros"
+          },
+          "FINES": {
+            "LABEL": "Multas",
+            "PLACEHOLDER": "Informe as multas"
+          }
+        }
+      },
       "FILTER": {
         "FIELDS": {
           "CATEGORIES": {
@@ -273,6 +300,13 @@
         "BALANCE": "Saldo",
         "BANK": "Banco",
         "ACCOUNT_AGENCY": "Agência / conta"
+      },
+      "CONTEXT_MENU": {
+        "EDIT": "Editar",
+        "DELETE": "Excluir",
+        "DEPOSIT": "Depositar",
+        "WITHDRAW": "Retirar",
+        "TRANSFER_FUNDS": "Transferir fundos"
       }
     },
     "MODALS": {
@@ -324,6 +358,12 @@
         "WALLET": {
           "LABEL": "Conta / Carteira",
           "PLACEHOLDER": "Selecione uma conta ou carteira"
+        },
+        "DEPOSIT_VALUE": {
+          "LABEL": "Valor do depósito"
+        },
+        "WITHDRAW_VALUE": {
+          "LABEL": "Valor da retirada"
         }
       },
       "CREATE_WALLET": {
@@ -359,6 +399,32 @@
           "PREVIOUS": "Anterior",
           "NEXT": "Próximo",
           "CONFIRM_DEPOSIT": "Confirmar depósito"
+        }
+      },
+      "DEPOSIT": {
+        "TITLE": "Depósito",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "PREVIOUS": "Anterior",
+          "NEXT": "Próximo",
+          "CONFIRM_DEPOSIT": "Confirmar depósito"
+        },
+        "NEW_BALANCE": "Com esse depósito o saldo vai de <b>{currentBalance}</b> para <b>{newBalance}</b>"
+      },
+      "WITHDRAW": {
+        "TITLE": "Retirada",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "CONFIRM_WITHDRAW": "Confirmar retirada"
+        },
+        "NEW_BALANCE": "Com essa retirada o saldo vai de <b>{currentBalance}</b> para <b>{newBalance}</b>"
+      },
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{conta/carteira} one {conta/carteira} other {carteiras}}",
+        "QUESTION":"Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{conta/carteira} one {conta/carteira} other {contas/carteiras}} <b>{walletNames}</b>?",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "DELETE_WALLET": "Excluir conta/carteira"
         }
       }
     }

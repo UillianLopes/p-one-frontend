@@ -58,19 +58,21 @@
                 class="btn btn-outline-success btn-sm"
                 (click)="openDepositWalletDialog(wallet)"
               >
-                Lançar depósito
+                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.DEPOSIT' | translate }}
               </button>
               <button
                 class="btn btn-outline-warning btn-sm"
                 (click)="openWithdrawWalletDialog(wallet)"
               >
-                Lançar retirada
+                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.WITHDRAW' | translate }}
               </button>
               <button
-                class="btn btn-outline-warning btn-sm"
+                class="btn btn-outline-secondary btn-sm"
                 (click)="openTransferFoundsDialog(wallet)"
               >
-                Transferir fundos
+                {{
+                  '@PONE.WALLETS.TABLE.CONTEXT_MENU.TRANSFER_FUNDS' | translate
+                }}
               </button>
               <button
                 class="btn btn-outline-primary btn-sm"

@@ -13,16 +13,21 @@ interface DeleteWalletModalState {
 @Injectable()
 export class DeleteWalletModalStore extends ComponentStore<DeleteWalletModalState> {
   public readonly wallets$ = this.select(({ wallets }) => wallets);
+  public readonly walletsLength$ = this.select(
+    this.wallets$,
+    (wallets) => wallets.length
+  );
+
   public readonly isLoading$ = this.select(({ isLoading }) => isLoading);
   public readonly dialogId$ = this.select(({ dialogId }) => dialogId);
   public readonly willMoreThanOneWalletBeDeleted$ = this.select(
-    this.wallets$,
-    (wallets) => wallets && wallets.length > 1
+    this.walletsLength$,
+    (walletsLength) => walletsLength > 1
   );
 
   public readonly willOnlyOneWalletBeDeleted$ = this.select(
-    this.wallets$,
-    (wallets) => wallets && wallets.length === 1
+    this.walletsLength$,
+    (walletsLength) => walletsLength === 1
   );
 
   public readonly walletNames$ = this.select(this.wallets$, (wallets) =>
