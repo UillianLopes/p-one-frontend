@@ -5,9 +5,10 @@ import { WalletModel } from '@p-one/financial';
 import {
   updateValueAndValidityMarkingControlsAreDirty,
   PONE_DIALOG_DATA,
+  DestroyableMixin,
 } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { map, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -17,7 +18,10 @@ import { FoundTransferModalStore } from './found-transfer-modal.state';
   styleUrls: ['./found-transfer-modal.component.scss'],
   providers: [FoundTransferModalStore],
 })
-export class FoundTransferModalComponent implements OnInit {
+export class FoundTransferModalComponent
+  extends DestroyableMixin()
+  implements OnInit
+{
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     value: [0.0, Validators.required],
@@ -43,8 +47,8 @@ export class FoundTransferModalComponent implements OnInit {
   public readonly debitCategories$ = this._store.debitCategories$;
   public readonly creditCategories$ = this._store.creditCategories$;
 
-  public readonly destinationWallets$ = this._store.wallets$;
-  public readonly originWallets$ = this._store.wallets$;
+  public readonly destinationWallets$ = this._store.destinations$;
+  public readonly originWallets$ = this._store.origins$;
 
   public readonly currency$ = combineLatest([
     this._store.currency$,
@@ -59,11 +63,26 @@ export class FoundTransferModalComponent implements OnInit {
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) public readonly wallet: WalletModel
   ) {
+    super();
     this._store.setData(wallet);
   }
 
   public ngOnInit(): void {
     this._store.load();
+    this.destinationWallet.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        map((value) => (typeof value === 'string' ? null : value))
+      )
+      .subscribe((value) => this._store.setDestination(value));
+
+    this.originWallet.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        startWith(this.originWallet.value),
+        map((value) => (typeof value === 'string' ? null : value))
+      )
+      .subscribe((value) => this._store.setOrigin(value));
   }
 
   public transfer(): void {

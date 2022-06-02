@@ -1,34 +1,31 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>
-    <ng-container *ngIf="willMoreThanOneEntryBeDeleted$ | async">
-      Excluir entradas
-    </ng-container>
-    <ng-container *ngIf="willOnlyOneEntryBeDeleted$ | async">
-      Excluir entrada
-    </ng-container>
+    {{
+      '@PONE.ENTRIES.MODALS.DELETE.TITLE'
+        | translate: { count: entriesLength$ | async }
+    }}
   </h5>
   <p-one-dialog-body>
-    <p>
-      <ng-container *ngIf="willMoreThanOneEntryBeDeleted$ | async">
-        Tem certeza que deseja apagar as entradas
-      </ng-container>
-      <ng-container *ngIf="willOnlyOneEntryBeDeleted$ | async">
-        Tem certeza que deseja apagar a entrada
-      </ng-container>
-      <b> {{ entriesTitles$ | async }} </b>?
-    </p>
+    <p
+      [innerHtml]="
+        '@PONE.ENTRIES.MODALS.DELETE.QUESTION'
+          | translate
+            : {
+                count: entriesLength$ | async,
+                entriesTitles: entriesTitles$ | async
+              }
+      "
+    ></p>
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.ENTRIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="deleteEntries()">
-      <ng-container *ngIf="willMoreThanOneEntryBeDeleted$ | async">
-        Excluir entradas
-      </ng-container>
-      <ng-container *ngIf="willOnlyOneEntryBeDeleted$ | async">
-        Excluir entrada
-      </ng-container>
+      {{
+        '@PONE.ENTRIES.MODALS.DELETE.BUTTONS.DELETE_ENTRY'
+          | translate: { count: entriesLength$ | async }
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

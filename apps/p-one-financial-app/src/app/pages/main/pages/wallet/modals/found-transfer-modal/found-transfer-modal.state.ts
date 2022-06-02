@@ -52,14 +52,22 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly destinations$ = this.select(
     this.wallets$,
     this.origin$,
-    (wallets, origin) => wallets.filter(({ id }) => id !== origin.id)
+    (wallets, origin) =>
+      wallets.filter(
+        ({ id, currency }) =>
+          !origin || (origin.id !== id && origin.currency === currency)
+      )
   );
 
   public readonly origins$ = this.select(
     this.wallets$,
     this.destination$,
     (wallets, destination) =>
-      wallets.filter((wallet) => wallet.id !== destination.id)
+      wallets.filter(
+        ({ id, currency }) =>
+          !destination ||
+          (destination.id !== id && destination.currency === currency)
+      )
   );
 
   public readonly wallet$ = this.select((data) => data);
@@ -152,7 +160,7 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
           tap({
             next: () => {
               this.patchState({ isLoading: false });
-              this._dialogRef.close();
+              this._dialogRef.close(true);
             },
             error: (error) => this.patchState({ error, isLoading: false }),
           })
