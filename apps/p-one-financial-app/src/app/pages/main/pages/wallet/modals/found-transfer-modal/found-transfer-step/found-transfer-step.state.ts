@@ -22,6 +22,8 @@ export class FoundTransferStepStore extends ComponentStore<FoundTransferStepStat
     ({ isWalletDisabled }) => isWalletDisabled
   );
 
+  public readonly t: any;
+
   constructor(private readonly _subCategoryService: SubCategoryService) {
     super({});
   }

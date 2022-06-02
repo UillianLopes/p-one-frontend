@@ -31,6 +31,19 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly origin$ = this.select(({ origin }) => origin);
   public readonly destination$ = this.select(({ destination }) => destination);
   public readonly wallets$ = this.select(({ wallets }) => wallets);
+
+  public readonly destinationWallets$ = this.select(
+    this.wallets$,
+    this.origin$,
+    (wallets, origin) => wallets.filter(({ id }) => id !== origin?.id)
+  );
+
+  public readonly originWallets$ = this.select(
+    this.wallets$,
+    this.destination$,
+    (wallets, destination) => wallets.filter(({ id }) => id !== destination?.id)
+  );
+
   public readonly categories$ = this.select(({ categories }) => categories);
   public readonly data$ = this.select(({ data }) => data);
   public readonly hasData$ = this.select(this.data$, (data) => !!data);
@@ -52,14 +65,14 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly destinations$ = this.select(
     this.wallets$,
     this.origin$,
-    (wallets, origin) => wallets.filter(({ id }) => id !== origin.id)
+    (wallets, origin) => wallets.filter(({ id }) => id !== origin?.id)
   );
 
   public readonly origins$ = this.select(
     this.wallets$,
     this.destination$,
     (wallets, destination) =>
-      wallets.filter((wallet) => wallet.id !== destination.id)
+      wallets.filter((wallet) => wallet.id !== destination?.id)
   );
 
   public readonly wallet$ = this.select((data) => data);

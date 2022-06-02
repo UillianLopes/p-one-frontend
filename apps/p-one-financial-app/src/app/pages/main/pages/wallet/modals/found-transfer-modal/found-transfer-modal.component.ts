@@ -1,13 +1,19 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { WalletModel } from '@p-one/financial';
 import {
   updateValueAndValidityMarkingControlsAreDirty,
   PONE_DIALOG_DATA,
+  DestroyableMixin,
 } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -16,8 +22,12 @@ import { FoundTransferModalStore } from './found-transfer-modal.state';
   templateUrl: './found-transfer-modal.component.html',
   styleUrls: ['./found-transfer-modal.component.scss'],
   providers: [FoundTransferModalStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FoundTransferModalComponent implements OnInit {
+export class FoundTransferModalComponent
+  extends DestroyableMixin()
+  implements OnInit
+{
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     value: [0.0, Validators.required],
@@ -43,8 +53,8 @@ export class FoundTransferModalComponent implements OnInit {
   public readonly debitCategories$ = this._store.debitCategories$;
   public readonly creditCategories$ = this._store.creditCategories$;
 
-  public readonly destinationWallets$ = this._store.wallets$;
-  public readonly originWallets$ = this._store.wallets$;
+  public readonly destinationWallets$ = this._store.destinationWallets$;
+  public readonly originWallets$ = this._store.originWallets$;
 
   public readonly currency$ = combineLatest([
     this._store.currency$,
@@ -59,11 +69,26 @@ export class FoundTransferModalComponent implements OnInit {
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) public readonly wallet: WalletModel
   ) {
+    super();
     this._store.setData(wallet);
   }
 
   public ngOnInit(): void {
     this._store.load();
+
+    this.destinationWallet.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        map((wallet) => (typeof wallet === 'string' ? null : wallet))
+      )
+      .subscribe((wallet) => this._store.setDestination(wallet));
+
+    this.originWallet.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        map((wallet) => (typeof wallet === 'string' ? null : wallet))
+      )
+      .subscribe((wallet) => this._store.setOrigin(wallet));
   }
 
   public transfer(): void {
