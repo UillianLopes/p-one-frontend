@@ -1,17 +1,36 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
-  <h2 p-one-dialog-header>Found transfer</h2>
+  <h2 p-one-dialog-header>
+    {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.TITLE' | translate }}
+  </h2>
   <p-one-dialog-body>
     <form [formGroup]="form">
       <div class="row">
         <p-one-form-field class="col">
-          <label pOneLabel>Titulo</label>
-          <input pOneInput formControlName="title" />
+          <label pOneLabel>
+            {{ '@PONE.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
+          </label>
+          <input
+            pOneInput
+            formControlName="title"
+            [placeholder]="
+              '@PONE.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
+            "
+          />
         </p-one-form-field>
         <p-one-form-field class="col">
           <label pOneLabel>
-            Valor da transferencia ({{ currency$ | async }})
+            {{ '@PONE.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate }} ({{
+              currency$ | async
+            }})
           </label>
-          <input pOneInput currencyMask formControlName="value" />
+          <input
+            pOneInput
+            currencyMask
+            formControlName="value"
+            [placeholder]="
+              '@PONE.WALLETS.MODALS.FIELDS.VALUE.PLACEHOLDER' | translate
+            "
+          />
         </p-one-form-field>
       </div>
       <p-one-stepper #stepper [validate]="true">
@@ -33,16 +52,19 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      Cancelar
+      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="stepper.previous()">
-      Anterior
+      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.PREVIOUS' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="stepper.next()">
-      Próximo
+      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.NEXT' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="transfer()">
-      Confirmar depósito
+      {{
+        '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CONFIRM_DEPOSIT'
+          | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

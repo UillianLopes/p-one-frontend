@@ -304,6 +304,14 @@
         "AGENCY": {
           "LABEL": "Agency",
           "PLACEHOLDER": "Type the account or wallet agency"
+        },
+        "TITLE": {
+          "LABEL": "Title",
+          "PLACEHOLDER": "Type the entry title"
+        },
+        "VALUE": {
+          "LABEL": "Value",
+          "PLACEHOLDER": "Type the value"
         }
       },
       "CREATE_WALLET": {
@@ -326,6 +334,15 @@
         "BUTTONS": {
           "UPDATE_WALLET": "Update account or wallet",
           "CANCEL": "Cancel"
+        }
+      },
+      "FOUND_TRANSFER": {
+        "TITLE": "Found transfer",
+        "BUTTONS": {
+          "CANCEL": "Cancel",
+          "PREVIOUS": "Previous",
+          "NEXT": "Next",
+          "CONFIRM_DEPOSIT": "Confirm deposit"
         }
       }
     }
