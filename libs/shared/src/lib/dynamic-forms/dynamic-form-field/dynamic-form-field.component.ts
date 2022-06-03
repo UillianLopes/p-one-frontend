@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl } from '@angular/forms';
 
 import {
   DyanamicTextFormField,
@@ -16,8 +16,8 @@ export class DynamicFormFieldComponent implements OnInit {
   @Input()
   config!: DynamicFormField;
 
-  formControl?: FormControl;
-  formArray?: FormArray;
+  formControl?: UntypedFormControl;
+  formArray?: UntypedFormArray;
 
   constructor(private readonly _dynamicFormGroup: DynamicFormGroupComponent) {}
 
@@ -31,9 +31,9 @@ export class DynamicFormFieldComponent implements OnInit {
       : undefined;
   }
 
-  private _controlAsFormControl(): FormControl | undefined {
+  private _controlAsFormControl(): UntypedFormControl | undefined {
     return this._dynamicFormGroup.formGroup?.get(
       this.config.name
-    ) as FormControl;
+    ) as UntypedFormControl;
   }
 }

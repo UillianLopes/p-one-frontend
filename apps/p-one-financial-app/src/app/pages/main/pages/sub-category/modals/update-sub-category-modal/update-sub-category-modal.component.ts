@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { CategoryModel, EEntryType, SubCategoryModel } from '@p-one/financial';
 import { CustomValidators, DestroyableMixin, PONE_DIALOG_DATA } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class UpdateSubCategoryModalComponent
   readonly displayFn = (obj: CategoryModel) => obj.name;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: SubCategoryFacade,
     @Inject(PONE_DIALOG_DATA) private readonly _subCategory: SubCategoryModel
   ) {

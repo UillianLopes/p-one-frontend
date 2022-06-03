@@ -7,6 +7,11 @@
       "sourceRoot": "libs/admin/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/admin/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/admin"],
@@ -33,6 +38,11 @@
       "sourceRoot": "libs/core/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/core/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/core"],
@@ -59,6 +69,11 @@
       "sourceRoot": "libs/financial/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/financial/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/financial"],
@@ -85,6 +100,11 @@
       "sourceRoot": "libs/identity/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/identity/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/identity"],
@@ -111,6 +131,11 @@
       "sourceRoot": "libs/notification/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/notification/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/notification"],
@@ -250,6 +275,11 @@
       "sourceRoot": "libs/shared/src",
       "prefix": "p-one",
       "architect": {
+        "build": {
+          "options": {
+            "tsconfig": "libs/shared/tsconfig.lib.json"
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared"],
@@ -264,32 +294,6 @@
             "lintFilePatterns": [
               "libs/shared/src/**/*.ts",
               "libs/shared/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "store": {
-      "projectType": "library",
-      "root": "libs/store",
-      "sourceRoot": "libs/store/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/store"],
-          "options": {
-            "jestConfig": "libs/store/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/store/src/**/*.ts",
-              "libs/store/src/**/*.html"
             ]
           }
         }

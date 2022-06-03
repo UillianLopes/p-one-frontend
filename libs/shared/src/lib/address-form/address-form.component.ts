@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Optional } from '@angular/core';
-import { FormGroup, FormGroupDirective, FormGroupName } from '@angular/forms';
+import { UntypedFormGroup, FormGroupDirective, FormGroupName } from '@angular/forms';
 
 @Component({
   selector: 'p-one-address-form',
@@ -9,7 +9,7 @@ import { FormGroup, FormGroupDirective, FormGroupName } from '@angular/forms';
 })
 export class AddressFormComponent implements OnInit {
   @Input()
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
   constructor(
     @Optional() private readonly _formGroupName: FormGroupName,

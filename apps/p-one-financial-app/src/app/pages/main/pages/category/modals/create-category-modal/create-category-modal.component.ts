@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { generateColor } from '@p-one/core';
 import { EEntryType } from '@p-one/financial';
 import { map, startWith } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class CreateCategoryModalComponent implements OnInit {
   public readonly isLoading$ = this._facade.isLoading$;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: CategoryFacade
   ) {}
 

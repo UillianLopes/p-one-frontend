@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { generateColor } from '@p-one/core';
 import { BankModel, EWalletType } from '@p-one/financial';
@@ -59,7 +59,7 @@ export class CreateWalletModalComponent implements OnInit {
     bank ? `${bank.code} - ${bank.name}` : ``;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: CreateWalletModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     dialogRef: DialogRef

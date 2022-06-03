@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, SkipSelf } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormElement } from '../@types/dynamic-form-element.config';
 import { DynamicFormField } from '../@types/dynamic-form-field.config';
@@ -17,7 +17,7 @@ export class DynamicFormGroupComponent
   implements OnInit
 {
   @Input()
-  formGroup!: FormGroup;
+  formGroup!: UntypedFormGroup;
 
   @Input()
   config!: DynamicFormGroup;
@@ -47,7 +47,7 @@ export class DynamicFormGroupComponent
         throw new Error('Invalid form group definition');
       }
 
-      this.formGroup = parentFormGroup.get(this.config.name) as FormGroup;
+      this.formGroup = parentFormGroup.get(this.config.name) as UntypedFormGroup;
     }
 
     this._addElementsToFormGroup(this.config.elements);
@@ -63,7 +63,7 @@ export class DynamicFormGroupComponent
       ) {
         this.formGroup.addControl(
           element.name,
-          new FormControl(element.initialValue, element.validators)
+          new UntypedFormControl(element.initialValue, element.validators)
         );
         continue;
       }
@@ -80,7 +80,7 @@ export class DynamicFormGroupComponent
       ) {
         this.formGroup.addControl(
           element.name,
-          new FormGroup({}, element.validators)
+          new UntypedFormGroup({}, element.validators)
         );
         continue;
       }

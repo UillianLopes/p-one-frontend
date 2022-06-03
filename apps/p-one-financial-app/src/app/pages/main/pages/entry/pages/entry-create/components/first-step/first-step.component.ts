@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { DestroyableMixin } from '@p-one/shared';
@@ -28,7 +28,7 @@ export class FirstStepComponent extends DestroyableMixin() implements OnInit {
   public readonly isFirstStepInvalid$ = this._facade.isFirstStepInvalid$;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: EntryCreateFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade
   ) {

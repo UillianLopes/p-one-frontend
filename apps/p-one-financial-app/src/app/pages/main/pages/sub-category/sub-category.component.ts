@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { EEntryType, SubCategoryModel } from '@p-one/financial';
 import { DestroyableMixin, DialogService } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class SubCategoryComponent extends DestroyableMixin() implements OnInit {
   public readonly isSomeFiltredSubCategoriesSelected$ =
     this._facade.isSomeFiltredSubCategoriesSelected$;
 
-  public readonly filterControl = new FormControl('');
+  public readonly filterControl = new UntypedFormControl('');
 
   public readonly page$ = this._facade.page$;
   public readonly pageSize$ = this._facade.pageSize$;

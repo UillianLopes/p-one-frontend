@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
@@ -27,7 +27,7 @@ export class AutocompleteComponent
   extends DestroyableMixin()
   implements AfterContentInit
 {
-  readonly formControl = new FormControl(null);
+  readonly formControl = new UntypedFormControl(null);
 
   @Output()
   readonly change$ = this.formControl.valueChanges;

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { PONE_DIALOG_DATA } from '@p-one/shared';
 import { map, startWith } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class UpdateCategoryModalComponent implements OnInit {
   readonly isLoading$ = this._facade.isLoading$;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: CategoryFacade,
     @Inject(PONE_DIALOG_DATA) private readonly _category: CategoryModel
   ) {}

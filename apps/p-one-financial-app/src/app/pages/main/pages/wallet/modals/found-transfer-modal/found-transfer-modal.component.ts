@@ -4,7 +4,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { WalletModel } from '@p-one/financial';
 import {
@@ -44,8 +44,8 @@ export class FoundTransferModalComponent
     }),
   });
 
-  public readonly origin = this.form.get('origin') as FormGroup;
-  public readonly destination = this.form.get('destination') as FormGroup;
+  public readonly origin = this.form.get('origin') as UntypedFormGroup;
+  public readonly destination = this.form.get('destination') as UntypedFormGroup;
 
   public readonly originWallet = this.origin.get('wallet');
   public readonly destinationWallet = this.destination.get('wallet');
@@ -65,7 +65,7 @@ export class FoundTransferModalComponent
   public readonly hasData$ = this._store.hasData$;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: FoundTransferModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) public readonly wallet: WalletModel

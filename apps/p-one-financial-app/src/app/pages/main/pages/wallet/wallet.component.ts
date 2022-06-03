@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { BankModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin } from '@p-one/shared';
@@ -26,7 +26,7 @@ export class WalletComponent extends DestroyableMixin() implements OnInit {
     map(({ page }) => page)
   );
 
-  public readonly filterControl = new FormControl('');
+  public readonly filterControl = new UntypedFormControl('');
   public readonly settingsCurrency$ =
     this._settingsStoreFacade.settingsCurrency$;
 

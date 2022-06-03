@@ -1,5 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../../@mixins/destroyable.mixin';
@@ -30,7 +30,7 @@ export class MultipleAutocompleteComponent
 
   @Output()
   public change$ = new EventEmitter<any[]>();
-  public control = new FormControl();
+  public control = new UntypedFormControl();
 
   @Output()
   public search$ = this.control.valueChanges.pipe(

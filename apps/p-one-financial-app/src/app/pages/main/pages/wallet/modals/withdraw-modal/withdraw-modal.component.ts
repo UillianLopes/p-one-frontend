@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { CategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
@@ -106,7 +106,7 @@ export class WithdrawModalComponent
   ]).pipe(map(([currency, wallet]) => wallet.currency ?? currency));
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: WithdrawModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel,
