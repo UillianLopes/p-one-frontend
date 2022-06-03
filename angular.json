@@ -9,7 +9,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/admin/tsconfig.lib.json"
+            "tsConfig": "libs/admin/tsconfig.lib.json"
           }
         },
         "test": {
