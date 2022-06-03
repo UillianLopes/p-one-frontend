@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { BankModel, EWalletType, WalletModel } from '@p-one/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import * as _ from 'lodash';
@@ -58,7 +58,7 @@ export class UpdateWalletModalComponent implements OnInit {
 
   constructor(
     private readonly _store: UpdateWalletModalStore,
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     @Inject(PONE_DIALOG_DATA) private readonly data: WalletModel,
     dialogRef: DialogRef
   ) {

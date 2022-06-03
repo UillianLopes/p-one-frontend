@@ -1,5 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SettingsStoreFacade } from '@p-one/admin';
 import { WalletModel } from '@p-one/financial';
 import {
@@ -8,7 +13,8 @@ import {
   DestroyableMixin,
 } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { map, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
+
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -17,6 +23,7 @@ import { FoundTransferModalStore } from './found-transfer-modal.state';
   templateUrl: './found-transfer-modal.component.html',
   styleUrls: ['./found-transfer-modal.component.scss'],
   providers: [FoundTransferModalStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FoundTransferModalComponent
   extends DestroyableMixin()
@@ -37,8 +44,8 @@ export class FoundTransferModalComponent
     }),
   });
 
-  public readonly origin = this.form.get('origin') as FormGroup;
-  public readonly destination = this.form.get('destination') as FormGroup;
+  public readonly origin = this.form.get('origin') as UntypedFormGroup;
+  public readonly destination = this.form.get('destination') as UntypedFormGroup;
 
   public readonly originWallet = this.origin.get('wallet');
   public readonly destinationWallet = this.destination.get('wallet');
@@ -58,7 +65,7 @@ export class FoundTransferModalComponent
   public readonly hasData$ = this._store.hasData$;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: FoundTransferModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) public readonly wallet: WalletModel
@@ -69,18 +76,19 @@ export class FoundTransferModalComponent
 
   public ngOnInit(): void {
     this._store.load();
+
     this.destinationWallet.valueChanges
       .pipe(
         takeUntil(this.destroyed$),
-        map((value) => (typeof value === 'string' ? null : value))
+        map((wallet) => (typeof wallet === 'string' ? null : wallet))
       )
-      .subscribe((value) => this._store.setDestination(value));
+      .subscribe((wallet) => this._store.setDestination(wallet));
 
     this.originWallet.valueChanges
       .pipe(
         takeUntil(this.destroyed$),
         startWith(this.originWallet.value),
-        map((value) => (typeof value === 'string' ? null : value))
+        map((wallet) => (typeof wallet === 'string' ? null : wallet))
       )
       .subscribe((value) => this._store.setOrigin(value));
   }

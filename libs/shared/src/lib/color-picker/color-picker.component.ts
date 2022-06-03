@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
+  UntypedFormControl,
   NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
@@ -43,7 +43,7 @@ function createBhaviorSubject<T>(
 export class ColorPickerComponent implements OnInit, ControlValueAccessor {
   private readonly _destroyed$ = new Subject<void>();
 
-  public readonly control = new FormControl(undefined, [
+  public readonly control = new UntypedFormControl(undefined, [
     Validators.maxLength(7),
   ]);
 

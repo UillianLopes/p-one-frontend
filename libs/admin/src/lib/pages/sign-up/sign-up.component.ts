@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { UserStoreFacade } from '@p-one/identity';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class SignUpComponent extends DestroyableMixin() {
   public readonly isSignUpLoading$ = this._signUpFacade.isSignUpLoading$;
   
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _signUpFacade: SignUpFacade,
     private readonly _userStoreFacade: UserStoreFacade
   ) {

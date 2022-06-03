@@ -1,5 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserStoreFacade } from '@p-one/identity';
 import { DestroyableMixin } from '@p-one/shared';
@@ -11,7 +11,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent extends DestroyableMixin() implements OnInit {
-  public readonly languageControl = new FormControl(this._locale);
+  public readonly languageControl = new UntypedFormControl(this._locale);
 
   public readonly language$ = this.languageControl.valueChanges.pipe(
     startWith(this.languageControl.value)

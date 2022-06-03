@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormGroupName } from '@angular/forms';
+import { UntypedFormGroup, FormGroupName } from '@angular/forms';
 import { CategoryModel, SubCategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin } from '@p-one/shared';
 import { Subject } from 'rxjs';
@@ -50,7 +50,7 @@ export class FoundTransferStepComponent
   private _onChange?: (value: any) => void;
   private _onTouched?: () => void;
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   constructor(
     private readonly _foundTransferStepStore: FoundTransferStepStore,

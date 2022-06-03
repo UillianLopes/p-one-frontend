@@ -1,4 +1,4 @@
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
 export function updateValueAndValidityMarkingControlsAreDirty(
   form: AbstractControl | null
@@ -7,14 +7,14 @@ export function updateValueAndValidityMarkingControlsAreDirty(
     return;
   }
 
-  if (form instanceof FormGroup) {
+  if (form instanceof UntypedFormGroup) {
     for (const controlKey of Object.keys(form.controls)) {
       updateValueAndValidityMarkingControlsAreDirty(form.get(controlKey));
     }
     return;
   }
 
-  if (form instanceof FormArray) {
+  if (form instanceof UntypedFormArray) {
     for (const control of form.controls) {
       updateValueAndValidityMarkingControlsAreDirty(control);
     }

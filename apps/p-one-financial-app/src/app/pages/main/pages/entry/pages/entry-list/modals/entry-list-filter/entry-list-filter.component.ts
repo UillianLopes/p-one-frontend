@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { EEntryPaymentStatus, EEntryType, EntryFilter } from '@p-one/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
@@ -82,7 +82,7 @@ export class EntryListFilterComponent
   public readonly displayFn = (obj: any) => obj.name;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: EntryListFilterStore,
     @Inject(PONE_DIALOG_DATA) private readonly _data: Partial<EntryFilter>,
     private readonly _dialog: DialogRef,
