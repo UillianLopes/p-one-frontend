@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
-import { FormControl, NgControl } from '@angular/forms';
+import { UntypedFormControl, NgControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
@@ -56,7 +56,7 @@ export class InputDirective
 
   private _setupInvalidValidation(): void {
     const control = this._ngControl?.control;
-    if (control instanceof FormControl) {
+    if (control instanceof UntypedFormControl) {
       this.invalid$ = control.statusChanges.pipe(
         map((status) => status === 'INVALID')
       );

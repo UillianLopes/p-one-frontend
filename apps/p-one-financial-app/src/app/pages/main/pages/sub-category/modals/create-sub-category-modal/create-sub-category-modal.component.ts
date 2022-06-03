@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { generateColor } from '@p-one/core';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
@@ -35,7 +35,7 @@ export class CreateSubCategoryModalComponent
   readonly displayFn = (obj: CategoryModel) => obj.name;
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: SubCategoryFacade
   ) {
     super();

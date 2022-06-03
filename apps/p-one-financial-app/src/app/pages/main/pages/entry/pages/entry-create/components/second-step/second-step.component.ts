@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { EEntryRecurrence, EEntryValueDistribuition } from '@p-one/financial';
 import { DestroyableMixin, StepComponent } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
@@ -62,7 +62,7 @@ export class SecondStepComponent extends DestroyableMixin() implements OnInit {
   );
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: EntryCreateFacade,
     @Optional() private readonly _step: StepComponent
   ) {

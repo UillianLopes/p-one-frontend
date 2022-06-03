@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class SettingsComponent extends DestroyableMixin() implements OnInit {
 
   constructor(
     private readonly _settingsFacade: SettingsStoreFacade,
-    private readonly _formBuilder: FormBuilder
+    private readonly _formBuilder: UntypedFormBuilder
   ) {
     super();
   }

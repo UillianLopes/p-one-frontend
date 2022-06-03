@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { CategoryModel, EEntryType } from '@p-one/financial';
 import { DestroyableMixin, DialogService } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class CategoryComponent
   public readonly isSomeFiltredCategoriesSelected$ =
     this._facade.isSomeFiltredCategoriesSelected$;
 
-  public readonly filterControl = new FormControl('');
+  public readonly filterControl = new UntypedFormControl('');
 
   public readonly page$ = this._facade.page$;
   public readonly pageSize$ = this._facade.pageSize$;

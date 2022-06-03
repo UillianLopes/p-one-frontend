@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
 import { map, mergeAll, takeUntil } from 'rxjs/operators';
 
@@ -24,7 +24,7 @@ export class CheckboxComponent
   extends DestroyableMixin()
   implements OnInit, ControlValueAccessor
 {
-  public readonly formControl = new FormControl(false);
+  public readonly formControl = new UntypedFormControl(false);
   public readonly isIndeterminated$ = new BehaviorSubject<boolean>(false);
 
   private readonly _notifyValueChanged$ = new Subject<boolean>();

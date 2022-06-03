@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { CategoryModel, DashboardFilter, SubCategoryModel, WalletModel } from '@p-one/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class DashboardFilterModalComponent
   private readonly _wallets = this.form.get('wallets');
 
   constructor(
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: DashboardFilterModalStore,
     @Inject(PONE_DIALOG_DATA) private readonly _filter: DashboardFilter,
     dialogRef: DialogRef

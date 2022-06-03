@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { EEntryType, EntryModel, WalletModel } from '@p-one/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
@@ -53,7 +53,7 @@ export class PayEntryModalComponent implements OnInit {
   constructor(
     private readonly _store: PayEntryModalStore,
     @Inject(PONE_DIALOG_DATA) public readonly entry: EntryModel,
-    private readonly _formBuilder: FormBuilder,
+    private readonly _formBuilder: UntypedFormBuilder,
     private readonly _dialogRef: DialogRef
   ) {
     this._store.setDialogId(_dialogRef.dialogId);
