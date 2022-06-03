@@ -40,7 +40,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/core/tsconfig.lib.json"
+            "tsConfig": "libs/core/tsconfig.lib.json"
           }
         },
         "test": {
@@ -71,7 +71,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/financial/tsconfig.lib.json"
+            "tsConfig": "libs/financial/tsconfig.lib.json"
           }
         },
         "test": {
@@ -102,7 +102,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/identity/tsconfig.lib.json"
+            "tsConfig": "libs/identity/tsconfig.lib.json"
           }
         },
         "test": {
@@ -133,7 +133,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/notification/tsconfig.lib.json"
+            "tsConfig": "libs/notification/tsconfig.lib.json"
           }
         },
         "test": {
@@ -277,7 +277,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsconfig": "libs/shared/tsconfig.lib.json"
+            "tsConfig": "libs/shared/tsconfig.lib.json"
           }
         },
         "test": {
