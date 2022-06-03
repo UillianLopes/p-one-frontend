@@ -7,11 +7,6 @@
       "sourceRoot": "libs/admin/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/admin/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/admin"],
@@ -38,11 +33,6 @@
       "sourceRoot": "libs/core/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/core/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/core"],
@@ -69,11 +59,6 @@
       "sourceRoot": "libs/financial/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/financial/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/financial"],
@@ -100,11 +85,6 @@
       "sourceRoot": "libs/identity/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/identity/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/identity"],
@@ -131,11 +111,6 @@
       "sourceRoot": "libs/notification/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/notification/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/notification"],
@@ -275,11 +250,6 @@
       "sourceRoot": "libs/shared/src",
       "prefix": "p-one",
       "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "libs/shared/tsconfig.lib.json"
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/shared"],
