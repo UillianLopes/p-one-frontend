@@ -1,1 +1,3 @@
-export interface SignUpResponse {}
+export interface SignUpResponse {
+  id: string;
+}

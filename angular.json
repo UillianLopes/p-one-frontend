@@ -2,6 +2,7 @@
   "version": 1,
   "projects": {
     "admin": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/admin",
       "sourceRoot": "libs/admin/src",
@@ -28,6 +29,7 @@
       "tags": []
     },
     "core": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/core",
       "sourceRoot": "libs/core/src",
@@ -54,6 +56,7 @@
       "tags": []
     },
     "financial": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/financial",
       "sourceRoot": "libs/financial/src",
@@ -80,6 +83,7 @@
       "tags": []
     },
     "identity": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/identity",
       "sourceRoot": "libs/identity/src",
@@ -106,6 +110,7 @@
       "tags": []
     },
     "notification": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/notification",
       "sourceRoot": "libs/notification/src",
@@ -132,6 +137,7 @@
       "tags": []
     },
     "p-one-financial-app": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "application",
       "root": "apps/p-one-financial-app",
       "sourceRoot": "apps/p-one-financial-app/src",
@@ -245,6 +251,7 @@
       "tags": []
     },
     "shared": {
+      "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
       "root": "libs/shared",
       "sourceRoot": "libs/shared/src",
