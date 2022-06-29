@@ -110,7 +110,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let entry of this.entries$ | async"
+          *ngFor="let entry of this.entries$ | async; trackByEntryId"
           [pOneContextMenuHost]="contextMenuTemplate"
           [style.border-left-width.px]="2"
           [style.border-left-color]="entry.category.color"
