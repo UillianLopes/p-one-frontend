@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { EEntryPaymentStatus, EEntryType, EntryFilter } from '@p-one/financial';
+import {
+  EEntryPaymentStatus,
+  EEntryType,
+  EntryFilter,
+} from '@p-one/domain/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';

@@ -1,5 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { CategoryFilter, CategoryModel, PaginatedFilter } from '@p-one/financial';
+import {
+  CategoryFilter,
+  CategoryModel,
+  PaginatedFilter,
+} from '@p-one/domain/financial';
 
 import {
   closeCreateSubCategoryDialogSuccess,

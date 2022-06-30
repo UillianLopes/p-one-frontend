@@ -4,9 +4,13 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/admin';
-import { WalletModel } from '@p-one/financial';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { WalletModel } from '@p-one/domain/financial';
 import {
   updateValueAndValidityMarkingControlsAreDirty,
   PONE_DIALOG_DATA,
@@ -14,7 +18,6 @@ import {
 } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
-
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 
@@ -27,8 +30,7 @@ import { FoundTransferModalStore } from './found-transfer-modal.state';
 })
 export class FoundTransferModalComponent
   extends DestroyableMixin()
-  implements OnInit
-{
+  implements OnInit {
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     value: [0.0, Validators.required],
@@ -45,7 +47,9 @@ export class FoundTransferModalComponent
   });
 
   public readonly origin = this.form.get('origin') as UntypedFormGroup;
-  public readonly destination = this.form.get('destination') as UntypedFormGroup;
+  public readonly destination = this.form.get(
+    'destination'
+  ) as UntypedFormGroup;
 
   public readonly originWallet = this.origin.get('wallet');
   public readonly destinationWallet = this.destination.get('wallet');

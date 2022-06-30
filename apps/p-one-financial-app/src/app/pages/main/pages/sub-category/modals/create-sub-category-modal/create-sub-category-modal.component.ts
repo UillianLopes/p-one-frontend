@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { generateColor } from '@p-one/core';
-import { CategoryModel, EEntryType } from '@p-one/financial';
+import { CategoryModel, EEntryType } from '@p-one/domain/financial';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 

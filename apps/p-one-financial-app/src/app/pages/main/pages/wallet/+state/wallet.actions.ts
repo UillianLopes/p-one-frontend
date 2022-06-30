@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { WalletModel } from '@p-one/financial';
+import { WalletModel } from '@p-one/domain/financial';
 
 export enum EWalletActions {
   LOAD_WALLETS = '[Wallet] Load wallets',
@@ -83,7 +83,7 @@ const actionsUnion = union({
   openDeleteWalletDialog,
   openDepositWalletDialog,
   openTransferFoundsDialog,
-  
+
   resetState,
 });
 

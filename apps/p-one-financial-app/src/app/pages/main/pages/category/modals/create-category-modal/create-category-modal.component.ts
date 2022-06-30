@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { generateColor } from '@p-one/core';
-import { EEntryType } from '@p-one/financial';
+import { EEntryType } from '@p-one/domain/financial';
 import { map, startWith } from 'rxjs/operators';
 
 import { CategoryFacade } from '../../+state/category.facade';

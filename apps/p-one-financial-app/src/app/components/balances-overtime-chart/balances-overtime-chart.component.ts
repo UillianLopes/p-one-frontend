@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BalancesOverTimeFilter } from '@p-one/financial';
+import { BalancesOverTimeFilter } from '@p-one/domain/financial';
 
 import { BalancesOverTimeChartStore } from './balances-overtime-chart.state';
 

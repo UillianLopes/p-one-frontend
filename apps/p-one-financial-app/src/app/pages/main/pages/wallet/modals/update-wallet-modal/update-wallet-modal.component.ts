@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { BankModel, EWalletType, WalletModel } from '@p-one/financial';
+import { BankModel, EWalletType, WalletModel } from '@p-one/domain/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';

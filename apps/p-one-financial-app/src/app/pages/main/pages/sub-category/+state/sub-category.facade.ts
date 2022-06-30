@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CategoryFilter, CreateSubCategoryRequest, UpdateSubCategoryRequest } from '@p-one/financial';
+import {
+  CategoryFilter,
+  CreateSubCategoryRequest,
+  UpdateSubCategoryRequest,
+} from '@p-one/domain/financial';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotificationsStoreModule } from '@p-one/notification';
+import { POneNotificationsStoreModule } from '@p-one/stores/notification';
 import {
   POneChartModule,
   POneContainerModule,
@@ -25,8 +25,8 @@ import { MainRoutingModule } from './main.routing';
     POneFlexModule,
     POnePipesModule,
     POneTooltipModule,
-    NotificationsStoreModule,
+    POneNotificationsStoreModule,
     TranslateModule,
   ],
 })
-export class MainModule {}
+export class MainModule { }

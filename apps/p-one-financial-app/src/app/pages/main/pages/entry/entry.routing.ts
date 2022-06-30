@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EEntryType } from '@p-one/financial';
+import { EEntryType } from '@p-one/domain/financial';
 
 import { EntryComponent } from './entry.component';
 

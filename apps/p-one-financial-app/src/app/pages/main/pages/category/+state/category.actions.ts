@@ -5,7 +5,7 @@ import {
   CreateCategoryRequest,
   PaginatedFilter,
   UpdateCategoryRequest,
-} from '@p-one/financial';
+} from '@p-one/domain/financial';
 
 export enum ECategoryActions {
   LOAD_CATEGORIES = '[Category List] Load categories',

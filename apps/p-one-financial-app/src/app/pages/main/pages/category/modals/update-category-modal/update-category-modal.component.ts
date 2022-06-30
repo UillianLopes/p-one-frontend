@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EEntryType } from '@p-one/financial';
+import { CategoryModel, EEntryType } from '@p-one/domain/financial';
 import { PONE_DIALOG_DATA } from '@p-one/shared';
 import { map, startWith } from 'rxjs/operators';
 

@@ -6,7 +6,7 @@ import {
   PaginatedFilter,
   SubCategoryModel,
   UpdateSubCategoryRequest,
-} from '@p-one/financial';
+} from '@p-one/domain/financial';
 
 export enum ESubCategoryActions {
   LOAD_SUB_CATEGORIES = '[Sub Category] Load sub categories',

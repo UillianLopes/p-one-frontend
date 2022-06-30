@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EEntryType, EntryFilter, EntryService } from '@p-one/financial';
+import { EEntryType, EntryFilter, EntryService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import * as _ from 'lodash';
 import { of } from 'rxjs';
-import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  map,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { DeleteEntryModalComponent } from '../modals/delete-entry-modal/delete-entry-modal.component';
 import { EntryListFilterComponent } from '../modals/entry-list-filter/entry-list-filter.component';

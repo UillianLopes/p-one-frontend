@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CategoryService, EEntryRecurrence, EntryService, SubCategoryService } from '@p-one/financial';
+import {
+  CategoryService,
+  EEntryRecurrence,
+  EntryService,
+  SubCategoryService,
+} from '@p-one/domain/financial';
 import { ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import {
   buildRecurrencesFailure,

@@ -1,11 +1,23 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/admin';
-import { CategoryModel, WalletModel } from '@p-one/financial';
+
+import { CategoryModel, WalletModel } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/settings';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, takeUntil } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  startWith,
+  takeUntil,
+} from 'rxjs/operators';
 
 import { WithdrawModalStore } from './withdraw-modal.state';
 
@@ -18,8 +30,7 @@ import { WithdrawModalStore } from './withdraw-modal.state';
 })
 export class WithdrawModalComponent
   extends DestroyableMixin()
-  implements OnInit
-{
+  implements OnInit {
   public readonly form = this._formBuilder.group({
     title: ['', [Validators.required]],
     withdraw: [

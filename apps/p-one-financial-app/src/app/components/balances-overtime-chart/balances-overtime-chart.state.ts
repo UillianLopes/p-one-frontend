@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { BalancesOverTimeFilter, DashboardService } from '@p-one/financial';
+import {
+  BalancesOverTimeFilter,
+  DashboardService,
+} from '@p-one/domain/financial';
 import { Observable } from 'rxjs';
 import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
 

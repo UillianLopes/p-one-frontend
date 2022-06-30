@@ -1,6 +1,9 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { EEntryRecurrence, EEntryValueDistribuition } from '@p-one/financial';
+import {
+  EEntryRecurrence,
+  EEntryValueDistribuition,
+} from '@p-one/domain/financial';
 import { DestroyableMixin, StepComponent } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';

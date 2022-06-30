@@ -1,5 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { UserStoreFacade } from '@p-one/identity';
+import { UserStoreFacade } from '@p-one/domain/identity';
 
 @Component({
   selector: 'p-one-root',
@@ -12,5 +12,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._userStoreFacade.load();
   }
-  
 }

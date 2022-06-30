@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { CategoryModel, SubCategoryModel, SubCategoryService, WalletModel } from '@p-one/financial';
+import {
+  CategoryModel,
+  SubCategoryModel,
+  SubCategoryService,
+  WalletModel,
+} from '@p-one/domain/financial';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 

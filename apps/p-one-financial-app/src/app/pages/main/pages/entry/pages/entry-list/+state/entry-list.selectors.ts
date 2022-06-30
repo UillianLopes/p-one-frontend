@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { EEntryPaymentStatus } from '@p-one/financial';
+import { EEntryPaymentStatus } from '@p-one/domain/financial';
 import { FilterDisplayData } from '@p-one/shared';
 
 import { ENTRY_LIST_KEY, EntryListState } from './entry-list.reducer';

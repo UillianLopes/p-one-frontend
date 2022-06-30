@@ -1,5 +1,10 @@
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryModel, EEntryType, RecurrenceModel, SubCategoryModel } from '@p-one/financial';
+import {
+  CategoryModel,
+  EEntryType,
+  RecurrenceModel,
+  SubCategoryModel,
+} from '@p-one/domain/financial';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';

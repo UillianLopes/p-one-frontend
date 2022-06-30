@@ -1,7 +1,15 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, EEntryType, SubCategoryModel } from '@p-one/financial';
-import { CustomValidators, DestroyableMixin, PONE_DIALOG_DATA } from '@p-one/shared';
+import {
+  CategoryModel,
+  EEntryType,
+  SubCategoryModel,
+} from '@p-one/domain/financial';
+import {
+  CustomValidators,
+  DestroyableMixin,
+  PONE_DIALOG_DATA,
+} from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { SubCategoryFacade } from '../../+state/sub-category.facade';

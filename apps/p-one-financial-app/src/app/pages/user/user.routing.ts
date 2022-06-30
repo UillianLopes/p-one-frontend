@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WithoutAuthGuard } from '@p-one/identity';
+import { WithoutAuthGuard } from '@p-one/domain/identity';
 
 import { UserComponent } from './user.component';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'sign-up',
-        loadChildren: () => import('@p-one/admin').then((e) => e.POneSignUpModule),
+        loadChildren: () => import('@p-one/features/admin').then((e) => e.POneSignUpModule),
         canActivate: [WithoutAuthGuard],
       },
     ],
@@ -35,4 +35,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }

@@ -1,0 +1,19 @@
+<p-one-container [isLoading]="(isSignUpLoading$ | async)!">
+  <p-one-header>
+    <b pOneLeading routerLink="/landing" style="cursor: pointer"> POne </b>
+    <ng-container pOneTrailing>
+      <button class="btn btn-sm btn-outline-light" (click)="signIn()">
+        {{
+        '@PONE.LIBS.ADMIN.SIGN_UP.BUTTONS.ALREADY_HAVE_AN_ACCOUNT' | translate
+        }}
+      </button>
+    </ng-container>
+  </p-one-header>
+
+  <div class="container">
+    <div pOneFlexRow justification="center">
+      <p-one-sign-up-card></p-one-sign-up-card>
+
+    </div>
+  </div>
+</p-one-container>

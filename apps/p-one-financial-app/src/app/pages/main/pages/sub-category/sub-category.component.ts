@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { EEntryType, SubCategoryModel } from '@p-one/financial';
+import { EEntryType, SubCategoryModel } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogService } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 

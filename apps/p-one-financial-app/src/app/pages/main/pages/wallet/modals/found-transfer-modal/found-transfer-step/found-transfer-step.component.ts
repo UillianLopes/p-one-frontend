@@ -1,6 +1,10 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormGroup, FormGroupName } from '@angular/forms';
-import { CategoryModel, SubCategoryModel, WalletModel } from '@p-one/financial';
+import {
+  CategoryModel,
+  SubCategoryModel,
+  WalletModel,
+} from '@p-one/domain/financial';
 import { DestroyableMixin } from '@p-one/shared';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

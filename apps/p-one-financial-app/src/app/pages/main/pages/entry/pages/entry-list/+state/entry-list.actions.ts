@@ -1,5 +1,10 @@
 import { createAction, props, union } from '@ngrx/store';
-import { EEntryType, EntryFilter, EntryModel, PaginatedFilter } from '@p-one/financial';
+import {
+  EEntryType,
+  EntryFilter,
+  EntryModel,
+  PaginatedFilter,
+} from '@p-one/domain/financial';
 
 export enum EEntryListActions {
   LOAD_ENTRIES = '[Entry List] Load entries',

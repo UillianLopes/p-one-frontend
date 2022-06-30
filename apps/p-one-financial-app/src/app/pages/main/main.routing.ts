@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@p-one/identity';
+import { AuthGuard } from '@p-one/domain/identity';
 
 import { MainComponent } from './main.component';
 
@@ -18,7 +18,7 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () =>
-          import('@p-one/admin').then((m) => m.SettingsModule),
+          import('@p-one/features/admin').then((m) => m.SettingsModule),
       },
       {
         path: 'entries',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { WalletModel } from '@p-one/financial';
+import { WalletModel } from '@p-one/domain/financial';
 
 import {
   filterWallets,

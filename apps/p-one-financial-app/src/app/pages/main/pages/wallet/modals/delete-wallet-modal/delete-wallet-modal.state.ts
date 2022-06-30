@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { WalletModel, WalletService } from '@p-one/financial';
+import { WalletModel, WalletService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
 

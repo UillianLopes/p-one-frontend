@@ -9,7 +9,7 @@ import {
   TransferRequest,
   WalletModel,
   WalletService,
-} from '@p-one/financial';
+} from '@p-one/domain/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';

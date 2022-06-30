@@ -1,5 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { CategoryModel, RecurrenceModel, SubCategoryModel } from '@p-one/financial';
+import {
+  CategoryModel,
+  RecurrenceModel,
+  SubCategoryModel,
+} from '@p-one/domain/financial';
 
 import { FirstStepFormModel } from '../@types/first-step-form.model';
 import { SecondStepFormModel } from '../@types/second-step-form.model';

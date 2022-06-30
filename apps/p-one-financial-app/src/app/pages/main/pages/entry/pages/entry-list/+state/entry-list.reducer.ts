@@ -1,5 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { EEntryType, EntryFilter, EntryModel, PaginatedFilter } from '@p-one/financial';
+import {
+  EEntryType,
+  EntryFilter,
+  EntryModel,
+  PaginatedFilter,
+} from '@p-one/domain/financial';
 
 import {
   filterEntries,

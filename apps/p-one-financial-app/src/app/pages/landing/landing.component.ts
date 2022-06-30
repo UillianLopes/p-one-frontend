@@ -1,7 +1,7 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { UserStoreFacade } from '@p-one/identity';
+import { UserStoreFacade } from '@p-one/domain/identity';
 import { DestroyableMixin } from '@p-one/shared';
 import { startWith, takeUntil } from 'rxjs/operators';
 

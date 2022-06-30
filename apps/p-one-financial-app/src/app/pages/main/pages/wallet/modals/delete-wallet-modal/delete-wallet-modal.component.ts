@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { WalletModel } from '@p-one/financial';
+import { WalletModel } from '@p-one/domain/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 
 import { DeleteWalletModalStore } from './delete-wallet-modal.state';
@@ -17,7 +17,7 @@ export class DeleteWalletModalComponent {
   public readonly willOnlyOneWalletBeDeleted$ =
     this._store.willOnlyOneWalletBeDeleted$;
   public readonly walletNames$ = this._store.walletNames$;
-  public readonly walletsLength$  = this._store.walletsLength$;
+  public readonly walletsLength$ = this._store.walletsLength$;
 
   constructor(
     private readonly _store: DeleteWalletModalStore,

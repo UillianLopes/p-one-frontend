@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { DashboardFilter } from '@p-one/financial';
+import { DashboardFilter } from '@p-one/domain/financial';
 
 import { resetState, setFilterSuccess } from './dashboard.actions';
 

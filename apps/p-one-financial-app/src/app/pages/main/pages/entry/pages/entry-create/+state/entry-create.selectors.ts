@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { EEntryRecurrence } from '@p-one/financial';
+import { EEntryRecurrence } from '@p-one/domain/financial';
 import * as _ from 'lodash';
 
 import { ENTRY_CREATE_KEY, EntryCreateState } from './entry-create.reducer';

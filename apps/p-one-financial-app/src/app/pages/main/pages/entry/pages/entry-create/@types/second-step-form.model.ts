@@ -1,4 +1,7 @@
-import { EEntryRecurrence, EEntryValueDistribuition } from '@p-one/financial';
+import {
+  EEntryRecurrence,
+  EEntryValueDistribuition,
+} from '@p-one/domain/financial';
 
 export interface SecondStepFormModel {
   value: number;

@@ -9,7 +9,7 @@ import {
   SubCategoryService,
   WalletModel,
   WalletService,
-} from '@p-one/financial';
+} from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, switchMap, tap, withLatestFrom } from 'rxjs/operators';

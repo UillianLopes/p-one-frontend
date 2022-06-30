@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { DashboardFilter } from '@p-one/financial';
+import { DashboardFilter } from '@p-one/domain/financial';
 
 export enum EDashboardActions {
   SET_FILTER = '[Dashboard] Set filter',

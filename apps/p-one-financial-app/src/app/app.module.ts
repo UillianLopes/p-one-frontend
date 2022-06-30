@@ -7,12 +7,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { POneAdminModule, SettingsStoreModule } from '@p-one/admin';
 import { CustomTranslateLoader, POneCoreModule } from '@p-one/core';
-import { POneFinancialModule } from '@p-one/financial';
-import { POneIdentityModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/identity';
-import { POneNotificationModule } from '@p-one/notification';
+import { POneAdminDomainModule } from '@p-one/domain/admin';
+import { POneFinancialDomainModule } from '@p-one/domain/financial';
+import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/domain/identity';
+import { POneNotificationDomainModule } from '@p-one/domain/notification';
 import { POneToastModule } from '@p-one/shared';
+import { SettingsStoreModule } from '@p-one/stores/settings';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
@@ -33,16 +34,16 @@ import { AppRoutingModule } from './app.routing';
       locale: navigator.language ?? environment.locale,
       luxonDateFormat: environment.luxonDateFormat,
     }),
-    POneFinancialModule.forRoot({
+    POneFinancialDomainModule.forRoot({
       endpoint: environment.financialEndpoint,
     }),
-    POneIdentityModule.forRoot({
+    POneIdentityDomainModule.forRoot({
       endpoint: environment.identityEndpoint,
     }),
-    POneNotificationModule.forRoot({
+    POneNotificationDomainModule.forRoot({
       endpoint: environment.notificationEndpoint,
     }),
-    POneAdminModule.forRoot({
+    POneAdminDomainModule.forRoot({
       adminEndpoint: environment.adminEndpoint,
     }),
     AuthModule.forRoot({
@@ -65,6 +66,7 @@ import { AppRoutingModule } from './app.routing';
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),
+
     POneToastModule.forRoot(),
     NgbModule,
     NgxMaskModule.forRoot(),
@@ -112,4 +114,4 @@ import { AppRoutingModule } from './app.routing';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

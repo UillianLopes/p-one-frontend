@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { WalletService } from '@p-one/financial';
+import { WalletService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap } from 'rxjs/operators';
@@ -11,7 +11,13 @@ import { DepositModalComponent } from '../modals/deposit-modal/deposit-modal.com
 import { FoundTransferModalComponent } from '../modals/found-transfer-modal/found-transfer-modal.component';
 import { UpdateWalletModalComponent } from '../modals/update-wallet-modal/update-wallet-modal.component';
 import { WithdrawModalComponent } from '../modals/withdraw-modal/withdraw-modal.component';
-import { EWalletActions, loadWallets, loadWalletsFailure, loadWalletsSuccess, WalletActionsUnion } from './wallet.actions';
+import {
+  EWalletActions,
+  loadWallets,
+  loadWalletsFailure,
+  loadWalletsSuccess,
+  WalletActionsUnion,
+} from './wallet.actions';
 
 @Injectable()
 export class WalletEffects {

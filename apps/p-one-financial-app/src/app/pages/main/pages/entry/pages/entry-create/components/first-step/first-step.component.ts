@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/admin';
-import { CategoryModel, EEntryType } from '@p-one/financial';
+import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { CategoryModel, EEntryType } from '@p-one/domain/financial';
 import { DestroyableMixin } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 

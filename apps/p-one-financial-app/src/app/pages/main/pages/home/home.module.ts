@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
-import { POneContainerModule, POneHeaderModule, POneSidenavModule } from '@p-one/shared';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
+import {
+  POneContainerModule,
+  POneHeaderModule,
+  POneSidenavModule,
+} from '@p-one/shared';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';

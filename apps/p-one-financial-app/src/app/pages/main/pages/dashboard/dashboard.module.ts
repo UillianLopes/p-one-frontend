@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { POneNotificationsDisplayButtonModule } from '@p-one/notification';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
 import {
   POneBreadcrumbModule,
   POneCardModule,

@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CategoryService } from '@p-one/financial';
+import { CategoryService } from '@p-one/domain/financial';
 import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
-import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import {
   closeCreateCategoryDialog,

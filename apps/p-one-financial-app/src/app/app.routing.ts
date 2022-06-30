@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WithoutAuthGuard } from '@p-one/identity';
+import { WithoutAuthGuard } from '@p-one/domain/identity';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },

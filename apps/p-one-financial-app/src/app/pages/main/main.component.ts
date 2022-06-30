@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingsStoreFacade } from '@p-one/admin';
-import { UserStoreFacade } from '@p-one/identity';
-import { NotificationsStoreFacade } from '@p-one/notification';
+
+import { UserStoreFacade } from '@p-one/domain/identity';
+
 import { DestroyableMixin } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { NotificationsStoreFacade } from '@p-one/stores/notification';
 import { skip, takeUntil } from 'rxjs/operators';
 
 @Component({

@@ -15,13 +15,22 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@p-one/admin": ["libs/admin/src/index.ts"],
       "@p-one/core": ["libs/core/src/index.ts"],
-      "@p-one/financial": ["libs/financial/src/index.ts"],
-      "@p-one/identity": ["libs/identity/src/index.ts"],
-      "@p-one/notification": ["libs/notification/src/index.ts"],
+      "@p-one/domain/admin": ["libs/domain/admin/src/index.ts"],
+      "@p-one/domain/financial": ["libs/domain/financial/src/index.ts"],
+      "@p-one/domain/identity": ["libs/domain/identity/src/index.ts"],
+      "@p-one/domain/notification": ["libs/domain/notification/src/index.ts"],
+      "@p-one/features/admin": ["libs/features/admin/src/index.ts"],
+      "@p-one/features/financial": ["libs/features/financial/src/index.ts"],
+      "@p-one/features/identity": ["libs/features/identity/src/index.ts"],
+      "@p-one/features/notification": [
+        "libs/features/notification/src/index.ts"
+      ],
       "@p-one/shared": ["libs/shared/src/index.ts"],
-      "@p-one/store": ["libs/store/src/index.ts"]
+      "@p-one/store": ["libs/store/src/index.ts"],
+      "@p-one/stores/admin": ["libs/stores/admin/src/index.ts"],
+      "@p-one/stores/notification": ["libs/stores/notification/src/index.ts"],
+      "@p-one/stores/settings": ["libs/stores/settings/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
