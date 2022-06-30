@@ -1,0 +1,122 @@
+<p-one-container [isLoading]="this.isLoading$ | async">
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2>{{ '@PONE.WALLETS.TITLE' | translate }}</h2>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <div pOneHeader class="p-one-balance__sub-header">
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item i18n>
+        {{ '@PONE.WALLETS.TITLE' | translate }}
+      </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </div>
+  <div pOneHeader class="p-one-balance__sub-header">
+    <button class="btn btn-primary btn-sm" (click)="openCreateWalletDialog()">
+      {{ '@PONE.WALLETS.BUTTONS.CREATE_ACCOUNT_OR_WALLET' | translate }}
+    </button>
+
+    <p-one-form-field noPadding>
+      <input pOneSmallInput [formControl]="filterControl" />
+    </p-one-form-field>
+  </div>
+  <div pOneFlexColumn gap="16px" style="padding: 16px">
+    <table class="table table-sm table-hover table--fix-head">
+      <thead>
+        <tr>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.BALANCE' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.BANK' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.WALLETS.TABLE.COLUMNS.ACCOUNT_AGENCY' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let wallet of filtredPaginatedWallets$ | async;
+            trackBy: trackByWalletId
+          "
+          [pOneContextMenuHost]="contextMenuTemplate"
+        >
+          <ng-template #contextMenuTemplate>
+            <div pOneFlexRow gap="8px" class="p-one-balance__context-menu">
+              <button
+                class="btn btn-outline-success btn-sm"
+                (click)="openDepositWalletDialog(wallet)"
+              >
+                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.DEPOSIT' | translate }}
+              </button>
+              <button
+                class="btn btn-outline-warning btn-sm"
+                (click)="openWithdrawWalletDialog(wallet)"
+              >
+                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.WITHDRAW' | translate }}
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                (click)="openTransferFoundsDialog(wallet)"
+              >
+                {{
+                  '@PONE.WALLETS.TABLE.CONTEXT_MENU.TRANSFER_FUNDS' | translate
+                }}
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="openUpdateWalletDialog(wallet)"
+              >
+                <i class="material-icons">edit</i>
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="openDeleteWalletDialog(wallet)"
+              >
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+          </ng-template>
+          <td>{{ wallet.name }}</td>
+          <td>
+            <ng-container
+              *ngIf="wallet.currency as currency; else settingsCurrencyTemplate"
+            >
+              {{ wallet.value | currency: currency }}
+            </ng-container>
+            <ng-template #settingsCurrencyTemplate>
+              {{ wallet.value | currency: (settingsCurrency$ | async) }}
+            </ng-template>
+          </td>
+          <td>{{ displayBankFn(wallet.bank) }}</td>
+          <td>
+            <ng-container *ngIf="wallet.agency">
+              {{ wallet.agency }} / {{ wallet.number }}
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ngb-pagination
+      [collectionSize]="filtredWalletsLength$ | async"
+      [page]="page$ | async"
+      [pageSize]="pageSize$ | async"
+      (pageChange)="setWalletsPage($event)"
+      aria-label="Paginação da lista de contas"
+    ></ngb-pagination>
+  </div>
+</p-one-container>

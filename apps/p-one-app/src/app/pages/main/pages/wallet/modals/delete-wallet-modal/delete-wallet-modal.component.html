@@ -1,0 +1,31 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    {{
+      '@PONE.WALLETS.MODALS.DELETE.TITLE'
+        | translate: { count: walletsLength$ | async }
+    }}
+  </h5>
+  <p-one-dialog-body>
+    <p
+      [innerHtml]="
+        '@PONE.WALLETS.MODALS.DELETE.QUESTION'
+          | translate
+            : {
+                walletNames: walletNames$ | async,
+                count: walletsLength$ | async
+              }
+      "
+    ></p>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.WALLETS.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="deleteBalances()">
+      {{
+        '@PONE.WALLETS.MODALS.DELETE.BUTTONS.DELETE_WALLET'
+          | translate: { count: walletsLength$ | async }
+      }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

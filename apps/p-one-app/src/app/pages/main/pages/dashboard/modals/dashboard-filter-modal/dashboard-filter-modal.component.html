@@ -1,0 +1,89 @@
+<p-one-dialog [isLoading]="isSomethingLoading$ | async">
+  <h5 class="card-header">Filtrar entradas</h5>
+  <p-one-dialog-body>
+    <form [formGroup]="form">
+      <p-one-form-field>
+        <label pOneLabel for="subCategoryMultipleAutocomplete"> Período </label>
+        <p-one-range-datepicker
+          formControlName="range"
+        ></p-one-range-datepicker>
+      </p-one-form-field>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryMultipleAutocomplete">
+            Categorias
+          </label>
+          <p-one-multiple-autocomplete
+            #categoryMultipleAutocomplete
+            [pOneAutocomplete]="categoriesAutocomplete"
+            (search$)="setCategoriesFilter($event)"
+            [displayFn]="displayFn"
+            formControlName="categories"
+          >
+          </p-one-multiple-autocomplete>
+          <p-one-autocomplete #categoriesAutocomplete="pOneAutocomplete">
+            <p-one-option
+              *ngFor="let category of filtredCategories$ | async"
+              [value]="category"
+            >
+              {{ category.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="subCategoryMultipleAutocomplete">
+            Sub categorias
+          </label>
+          <p-one-multiple-autocomplete
+            #subCategoryMultipleAutocomplete
+            [pOneAutocomplete]="subCategoriesAutocomplete"
+            (search$)="setSubCategoriesFilter($event)"
+            [displayFn]="displayFn"
+            formControlName="subCategories"
+          >
+          </p-one-multiple-autocomplete>
+          <p-one-autocomplete #subCategoriesAutocomplete="pOneAutocomplete">
+            <p-one-option
+              *ngFor="let subCategory of filtredSubCategories$ | async"
+              [value]="subCategory"
+            >
+              {{ subCategory.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="walletsMultipleAutocomplete">
+            Contas / Carteiras
+          </label>
+          <p-one-multiple-autocomplete
+            #walletsMultipleAutocomplete
+            [pOneAutocomplete]="walletsAutocomplete"
+            (search$)="setWalletsFilter($event)"
+            [displayFn]="displayFn"
+            formControlName="wallets"
+          >
+          </p-one-multiple-autocomplete>
+          <p-one-autocomplete #walletsAutocomplete="pOneAutocomplete">
+            <p-one-option
+              *ngFor="let wallet of filtredWallets$ | async"
+              [value]="wallet"
+            >
+              {{ wallet.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      Cancelar
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="this.confirm()">
+      Filtrar entradas
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

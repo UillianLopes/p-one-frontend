@@ -266,26 +266,26 @@
       },
       "tags": []
     },
-    "p-one-financial-app": {
+    "p-one-app": {
       "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "application",
-      "root": "apps/p-one-financial-app",
-      "sourceRoot": "apps/p-one-financial-app/src",
+      "root": "apps/p-one-app",
+      "sourceRoot": "apps/p-one-app/src",
       "prefix": "p-one",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/p-one-financial-app",
-            "index": "apps/p-one-financial-app/src/index.html",
-            "main": "apps/p-one-financial-app/src/main.ts",
-            "polyfills": "apps/p-one-financial-app/src/polyfills.ts",
-            "tsConfig": "apps/p-one-financial-app/tsconfig.app.json",
+            "outputPath": "dist/apps/p-one-app",
+            "index": "apps/p-one-app/src/index.html",
+            "main": "apps/p-one-app/src/main.ts",
+            "polyfills": "apps/p-one-app/src/polyfills.ts",
+            "tsConfig": "apps/p-one-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/p-one-financial-app/src/favicon.ico",
-              "apps/p-one-financial-app/src/assets",
+              "apps/p-one-app/src/favicon.ico",
+              "apps/p-one-app/src/assets",
               {
                 "glob": "**/*",
                 "input": "./assets",
@@ -293,7 +293,7 @@
               }
             ],
             "styles": [
-              "apps/p-one-financial-app/src/styles.scss",
+              "apps/p-one-app/src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.scss"
             ],
@@ -315,8 +315,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/p-one-financial-app/src/environments/environment.ts",
-                  "with": "apps/p-one-financial-app/src/environments/environment.prod.ts"
+                  "replace": "apps/p-one-app/src/environments/environment.ts",
+                  "with": "apps/p-one-app/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -336,10 +336,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "p-one-financial-app:build:production"
+              "browserTarget": "p-one-app:build:production"
             },
             "development": {
-              "browserTarget": "p-one-financial-app:build:development"
+              "browserTarget": "p-one-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -347,9 +347,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "p-one-financial-app:build",
+            "browserTarget": "p-one-app:build",
             "outFile": "messages.xlf",
-            "outputPath": "apps/p-one-financial-app/src/assets/i18n",
+            "outputPath": "apps/p-one-app/src/assets/i18n",
             "format": "xlf"
           }
         },
@@ -357,16 +357,16 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/p-one-financial-app/src/**/*.ts",
-              "apps/p-one-financial-app/src/**/*.html"
+              "apps/p-one-app/src/**/*.ts",
+              "apps/p-one-app/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/p-one-financial-app"],
+          "outputs": ["coverage/apps/p-one-app"],
           "options": {
-            "jestConfig": "apps/p-one-financial-app/jest.config.ts",
+            "jestConfig": "apps/p-one-app/jest.config.ts",
             "passWithNoTests": true
           }
         }

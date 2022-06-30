@@ -1,0 +1,434 @@
+{
+  "SUB_CATEGORIES": {
+    "TITLE": "Sub categorias",
+    "BUTTONS": {
+      "CREATE_SUB_CATEGORY": "Criar sub categoria",
+      "DELETE_SELECTED_SUB_CATEGORIES": "Excluir sub categorias selecionadas"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Nome",
+        "DESCRIPTION": "Descrição",
+        "TYPE": "Tipo",
+        "CATEGORY": "Categoria"
+      }
+    },
+    "PAGINATION": {
+      "LABEL": "Paginação da lista de sub categorias"
+    },
+    "MODALS": {
+      "CREATE": {
+        "TITLE": "Criação de sub categorias",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nome",
+            "PLACEHOLDER": "Digite o nome da sub categoria"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descrição",
+            "PLACEHOLDER": "Digite a descrição da sub categoria"
+          },
+          "CATEGORY": {
+            "LABEL": "Categoria",
+            "PLACEHOLDER": "Selecione a categoria a qual a sub categoria pertence"
+          },
+          "COLOR": {
+            "LABEL": "Cor",
+            "PLACEHOLDER": "Selecione a cor da sub categoria"
+          }
+        },
+        "BUTTONS": {
+          "CREATE_SUB_CATEGORY": "Criar sub categoria",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "UPDATE": {
+        "TITLE": "Edição de categorias",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nome",
+            "PLACEHOLDER": "Digite o nome da categoria"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descrição",
+            "PLACEHOLDER": "Digite a descrição da sub categoria"
+          },
+          "CATEGORY": {
+            "LABEL": "Categoria",
+            "PLACEHOLDER": "Selecione a categoria a qual a sub categoria pertence"
+          },
+          "COLOR": {
+            "LABEL": "Cor",
+            "PLACEHOLDER": "Selecione a cor da sub categoria"
+          }
+        },
+        "BUTTONS": {
+          "UPDATE_SUB_CATEGORY": "Atualizar sub categoria",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{sub categoria} one {sub categoria} other {sub categorias}}",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{sub categoria} one {sub categoria} other {sub categorias}} <b>{subCategoryNames}</b>?",
+        "BUTTONS": {
+          "DELETE_CATEGORY": "Excluir {count, plural, =0{sub categoria} one {sub categoria} other {sub categorias}}",
+          "CANCEL": "Cancelar"
+        }
+      }
+    },
+    "MESSAGES": {
+      "CREATE_SUB_CATEGORY_SUCCESS": "The sub category were created successfully"
+    }
+  },
+  "ENTRIES": {
+    "LIST": {
+      "TITLE": "Entradas",
+      "ENTRY_TYPES": {
+        "BILLS_TO_BE_RECEIVED": "Contas a receber",
+        "BILLS_TO_PAY": "Contas a pagar",
+        "ALL_BILLS": "Todas as contas",
+        "CREDIT": "Crédito",
+        "DEBIT": "Débito"
+      },
+      "BUTTONS": {
+        "CREATE_ENTRY": "Criar entrada",
+        "OPEN_COMPLETE_FILTER": "Abrir filtro completo",
+        "OPEN_PAY_ENTRY": "Quitar entrada",
+        "OPEN_DELETE_ENTRY": "Excluir entrada"
+      },
+      "TABLE": {
+        "COLUMNS": {
+          "PARCEL_NUMBER": "Nº Parcela",
+          "TITLE": "Título",
+          "DUE_DATE": "Vencimento",
+          "CATEGORY": "Categoria",
+          "SUB_CATEGORY": "Sub categoria",
+          "AMOUNT": "Valor",
+          "TYPE": "Tipo",
+          "STATUS": "Situação"
+        }
+      },
+      "FILTER": {
+        "CATEGORIES": "Categorias",
+        "SUB_CATEGORIES": "Sub categorias",
+        "RANGE": "Range",
+        "TEXT": "Texto",
+        "PAYMENT_STATUS": {
+          "TITLE": "Status",
+          "ALL": "Todos",
+          "OPENED": "Em aberto",
+          "OVERDUE": "Vencidas",
+          "PAID": "Pagas",
+          "TO_PAY_TODAY": "A vencer hoje"
+        }
+      }
+    },
+    "MODALS": {
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{entrada} one {entrada} other {entradas}}",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{entrada} one {entrada} other {entradas}} <b>{entriesTitles}</b>?",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "DELETE_ENTRY": "Excluir {count, plural, =0{entrada} one {entrada} other {entradas}}"
+        }
+      },
+      "PAY": {
+        "TITLE": "Pagar entrada",
+        "FIELDS": {
+          "WALLET": {
+            "LABEL": "Conta / Carteira",
+            "PLACEHOLDER": "Selecione uma conta ou carteira"
+          },
+          "VALUE": {
+            "LABEL": "Valor",
+            "PLACEHOLDER": "Informe o valor"
+          },
+          "FEES": {
+            "LABEL": "Juros",
+            "PLACEHOLDER": "Informe os juros"
+          },
+          "FINES": {
+            "LABEL": "Multas",
+            "PLACEHOLDER": "Informe as multas"
+          }
+        }
+      },
+      "FILTER": {
+        "FIELDS": {
+          "CATEGORIES": {
+            "TITLE": "Categorias",
+            "PLACEHOLDER": "Selecione uma categoria"
+          }
+        }
+      }
+    }
+  },
+  "CATEGORIES": {
+    "TITLE": "Categorias",
+    "BUTTONS": {
+      "CREATE_CATEGORY": "Criar categoria",
+      "DELETE_SELECTED_CATEGORIES": "Excluir categorias selecionadas"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Nome",
+        "DESCRIPTION": "Descrição",
+        "TYPE": "Tipo"
+      }
+    },
+    "PAGINATION": {
+      "LABEL": "Paginação da lista de categorias"
+    },
+    "MODALS": {
+      "CREATE": {
+        "TITLE": "Criação de categorias",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nome",
+            "PLACEHOLDER": "Digite o nome da categoria"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descrição",
+            "PLACEHOLDER": "Digite a descrição da categoria"
+          },
+          "TYPE": {
+            "LABEL": "Tipo",
+            "PLACEHOLDER": "Selecione o tipo da categoria",
+            "OPTIONS": {
+              "CREDIT": "Crédito",
+              "DEBIT": "Débito"
+            }
+          },
+          "COLOR": {
+            "LABEL": "Cor",
+            "PLACEHOLDER": "Selecione a cor da categoria"
+          }
+        },
+        "BUTTONS": {
+          "CREATE_CATEGORY": "Criar categoria",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "UPDATE": {
+        "TITLE": "Edição de categorias",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nome",
+            "PLACEHOLDER": "Digite o nome da categoria"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descrição",
+            "PLACEHOLDER": "Digite a descrição da categoria"
+          },
+          "TYPE": {
+            "LABEL": "Tipo",
+            "PLACEHOLDER": "Selecione o tipo da categoria",
+            "OPTIONS": {
+              "CREDIT": "Crédito",
+              "DEBIT": "Débito"
+            }
+          },
+          "COLOR": {
+            "LABEL": "Cor",
+            "PLACEHOLDER": "Selecione a cor da categoria"
+          }
+        },
+        "BUTTONS": {
+          "UPDATE_CATEGORY": "Atualizar categoria",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{categoria} one {categoria} other {categorias}}",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{categoria} one {categoria} other {categorias}} <b>{categoryNames}</b>?",
+        "BUTTONS": {
+          "DELETE_CATEGORY": "Excluir {count, plural, =0{categoria} one {categoria} other {categorias}}",
+          "CANCEL": "Cancelar"
+        }
+      }
+    }
+  },
+  "CORE": {
+    "FORMATS": {
+      "DATE_TIME": "dd/MM/yyyy HH:mm:ss",
+      "DATE": "dd/MM/yyyy"
+    }
+  },
+  "MAIN": {
+    "WELCOME": "Bem vindo, {username}",
+    "SIDENAV": {
+      "HOME": "Home",
+      "SETTINGS": "Configurações",
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": {
+        "TITLE": "Entradas",
+        "BILLS_TO_PAY": "Contas a pagar",
+        "BILLS_TO_BE_RECEIVED": "Contas a receber",
+        "CREATE_ENTRY": "Criar entrada",
+        "ALL_BILLS": "Todas as contas"
+      },
+      "CATEGORIES": "Categorias",
+      "SUB_CATEGORIES": "Sub categorias",
+      "ACCOUNTS_OR_WALLETS": "Contas/Carteiras",
+      "SIGN_OUT": "Sair"
+    }
+  },
+  "LANDING": {
+    "TITLE": "POne Financeiro",
+    "WELCOME": "Bem vindo ao POne Financeiro",
+    "BUTTONS": {
+      "SIGN_IN": "Entrar"
+    },
+    "PARAGRAPHS": {
+      "FIRST": "Aqui você pode organizar suas finanças de forma rapida e fácil",
+      "SECOND": "Atualmente o sistema encontra-se em desenvolvimento, por isso contamos apenas com as seguintes funcionalidades liberadas para nossos usuários"
+    },
+    "TOPICS": {
+      "DASHBOARD": "Dashboard",
+      "ENTRIES": "Lançamento e consulta de dados financieros",
+      "ORGANIZATION": "Organização por categorias e sub categorias"
+    }
+  },
+  "WALLETS": {
+    "TITLE": "Contas/Carteiras",
+    "BUTTONS": {
+      "CREATE_ACCOUNT_OR_WALLET": "Criar conta/carteira",
+      "DELETE_SELECTED_ACCOUNTS_OR_WALLETS": "Excluir contas/carteiras selecionadas"
+    },
+    "TABLE": {
+      "COLUMNS": {
+        "NAME": "Nome",
+        "DESCRIPTION": "Descrição",
+        "BALANCE": "Saldo",
+        "BANK": "Banco",
+        "ACCOUNT_AGENCY": "Agência / conta"
+      },
+      "CONTEXT_MENU": {
+        "EDIT": "Editar",
+        "DELETE": "Excluir",
+        "DEPOSIT": "Depositar",
+        "WITHDRAW": "Retirar",
+        "TRANSFER_FUNDS": "Transferir fundos"
+      }
+    },
+    "MODALS": {
+      "FIELDS": {
+        "NAME": {
+          "LABEL": "Nome",
+          "PLACEHOLDER": "Digite o nome da conta / carteira..."
+        },
+        "CURRENCY": {
+          "LABEL": "Moeda",
+          "PLACEHOLDER": "Selecione a moeda da conta / carteira..."
+        },
+        "ADDRESS": {
+          "LABEL": "Endereço",
+          "PLACEHOLDER": "Digite o endereço da conta/carteira..."
+        },
+        "COLOR": {
+          "LABEL": "Cor",
+          "PLACEHOLDER": "Selecione a cor da conta/carteira..."
+        },
+        "BANK": {
+          "LABEL": "Banco",
+          "PLACEHOLDER": "Selecione o banco da conta/carteira..."
+        },
+        "ACCOUNT_NUMBER": {
+          "LABEL": "Número da conta",
+          "PLACEHOLDER": "Digite o número da conta/carteira..."
+        },
+        "AGENCY": {
+          "LABEL": "Agência",
+          "PLACEHOLDER": "Digite a agência da conta/carteira..."
+        },
+        "TITLE": {
+          "LABEL": "Titulo",
+          "PLACEHOLDER": "Digite o titulo da entrada"
+        },
+        "VALUE": {
+          "LABEL": "Valor",
+          "PLACEHOLDER": "Informe o valor"
+        },
+        "CATEGORY": {
+          "LABEL": "Categoria",
+          "PLACEHOLDER": "Selecione uma categoria"
+        },
+        "SUB_CATEGORY": {
+          "LABEL": "Sub categoria",
+          "PLACEHOLDER": "Selecione uma sub categoria"
+        },
+        "WALLET": {
+          "LABEL": "Conta / Carteira",
+          "PLACEHOLDER": "Selecione uma conta ou carteira"
+        },
+        "DEPOSIT_VALUE": {
+          "LABEL": "Valor do depósito"
+        },
+        "WITHDRAW_VALUE": {
+          "LABEL": "Valor da retirada"
+        }
+      },
+      "CREATE_WALLET": {
+        "TITLE": "Criação de contas/carteiras",
+        "TYPES": {
+          "BANK_ACCOUNT": "Conta bancária",
+          "DIGITAL_WALLET": "Carteira digital"
+        },
+        "BUTTONS": {
+          "CREATE_WALLET": "Criar conta/cateira",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "UPDATE_WALLET": {
+        "TITLE": "Alteração de contas/carteiras",
+        "TYPES": {
+          "BANK_ACCOUNT": "Conta bancária",
+          "DIGITAL_WALLET": "Carteira digital"
+        },
+        "BUTTONS": {
+          "UPDATE_WALLET": "Alterar conta/cateira",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "FOUND_TRANSFER": {
+        "TITLE": "Transferir fundos",
+        "STEPS": {
+          "ORIGIN": "Origem",
+          "DESTINATION": "Destino"
+        },
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "PREVIOUS": "Anterior",
+          "NEXT": "Próximo",
+          "CONFIRM_DEPOSIT": "Confirmar depósito"
+        }
+      },
+      "DEPOSIT": {
+        "TITLE": "Depósito",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "PREVIOUS": "Anterior",
+          "NEXT": "Próximo",
+          "CONFIRM_DEPOSIT": "Confirmar depósito"
+        },
+        "NEW_BALANCE": "Com esse depósito o saldo vai de <b>{currentBalance}</b> para <b>{newBalance}</b>"
+      },
+      "WITHDRAW": {
+        "TITLE": "Retirada",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "CONFIRM_WITHDRAW": "Confirmar retirada"
+        },
+        "NEW_BALANCE": "Com essa retirada o saldo vai de <b>{currentBalance}</b> para <b>{newBalance}</b>"
+      },
+      "DELETE": {
+        "TITLE": "Exclusão de {count, plural, =0{conta/carteira} one {conta/carteira} other {carteiras}}",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{conta/carteira} one {conta/carteira} other {contas/carteiras}} <b>{walletNames}</b>?",
+        "BUTTONS": {
+          "CANCEL": "Cancelar",
+          "DELETE_WALLET": "Excluir conta/carteira"
+        }
+      }
+    }
+  }
+}
