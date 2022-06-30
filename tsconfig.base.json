@@ -21,7 +21,24 @@
       "@p-one/domain/identity": ["libs/domain/identity/src/index.ts"],
       "@p-one/domain/notification": ["libs/domain/notification/src/index.ts"],
       "@p-one/features/admin": ["libs/features/admin/src/index.ts"],
-      "@p-one/features/financial": ["libs/features/financial/src/index.ts"],
+      "@p-one/features/financial/category": [
+        "libs/features/financial/category/src/index.ts"
+      ],
+      "@p-one/features/financial/dashboard": [
+        "libs/features/financial/dashboard/src/index.ts"
+      ],
+      "@p-one/features/financial/entry": [
+        "libs/features/financial/entry/src/index.ts"
+      ],
+      "@p-one/features/financial/home": [
+        "libs/features/financial/home/src/index.ts"
+      ],
+      "@p-one/features/financial/sub-category": [
+        "libs/features/financial/sub-category/src/index.ts"
+      ],
+      "@p-one/features/financial/wallet": [
+        "libs/features/financial/wallet/src/index.ts"
+      ],
       "@p-one/features/identity": ["libs/features/identity/src/index.ts"],
       "@p-one/features/notification": [
         "libs/features/notification/src/index.ts"

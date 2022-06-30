@@ -28,7 +28,7 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () =>
-          import('./pages/category/category.module').then(
+          import('@p-one/features/financial/category').then(
             (m) => m.CategoryModule
           ),
       },

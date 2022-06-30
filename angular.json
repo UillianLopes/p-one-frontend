@@ -162,17 +162,17 @@
       },
       "tags": []
     },
-    "features-financial": {
+    "features-financial-category": {
       "projectType": "library",
-      "root": "libs/features/financial",
-      "sourceRoot": "libs/features/financial/src",
+      "root": "libs/features/financial/category",
+      "sourceRoot": "libs/features/financial/category/src",
       "prefix": "p-one",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/financial"],
+          "outputs": ["coverage/libs/features/financial/category"],
           "options": {
-            "jestConfig": "libs/features/financial/jest.config.ts",
+            "jestConfig": "libs/features/financial/category/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -180,8 +180,138 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/financial/**/*.ts",
-              "libs/features/financial/**/*.html"
+              "libs/features/financial/category/**/*.ts",
+              "libs/features/financial/category/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial-dashboard": {
+      "projectType": "library",
+      "root": "libs/features/financial/dashboard",
+      "sourceRoot": "libs/features/financial/dashboard/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial/dashboard"],
+          "options": {
+            "jestConfig": "libs/features/financial/dashboard/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/dashboard/**/*.ts",
+              "libs/features/financial/dashboard/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial-entry": {
+      "projectType": "library",
+      "root": "libs/features/financial/entry",
+      "sourceRoot": "libs/features/financial/entry/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial/entry"],
+          "options": {
+            "jestConfig": "libs/features/financial/entry/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/entry/**/*.ts",
+              "libs/features/financial/entry/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial-home": {
+      "projectType": "library",
+      "root": "libs/features/financial/home",
+      "sourceRoot": "libs/features/financial/home/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial/home"],
+          "options": {
+            "jestConfig": "libs/features/financial/home/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/home/**/*.ts",
+              "libs/features/financial/home/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial-sub-category": {
+      "projectType": "library",
+      "root": "libs/features/financial/sub-category",
+      "sourceRoot": "libs/features/financial/sub-category/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial/sub-category"],
+          "options": {
+            "jestConfig": "libs/features/financial/sub-category/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/sub-category/**/*.ts",
+              "libs/features/financial/sub-category/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial-wallet": {
+      "projectType": "library",
+      "root": "libs/features/financial/wallet",
+      "sourceRoot": "libs/features/financial/wallet/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial/wallet"],
+          "options": {
+            "jestConfig": "libs/features/financial/wallet/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/wallet/**/*.ts",
+              "libs/features/financial/wallet/**/*.html"
             ]
           }
         }

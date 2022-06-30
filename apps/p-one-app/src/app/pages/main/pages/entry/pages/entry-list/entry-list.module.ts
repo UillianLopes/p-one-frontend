@@ -19,7 +19,8 @@ import {
   POneInputModule,
   POneMonthYearPickerModule,
   POneSidenavModule,
-  POneTooltipModule,
+  POneTableContainerModule,
+  POneTooltipModule
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
@@ -66,9 +67,10 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     POneNotificationsDisplayButtonModule,
     TranslateModule,
     EllipsisDirective,
+    POneTableContainerModule
   ],
   providers: [EntryListFacade],
 })
 export class EntryListModule {
-  constructor() {}
+  constructor() { }
 }

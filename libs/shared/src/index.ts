@@ -54,3 +54,4 @@ export * from './lib/range-slider';
 
 export * from './lib/@functions';
 export * from './lib/ellipsis';
+export * from './lib/table-container';
