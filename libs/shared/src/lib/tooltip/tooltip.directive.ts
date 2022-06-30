@@ -39,7 +39,7 @@ export const LEFT: ConnectedPosition = {
   overlayX: 'end',
   overlayY: 'center',
   originY: 'center',
-  offsetX: 4,
+  offsetX: -8,
 };
 
 export const TOP: ConnectedPosition = {

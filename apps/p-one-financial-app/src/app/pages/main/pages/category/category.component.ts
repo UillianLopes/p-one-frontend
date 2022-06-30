@@ -36,6 +36,8 @@ export class CategoryComponent
   public readonly filtredCategoriesLength$ =
     this._facade.filtredCategoriesLength$;
 
+  public readonly trackByCategoryId = (_: number, category: CategoryModel) => category.id;
+
   constructor(
     private readonly _facade: CategoryFacade,
     private readonly _dialogService: DialogService

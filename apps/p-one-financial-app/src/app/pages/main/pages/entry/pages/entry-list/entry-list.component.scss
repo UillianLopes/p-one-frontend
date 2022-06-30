@@ -8,13 +8,16 @@
     align-items: center;
   }
 
-  &__context-menu {
-    padding: 8px;
+  &__menu {
     background: white;
     border-radius: 8px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border: 1px solid #e6e6e6;
     border-top: none;
+  }
+
+  &__menu-col {
+    width: 50px;
   }
 }

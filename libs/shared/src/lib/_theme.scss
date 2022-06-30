@@ -12,8 +12,16 @@ table.table {
       border-bottom: 2px solid var(--bs-gray-800);
     }
   }
+
+  max-width: 100%;
+  min-width: 0px;
+  width: auto;
 }
 
 .p-one-context-menu-host {
   cursor: default;
+}
+
+.btn-icon {
+  padding: 4px !important;
 }

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { NotificationsStoreFacade } from '@p-one/stores/notification';
-
-
+import { NotificationsStoreFacade } from '@p-one/stores/notifications';
 
 @Component({
   selector: 'p-one-notifications-display-button',

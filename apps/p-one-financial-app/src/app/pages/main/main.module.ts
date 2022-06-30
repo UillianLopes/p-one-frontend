@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { POneNotificationsStoreModule } from '@p-one/stores/notification';
+import { POneNotificationsStoreModule } from '@p-one/stores/notifications';
 import {
   POneChartModule,
   POneContainerModule,

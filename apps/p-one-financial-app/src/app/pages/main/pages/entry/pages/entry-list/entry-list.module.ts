@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
 import {
+  EllipsisDirective,
   POneBreadcrumbModule,
   POneChipModule,
   POneContainerModule,
@@ -64,9 +65,10 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     POneTooltipModule,
     POneNotificationsDisplayButtonModule,
     TranslateModule,
+    EllipsisDirective
   ],
   providers: [EntryListFacade],
 })
 export class EntryListModule {
-  constructor() {}
+  constructor() { }
 }

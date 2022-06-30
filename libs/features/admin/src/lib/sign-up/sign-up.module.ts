@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserStoreModule } from '@p-one/domain/identity';
+
 import {
   POneAddressFormModule,
   POneBreadcrumbModule,
@@ -16,7 +16,8 @@ import {
   POneInputModule,
   POneStepperModule,
 } from '@p-one/shared';
-import { SettingsStoreModule } from '@p-one/stores/settings';
+import { POneSettingsStoreModule } from '@p-one/stores/settings';
+import { POneUsersStoreModule } from '@p-one/stores/users';
 import { NgxMaskModule } from 'ngx-mask';
 
 
@@ -42,13 +43,13 @@ import { SignUpRoutingModule } from './sign-up.routing';
     POneHeaderModule,
     POneBreadcrumbModule,
     POneFlexModule,
-    UserStoreModule,
+    POneUsersStoreModule,
     StoreModule.forFeature(SIGN_UP_KEY, signUpReducer),
     EffectsModule.forFeature([SignUpEffects]),
     POneDatepickerModule,
     NgxMaskModule,
     TranslateModule,
-    SettingsStoreModule,
+    POneSettingsStoreModule,
   ],
   providers: [SignUpFacade],
   exports: [SignUpCardComponent],

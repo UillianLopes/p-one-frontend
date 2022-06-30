@@ -6,7 +6,7 @@ import { UserStoreState } from './user-store.reducer';
 import * as UserStoreSelectors from './user-store.selectors';
 
 @Injectable()
-export class UserStoreFacade {
+export class UsersStoreFacade {
   public readonly loading$ = this._store.select(
     UserStoreSelectors.loadingSelector
   );

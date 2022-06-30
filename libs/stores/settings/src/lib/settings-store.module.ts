@@ -16,4 +16,4 @@ import {
   ],
   providers: [SettingsStoreFacade],
 })
-export class SettingsStoreModule {}
+export class POneSettingsStoreModule {}

@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { UserModel } from '@p-one/domain/identity';
 
-import { UserModel } from '../../../models';
+
 import * as UserStoreActions from './user-store.actions';
 
 export const USER_STORE_KEY = 'USER_STORE';
@@ -48,7 +49,7 @@ const _userStoreReducer = createReducer(
   on(UserStoreActions.signOut, (state) => {
     return { ...state, loading: true };
   }),
-  on(UserStoreActions.signOutSuccess, (state, action) => {
+  on(UserStoreActions.signOutSuccess, (state) => {
     return {
       ...state,
       loading: false,

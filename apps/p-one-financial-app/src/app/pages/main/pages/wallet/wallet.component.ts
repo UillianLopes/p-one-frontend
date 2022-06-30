@@ -30,6 +30,8 @@ export class WalletComponent extends DestroyableMixin() implements OnInit {
   public readonly settingsCurrency$ =
     this._settingsStoreFacade.settingsCurrency$;
 
+  public readonly trackByWalletId = (_: number, wallet: WalletModel) => wallet.id;
+
   constructor(
     private readonly _facade: WalletFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { UserStoreFacade } from '@p-one/domain/identity';
+import { UsersStoreFacade } from '@p-one/stores/users';
 
 import { DestroyableMixin } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/settings';
-import { NotificationsStoreFacade } from '@p-one/stores/notification';
+import { NotificationsStoreFacade } from '@p-one/stores/notifications';
 import { skip, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,10 +14,10 @@ import { skip, takeUntil } from 'rxjs/operators';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends DestroyableMixin() implements OnInit {
-  public readonly user$ = this._userStoreFacade.user$;
+  public readonly user$ = this._usersStoreFacade.user$;
 
   constructor(
-    private readonly _userStoreFacade: UserStoreFacade,
+    private readonly _usersStoreFacade: UsersStoreFacade,
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     private readonly _translateService: TranslateService
@@ -26,7 +26,7 @@ export class MainComponent extends DestroyableMixin() implements OnInit {
   }
 
   ngOnInit(): void {
-    this._userStoreFacade.load();
+    this._usersStoreFacade.load();
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
     this._settingsStoreFacade.settings$
@@ -39,6 +39,6 @@ export class MainComponent extends DestroyableMixin() implements OnInit {
   }
 
   signOut(): void {
-    this._userStoreFacade.signOut();
+    this._usersStoreFacade.signOut();
   }
 }

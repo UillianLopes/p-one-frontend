@@ -53,3 +53,4 @@ export * from './lib/color-picker';
 export * from './lib/range-slider';
 
 export * from './lib/@functions';
+export * from './lib/ellipsis';

@@ -10,11 +10,12 @@ import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-transl
 import { CustomTranslateLoader, POneCoreModule } from '@p-one/core';
 import { POneAdminDomainModule } from '@p-one/domain/admin';
 import { POneFinancialDomainModule } from '@p-one/domain/financial';
-import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS, UserStoreModule } from '@p-one/domain/identity';
+import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS } from '@p-one/domain/identity';
 import { POneNotificationDomainModule } from '@p-one/domain/notification';
 import { POneToastModule } from '@p-one/shared';
-import { SettingsStoreModule } from '@p-one/stores/settings';
+import { POneSettingsStoreModule } from '@p-one/stores/settings';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { POneUsersStoreModule } from '@p-one/stores/users';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
@@ -98,8 +99,8 @@ import { AppRoutingModule } from './app.routing';
       },
       defaultLanguage: 'en-US',
     }),
-    UserStoreModule,
-    SettingsStoreModule,
+    POneUsersStoreModule,
+    POneSettingsStoreModule,
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -4,7 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { UserStoreEffects } from './+state/user-store.effects';
-import { UserStoreFacade } from './+state/user-store.facade';
+import { UsersStoreFacade } from './+state/user-store.facade';
 import { USER_STORE_KEY, userStoreReducer } from './+state/user-store.reducer';
 
 @NgModule({
@@ -13,6 +13,6 @@ import { USER_STORE_KEY, userStoreReducer } from './+state/user-store.reducer';
     StoreModule.forFeature(USER_STORE_KEY, userStoreReducer),
     EffectsModule.forFeature([UserStoreEffects]),
   ],
-  providers: [UserStoreFacade],
+  providers: [UsersStoreFacade],
 })
-export class UserStoreModule {}
+export class POneUsersStoreModule {}

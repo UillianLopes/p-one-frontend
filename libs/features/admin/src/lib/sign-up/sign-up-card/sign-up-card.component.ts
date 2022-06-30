@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { UserStoreFacade } from '@p-one/domain/identity';
+import { UsersStoreFacade } from '@p-one/stores/users';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class SignUpCardComponent extends DestroyableMixin() {
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _signUpFacade: SignUpFacade,
-    private readonly _userStoreFacade: UserStoreFacade
+    private readonly _usersStoreFacade: UsersStoreFacade
   ) {
     super();
 
@@ -62,6 +62,6 @@ export class SignUpCardComponent extends DestroyableMixin() {
   }
 
   public signIn(): void {
-    this._userStoreFacade.signIn();
+    this._usersStoreFacade.signIn();
   }
 }

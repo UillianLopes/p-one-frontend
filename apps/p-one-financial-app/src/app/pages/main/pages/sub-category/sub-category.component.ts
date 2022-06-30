@@ -33,6 +33,8 @@ export class SubCategoryComponent extends DestroyableMixin() implements OnInit {
   public readonly filtredSubCategoriesLength$ =
     this._facade.filtredSubCategoriesLength$;
 
+  public readonly trackBySubCategoryId = (index: number, category: SubCategoryModel) => category.id;
+
   constructor(
     private readonly _facade: SubCategoryFacade,
     private readonly _dialogService: DialogService

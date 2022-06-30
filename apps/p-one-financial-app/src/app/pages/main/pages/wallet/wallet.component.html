@@ -49,7 +49,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let wallet of filtredPaginatedWallets$ | async"
+          *ngFor="let wallet of filtredPaginatedWallets$ | async; trackBy: trackByWalletId"
           [pOneContextMenuHost]="contextMenuTemplate"
         >
           <ng-template #contextMenuTemplate>

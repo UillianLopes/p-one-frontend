@@ -29,8 +29,9 @@
       "@p-one/shared": ["libs/shared/src/index.ts"],
       "@p-one/store": ["libs/store/src/index.ts"],
       "@p-one/stores/admin": ["libs/stores/admin/src/index.ts"],
-      "@p-one/stores/notification": ["libs/stores/notification/src/index.ts"],
-      "@p-one/stores/settings": ["libs/stores/settings/src/index.ts"]
+      "@p-one/stores/notifications": ["libs/stores/notifications/src/index.ts"],
+      "@p-one/stores/settings": ["libs/stores/settings/src/index.ts"],
+      "@p-one/stores/users": ["libs/stores/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

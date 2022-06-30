@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '@p-one/domain/admin';
-import { UserStoreFacade } from '@p-one/domain/identity';
+import { UsersStoreFacade } from '@p-one/stores/users';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -29,6 +29,6 @@ export class SignUpEffects {
   constructor(
     private readonly _actions$: Actions<UserStoreActionsUnion>,
     private readonly _userService: UserService,
-    private readonly _userStoreFacade: UserStoreFacade
+    private readonly _usersStoreFacade: UsersStoreFacade
   ) {}
 }

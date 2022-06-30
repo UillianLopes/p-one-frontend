@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserStoreModule } from '@p-one/domain/identity';
+import { POneUsersStoreModule } from '@p-one/stores/users';
 import { POneInputModule, POneStepperModule } from '@p-one/shared';
 
 import { SignInComponent } from './sign-in.component';
@@ -12,7 +12,7 @@ import { SignInRoutingModule } from './sing-in.routing';
   imports: [
     CommonModule,
     SignInRoutingModule,
-    UserStoreModule,
+    POneUsersStoreModule,
     POneStepperModule,
     FormsModule,
     ReactiveFormsModule,

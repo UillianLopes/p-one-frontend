@@ -1,7 +1,7 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { UserStoreFacade } from '@p-one/domain/identity';
+import { UsersStoreFacade } from '@p-one/stores/users';
 import { DestroyableMixin } from '@p-one/shared';
 import { startWith, takeUntil } from 'rxjs/operators';
 
@@ -19,7 +19,7 @@ export class LandingComponent extends DestroyableMixin() implements OnInit {
 
   constructor(
     @Inject(LOCALE_ID) private readonly _locale: string,
-    private readonly _userFacade: UserStoreFacade,
+    private readonly _usersStoreFacade: UsersStoreFacade,
     private readonly _translateService: TranslateService
   ) {
     super();
@@ -33,6 +33,6 @@ export class LandingComponent extends DestroyableMixin() implements OnInit {
   }
 
   public signIn(): void {
-    this._userFacade.signIn();
+    this._usersStoreFacade.signIn();
   }
 }
