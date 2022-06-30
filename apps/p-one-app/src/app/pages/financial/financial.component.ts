@@ -10,10 +10,10 @@ import { skip, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'p-one-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  templateUrl: './financial.component.html',
+  styleUrls: ['./financial.component.scss'],
 })
-export class MainComponent extends DestroyableMixin() implements OnInit {
+export class FinancialComponent extends DestroyableMixin() implements OnInit {
   public readonly user$ = this._usersStoreFacade.user$;
 
   constructor(
@@ -27,8 +27,10 @@ export class MainComponent extends DestroyableMixin() implements OnInit {
 
   ngOnInit(): void {
     this._usersStoreFacade.load();
+    
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
+
     this._settingsStoreFacade.settings$
       .pipe(skip(1), takeUntil(this.destroyed$))
       .subscribe((settings) =>

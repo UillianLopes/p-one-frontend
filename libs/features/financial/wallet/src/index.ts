@@ -1,1 +1,1 @@
-export * from './lib/features-financial-wallet.module';
+export * from './lib/wallet.module'

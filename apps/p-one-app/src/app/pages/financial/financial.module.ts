@@ -11,11 +11,11 @@ import {
   POneTooltipModule,
 } from '@p-one/shared';
 
-import { MainComponent } from './main.component';
-import { MainRoutingModule } from './main.routing';
+import { FinancialComponent } from './financial.component';
+import { MainRoutingModule } from './financial.routing';
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [FinancialComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -29,4 +29,4 @@ import { MainRoutingModule } from './main.routing';
     TranslateModule,
   ],
 })
-export class MainModule {}
+export class FinancialModule { }

@@ -1,1 +1,1 @@
-export * from './lib/features-financial-entry.module';
+export * from './lib/entry.module';

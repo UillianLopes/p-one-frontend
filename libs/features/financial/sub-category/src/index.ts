@@ -1,1 +1,1 @@
-export * from './lib/features-financial-sub-category.module';
+export * from './lib/sub-category.module';

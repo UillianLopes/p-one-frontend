@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@p-one/domain/identity';
 
-import { MainComponent } from './main.component';
+import { FinancialComponent } from './financial.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: FinancialComponent,
     canActivate: [AuthGuard],
     children: [
       {
@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: 'entries',
         loadChildren: () =>
-          import('./pages/entry/entry.module').then((m) => m.EntryModule),
+          import('@p-one/features/financial/entry').then((m) => m.EntryModule),
       },
       {
         path: 'categories',
@@ -35,26 +35,26 @@ const routes: Routes = [
       {
         path: 'sub-categories',
         loadChildren: () =>
-          import('./pages/sub-category/sub-category.module').then(
+          import('@p-one/features/financial/sub-category').then(
             (m) => m.SubCategoryModule
           ),
       },
       {
         path: 'wallets',
         loadChildren: () =>
-          import('./pages/wallet/wallet.module').then((m) => m.WalletModule),
+          import('@p-one/features/financial/wallet').then((m) => m.WalletModule),
       },
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./pages/dashboard/dashboard.module').then(
+          import('@p-one/features/financial/dashboard').then(
             (m) => m.DashboardModule
           ),
       },
       {
         path: 'home',
         loadChildren: () =>
-          import('./pages/home/home.module').then((m) => m.HomeModule),
+          import('@p-one/features/financial/home').then((m) => m.HomeModule),
       },
     ],
   },
@@ -64,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule {}
+export class MainRoutingModule { }

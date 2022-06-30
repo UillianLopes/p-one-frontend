@@ -10,9 +10,9 @@ const routes: Routes = [
       import('./pages/user/user.module').then((e) => e.UserModule),
   },
   {
-    path: 'main',
+    path: 'financial',
     loadChildren: () =>
-      import('./pages/main/main.module').then((e) => e.MainModule),
+      import('./pages/financial/financial.module').then((e) => e.FinancialModule),
   },
   {
     path: 'landing',
@@ -26,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

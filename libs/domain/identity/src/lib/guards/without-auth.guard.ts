@@ -20,7 +20,7 @@ export class WithoutAuthGuard implements CanActivate {
     __: RouterStateSnapshot
   ): boolean | UrlTree {
     if (this._oidcSecurityService.isAuthenticated()) {
-      return this._router.createUrlTree(['/main']);
+      return this._router.createUrlTree(['/financial']);
     }
 
     return true;

@@ -1,1 +1,1 @@
-export * from './lib/features-financial-home.module';
+export * from './lib/home.module';
