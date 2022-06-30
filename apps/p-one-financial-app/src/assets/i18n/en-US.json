@@ -11,7 +11,9 @@
       },
       "BUTTONS": {
         "CREATE_ENTRY": "Create entry",
-        "OPEN_COMPLETE_FILTER": "Open complete filter"
+        "OPEN_COMPLETE_FILTER": "Open complete filter",
+        "OPEN_PAY_ENTRY": "Quitar entrada",
+        "OPEN_DELETE_ENTRY": "Excluir entrada"
       },
       "TABLE": {
         "COLUMNS": {

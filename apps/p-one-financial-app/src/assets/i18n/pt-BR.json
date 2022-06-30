@@ -92,7 +92,9 @@
       },
       "BUTTONS": {
         "CREATE_ENTRY": "Criar entrada",
-        "OPEN_COMPLETE_FILTER": "Abrir filtro completo"
+        "OPEN_COMPLETE_FILTER": "Abrir filtro completo",
+        "OPEN_PAY_ENTRY": "Quitar entrada",
+        "OPEN_DELETE_ENTRY": "Excluir entrada"
       },
       "TABLE": {
         "COLUMNS": {
@@ -124,7 +126,7 @@
     "MODALS": {
       "DELETE": {
         "TITLE": "Exclusão de {count, plural, =0{entrada} one {entrada} other {entradas}}",
-        "QUESTION":"Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{entrada} one {entrada} other {entradas}} <b>{entriesTitles}</b>?",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{entrada} one {entrada} other {entradas}} <b>{entriesTitles}</b>?",
         "BUTTONS": {
           "CANCEL": "Cancelar",
           "DELETE_ENTRY": "Excluir {count, plural, =0{entrada} one {entrada} other {entradas}}"
@@ -421,7 +423,7 @@
       },
       "DELETE": {
         "TITLE": "Exclusão de {count, plural, =0{conta/carteira} one {conta/carteira} other {carteiras}}",
-        "QUESTION":"Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{conta/carteira} one {conta/carteira} other {contas/carteiras}} <b>{walletNames}</b>?",
+        "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{conta/carteira} one {conta/carteira} other {contas/carteiras}} <b>{walletNames}</b>?",
         "BUTTONS": {
           "CANCEL": "Cancelar",
           "DELETE_WALLET": "Excluir conta/carteira"

@@ -16,12 +16,25 @@ table.table {
   max-width: 100%;
   min-width: 0px;
   width: auto;
+
+  tr {
+    cursor: pointer;
+    td {
+      transition: 0.1s linear;
+      &:hover {
+        transition: 0.1s linear;
+      }
+    }
+    transition: 0.1s linear;
+    &:hover {
+      transition: 0.1s linear;
+    }
+  }
+  .btn-icon {
+    padding: 0px !important;
+  }
 }
 
 .p-one-context-menu-host {
   cursor: default;
-}
-
-.btn-icon {
-  padding: 4px !important;
 }

@@ -1,8 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 import { CreateUserRequest } from '@p-one/domain/admin';
 
-
-
 export enum ESignUpActions {
   SIGN_UP = '[Sign up] Sign Up',
   SIGN_UP_SUCCESS = '[Sign up] Sign Up Success',

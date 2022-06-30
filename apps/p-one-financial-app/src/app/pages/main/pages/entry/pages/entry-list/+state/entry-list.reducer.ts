@@ -109,6 +109,14 @@ const _entityListReducer = createReducer<EntryListState>(
 
         break;
 
+      case 'PAYMENT_STATUS':
+        filter = {
+          ...filter,
+          paymentStatus: undefined,
+        }
+
+        break;
+        
       default:
         filter = {
           ...filter,
