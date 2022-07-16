@@ -37,7 +37,7 @@ export class EntryService {
   }
 
   buildEntryRecurrence(
-    model: BuildEntryReccurrenceRequest
+    model: Partial<BuildEntryReccurrenceRequest>
   ): Observable<RecurrenceModel[]> {
     return this._httpClient
       .post<ResponseModel<RecurrenceModel[]>>(
@@ -52,7 +52,7 @@ export class EntryService {
       );
   }
 
-  create(entry: CreateEntryRequest): Observable<EntryModel[]> {
+  create(entry: Partial<CreateEntryRequest>): Observable<EntryModel[]> {
     return this._httpClient
       .post<ResponseModel<EntryModel[]>>(
         `${this._financialApiUrl}/Entry`,

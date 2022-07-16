@@ -5,7 +5,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
   POneColorPickerModule,

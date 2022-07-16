@@ -11,7 +11,7 @@ export interface DeleteEntryModalData {
 export interface DeleteEntryModalState {
   dialogId?: string;
   data?: DeleteEntryModalData;
-  error?: any;
+  error?: unknown;
   isLoading?: boolean;
 }
 
@@ -87,7 +87,7 @@ export class DeleteEntryModalStore extends ComponentStore<DeleteEntryModalState>
       withLatestFrom(this.entriesIds$),
       tap(() => this.setIsLoading(true)),
       switchMap(([_, entryIds]) => {
-        return this._entryService.deleteMultiple(entryIds).pipe(
+        return this._entryService.deleteMultiple(entryIds ?? []).pipe(
           withLatestFrom(this.dialogId$),
           tap({
             next: ([_, dialogId]) => {

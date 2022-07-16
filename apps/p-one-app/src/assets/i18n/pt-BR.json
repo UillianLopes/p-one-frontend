@@ -105,7 +105,8 @@
           "SUB_CATEGORY": "Sub categoria",
           "AMOUNT": "Valor",
           "TYPE": "Tipo",
-          "STATUS": "Situação"
+          "STATUS": "Situação",
+          "BAR_CODE": "C. barras"
         }
       },
       "FILTER": {
@@ -257,6 +258,8 @@
   "MAIN": {
     "WELCOME": "Bem vindo, {username}",
     "SIDENAV": {
+      "USERS": "Usuários",
+      "PROFILES": "Perfís",
       "HOME": "Home",
       "SETTINGS": "Configurações",
       "DASHBOARD": "Dashboard",

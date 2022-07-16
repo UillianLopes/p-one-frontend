@@ -1,4 +1,4 @@
-<p-one-container [isLoading]="this.isLoading$ | async">
+<p-one-container [isLoading]="(this.isLoading$ | async)!">
   <p-one-header pOneHeader>
     <button class="btn btn-outline-light" pOneLeading pOneSidenavTrigger #sidenavTrigger="pOneSidenavTrigger">
       <i class="bi bi-list"></i>
@@ -24,10 +24,10 @@
         {{ '@PONE.ENTRIES.LIST.TITLE' | translate }}
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
-    <p-one-filter-display [data]="filterToDisplay$ | async" (removed$)="remove($event)"></p-one-filter-display>
+    <p-one-filter-display [data]="(filterToDisplay$ | async)!" (removed$)="remove($event)"></p-one-filter-display>
   </div>
   <div pOneHeader class="p-one-entry-list__sub-header">
-    <button class="btn btn-primary btn-sm" routerLink="/main/entries/create">
+    <button class="btn btn-primary btn-sm" routerLink="/financial/entries/create">
       <span pOneEllipsis>
         {{ '@PONE.ENTRIES.LIST.BUTTONS.CREATE_ENTRY' | translate }}
       </span>
@@ -39,7 +39,7 @@
           {{ '@PONE.ENTRIES.LIST.BUTTONS.OPEN_COMPLETE_FILTER' | translate }}
         </span>
       </button>
-      <p-one-month-year-picker [value]="dateFilter$ | async" (change$)="setDateFilter($event)">
+      <p-one-month-year-picker [value]="(dateFilter$ | async)!" (change$)="setDateFilter($event)">
       </p-one-month-year-picker>
       <p-one-radio *ngIf="(entryType$ | async) === undefined" appearance="outline" color="secondary"
         [value]="typeFilter$ | async" (change$)="setTypeFilter($event)">
@@ -112,6 +112,11 @@
               {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.STATUS' | translate }}
             </span>
           </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.BAR_CODE' | translate }}
+            </span>
+          </th>
           <th scope="col" class="p-one-entry-list__menu-col column--fixed-on-right"></th>
         </tr>
       </thead>
@@ -143,7 +148,7 @@
             | currency
             : (entry.currency
             ? entry.currency
-            : (settingsCurrency$ | async))
+            : (settingsCurrency$ | async)!)
             }}
           </td>
           <td [ngSwitch]="entry.type">
@@ -179,6 +184,12 @@
                 <i class="bi bi-check-circle text-success"></i>
               </ng-container>
             </div>
+          </td>
+
+          <td>
+            <span pOneEllipsis>
+              {{ entry.barCode }}
+            </span>
           </td>
 
           <td class="p-one-entry-list__menu-col column--fixed-on-right">

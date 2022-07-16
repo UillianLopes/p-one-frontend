@@ -1,0 +1,29 @@
+<p-one-sidenav-container>
+  <p-one-sidenav>
+    <p-one-user-sidenav-item pOneSideNavItem></p-one-user-sidenav-item>
+    <p-one-sidenav-item 
+      link="/main/home" 
+      [tooltip]="'@PONE.MAIN.SIDENAV.HOME' | translate"
+    >
+      <i pOneIcon class="bi bi-house"></i>
+      {{ '@PONE.MAIN.SIDENAV.HOME' | translate }}
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item 
+      link="/main/admin/profiles" 
+      [tooltip]="'@PONE.MAIN.SIDENAV.PROFILES' | translate"
+    >
+      <i pOneIcon class="bi bi-gear"></i>
+      {{ '@PONE.MAIN.SIDENAV.PROFILES' | translate }}
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item 
+      link="/main/admin/users" 
+      [tooltip]="'@PONE.MAIN.SIDENAV.USERS' | translate"
+    >
+      <i pOneIcon class="bi bi-person-lines-fill"></i>
+      {{ '@PONE.MAIN.SIDENAV.USERS' | translate }}
+    </p-one-sidenav-item>
+  </p-one-sidenav>
+  <router-outlet></router-outlet>
+</p-one-sidenav-container>

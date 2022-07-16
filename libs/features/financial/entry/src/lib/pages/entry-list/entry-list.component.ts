@@ -23,8 +23,7 @@ import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-
 })
 export class EntryListComponent
   extends DestroyableMixin()
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   public readonly EntryType = EEntryType;
   public readonly EntryPaymentStatus = EEntryPaymentStatus;
 
@@ -36,8 +35,7 @@ export class EntryListComponent
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
   public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
   public readonly entryType$ = this._facade.entryType$;
-  public readonly settingsCurrency$ =
-    this._settingsStoreFacade.settingsCurrency$;
+  public readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: EntryListFacade,
@@ -48,7 +46,7 @@ export class EntryListComponent
     super();
   }
 
-  openEntryListFilterDialog(): void {
+  public openEntryListFilterDialog(): void {
     this._facade.filter$.pipe(take(1)).subscribe((filter) => {
       const dialogRef = this._dialogService.open(
         EntryListFilterComponent,
@@ -64,21 +62,22 @@ export class EntryListComponent
     });
   }
 
-  ngOnDestroy(): void {
+  public override ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._facade.resetState();
   }
 
-  remove({ id }: FilterDisplayData): void {
+  public remove({ id }: FilterDisplayData): void {
     this._facade.removeFilter(id);
   }
 
-  setTypeFilter(type?: EEntryType): void {
+  public setTypeFilter(type?: EEntryType): void {
     this._facade.patchEntriesFilter({
       type,
     });
   }
 
-  setDateFilter(date: any): void {
+  public setDateFilter(date: any): void {
     this._facade.patchEntriesFilter({
       date: {
         ...date,
@@ -86,15 +85,15 @@ export class EntryListComponent
     });
   }
 
-  openDeleteEntryDialog(entry: EntryModel): void {
+  public openDeleteEntryDialog(entry: EntryModel): void {
     this._facade.openDeleteEntriesDialog(entry);
   }
 
-  openPayEntryDialog(entry: EntryModel): void {
+  public openPayEntryDialog(entry: EntryModel): void {
     this._facade.openPayEntryDialog(entry);
   }
 
-  ngOnInit(): void {
-    this._facade.loadEntriesWithType(this._route.snapshot.data.type);
+  public ngOnInit(): void {
+    this._facade.loadEntriesWithType(this._route.snapshot.data['type']);
   }
 }

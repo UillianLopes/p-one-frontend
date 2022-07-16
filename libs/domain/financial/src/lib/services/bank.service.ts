@@ -4,7 +4,7 @@ import { ResponseModel } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
+import { FINANCIAL_ENDPOINT } from '../contants';
 import { BankModel, ErrorModel } from '../models';
 
 @Injectable()

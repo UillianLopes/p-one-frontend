@@ -24,7 +24,8 @@
           "SUB_CATEGORY": "Sub category",
           "AMOUNT": "Amount",
           "TYPE": "Type",
-          "STATUS": "Status"
+          "STATUS": "Status",
+          "BAR_CODE": "Bar code"
         }
       },
       "FILTER": {
@@ -237,6 +238,10 @@
   "MAIN": {
     "WELCOME": "Welcome, {username}",
     "SIDENAV": {
+      "USERS": "Users",
+      "PROFILES": "Profiles",
+      "FINANCIAL": "Financial",
+      "ADMIN": "Admin",
       "HOME": "Home",
       "SETTINGS": "Settings",
       "DASHBOARD": "Dashboard",

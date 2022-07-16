@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   EllipsisDirective,
   POneBreadcrumbModule,
@@ -20,16 +20,13 @@ import {
   POneMonthYearPickerModule,
   POneSidenavModule,
   POneTableContainerModule,
-  POneTooltipModule
+  POneTooltipModule,
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { EntryListEffects } from './+state/entry-list.effects';
 import { EntryListFacade } from './+state/entry-list.facade';
-import {
-  entityListReducer as entryListReducer,
-  ENTRY_LIST_KEY,
-} from './+state/entry-list.reducer';
+import { entityListReducer as entryListReducer, ENTRY_LIST_KEY } from './+state/entry-list.reducer';
 import { EntryListComponent } from './entry-list.component';
 import { EntryListRoutingModule } from './entry-list.routing';
 import { DeleteEntryModalComponent } from './modals/delete-entry-modal/delete-entry-modal.component';

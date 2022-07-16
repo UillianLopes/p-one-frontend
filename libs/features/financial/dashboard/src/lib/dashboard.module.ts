@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
   POneCardModule,
@@ -21,13 +21,14 @@ import {
   POneSidenavModule,
 } from '@p-one/shared';
 
-import { BalancesOvertimeChartModule } from '../../../../components/balances-overtime-chart/balances-overtime-chart.module';
 import { DashboardEffects } from './+state/dashboard.effects';
 import { DashboardFacade } from './+state/dashboard.facade';
 import { DASHBOARD_KEY, dashboardReducer } from './+state/dashboard.reducer';
+import { BalancesOvertimeChartModule } from './balances-overtime-chart';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard.routing';
 import { DashboardFilterModalComponent } from './modals/dashboard-filter-modal/dashboard-filter-modal.component';
+
 
 @NgModule({
   declarations: [DashboardComponent, DashboardFilterModalComponent],
@@ -56,4 +57,4 @@ import { DashboardFilterModalComponent } from './modals/dashboard-filter-modal/d
   ],
   providers: [DashboardFacade],
 })
-export class DashboardModule {}
+export class DashboardModule { }

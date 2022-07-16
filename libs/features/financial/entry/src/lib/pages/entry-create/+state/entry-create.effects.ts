@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   CategoryService,
+  CreateEntryRequest,
   EEntryRecurrence,
   EntryService,
   SubCategoryService,
@@ -85,11 +86,11 @@ export class EntryCreateEffects {
           { value, recurrence, dueDate, barCode },
           recurrences,
         ]) => {
-          let entryCreateRequest: any = {
+          let entryCreateRequest: Partial<CreateEntryRequest> = {
             ...firstStepForm,
             barCode,
             subCategoryId: subCategory?.id,
-            categoryId: category.id,
+            categoryId: category?.id,
             recurrences: [...recurrences],
           };
 
@@ -116,7 +117,7 @@ export class EntryCreateEffects {
         ofType(EEntryCreateActions.CREATE_ENTRY_SUCCESS),
         tap(() => {
           this._toastService.open(`Entry created with success`);
-          this._router.navigate(['/financial/entries']);
+          this._router.navigate(['/main/financial/entries']);
         })
       ),
     { dispatch: false }
@@ -130,5 +131,5 @@ export class EntryCreateEffects {
     private readonly _facade: EntryCreateFacade,
     private readonly _router: Router,
     private readonly _toastService: ToastService
-  ) {}
+  ) { }
 }

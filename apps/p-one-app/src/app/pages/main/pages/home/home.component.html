@@ -1,0 +1,55 @@
+<p-one-sidenav-container>
+  <p-one-sidenav>
+    <p-one-user-sidenav-item pOneSideNavItem></p-one-user-sidenav-item>
+    <p-one-sidenav-item
+      link="/main/home"
+      [tooltip]="'@PONE.MAIN.SIDENAV.HOME' | translate"
+    >
+      <i pOneIcon class="bi bi-house"></i>
+      {{ '@PONE.MAIN.SIDENAV.HOME' | translate }}
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item
+      link="/main/financial"
+      [tooltip]="'@PONE.MAIN.SIDENAV.FINANCIAL' | translate"
+    >
+      <i pOneIcon class="bi bi-clipboard"></i>
+      {{ '@PONE.MAIN.SIDENAV.FINANCIAL' | translate }}
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item
+      link="/main/admin"
+      [tooltip]="'@PONE.MAIN.SIDENAV.ADMIN' | translate"
+    >
+      <i pOneIcon class="bi bi-people"></i>
+      {{ '@PONE.MAIN.SIDENAV.ADMIN' | translate }}
+    </p-one-sidenav-item>
+
+    <p-one-sidenav-item
+      tooltip="Sair"
+      (click)="signOut()"
+      [tooltip]="'@PONE.MAIN.SIDENAV.SIGN_OUT' | translate"
+    >
+      <i
+        pOneIcon
+        class="bi bi-box-arrow-right"
+        [style.color]="'var(--bs-danger)'"
+      ></i>
+      {{ '@PONE.MAIN.SIDENAV.SIGN_OUT' | translate }}
+    </p-one-sidenav-item>
+  </p-one-sidenav>
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2>Home</h2>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+</p-one-sidenav-container>

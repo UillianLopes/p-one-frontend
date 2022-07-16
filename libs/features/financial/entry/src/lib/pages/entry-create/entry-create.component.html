@@ -1,22 +1,15 @@
-<p-one-container [isLoading]="this.isLoading$ | async">
+<p-one-container [isLoading]="(this.isLoading$ | async)!">
   <p-one-header pOneHeader>
-    <button
-      class="btn btn-outline-light"
-      pOneLeading
-      pOneSidenavTrigger
-      #sidenavTrigger="pOneSidenavTrigger"
-    >
+    <button class="btn btn-outline-light" pOneLeading pOneSidenavTrigger #sidenavTrigger="pOneSidenavTrigger">
       <i class="bi bi-list"></i>
     </button>
 
     <h2>Entradas</h2>
-    <p-one-notifications-display-button
-      pOneTrailing
-    ></p-one-notifications-display-button>
+    <p-one-notifications-display-button pOneTrailing></p-one-notifications-display-button>
   </p-one-header>
   <div pOneHeader class="p-one-entry-create__sub-header">
     <p-one-breadcrumb>
-      <p-one-breadcrumb-item link="/main/entries/list">
+      <p-one-breadcrumb-item link="/financial/entries/list">
         Entradas
       </p-one-breadcrumb-item>
       <p-one-breadcrumb-item>Criar entrada</p-one-breadcrumb-item>
@@ -24,7 +17,7 @@
   </div>
   <div pOneFlexColumn gap="16px" class="p-one-entry-create__panel">
     <p-one-stepper>
-      <p-one-step [isInvalid]="isFirstStepInvalid$ | async">
+      <p-one-step [isInvalid]="(isFirstStepInvalid$ | async)!">
         <span pOneStepHeader>Informações basicas</span>
         <div pOneFlexRow justification="center">
           <div class="p-one-entry-create__form">
@@ -32,7 +25,7 @@
           </div>
         </div>
       </p-one-step>
-      <p-one-step [isInvalid]="isSecondStepInvalid$ | async">
+      <p-one-step [isInvalid]="(isSecondStepInvalid$ | async)!">
         <span pOneStepHeader>Recorrência</span>
         <div pOneFlexRow justification="center">
           <div class="p-one-entry-create__form">

@@ -34,17 +34,20 @@ export interface EntryCreateState {
   categoriesFilter?: string;
   categories?: CategoryModel[];
 
-  recurrences?: RecurrenceModel[];
+  recurrences: RecurrenceModel[];
 
-  firstStepForm?: FirstStepFormModel;
-  secondStepForm?: SecondStepFormModel;
+  firstStepForm: Partial<FirstStepFormModel>;
+  secondStepForm: Partial<SecondStepFormModel>;
 
-  error?: any;
+  error?: unknown;
 }
 
 const initialState: EntryCreateState = {
   loading: false,
   isBuildingRecurrences: false,
+  firstStepForm: {},
+  secondStepForm: {},
+  recurrences: []
 };
 
 const _entryCreateReducer = createReducer<EntryCreateState>(
@@ -131,7 +134,7 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     };
   }),
 
-  on(resetState, (_) => {
+  on(resetState, () => {
     return {
       ...initialState,
     };

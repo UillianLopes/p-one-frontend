@@ -1,1 +1,1 @@
-export * from './create-user.request';
+export * from '../user/create-user.request';

@@ -1,6 +1,37 @@
 {
   "version": 1,
   "projects": {
+    "admin": {
+      "projectType": "library",
+      "root": "admin",
+      "sourceRoot": "admin/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "admin/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "admin/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "admin/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "admin/src/test.ts",
+            "tsConfig": "admin/tsconfig.spec.json",
+            "karmaConfig": "admin/karma.conf.js"
+          }
+        }
+      }
+    },
     "core": {
       "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
       "projectType": "library",
@@ -318,17 +349,17 @@
       },
       "tags": []
     },
-    "features-identity": {
+    "features-shared": {
       "projectType": "library",
-      "root": "libs/features/identity",
-      "sourceRoot": "libs/features/identity/src",
+      "root": "libs/features/shared",
+      "sourceRoot": "libs/features/shared/src",
       "prefix": "p-one",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/identity"],
+          "outputs": ["coverage/libs/features/shared"],
           "options": {
-            "jestConfig": "libs/features/identity/jest.config.ts",
+            "jestConfig": "libs/features/shared/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -336,25 +367,25 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/identity/**/*.ts",
-              "libs/features/identity/**/*.html"
+              "libs/features/shared/**/*.ts",
+              "libs/features/shared/**/*.html"
             ]
           }
         }
       },
       "tags": []
     },
-    "features-notification": {
+    "features-ui": {
       "projectType": "library",
-      "root": "libs/features/notification",
-      "sourceRoot": "libs/features/notification/src",
+      "root": "libs/features/ui",
+      "sourceRoot": "libs/features/ui/src",
       "prefix": "p-one",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/notification"],
+          "outputs": ["coverage/libs/features/ui"],
           "options": {
-            "jestConfig": "libs/features/notification/jest.config.ts",
+            "jestConfig": "libs/features/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -362,8 +393,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/notification/**/*.ts",
-              "libs/features/notification/**/*.html"
+              "libs/features/ui/**/*.ts",
+              "libs/features/ui/**/*.html"
             ]
           }
         }
@@ -563,6 +594,32 @@
       },
       "tags": []
     },
+    "stores-financial": {
+      "projectType": "library",
+      "root": "libs/stores/financial",
+      "sourceRoot": "libs/stores/financial/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stores/financial"],
+          "options": {
+            "jestConfig": "libs/stores/financial/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stores/financial/**/*.ts",
+              "libs/stores/financial/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "stores-notification": {
       "projectType": "library",
       "root": "libs/stores/notification",
@@ -609,6 +666,32 @@
             "lintFilePatterns": [
               "libs/stores/settings/**/*.ts",
               "libs/stores/settings/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "stores-shared": {
+      "projectType": "library",
+      "root": "libs/stores/shared",
+      "sourceRoot": "libs/stores/shared/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stores/shared"],
+          "options": {
+            "jestConfig": "libs/stores/shared/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stores/shared/**/*.ts",
+              "libs/stores/shared/**/*.html"
             ]
           }
         }

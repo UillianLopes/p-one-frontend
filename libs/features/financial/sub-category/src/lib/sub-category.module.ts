@@ -5,7 +5,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { POneNotificationsDisplayButtonModule } from '@p-one/features/notification';
+import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
   POneColorPickerModule,
@@ -20,10 +20,7 @@ import {
 
 import { SubCategoryEffects } from './+state/sub-category.effects';
 import { SubCategoryFacade } from './+state/sub-category.facade';
-import {
-  SUB_CATEGORY_KEY,
-  subCategoryReducer,
-} from './+state/sub-category.reducer';
+import { SUB_CATEGORY_KEY, subCategoryReducer } from './+state/sub-category.reducer';
 import { CreateSubCategoryModalComponent } from './modals/create-sub-category-modal/create-sub-category-modal.component';
 import { DeleteSubCategoryModalComponent } from './modals/delete-sub-category-modal/delete-sub-category-modal.component';
 import { UpdateSubCategoryModalComponent } from './modals/update-sub-category-modal/update-sub-category-modal.component';

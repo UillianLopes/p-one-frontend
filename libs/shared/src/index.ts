@@ -21,15 +21,15 @@ export * from './lib/@mixins/destroyable.mixin';
 
 export * from './lib/phone-form/phone-form.module';
 export * from './lib/stepper/stepper.module';
-export * from './lib/sidenav/sidenav.module';
-export * from './lib/sidenav/sidenav.component';
+export * from './lib/sidenav';
+export * from './lib/sidenav';
 
 export * from './lib/flex/flex.module';
 export * from './lib/address-form/address-form.module';
 export * from './lib/address-form/@types/address-form.data';
 export * from './lib/chart';
 
-export * from './lib/pipes/pipes.module';
+export * from './lib/pipes'
 
 export * from './lib/header/header.module';
 

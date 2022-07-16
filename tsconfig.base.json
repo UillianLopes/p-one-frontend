@@ -39,15 +39,15 @@
       "@p-one/features/financial/wallet": [
         "libs/features/financial/wallet/src/index.ts"
       ],
-      "@p-one/features/identity": ["libs/features/identity/src/index.ts"],
-      "@p-one/features/notification": [
-        "libs/features/notification/src/index.ts"
-      ],
+      "@p-one/features/shared": ["libs/features/shared/src/index.ts"],
+      "@p-one/features/ui": ["libs/features/ui/src/index.ts"],
+      "@p-one/libs/stores/admin": ["libs/libs/stores/admin/src/index.ts"],
       "@p-one/shared": ["libs/shared/src/index.ts"],
-      "@p-one/store": ["libs/store/src/index.ts"],
       "@p-one/stores/admin": ["libs/stores/admin/src/index.ts"],
+      "@p-one/stores/financial": ["libs/stores/financial/src/index.ts"],
       "@p-one/stores/notifications": ["libs/stores/notifications/src/index.ts"],
       "@p-one/stores/settings": ["libs/stores/settings/src/index.ts"],
+      "@p-one/stores/shared": ["libs/stores/shared/src/index.ts"],
       "@p-one/stores/users": ["libs/stores/users/src/index.ts"]
     }
   },

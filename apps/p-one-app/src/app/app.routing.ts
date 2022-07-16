@@ -6,19 +6,16 @@ const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
     path: 'user',
-    loadChildren: () =>
-      import('./pages/user/user.module').then((e) => e.UserModule),
+    loadChildren: () => import('./pages/user/user.module').then((e) => e.UserModule),
   },
   {
-    path: 'financial',
-    loadChildren: () =>
-      import('./pages/financial/financial.module').then((e) => e.FinancialModule),
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then((e) => e.MainModule)
   },
   {
     path: 'landing',
     canActivate: [WithoutAuthGuard],
-    loadChildren: () =>
-      import('./pages/landing/landing.module').then((e) => e.LandingModule),
+    loadChildren: () => import('./pages/landing/landing.module').then((e) => e.LandingModule),
   },
 ];
 

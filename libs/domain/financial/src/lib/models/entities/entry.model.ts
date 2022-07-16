@@ -1,4 +1,4 @@
-import { AutocompleteModel } from '@p-one/core';
+import { OptionModel } from '@p-one/core';
 
 import { EEntryPaymentStatus, EEntryType } from '../enums';
 
@@ -13,8 +13,8 @@ export interface EntryModel {
   index: number;
   dueDate: Date;
   description: string;
-  category: AutocompleteModel;
-  subCategory: AutocompleteModel;
+  category: OptionModel;
+  subCategory: OptionModel;
   barCode: string;
   paymentStatus: EEntryPaymentStatus;
   currency: string;
