@@ -1,9 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  CategoryFilter,
-  CategoryModel,
-  PaginatedFilter,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { CategoryFilter, CategoryModel } from '@p-one/domain/financial';
 
 import {
   closeCreateCategoryDialogSuccess,
@@ -41,9 +38,9 @@ export const CATEGORY_KEY = 'CATEGORY';
 export interface CategoryState {
   loading: boolean;
   filter: CategoryFilter;
-  pagination: PaginatedFilter;
+  pagination: QueryModel;
   categories: CategoryModel[];
-  error?: any;
+  error?: unknown;
 
   selectedCategoryIds: string[];
 

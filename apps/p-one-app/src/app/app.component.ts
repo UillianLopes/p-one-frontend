@@ -1,5 +1,5 @@
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { UsersStoreFacade } from '@p-one/stores/users';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationStoreFacade } from '@p-one/stores/identity';
 
 @Component({
   selector: 'p-one-root',
@@ -7,9 +7,11 @@ import { UsersStoreFacade } from '@p-one/stores/users';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private readonly _usersStoreFacade: UsersStoreFacade) {}
+  constructor(
+    private readonly _authenticationStoreFacade: AuthenticationStoreFacade
+  ) {}
 
   ngOnInit(): void {
-    this._usersStoreFacade.load();
+    this._authenticationStoreFacade.load();
   }
 }

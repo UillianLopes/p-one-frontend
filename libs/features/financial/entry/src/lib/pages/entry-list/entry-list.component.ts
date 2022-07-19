@@ -1,16 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
-import {
-  EEntryPaymentStatus,
-  EEntryType,
-  EntryModel,
-} from '@p-one/domain/financial';
-import {
-  DestroyableMixin,
-  DialogService,
-  FilterDisplayData,
-} from '@p-one/shared';
+import { EEntryPaymentStatus, EEntryType, EntryModel } from '@p-one/domain/financial';
+import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, take } from 'rxjs/operators';
 
 import { EntryListFacade } from './+state/entry-list.facade';
@@ -23,7 +15,8 @@ import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-
 })
 export class EntryListComponent
   extends DestroyableMixin()
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   public readonly EntryType = EEntryType;
   public readonly EntryPaymentStatus = EEntryPaymentStatus;
 
@@ -35,7 +28,8 @@ export class EntryListComponent
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
   public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
   public readonly entryType$ = this._facade.entryType$;
-  public readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
+  public readonly settingsCurrency$ =
+    this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: EntryListFacade,

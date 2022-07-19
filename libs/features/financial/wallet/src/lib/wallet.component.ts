@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
 import { BankModel, WalletModel } from '@p-one/domain/financial';
 import { DestroyableMixin } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { WalletFacade } from './+state/wallet.facade';

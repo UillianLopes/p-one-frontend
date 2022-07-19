@@ -1,2 +1,2 @@
 export * from './lib/settings';
-export * from './lib/sign-up';
+export * from './lib/users';

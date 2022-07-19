@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { UserModel } from '@p-one/domain/admin';
+import { CreateUserRequest, GetAllUsersQuery, UserModel } from '@p-one/domain/admin';
 
 export enum EUsersStoreActions {
   LOAD_USERS = '[Users] Load Users',
@@ -21,10 +21,14 @@ export enum EUsersStoreActions {
   RESET_STATE = '[Users] Reset State',
 }
 
-export const loadUsers = createAction(EUsersStoreActions.LOAD_USERS);
+export const loadUsers = createAction(
+  EUsersStoreActions.LOAD_USERS,
+  props<{ query: Partial<GetAllUsersQuery> }>()
+);
+
 export const loadUsersSuccess = createAction(
   EUsersStoreActions.LOAD_USERS_SUCCESS,
-  props<{ users: UserModel[]; ammount: number }>()
+  props<{ users: UserModel[]; ammount: number; query: Partial<GetAllUsersQuery> }>()
 );
 export const loadUsersFailure = createAction(
   EUsersStoreActions.LOAD_USERS_FAILURE,
@@ -33,7 +37,8 @@ export const loadUsersFailure = createAction(
 
 export const createUser = createAction(EUsersStoreActions.CREATE_USER);
 export const createUserSuccess = createAction(
-  EUsersStoreActions.CREATE_USER_SUCCESS
+  EUsersStoreActions.CREATE_USER_SUCCESS,
+  props<{ payload: CreateUserRequest }>()
 );
 export const createUserFailure = createAction(
   EUsersStoreActions.CREATE_USER_FAILURE,

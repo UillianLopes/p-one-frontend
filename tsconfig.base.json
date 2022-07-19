@@ -45,10 +45,9 @@
       "@p-one/shared": ["libs/shared/src/index.ts"],
       "@p-one/stores/admin": ["libs/stores/admin/src/index.ts"],
       "@p-one/stores/financial": ["libs/stores/financial/src/index.ts"],
+      "@p-one/stores/identity": ["libs/stores/identity/src/index.ts"],
       "@p-one/stores/notifications": ["libs/stores/notifications/src/index.ts"],
-      "@p-one/stores/settings": ["libs/stores/settings/src/index.ts"],
-      "@p-one/stores/shared": ["libs/stores/shared/src/index.ts"],
-      "@p-one/stores/users": ["libs/stores/users/src/index.ts"]
+      "@p-one/stores/shared": ["libs/stores/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

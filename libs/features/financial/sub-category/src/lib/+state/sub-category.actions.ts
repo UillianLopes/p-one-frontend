@@ -1,9 +1,9 @@
 import { createAction, props, union } from '@ngrx/store';
+import { QueryModel } from '@p-one/core';
 import {
   CategoryFilter,
   CategoryModel,
   CreateSubCategoryRequest,
-  PaginatedFilter,
   SubCategoryModel,
   UpdateSubCategoryRequest,
 } from '@p-one/domain/financial';
@@ -105,7 +105,7 @@ export const updateSubCategoryFailure = createAction(
 
 export const paginateSubCategories = createAction(
   ESubCategoryActions.PAGINATE_SUB_CATEGORIES,
-  props<{ pagination: PaginatedFilter }>()
+  props<{ pagination: QueryModel }>()
 );
 
 export const setOpenedCreateSubCategoryDialog = createAction(

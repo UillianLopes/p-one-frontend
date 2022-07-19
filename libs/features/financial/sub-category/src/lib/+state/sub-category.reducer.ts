@@ -1,9 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  CategoryFilter,
-  CategoryModel,
-  PaginatedFilter,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { CategoryFilter, CategoryModel } from '@p-one/domain/financial';
 
 import {
   closeCreateSubCategoryDialogSuccess,
@@ -45,7 +42,7 @@ export const SUB_CATEGORY_KEY = 'SUB_CATEGORY';
 export interface SubCategoryState {
   loading: boolean;
   filter: CategoryFilter;
-  pagination: PaginatedFilter;
+  pagination: QueryModel;
   subCategories: CategoryModel[];
   error?: any;
 

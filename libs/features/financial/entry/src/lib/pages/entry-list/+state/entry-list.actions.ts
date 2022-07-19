@@ -1,10 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import {
-  EEntryType,
-  EntryFilter,
-  EntryModel,
-  PaginatedFilter,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 export enum EEntryListActions {
   LOAD_ENTRIES = '[Entry List] Load entries',
@@ -62,12 +58,12 @@ export const openDeleteEntriesDialog = createAction(
 
 export const paginateEntries = createAction(
   EEntryListActions.PAGINATE_ENTRIES,
-  props<{ pagination: PaginatedFilter }>()
+  props<{ pagination: QueryModel }>()
 );
 
 export const paginateEntriesSuccess = createAction(
   EEntryListActions.PAGINATE_ENTRIES_SUCCESS,
-  props<{ pagination: PaginatedFilter; entries: EntryModel[] }>()
+  props<{ pagination: QueryModel; entries: EntryModel[] }>()
 );
 
 export const paginateEntriesFailure = createAction(

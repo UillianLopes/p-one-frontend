@@ -1,11 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import {
-  CategoryFilter,
-  CategoryModel,
-  CreateCategoryRequest,
-  PaginatedFilter,
-  UpdateCategoryRequest,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { CategoryFilter, CategoryModel, CreateCategoryRequest, UpdateCategoryRequest } from '@p-one/domain/financial';
 
 export enum ECategoryActions {
   LOAD_CATEGORIES = '[Category List] Load categories',
@@ -61,9 +56,10 @@ export const loadCategoriesSuccess = createAction(
   ECategoryActions.LAOD_CATEGORIES_SUCCESS,
   props<{ categories: CategoryModel[] }>()
 );
+
 export const loadCategoriesFailure = createAction(
   ECategoryActions.LAOD_CATEGORIES_FAILURE,
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const createCategory = createAction(
@@ -77,7 +73,7 @@ export const createCategorySuccess = createAction(
 );
 export const createCategoryFailure = createAction(
   ECategoryActions.CREATE_CATEGORY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const updateCategory = createAction(
@@ -91,12 +87,12 @@ export const updateCategorySuccess = createAction(
 );
 export const updateCategoryFailure = createAction(
   ECategoryActions.UPDATE_CATEGORY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const paginateCategories = createAction(
   ECategoryActions.PAGINATE_CATEGORIES,
-  props<{ pagination: PaginatedFilter }>()
+  props<{ pagination: QueryModel }>()
 );
 
 export const setOpenedCreateCategoryDialog = createAction(
@@ -179,7 +175,7 @@ export const deleteCategorySuccess = createAction(
 
 export const deleteCategoryFailure = createAction(
   ECategoryActions.DELETE_CATEGORY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const deleteSelectedCategories = createAction(
@@ -193,7 +189,7 @@ export const deleteSelectedCategoriesSuccess = createAction(
 
 export const deleteSelectedCategoriesFailure = createAction(
   ECategoryActions.DELETE_SELECTED_CATEGORIES_FAILURE,
-  props<{ error: any }>()
+  props<{ error: unknown }>()
 );
 
 export const filterCategories = createAction(

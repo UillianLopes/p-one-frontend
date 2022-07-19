@@ -1,17 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  BalanceFilter,
-  PaginatedFilter,
-  WalletModel,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { BalanceFilter, WalletModel } from '@p-one/domain/financial';
 
-import {
-  filterWallets,
-  loadWallets,
-  loadWalletsFailure,
-  loadWalletsSuccess,
-  resetState,
-} from './wallet.actions';
+import { filterWallets, loadWallets, loadWalletsFailure, loadWalletsSuccess, resetState } from './wallet.actions';
 
 export const WALLET_KEY = `WALLET`;
 
@@ -19,7 +10,7 @@ export interface WalletState {
   selectedBalanceIds: string[];
   wallets: WalletModel[];
   filter: BalanceFilter;
-  pagination: PaginatedFilter;
+  pagination: QueryModel;
   isLoading?: boolean;
 }
 

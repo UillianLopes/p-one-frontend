@@ -1,23 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-
 import { CategoryModel, WalletModel } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  startWith,
-  takeUntil,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { WithdrawModalStore } from './withdraw-modal.state';
 

@@ -620,6 +620,32 @@
       },
       "tags": []
     },
+    "stores-identity": {
+      "projectType": "library",
+      "root": "libs/stores/identity",
+      "sourceRoot": "libs/stores/identity/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stores/identity"],
+          "options": {
+            "jestConfig": "libs/stores/identity/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stores/identity/**/*.ts",
+              "libs/stores/identity/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "stores-notification": {
       "projectType": "library",
       "root": "libs/stores/notification",
@@ -646,32 +672,6 @@
       },
       "tags": []
     },
-    "stores-settings": {
-      "projectType": "library",
-      "root": "libs/stores/settings",
-      "sourceRoot": "libs/stores/settings/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/settings"],
-          "options": {
-            "jestConfig": "libs/stores/settings/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/stores/settings/**/*.ts",
-              "libs/stores/settings/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "stores-shared": {
       "projectType": "library",
       "root": "libs/stores/shared",
@@ -692,32 +692,6 @@
             "lintFilePatterns": [
               "libs/stores/shared/**/*.ts",
               "libs/stores/shared/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "stores-users": {
-      "projectType": "library",
-      "root": "libs/stores/users",
-      "sourceRoot": "libs/stores/users/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/users"],
-          "options": {
-            "jestConfig": "libs/stores/users/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/stores/users/**/*.ts",
-              "libs/stores/users/**/*.html"
             ]
           }
         }

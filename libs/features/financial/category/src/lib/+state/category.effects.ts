@@ -3,14 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CategoryService } from '@p-one/domain/financial';
 import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
-import {
-  catchError,
-  filter,
-  map,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import {
   closeCreateCategoryDialog,
@@ -202,14 +195,20 @@ export class CategoryEffects {
       ofType(ECategoryActions.DELETE_SELECTED_CATEGORIES),
       withLatestFrom(this._facade.filtredSelectedCategoriesIds$),
       switchMap(([_, categoriesIds]) => {
-        return this._categoryService.deleteMultiple(categoriesIds).pipe(
-          map(() => {
-            return deleteSelectedCategoriesSuccess({ categoriesIds });
-          }),
-          catchError((error) => {
-            return of(deleteSelectedCategoriesFailure({ error }));
-          })
-        );
+        return this._categoryService
+          .deleteMultiple(
+            categoriesIds
+              .filter((value) => !!value)
+              .map((value) => value as string)
+          )
+          .pipe(
+            map(() => {
+              return deleteSelectedCategoriesSuccess({ categoriesIds });
+            }),
+            catchError((error) => {
+              return of(deleteSelectedCategoriesFailure({ error }));
+            })
+          );
       })
     )
   );

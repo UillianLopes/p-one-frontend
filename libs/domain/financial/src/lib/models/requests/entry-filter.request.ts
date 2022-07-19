@@ -1,7 +1,8 @@
-import { EEntryPaymentStatus, EEntryType } from '../enums';
-import { PaginatedFilter } from '../filters';
+import { QueryModel } from '@p-one/core';
 
-export interface EntryFilterRequest extends PaginatedFilter {
+import { EEntryPaymentStatus, EEntryType } from '../enums';
+
+export interface EntryFilterRequest extends QueryModel {
   text: string;
   month: number;
   year: number;

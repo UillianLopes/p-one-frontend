@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  EEntryType,
-  EntryFilter,
-  EntryModel,
-  PaginatedFilter,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 import {
   filterEntries,
@@ -56,7 +52,7 @@ export class EntryListFacade {
     this._store.dispatch(loadEntriesWithType({ entryType }));
   }
 
-  public paginateEntries(pagination: PaginatedFilter): void {
+  public paginateEntries(pagination: QueryModel): void {
     this._store.dispatch(
       paginateEntries({
         pagination,

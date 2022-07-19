@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { UsersStoreFacade } from '@p-one/stores/users';
+import { AuthenticationStoreFacade } from '@p-one/stores/identity';
 
 @Component({
   selector: 'p-one-user-sidenav-item',
@@ -8,9 +7,7 @@ import { UsersStoreFacade } from '@p-one/stores/users';
   styleUrls: ['./user-sidenav-item.component.scss'],
 })
 export class UserSidenavItemComponent {
+  public readonly user$ = this._authenticationStore.user$;
 
-  public readonly user$ = this._userStore.user$;
-
-  constructor(private readonly _userStore: UsersStoreFacade) { }
+  constructor(private readonly _authenticationStore: AuthenticationStoreFacade) {}
 }
-

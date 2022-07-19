@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
 import { CategoryModel, EEntryType } from '@p-one/domain/financial';
 import { DestroyableMixin } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { EntryCreateFacade } from '../../+state/entry-create.facade';

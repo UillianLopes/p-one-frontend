@@ -61,12 +61,12 @@ export const filtredSelectedCategoriesSelector = createSelector(
   selectedCategoryIdsSelector,
   filtredCategoriesSelector,
   (selectedCategoryIds, filtredCategories) =>
-    filtredCategories.filter((c) => selectedCategoryIds.includes(c.id))
+    filtredCategories.filter((c) => selectedCategoryIds.includes(c.id as string))
 );
 
 export const filtredSelectedCategoriesIdsSelector = createSelector(
   filtredSelectedCategoriesSelector,
-  (filtredSelectedCategories) => filtredSelectedCategories.map((c) => c.id)
+  (filtredSelectedCategories) => filtredSelectedCategories.filter((c) => !!c.id).map((c) => c.id as string)
 );
 
 export const filtredCategoriesIdsSelector = createSelector(

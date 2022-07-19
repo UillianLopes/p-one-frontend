@@ -71,13 +71,13 @@ export class CategoryService {
       );
   }
 
-  deleteMultiple(categoryIds: string[]): Observable<CategoryModel> {
+  deleteMultiple(categoryIds?: string[]): Observable<CategoryModel> {
     return this._httpClient
       .delete<ResponseModel<CategoryModel>>(
         `${this._financialApiUrl}/Category`,
         {
           params: {
-            ids: categoryIds,
+            ids: categoryIds ?? [],
           },
         }
       )

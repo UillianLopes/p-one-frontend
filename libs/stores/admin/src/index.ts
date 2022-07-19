@@ -1,1 +1,1 @@
-export * from './lib/stores-admin.module';
+export * from './lib/users';

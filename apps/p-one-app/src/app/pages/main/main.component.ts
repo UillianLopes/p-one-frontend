@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DestroyableMixin } from '@p-one/shared';
+import { AuthenticationStoreFacade, SettingsStoreFacade } from '@p-one/stores/identity';
 import { NotificationsStoreFacade } from '@p-one/stores/notifications';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
-import { UsersStoreFacade } from '@p-one/stores/users';
-
 import { skip, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -12,19 +10,21 @@ import { skip, takeUntil } from 'rxjs/operators';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent extends DestroyableMixin() implements OnInit, OnDestroy {
-
+export class MainComponent
+  extends DestroyableMixin()
+  implements OnInit, OnDestroy
+{
   constructor(
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     private readonly _translateService: TranslateService,
-    private readonly _usersStoreFacade: UsersStoreFacade
+    private readonly _authenticationStoreFacade: AuthenticationStoreFacade
   ) {
-    super()
+    super();
   }
 
   public ngOnInit(): void {
-    this._usersStoreFacade.load();
+    this._authenticationStoreFacade.load();
 
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
@@ -37,5 +37,4 @@ export class MainComponent extends DestroyableMixin() implements OnInit, OnDestr
 
     this._settingsStoreFacade.loadUserSettings();
   }
-
 }

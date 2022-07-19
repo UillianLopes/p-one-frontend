@@ -6,23 +6,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  TranslateCompiler,
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CustomTranslateLoader, POneCoreModule } from '@p-one/core';
 import { POneAdminDomainModule } from '@p-one/domain/admin';
 import { POneFinancialDomainModule } from '@p-one/domain/financial';
-import {
-  POneIdentityDomainModule,
-  TOKEN_REQUIRED_ENDPOINTS,
-} from '@p-one/domain/identity';
+import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS } from '@p-one/domain/identity';
 import { POneNotificationDomainModule } from '@p-one/domain/notification';
 import { POneToastModule } from '@p-one/shared';
-import { POneSettingsStoreModule } from '@p-one/stores/settings';
+import { AuthenticationStoreModule, SettingsStoreModule } from '@p-one/stores/identity';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
-import { POneUsersStoreModule } from '@p-one/stores/users';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
@@ -106,8 +98,8 @@ import { AppRoutingModule } from './app.routing';
       },
       defaultLanguage: 'en-US',
     }),
-    POneUsersStoreModule,
-    POneSettingsStoreModule,
+    AuthenticationStoreModule,
+    SettingsStoreModule,
   ],
   bootstrap: [AppComponent],
   providers: [

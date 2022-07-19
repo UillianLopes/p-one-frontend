@@ -1,23 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { WalletModel } from '@p-one/domain/financial';
-import {
-  updateValueAndValidityMarkingControlsAreDirty,
-  PONE_DIALOG_DATA,
-  DestroyableMixin,
-} from '@p-one/shared';
+import { DestroyableMixin, PONE_DIALOG_DATA, updateValueAndValidityMarkingControlsAreDirty } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { combineLatest } from 'rxjs';
-import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
 

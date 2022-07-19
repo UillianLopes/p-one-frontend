@@ -1,10 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  EEntryType,
-  EntryFilter,
-  EntryModel,
-  PaginatedFilter,
-} from '@p-one/domain/financial';
+import { QueryModel } from '@p-one/core';
+import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 import {
   filterEntries,
@@ -23,14 +19,14 @@ export const ENTRY_LIST_KEY = 'FINANCIAL_ENTRY_LIST';
 export interface EntryListState {
   loading: boolean;
   filter: Partial<EntryFilter>;
-  pagination: PaginatedFilter;
+  pagination: QueryModel;
   entries: EntryModel[];
   error?: any;
   entryType?: EEntryType;
 }
 const now = new Date();
 
-const initialPagination: PaginatedFilter = {
+const initialPagination: QueryModel = {
   page: 1,
   pageSize: 50,
 };

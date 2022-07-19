@@ -24,19 +24,6 @@
       <i pOneIcon class="bi bi-people"></i>
       {{ '@PONE.MAIN.SIDENAV.ADMIN' | translate }}
     </p-one-sidenav-item>
-
-    <p-one-sidenav-item
-      tooltip="Sair"
-      (click)="signOut()"
-      [tooltip]="'@PONE.MAIN.SIDENAV.SIGN_OUT' | translate"
-    >
-      <i
-        pOneIcon
-        class="bi bi-box-arrow-right"
-        [style.color]="'var(--bs-danger)'"
-      ></i>
-      {{ '@PONE.MAIN.SIDENAV.SIGN_OUT' | translate }}
-    </p-one-sidenav-item>
   </p-one-sidenav>
   <p-one-header>
     <button
@@ -47,7 +34,7 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2>Home</h2>
+    <h2>{{ '@PONE.MAIN.SIDENAV.HOME' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
 import { generateColor } from '@p-one/core';
 import { BankModel, EWalletType } from '@p-one/domain/financial';
 import { DialogRef } from '@p-one/shared';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
 import { filter, map, startWith, take } from 'rxjs/operators';

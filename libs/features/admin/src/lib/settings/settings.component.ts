@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { DestroyableMixin } from '@p-one/shared';
-import { SettingsStoreFacade } from '@p-one/stores/settings';
+import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { takeUntil } from 'rxjs/operators';
 
 
