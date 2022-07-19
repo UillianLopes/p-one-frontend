@@ -57,7 +57,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'CATEGORY',
-          name: '@PONE.ENTRIES.LIST.FILTER.CATEGORIES',
+          name: '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.CATEGORIES',
           value: categories.map((c) => c.name),
         },
       ];
@@ -68,7 +68,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'SUB_CATEGORY',
-          name: '@PONE.ENTRIES.LIST.FILTER.SUB_CATEGORIES',
+          name: '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.SUB_CATEGORIES',
           value: subCategories.map((c) => c.name),
         },
       ];
@@ -79,7 +79,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'RANGE',
-          name: '@PONE.ENTRIES.LIST.FILTER.RANGE',
+          name: '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.RANGE',
           value: `${minValue ?? '~'} a ${maxValue ?? '~'}`,
         },
       ];
@@ -90,7 +90,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'TEXT',
-          name: '@PONE.ENTRIES.LIST.FILTER.TEXT',
+          name: '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.TEXT',
           value: text,
         },
       ];
@@ -100,16 +100,16 @@ export const filterToDisplaySelector = createSelector(
 
       switch (paymentStatus) {
         case EEntryPaymentStatus.Opened:
-          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OPENED';
+          paymentName = '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OPENED';
           break;
         case EEntryPaymentStatus.Overdue:
-          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OVERDUE';
+          paymentName = '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.PAYMENT_STATUS.OVERDUE';
           break;
         case EEntryPaymentStatus.Paid:
-          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.PAID';
+          paymentName = '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.PAYMENT_STATUS.PAID';
           break;
         case EEntryPaymentStatus.ToPayToday:
-          paymentName = '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TO_PAY_TODAY';
+          paymentName = '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TO_PAY_TODAY';
           break;
       }
 
@@ -117,7 +117,7 @@ export const filterToDisplaySelector = createSelector(
         ...data,
         {
           id: 'PAYMENT_STATUS',
-          name: '@PONE.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TITLE',
+          name: '@PONE.FINANCIAL.ENTRIES.LIST.FILTER.PAYMENT_STATUS.TITLE',
           value: paymentName,
         },
       ];

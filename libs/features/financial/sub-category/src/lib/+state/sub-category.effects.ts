@@ -4,14 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CategoryService, SubCategoryService } from '@p-one/domain/financial';
 import { DialogService, ToastService } from '@p-one/shared';
 import { of } from 'rxjs';
-import {
-  catchError,
-  filter,
-  map,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import {
   closeCreateSubCategoryDialog,
@@ -77,7 +70,7 @@ export class SubCategoryEffects {
       ofType(ESubCategoryActions.CREATE_SUB_CATEGORY_SUCCESS),
       withLatestFrom(
         this._translateService.get(
-          '@PONE.SUB_CATEGORIES.MESSAGES.CREATE_SUB_CATEGORY_SUCCESS'
+          '@PONE.FINANCIAL.SUB_CATEGORIES.MESSAGES.CREATE_SUB_CATEGORY_SUCCESS'
         )
       ),
       tap(([_, successMessage]) =>

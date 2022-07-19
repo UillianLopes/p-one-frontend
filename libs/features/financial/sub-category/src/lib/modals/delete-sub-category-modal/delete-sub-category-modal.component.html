@@ -1,25 +1,25 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>
     {{
-      '@PONE.SUB_CATEGORIES.MODALS.DELETE.TITLE'
+      '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.TITLE'
         | translate: (toBeDeletedSubCategoriesNames$ | async)
     }}
   </h5>
   <p-one-dialog-body>
     <p
       [innerHTML]="
-        '@PONE.SUB_CATEGORIES.MODALS.DELETE.QUESTION'
+        '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.QUESTION'
           | translate: (toBeDeletedSubCategoriesNames$ | async)
       "
     ></p>
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      {{ '@PONE.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
+      {{ '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="deleteSubCategory()">
       {{
-        '@PONE.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.DELETE_CATEGORY'
+        '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.DELETE_CATEGORY'
           | translate: (toBeDeletedSubCategoriesNames$ | async)
       }}
     </button>

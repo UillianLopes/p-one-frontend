@@ -1,6 +1,6 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 class="card-header">
-    {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+    {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
   </h5>
   <p-one-dialog-body>
     <form [formGroup]="this.form">
@@ -8,13 +8,13 @@
         <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
           <p-one-radio-button [value]="EWalletType.Balance">
             {{
-              '@PONE.WALLETS.MODALS.CREATE_WALLET.TYPES.BANK_ACCOUNT'
+              '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TYPES.BANK_ACCOUNT'
                 | translate
             }}
           </p-one-radio-button>
           <p-one-radio-button [value]="EWalletType.Wallet">
             {{
-              '@PONE.WALLETS.MODALS.CREATE_WALLET.TYPES.DIGITAL_WALLET'
+              '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TYPES.DIGITAL_WALLET'
                 | translate
             }}
           </p-one-radio-button>
@@ -23,20 +23,20 @@
 
       <p-one-form-field>
         <label pOneLabel>{{
-          '@PONE.WALLETS.MODALS.FIELDS.NAME.LABEL' | translate
+          '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.NAME.LABEL' | translate
         }}</label>
         <input
           pOneInput
           formControlName="name"
           [placeholder]="
-            '@PONE.WALLETS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
           "
         />
       </p-one-form-field>
       <div class="row">
         <p-one-form-field class="col">
           <label pOneLabel>{{
-            '@PONE.WALLETS.MODALS.FIELDS.CURRENCY.LABEL' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CURRENCY.LABEL' | translate
           }}</label>
           <select pOneInput formControlName="currency">
             <option ngValue="BRL">Real (BRL)</option>
@@ -45,7 +45,7 @@
         </p-one-form-field>
         <p-one-form-field class="col">
           <label pOneLabel for="colorInput">
-            {{ '@PONE.WALLETS.MODALS.FIELDS.COLOR.LABEL' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.COLOR.LABEL' | translate }}
           </label>
           <p-one-color-picker
             #colorInput
@@ -80,13 +80,13 @@
         <div pOneGrid gap="16px">
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
             <label pOneLabel for="agencyInput">
-              {{ '@PONE.WALLETS.MODALS.FIELDS.AGENCY.LABEL' | translate }}
+              {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.AGENCY.LABEL' | translate }}
             </label>
             <input
               #agencyInput
               pOneInput
               [placeholder]="
-                '@PONE.WALLETS.MODALS.FIELDS.AGENCY.PLACEHOLDER' | translate
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.AGENCY.PLACEHOLDER' | translate
               "
               formControlName="agency"
               type="tel"
@@ -96,14 +96,14 @@
           <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
             <label pOneLabel for="numberInput" i18n>
               {{
-                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.LABEL' | translate
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.LABEL' | translate
               }}
             </label>
             <input
               #numberInput
               pOneInput
               [placeholder]="
-                '@PONE.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.PLACEHOLDER'
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.PLACEHOLDER'
                   | translate
               "
               formControlName="number"
@@ -116,7 +116,7 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CANCEL' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
@@ -124,7 +124,7 @@
       (click)="createWallet()"
     >
       {{
-        '@PONE.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CREATE_WALLET' | translate
+        '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CREATE_WALLET' | translate
       }}
     </button>
   </p-one-dialog-footer>

@@ -8,7 +8,7 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2>{{ '@PONE.WALLETS.TITLE' | translate }}</h2>
+    <h2>{{ '@PONE.FINANCIAL.WALLETS.TITLE' | translate }}</h2>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
@@ -16,13 +16,13 @@
   <div pOneHeader class="p-one-balance__sub-header">
     <p-one-breadcrumb>
       <p-one-breadcrumb-item i18n>
-        {{ '@PONE.WALLETS.TITLE' | translate }}
+        {{ '@PONE.FINANCIAL.WALLETS.TITLE' | translate }}
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </div>
   <div pOneHeader class="p-one-balance__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateWalletDialog()">
-      {{ '@PONE.WALLETS.BUTTONS.CREATE_ACCOUNT_OR_WALLET' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.BUTTONS.CREATE_ACCOUNT_OR_WALLET' | translate }}
     </button>
 
     <p-one-form-field noPadding>
@@ -34,16 +34,16 @@
       <thead>
         <tr>
           <th scope="col">
-            {{ '@PONE.WALLETS.TABLE.COLUMNS.NAME' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.TABLE.COLUMNS.NAME' | translate }}
           </th>
           <th scope="col">
-            {{ '@PONE.WALLETS.TABLE.COLUMNS.BALANCE' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.TABLE.COLUMNS.BALANCE' | translate }}
           </th>
           <th scope="col">
-            {{ '@PONE.WALLETS.TABLE.COLUMNS.BANK' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.TABLE.COLUMNS.BANK' | translate }}
           </th>
           <th scope="col">
-            {{ '@PONE.WALLETS.TABLE.COLUMNS.ACCOUNT_AGENCY' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.TABLE.COLUMNS.ACCOUNT_AGENCY' | translate }}
           </th>
         </tr>
       </thead>
@@ -61,20 +61,20 @@
                 class="btn btn-outline-success btn-sm"
                 (click)="openDepositWalletDialog(wallet)"
               >
-                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.DEPOSIT' | translate }}
+                {{ '@PONE.FINANCIAL.WALLETS.TABLE.CONTEXT_MENU.DEPOSIT' | translate }}
               </button>
               <button
                 class="btn btn-outline-warning btn-sm"
                 (click)="openWithdrawWalletDialog(wallet)"
               >
-                {{ '@PONE.WALLETS.TABLE.CONTEXT_MENU.WITHDRAW' | translate }}
+                {{ '@PONE.FINANCIAL.WALLETS.TABLE.CONTEXT_MENU.WITHDRAW' | translate }}
               </button>
               <button
                 class="btn btn-outline-secondary btn-sm"
                 (click)="openTransferFoundsDialog(wallet)"
               >
                 {{
-                  '@PONE.WALLETS.TABLE.CONTEXT_MENU.TRANSFER_FUNDS' | translate
+                  '@PONE.FINANCIAL.WALLETS.TABLE.CONTEXT_MENU.TRANSFER_FUNDS' | translate
                 }}
               </button>
               <button

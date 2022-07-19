@@ -1,14 +1,14 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>
     {{
-      '@PONE.ENTRIES.MODALS.DELETE.TITLE'
+      '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.TITLE'
         | translate: { count: entriesLength$ | async }
     }}
   </h5>
   <p-one-dialog-body>
     <p
       [innerHtml]="
-        '@PONE.ENTRIES.MODALS.DELETE.QUESTION'
+        '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.QUESTION'
           | translate
             : {
                 count: entriesLength$ | async,
@@ -19,11 +19,11 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      {{ '@PONE.ENTRIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
+      {{ '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="deleteEntries()">
       {{
-        '@PONE.ENTRIES.MODALS.DELETE.BUTTONS.DELETE_ENTRY'
+        '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.BUTTONS.DELETE_ENTRY'
           | translate: { count: entriesLength$ | async }
       }}
     </button>

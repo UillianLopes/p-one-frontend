@@ -6,13 +6,13 @@
 
     <h2 [ngSwitch]="entryType$ | async" pOneEllipsis>
       <ng-container *ngSwitchCase="EntryType.Debit">
-        {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_PAY' | translate }}
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_PAY' | translate }}
       </ng-container>
       <ng-container *ngSwitchCase="EntryType.Credit">
-        {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_BE_RECEIVED' | translate }}
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_BE_RECEIVED' | translate }}
       </ng-container>
       <ng-container *ngSwitchDefault>
-        {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
       </ng-container>
     </h2>
 
@@ -21,7 +21,7 @@
   <div pOneHeader class="p-one-entry-list__sub-header">
     <p-one-breadcrumb>
       <p-one-breadcrumb-item>
-        {{ '@PONE.ENTRIES.LIST.TITLE' | translate }}
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.TITLE' | translate }}
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
     <p-one-filter-display [data]="(filterToDisplay$ | async)!" (removed$)="remove($event)"></p-one-filter-display>
@@ -29,14 +29,14 @@
   <div pOneHeader class="p-one-entry-list__sub-header">
     <button class="btn btn-primary btn-sm" routerLink="/financial/entries/create">
       <span pOneEllipsis>
-        {{ '@PONE.ENTRIES.LIST.BUTTONS.CREATE_ENTRY' | translate }}
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.CREATE_ENTRY' | translate }}
       </span>
     </button>
 
     <div pOneFlexRow alignment="center" gap="8px">
       <button class="btn btn-primary btn-sm" (click)="openEntryListFilterDialog()">
         <span pOneEllipsis>
-          {{ '@PONE.ENTRIES.LIST.BUTTONS.OPEN_COMPLETE_FILTER' | translate }}
+          {{ '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_COMPLETE_FILTER' | translate }}
         </span>
       </button>
       <p-one-month-year-picker [value]="(dateFilter$ | async)!" (change$)="setDateFilter($event)">
@@ -45,13 +45,13 @@
         [value]="typeFilter$ | async" (change$)="setTypeFilter($event)">
         <p-one-radio-button [value]="null">
           <span pOneEllipsis>
-            {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
+            {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
           </span>
         </p-one-radio-button>
         <p-one-radio-button [value]="EntryType.Credit">
           <span pOneEllipsis>
             <span>
-              {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.CREDIT' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.CREDIT' | translate }}
             </span>
             <i class="bi bi-arrow-up text-success"> </i>
           </span>
@@ -59,7 +59,7 @@
         <p-one-radio-button [value]="EntryType.Debit">
           <span pOneEllipsis>
             <span>
-              {{ '@PONE.ENTRIES.LIST.ENTRY_TYPES.DEBIT' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.DEBIT' | translate }}
             </span>
             <i class="bi bi-arrow-down text-danger"> </i>
           </span>
@@ -74,47 +74,47 @@
         <tr>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.PARCEL_NUMBER' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.PARCEL_NUMBER' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.TITLE' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.TITLE' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.DUE_DATE' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.DUE_DATE' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.CATEGORY' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.CATEGORY' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.SUB_CATEGORY' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.SUB_CATEGORY' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.AMOUNT' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.AMOUNT' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.TYPE' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.TYPE' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.STATUS' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.STATUS' | translate }}
             </span>
           </th>
           <th scope="col">
             <span pOneEllipsis>
-              {{ '@PONE.ENTRIES.LIST.TABLE.COLUMNS.BAR_CODE' | translate }}
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.BAR_CODE' | translate }}
             </span>
           </th>
           <th scope="col" class="p-one-entry-list__menu-col column--fixed-on-right"></th>
@@ -196,12 +196,12 @@
             <ng-template #menuTemplate>
               <div pOneFlexRow gap="8px" class="p-one-entry-list__menu">
                 <button class="btn btn-outline-primary btn-sm" (click)="openPayEntryDialog(entry)" [pOneTooltip]="
-                    '@PONE.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY' | translate
+                    '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY' | translate
                   " tooltipPosition="top" [disabled]="entry.paymentStatus === EntryPaymentStatus.Paid">
                   <span class="material-icons-outlined"> payment </span>
                 </button>
                 <button class="btn btn-outline-danger btn-sm" tooltipPosition="top" [pOneTooltip]="
-                    '@PONE.ENTRIES.LIST.BUTTONS.OPEN_DELETE_ENTRY' | translate
+                    '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_DELETE_ENTRY' | translate
                   " (click)="openDeleteEntryDialog(entry)">
                   <i class="material-icons">delete</i>
                 </button>

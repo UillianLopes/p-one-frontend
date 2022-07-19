@@ -1,31 +1,31 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h2 p-one-dialog-header>
-    {{ '@PONE.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+    {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
   </h2>
   <p-one-dialog-body>
     <form [formGroup]="form">
       <p-one-form-field>
         <label pOneLabel>
-          {{ '@PONE.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
+          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
         </label>
         <input
           pOneInput
           formControlName="title"
           [placeholder]="
-            '@PONE.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
           "
         />
       </p-one-form-field>
       <p-one-form-field>
         <label pOneLabel>
-          {{ '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
+          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
         </label>
         <input
           pOneInput
           [pOneAutocomplete]="autoCompleteCategory"
           formControlName="category"
           [placeholder]="
-            '@PONE.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
           "
         />
         <p-one-autocomplete
@@ -42,13 +42,13 @@
       </p-one-form-field>
       <p-one-form-field>
         <label pOneLabel>
-          {{ '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
+          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
         </label>
         <input
           [pOneAutocomplete]="autoCompleteSubCategory"
           formControlName="subCategory"
           [placeholder]="
-            '@PONE.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
           "
         />
         <p-one-autocomplete
@@ -66,7 +66,7 @@
       <p-one-form-field>
         <label pOneLabel
           >{{
-            '@PONE.WALLETS.MODALS.FIELDS.DEPOSIT_VALUE.LABEL' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.DEPOSIT_VALUE.LABEL' | translate
           }}
           ({{ currency$ | async }})</label
         >
@@ -75,7 +75,7 @@
     </form>
     <p
       [innerHtml]="
-        '@PONE.WALLETS.MODALS.DEPOSIT.NEW_BALANCE'
+        '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.NEW_BALANCE'
           | translate
             : {
                 currentBalance:
@@ -87,14 +87,14 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      {{ '@PONE.WALLETS.MODALS.DEPOSIT.BUTTONS.CANCEL' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.BUTTONS.CANCEL' | translate }}
     </button>
     <button
       class="btn btn-primary btn-sm"
       [disabled]="isConfirmFormDisabled$ | async"
       (click)="confirmDeposit()"
     >
-      {{ '@PONE.WALLETS.MODALS.DEPOSIT.BUTTONS.CONFIRM_DEPOSIT' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.BUTTONS.CONFIRM_DEPOSIT' | translate }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

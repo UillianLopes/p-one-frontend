@@ -1,25 +1,25 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h2 p-one-dialog-header>
-    {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.TITLE' | translate }}
+    {{ '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.TITLE' | translate }}
   </h2>
   <p-one-dialog-body>
     <form [formGroup]="form">
       <div class="row">
         <p-one-form-field class="col">
           <label pOneLabel>
-            {{ '@PONE.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
+            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.LABEL' | translate }}
           </label>
           <input
             pOneInput
             formControlName="title"
             [placeholder]="
-              '@PONE.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
             "
           />
         </p-one-form-field>
         <p-one-form-field class="col">
           <label pOneLabel>
-            {{ '@PONE.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate }} ({{
+            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate }} ({{
               currency$ | async
             }})
           </label>
@@ -28,7 +28,7 @@
             currencyMask
             formControlName="value"
             [placeholder]="
-              '@PONE.WALLETS.MODALS.FIELDS.VALUE.PLACEHOLDER' | translate
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.PLACEHOLDER' | translate
             "
           />
         </p-one-form-field>
@@ -36,7 +36,7 @@
       <p-one-stepper #stepper [validate]="true">
         <p-one-step
           [header]="
-            '@PONE.WALLETS.MODALS.FOUND_TRANSFER.STEPS.ORIGIN' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.STEPS.ORIGIN' | translate
           "
           formGroupName="origin"
         >
@@ -48,7 +48,7 @@
         </p-one-step>
         <p-one-step
           [header]="
-            '@PONE.WALLETS.MODALS.FOUND_TRANSFER.STEPS.DESTINATION' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.STEPS.DESTINATION' | translate
           "
           formGroupName="destination"
         >
@@ -62,17 +62,17 @@
   </p-one-dialog-body>
   <p-one-dialog-footer>
     <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
-      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CANCEL' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CANCEL' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="stepper.previous()">
-      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.PREVIOUS' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.PREVIOUS' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="stepper.next()">
-      {{ '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.NEXT' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.NEXT' | translate }}
     </button>
     <button class="btn btn-primary btn-sm" (click)="transfer()">
       {{
-        '@PONE.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CONFIRM_DEPOSIT'
+        '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CONFIRM_DEPOSIT'
           | translate
       }}
     </button>
