@@ -16,12 +16,7 @@ const routes: Routes = [
         redirectTo: 'entries',
         pathMatch: 'full',
       },
-      {
-        path: 'settings',
-        loadChildren: () =>
-          import('@p-one/features/admin').then((m) => m.SettingsModule),
-        title: 'Settings',
-      },
+
       {
         path: 'entries',
         loadChildren: () =>
@@ -44,7 +39,9 @@ const routes: Routes = [
       {
         path: 'wallets',
         loadChildren: () =>
-          import('@p-one/features/financial/wallet').then((m) => m.WalletModule),
+          import('@p-one/features/financial/wallet').then(
+            (m) => m.WalletModule
+          ),
       },
       {
         path: 'dashboard',
@@ -52,7 +49,7 @@ const routes: Routes = [
           import('@p-one/features/financial/dashboard').then(
             (m) => m.DashboardModule
           ),
-      }
+      },
     ],
   },
 ];
@@ -61,4 +58,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}

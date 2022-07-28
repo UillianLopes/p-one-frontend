@@ -1,0 +1,58 @@
+<p-one-container>
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2>{{ '@PONE.ADMIN.USERS.TITLE' | translate }}</h2>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <p-one-sub-header>
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.ADMIN.USERS.TITLE' | translate }}
+      </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </p-one-sub-header>
+  <p-one-table-container>
+    <table class="table table-sm table-hover table--fix-head">
+      <thead>
+        <tr>
+          <th scope="col">
+            {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.EMAIL' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.PROFILE' | translate }}
+          </th>
+          <th scope="col">
+            {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.BIRTH_DATE' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users$ | async">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.profile.title }}</td>
+          <td>{{ user.birthDate | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </p-one-table-container>
+  <!-- <ngb-pagination
+    [collectionSize]="(filtredCategoriesLength$ | async)!"
+    [page]="(page$ | async)!"
+    [pageSize]="(pageSize$ | async)!"
+    (pageChange)="setCategoriesPage($event)"
+    [attr.aria-label]="'@PONE.FINANCIAL.CATEGORIES.PAGINATION.LABEL' | translate"
+  ></ngb-pagination> -->
+</p-one-container>

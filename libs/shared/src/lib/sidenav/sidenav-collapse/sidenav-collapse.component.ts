@@ -35,6 +35,7 @@ export class SidenavCollapseComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
+  ESidenavState = ESidenavState;
   @Input()
   set link(link: string) {
     this._store.setLink(link);
@@ -76,7 +77,7 @@ export class SidenavCollapseComponent
 
   @Input()
   public tooltip!: TemplateRef<any> | string;
-  
+
   public readonly canTooltipOpen$ = this._sidenavStore.sidenavState$.pipe(
     map((state) => state === ESidenavState.CLOSED)
   );

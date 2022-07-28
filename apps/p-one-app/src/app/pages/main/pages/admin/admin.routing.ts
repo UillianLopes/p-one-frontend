@@ -16,8 +16,17 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        loadChildren: () => import('@p-one/features/admin').then((m) => m.UsersModule),
-        title: 'Admin | Users'
+        loadChildren: () =>
+          import('@p-one/features/admin/users').then((m) => m.UsersModule),
+        title: 'Admin | Users',
+      },
+      {
+        path: 'profiles',
+        loadChildren: () =>
+          import('@p-one/features/admin/profiles').then(
+            (m) => m.ProfilesModule
+          ),
+        title: 'Admin | Profiles',
       },
     ],
   },

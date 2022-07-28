@@ -29,7 +29,7 @@ export * from './lib/address-form/address-form.module';
 export * from './lib/address-form/@types/address-form.data';
 export * from './lib/chart';
 
-export * from './lib/pipes'
+export * from './lib/pipes';
 
 export * from './lib/header/header.module';
 
@@ -55,3 +55,5 @@ export * from './lib/range-slider';
 export * from './lib/@functions';
 export * from './lib/ellipsis';
 export * from './lib/table-container';
+
+export * from './lib/list';

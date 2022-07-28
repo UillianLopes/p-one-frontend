@@ -55,6 +55,7 @@ import { UpdateCategoryModalComponent } from './modals/update-category-modal/upd
     POneColorPickerModule,
     POneNotificationsDisplayButtonModule,
     TranslateModule,
+    POneInputModule,
   ],
   providers: [CategoryFacade],
 })

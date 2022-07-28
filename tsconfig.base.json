@@ -21,6 +21,13 @@
       "@p-one/domain/identity": ["libs/domain/identity/src/index.ts"],
       "@p-one/domain/notification": ["libs/domain/notification/src/index.ts"],
       "@p-one/features/admin": ["libs/features/admin/src/index.ts"],
+      "@p-one/features/admin/profiles": [
+        "libs/features/admin/profiles/src/index.ts"
+      ],
+      "@p-one/features/admin/settings": [
+        "libs/features/admin/settings/src/index.ts"
+      ],
+      "@p-one/features/admin/users": ["libs/features/admin/users/src/index.ts"],
       "@p-one/features/financial/category": [
         "libs/features/financial/category/src/index.ts"
       ],
@@ -44,6 +51,10 @@
       "@p-one/libs/stores/admin": ["libs/libs/stores/admin/src/index.ts"],
       "@p-one/shared": ["libs/shared/src/index.ts"],
       "@p-one/stores/admin": ["libs/stores/admin/src/index.ts"],
+      "@p-one/stores/admin/profiles": [
+        "libs/stores/admin/profiles/src/index.ts"
+      ],
+      "@p-one/stores/admin/users": ["libs/stores/admin/users/src/index.ts"],
       "@p-one/stores/financial": ["libs/stores/financial/src/index.ts"],
       "@p-one/stores/identity": ["libs/stores/identity/src/index.ts"],
       "@p-one/stores/notifications": ["libs/stores/notifications/src/index.ts"],

@@ -9,5 +9,11 @@ import { AuthenticationStoreFacade } from '@p-one/stores/identity';
 export class UserSidenavItemComponent {
   public readonly user$ = this._authenticationStore.user$;
 
-  constructor(private readonly _authenticationStore: AuthenticationStoreFacade) {}
+  constructor(
+    private readonly _authenticationStore: AuthenticationStoreFacade
+  ) {}
+
+  public signOut() {
+    this._authenticationStore.signOut();
+  }
 }

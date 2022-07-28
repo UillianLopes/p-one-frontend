@@ -9,6 +9,7 @@ import {
   EAuthenticationStoreActions,
   loadFailure,
   loadSuccess,
+  signIn,
   signOutFailure,
   signOutSuccess,
 } from './authentication-store.actions';
@@ -21,6 +22,10 @@ export class AuthenticationStoreEffects {
       switchMap(() =>
         this._oidcService.checkAuth(window.location.toString()).pipe(
           map(({ userData, isAuthenticated }) => {
+            if (userData && !isAuthenticated) {
+              return signIn();
+            }
+
             if (!isAuthenticated) {
               return loadFailure();
             }

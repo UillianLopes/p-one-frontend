@@ -60,6 +60,9 @@ export class TooltipDirective implements OnDestroy {
   public tooltip!: TemplateRef<any> | string;
 
   @Input()
+  public data: any;
+
+  @Input()
   public trigger: 'hover' | 'click' = 'hover';
 
   private _overlayRef?: OverlayRef;

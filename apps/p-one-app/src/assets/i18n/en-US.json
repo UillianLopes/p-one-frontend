@@ -415,5 +415,21 @@
         }
       }
     }
+  },
+  "ADMIN": {
+    "USERS": {
+      "TITLE": "Users",
+      "TABLE": {
+        "COLUMNS": {
+          "NAME": "Name",
+          "EMAIL": "Email",
+          "PROFILE": "Profile",
+          "BIRTH_DATE": "Birth date"
+        }
+      }
+    },
+    "PROFILES": {
+      "TITLE": "Profiles"
+    }
   }
 }

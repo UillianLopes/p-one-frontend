@@ -167,17 +167,17 @@
       },
       "tags": []
     },
-    "features-admin": {
+    "features-admin-profiles": {
       "projectType": "library",
-      "root": "libs/features/admin",
-      "sourceRoot": "libs/features/admin/src",
+      "root": "libs/features/admin/profiles",
+      "sourceRoot": "libs/features/admin/profiles/src",
       "prefix": "p-one",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/admin"],
+          "outputs": ["coverage/libs/features/admin/profiles"],
           "options": {
-            "jestConfig": "libs/features/admin/jest.config.ts",
+            "jestConfig": "libs/features/admin/profiles/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -185,8 +185,60 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/admin/**/*.ts",
-              "libs/features/admin/**/*.html"
+              "libs/features/admin/profiles/**/*.ts",
+              "libs/features/admin/profiles/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-admin-settings": {
+      "projectType": "library",
+      "root": "libs/features/admin/settings",
+      "sourceRoot": "libs/features/admin/settings/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/admin/settings"],
+          "options": {
+            "jestConfig": "libs/features/admin/settings/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/admin/settings/**/*.ts",
+              "libs/features/admin/settings/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-admin-users": {
+      "projectType": "library",
+      "root": "libs/features/admin/users",
+      "sourceRoot": "libs/features/admin/users/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/admin/users"],
+          "options": {
+            "jestConfig": "libs/features/admin/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/admin/users/**/*.ts",
+              "libs/features/admin/users/**/*.html"
             ]
           }
         }
@@ -568,17 +620,17 @@
       },
       "tags": []
     },
-    "stores-admin": {
+    "stores-admin-profiles": {
       "projectType": "library",
-      "root": "libs/stores/admin",
-      "sourceRoot": "libs/stores/admin/src",
+      "root": "libs/stores/admin/profiles",
+      "sourceRoot": "libs/stores/admin/profiles/src",
       "prefix": "p-one",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/admin"],
+          "outputs": ["coverage/libs/stores/admin/profiles"],
           "options": {
-            "jestConfig": "libs/stores/admin/jest.config.ts",
+            "jestConfig": "libs/stores/admin/profiles/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -586,8 +638,34 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/stores/admin/**/*.ts",
-              "libs/stores/admin/**/*.html"
+              "libs/stores/admin/profiles/**/*.ts",
+              "libs/stores/admin/profiles/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "stores-admin-users": {
+      "projectType": "library",
+      "root": "libs/stores/admin/users",
+      "sourceRoot": "libs/stores/admin/users/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stores/admin/users"],
+          "options": {
+            "jestConfig": "libs/stores/admin/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stores/admin/users/**/*.ts",
+              "libs/stores/admin/users/**/*.html"
             ]
           }
         }

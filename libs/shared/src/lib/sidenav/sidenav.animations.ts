@@ -8,7 +8,7 @@ export const sidenavWidthAnimation = trigger('sidenavWidthAnimation', [
     })
   ),
 
-  state('OPENED', style({ width: '*' })),
+  state('OPENED', style({ width: '240px' })),
   state('CLOSED', style({ width: '40px' })),
 
   transition('OPENED => CLOSED', animate('.2s linear')),

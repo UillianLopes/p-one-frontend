@@ -34,11 +34,14 @@ export class UserService {
       .pipe(map(({ data }) => data));
   }
 
-  public getAll(query: GetAllUsersQuery): Observable<UserModel[]> {
-    return this._httpClient
-      .get<ResponseModel<UserModel[]>>(`${this._adminEndpoint}/user`, {
+  public getAll(
+    query: Partial<GetAllUsersQuery>
+  ): Observable<ResponseModel<UserModel[]>> {
+    return this._httpClient.get<ResponseModel<UserModel[]>>(
+      `${this._adminEndpoint}/user`,
+      {
         params: { ...query },
-      })
-      .pipe(map(({ data }) => data));
+      }
+    );
   }
 }
