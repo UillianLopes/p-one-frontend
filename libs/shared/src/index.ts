@@ -57,3 +57,9 @@ export * from './lib/ellipsis';
 export * from './lib/table-container';
 
 export * from './lib/list';
+
+export * from './lib/roles';
+
+export * from './lib/button-with-options';
+
+export * from './lib/table';

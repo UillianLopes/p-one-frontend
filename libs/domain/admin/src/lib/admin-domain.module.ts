@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ADMIN_ENDPOINT } from './constants/admin-endpoints.token';
+import { ProfileService } from './services';
 import { UserService } from './services/user.service';
 
 @NgModule({
@@ -22,6 +23,7 @@ export class POneAdminDomainModule {
           useValue: adminEndpoint,
         },
         UserService,
+        ProfileService,
       ],
     };
   }

@@ -1,9 +1,9 @@
 <p-one-sidenav-container>
   <p-one-sidenav>
     <p-one-user-sidenav-item pOneSideNavItem></p-one-user-sidenav-item>
-    
+
     <p-one-sidenav-divider></p-one-sidenav-divider>
-    
+
     <p-one-sidenav-item
       link="/main/home"
       [tooltip]="'@PONE.MAIN.SIDENAV.HOME' | translate"
@@ -21,10 +21,15 @@
     </p-one-sidenav-item>
 
     <p-one-sidenav-divider></p-one-sidenav-divider>
-    
+
     <p-one-sidenav-collapse
       link="/main/financial"
       [tooltip]="'@PONE.MAIN.SIDENAV.FINANCIAL' | translate"
+      *pOneHasRoles="[
+        'STANDALONE',
+        'FINANCIAL_DASHBOARD_READ',
+        'FINANCIAL_ENTRY_READ'
+      ]"
     >
       <i pOneIcon class="bi bi-clipboard"></i>
       {{ '@PONE.MAIN.SIDENAV.FINANCIAL' | translate }}
@@ -32,6 +37,7 @@
       <p-one-sidenav-item
         link="/main/financial/dashboard"
         [tooltip]="'@PONE.MAIN.SIDENAV.DASHBOARD' | translate"
+        *pOneHasRoles="['STANDALONE', 'FINANCIAL_DASHBOARD_READ']"
       >
         <i pOneIcon class="bi bi-bar-chart"></i>
         {{ '@PONE.MAIN.SIDENAV.DASHBOARD' | translate }}
@@ -40,6 +46,7 @@
       <p-one-sidenav-collapse
         link="/main/financial/entries"
         [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate"
+        *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
       >
         <i pOneIcon class="bi bi-clipboard"></i>
         {{ '@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate }}
@@ -47,6 +54,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/list"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate"
+          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-down-up"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate }}
@@ -57,6 +65,7 @@
           [tooltip]="
             '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate
           "
+          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-up"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate }}
@@ -65,6 +74,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/debits"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate"
+          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-down"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate }}
@@ -73,6 +83,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/create"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate"
+          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_CREATE']"
         >
           <i pOneIcon class="bi bi-clipboard-plus"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate }}
@@ -82,6 +93,7 @@
       <p-one-sidenav-item
         link="/main/financial/categories"
         [tooltip]="'@PONE.MAIN.SIDENAV.CATEGORIES' | translate"
+        *pOneHasRoles="['STANDALONE', 'FINANCIAL_CATEGORY_READ']"
       >
         <i pOneIcon class="bi bi-tag"></i>
         {{ '@PONE.MAIN.SIDENAV.CATEGORIES' | translate }}
@@ -90,6 +102,7 @@
       <p-one-sidenav-item
         link="/main/financial/sub-categories"
         [tooltip]="'@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate"
+        *pOneHasRoles="['STANDALONE', 'FINANCIAL_SUB_CATEGORY_READ']"
       >
         <i pOneIcon class="bi bi-tags"></i>
         {{ '@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate }}
@@ -98,17 +111,21 @@
       <p-one-sidenav-item
         link="/main/financial/wallets"
         [tooltip]="'@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate"
+        *pOneHasRoles="['STANDALONE', 'FINANCIAL_WALLET_READ']"
       >
         <i pOneIcon class="bi bi-bank"></i>
         {{ '@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate }}
       </p-one-sidenav-item>
     </p-one-sidenav-collapse>
-    
-    <p-one-sidenav-divider></p-one-sidenav-divider>
+
+    <p-one-sidenav-divider
+      *pOneHasRoles="['ADMIN_PROFILE_READ', 'ADMIN_USER_READ']"
+    ></p-one-sidenav-divider>
 
     <p-one-sidenav-collapse
       link="/main/admin"
       [tooltip]="'@PONE.MAIN.SIDENAV.ADMIN' | translate"
+      *pOneHasRoles="['ADMIN_PROFILE_READ', 'ADMIN_USER_READ']"
     >
       <i pOneIcon class="bi bi-tools"></i>
       {{ '@PONE.MAIN.SIDENAV.ADMIN' | translate }}
@@ -116,6 +133,8 @@
       <p-one-sidenav-item
         link="/main/admin/profiles"
         [tooltip]="'@PONE.MAIN.SIDENAV.PROFILES' | translate"
+        *pOneHasRoles="['ADMIN_PROFILE_READ']"
+        operator="AND"
       >
         <i pOneIcon class="bi bi-gear"></i>
         {{ '@PONE.MAIN.SIDENAV.PROFILES' | translate }}
@@ -124,11 +143,24 @@
       <p-one-sidenav-item
         link="/main/admin/users"
         [tooltip]="'@PONE.MAIN.SIDENAV.USERS' | translate"
+        *pOneHasRoles="['ADMIN_USER_READ']"
       >
         <i pOneIcon class="bi bi-person-lines-fill"></i>
         {{ '@PONE.MAIN.SIDENAV.USERS' | translate }}
       </p-one-sidenav-item>
     </p-one-sidenav-collapse>
+
+    <ng-container pOneSidenavBottom>
+      <p-one-sidenav-divider></p-one-sidenav-divider>
+      <p-one-sidenav-item
+        [tooltip]="'@PONE.MAIN.SIDENAV.LOGOUT' | translate"
+        (click)="signOut()"
+      >
+        <i pOneIcon class="bi bi-box-arrow-right text-danger"></i>
+        Logout
+      </p-one-sidenav-item>
+    </ng-container>
   </p-one-sidenav>
+
   <router-outlet></router-outlet>
 </p-one-sidenav-container>

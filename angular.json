@@ -620,58 +620,6 @@
       },
       "tags": []
     },
-    "stores-admin-profiles": {
-      "projectType": "library",
-      "root": "libs/stores/admin/profiles",
-      "sourceRoot": "libs/stores/admin/profiles/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/admin/profiles"],
-          "options": {
-            "jestConfig": "libs/stores/admin/profiles/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/stores/admin/profiles/**/*.ts",
-              "libs/stores/admin/profiles/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
-    "stores-admin-users": {
-      "projectType": "library",
-      "root": "libs/stores/admin/users",
-      "sourceRoot": "libs/stores/admin/users/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/admin/users"],
-          "options": {
-            "jestConfig": "libs/stores/admin/users/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/stores/admin/users/**/*.ts",
-              "libs/stores/admin/users/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "stores-financial": {
       "projectType": "library",
       "root": "libs/stores/financial",

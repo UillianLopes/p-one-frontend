@@ -1,10 +1,5 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
-import { Inject, Injectable, NgZone, Optional } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 
@@ -16,8 +11,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private readonly _oidcSecurityService: OidcSecurityService,
     @Optional()
     @Inject(TOKEN_REQUIRED_ENDPOINTS)
-    private readonly _tokenRequiredUrls: string[],
-    private readonly _ngZone: NgZone
+    private readonly _tokenRequiredUrls: string[]
   ) {}
 
   private _isTokenRequiredForThisUri(uri: string) {

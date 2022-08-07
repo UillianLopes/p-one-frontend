@@ -1,1 +1,7 @@
-<ng-content></ng-content>
+<div
+  class="p-one-form-field"
+  [class.p-one-form-field--no-padding]="noPadding$ | async"
+>
+  <ng-content></ng-content>
+  <p-one-loading *ngIf="isLoading$ | async" size="small"></p-one-loading>
+</div>

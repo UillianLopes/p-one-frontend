@@ -1,7 +1,11 @@
-export interface OptionModel<T = any> {
+export interface OptionModel {
   id: string;
   title: string;
   subTitle?: string;
-  extra?: T;
+
   color?: string;
+}
+
+export interface OptionModelWithExtra<T> extends OptionModel {
+  extra?: T;
 }

@@ -35,6 +35,7 @@ export class AuthenticationStoreEffects {
                 id: userData.id,
                 name: userData.name,
                 email: userData.email,
+                roles: userData.role ?? [],
               },
             });
           })

@@ -8,6 +8,6 @@ export interface CreateUserRequest {
   birthDate: Date;
   profileId: string;
 
-  address: AddressModel;
+  address: Partial<AddressModel>;
   contacts: ContactModel[];
 }

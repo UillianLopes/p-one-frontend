@@ -1,0 +1,19 @@
+<table class="table table-sm table-hover table--fix-head">
+  <thead
+    *ngIf="tableHeaderRow && tableHeaderRow?.template as tableHeaderRowTemplate"
+  >
+    <ng-container [ngTemplateOutlet]="tableHeaderRowTemplate"></ng-container>
+  </thead>
+  <tbody *ngIf="tableRow && tableRow?.template as rowTemplate">
+    <ng-container
+      *ngFor="let data of data$ | async; trackBy: trackBy"
+      [ngTemplateOutlet]="rowTemplate"
+      [ngTemplateOutletContext]="{ $implicit: data }"
+    ></ng-container>
+  </tbody>
+  <tfoot
+    *ngIf="tableFooterRow && tableFooterRow?.template as footerRowTemplate"
+  >
+    <ng-container [ngTemplateOutlet]="footerRowTemplate"></ng-container>
+  </tfoot>
+</table>

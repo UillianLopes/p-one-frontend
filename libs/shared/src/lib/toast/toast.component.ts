@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional, TemplateRef } from '@angular/core';
 
-import { TOAST_OPTIONS, TOAST_TEMPLATE, TOAST_TEXT, ToastOptions } from './@types/toast.options';
+import { TOAST_OPTIONS, TOAST_TEMPLATE, TOAST_TEXT, TOAST_TEXTS, ToastOptions } from './@types/toast.options';
 import { TOAST_REF, ToastRef } from './@types/toast.ref';
 
 @Component({
@@ -17,6 +17,10 @@ export class ToastComponent implements OnInit {
     @Optional()
     @Inject(TOAST_TEXT)
     public readonly text: string,
+
+    @Optional()
+    @Inject(TOAST_TEXTS)
+    public readonly texts: string,
 
     @Inject(TOAST_OPTIONS)
     public readonly options: ToastOptions,

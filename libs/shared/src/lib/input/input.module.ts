@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { POneChipModule } from '../chip/chip.module';
+import { POneLoadingModule } from '../loading';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { AutocompleteDirective } from './autocomplete/autocomplete.directive';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -32,7 +33,13 @@ import { RadioComponent } from './radio/radio.component';
     RadioComponent,
     MultipleAutocompleteComponent,
   ],
-  imports: [CommonModule, NgxMaskModule, ReactiveFormsModule, POneChipModule],
+  imports: [
+    CommonModule,
+    NgxMaskModule,
+    ReactiveFormsModule,
+    POneChipModule,
+    POneLoadingModule,
+  ],
   exports: [
     FormFieldComponent,
     InputDirective,

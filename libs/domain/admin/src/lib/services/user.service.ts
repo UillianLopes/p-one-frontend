@@ -28,7 +28,7 @@ export class UserService {
       .pipe(map(({ data }) => data));
   }
 
-  public create(user: CreateUserRequest): Observable<unknown> {
+  public create(user: Partial<CreateUserRequest>): Observable<unknown> {
     return this._httpClient
       .post<ResponseModel<unknown>>(`${this._adminEndpoint}/user`, user)
       .pipe(map(({ data }) => data));

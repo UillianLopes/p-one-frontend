@@ -16,6 +16,9 @@ export class AuthenticationStoreFacade {
   public readonly isAuthenticated$ = this._store.select(
     AuthenticationStoreSelectors.isAuthenticatedSelector
   );
+  public readonly roles$ = this._store.select(
+    AuthenticationStoreSelectors.rolesSelector
+  );
 
   constructor(private readonly _store: Store<AuthenticationStoreState>) {}
 

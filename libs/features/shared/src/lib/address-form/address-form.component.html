@@ -1,0 +1,80 @@
+<form [formGroup]="form">
+  <p-one-form-field>
+    <label pOneLabel for="numerInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.NUMBER.LABEL' | translate }}
+    </label>
+    <input
+      #numerInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.NUMBER.PLACEHOLDER' | translate
+      "
+      formControlName="number"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel for="streetInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.STREET.LABEL' | translate }}
+    </label>
+    <input
+      #streetInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.STREET.PLACEHOLDER' | translate
+      "
+      formControlName="street"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel for="districtInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.DISTRICT.LABEL' | translate }}
+    </label>
+    <input
+      #districtInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.DISTRICT.PLACEHOLDER' | translate
+      "
+      formControlName="district"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel for="cityInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.CITY.LABEL' | translate }}
+    </label>
+    <input
+      #cityInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.CITY.PLACEHOLDER' | translate
+      "
+      formControlName="city"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel for="stateInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.STATE.LABEL' | translate }}
+    </label>
+    <input
+      #stateInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.STATE.PLACEHOLDER' | translate
+      "
+      formControlName="state"
+    />
+  </p-one-form-field>
+  <p-one-form-field>
+    <label pOneLabel for="countryInput">
+      {{ '@PONE.SHARED.ADDRESS_FORM.FIELDS.COUNTRY.LABEL' | translate }}
+    </label>
+    <input
+      #countryInput
+      pOneInput
+      [placeholder]="
+        '@PONE.SHARED.ADDRESS_FORM.FIELDS.COUNTRY.PLACEHOLDER' | translate
+      "
+      formControlName="country"
+    />
+  </p-one-form-field>
+</form>

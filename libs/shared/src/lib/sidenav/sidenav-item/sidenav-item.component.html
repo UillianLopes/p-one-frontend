@@ -7,7 +7,7 @@
   tooltipPosition="right"
   [canTooltipOpen]="(canTooltipOpen$ | async)!"
 >
-  <div class="p-one-sidenav-item__leading">
+  <div class="p-one-sidenav-item__leading" [ngClass]="(class$ | async)!">
     <ng-content select="[pOneIcon],[pOneLeading]"></ng-content>
   </div>
   <div class="p-one-sidenav-item__content">

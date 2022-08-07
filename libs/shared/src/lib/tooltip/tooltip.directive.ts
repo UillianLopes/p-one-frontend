@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { eventOutsideOverlay } from '../oprators';
 import { TooltipComponent } from './tooltip.component';
-import { TOOLTIP_DATA, TOOLTIP_TEMPLATE } from './tooltip.constants';
+import { TOOLTIP_CONFIG, TOOLTIP_DATA, TOOLTIP_TEMPLATE } from './tooltip.constants';
 import { TooltipRef } from './tooltip.ref';
 
 export const BOTTOM: ConnectedPosition = {
@@ -24,6 +24,7 @@ export const BOTTOM: ConnectedPosition = {
   overlayY: 'top',
   originY: 'bottom',
   offsetY: 4,
+  weight: 1
 };
 
 export const RIGHT: ConnectedPosition = {
@@ -32,6 +33,7 @@ export const RIGHT: ConnectedPosition = {
   overlayY: 'center',
   originY: 'center',
   offsetX: 4,
+  weight: 1
 };
 
 export const LEFT: ConnectedPosition = {
@@ -40,6 +42,7 @@ export const LEFT: ConnectedPosition = {
   overlayY: 'center',
   originY: 'center',
   offsetX: -8,
+  weight: 1
 };
 
 export const TOP: ConnectedPosition = {
@@ -48,9 +51,17 @@ export const TOP: ConnectedPosition = {
   overlayY: 'bottom',
   originY: 'top',
   offsetY: 4,
+  weight: 1
 };
 
 export type TooltipPosition = 'bottom' | 'right' | 'left' | 'top';
+
+const POSITIONS = new Map<TooltipPosition, ConnectedPosition[]>([
+  ['bottom', [{ ...BOTTOM }, TOP, RIGHT, LEFT]],
+  ['top', [{ ...TOP }, BOTTOM, RIGHT, LEFT]],
+  ['left', [{ ...LEFT }, BOTTOM, TOP, RIGHT]],
+  ['right', [{ ...RIGHT }, BOTTOM, TOP, LEFT]],
+]);
 
 @Directive({
   selector: '[pOneTooltip]',
@@ -77,6 +88,9 @@ export class TooltipDirective implements OnDestroy {
 
   @Input()
   public autoClose = true;
+
+  @Input()
+  public useTooltipStyle = true;
 
   constructor(
     private readonly _overlay: Overlay,
@@ -114,26 +128,8 @@ export class TooltipDirective implements OnDestroy {
       return;
     }
 
-    let position = [BOTTOM, TOP, LEFT, RIGHT];
-
-    switch (this.tooltipPosition) {
-      case 'bottom':
-        position = [BOTTOM, TOP, LEFT, RIGHT];
-        break;
-
-      case 'top':
-        position = [TOP, BOTTOM, LEFT, RIGHT];
-        break;
-
-      case 'left':
-        position = [LEFT, BOTTOM, TOP, RIGHT];
-        break;
-
-      case 'right':
-        position = [RIGHT, BOTTOM, TOP, LEFT];
-        break;
-    }
-
+    const position = POSITIONS.get(this.tooltipPosition) ?? [BOTTOM];
+    
     const overlayRef = this._overlay.create({
       positionStrategy: this._overlay
         .position()
@@ -156,6 +152,12 @@ export class TooltipDirective implements OnDestroy {
           {
             provide: TOOLTIP_DATA,
             useValue: typeof this.tooltip === 'string' ? this.tooltip : null,
+          },
+          {
+            provide: TOOLTIP_CONFIG,
+            useValue: {
+              useTooltipStyle: this.useTooltipStyle,
+            },
           },
           {
             provide: TooltipRef,

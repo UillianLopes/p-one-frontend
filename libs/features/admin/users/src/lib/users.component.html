@@ -20,8 +20,47 @@
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </p-one-sub-header>
+  <p-one-sub-header>
+    <button class="btn btn-primary btn-sm" (click)="openCreateUserDialog()">
+      {{ '@PONE.ADMIN.USERS.BUTTONS.CREATE_USER' | translate }}
+    </button>
+
+    <p-one-form-field noPadding>
+      <input pOneSmallInput />
+    </p-one-form-field>
+  </p-one-sub-header>
   <p-one-table-container>
-    <table class="table table-sm table-hover table--fix-head">
+    <p-one-table [data]="(users$ | async)!" [trackBy]="trackBy">
+      <tr p-one-table-header-row *pOneTableHeaderRow>
+        <th>
+          Teste
+          {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.NAME' | translate }}
+        </th>
+        <th>
+          {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.PROFILE' | translate }}
+        </th>
+        <th>
+          {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.BIRTH_DATE' | translate }}
+        </th>
+      </tr>
+      <tr p-one-table-row *pOneTableRow="let user">
+        <td>
+          {{ user?.name }}
+        </td>
+        <td>
+          {{ user?.profile?.title }}
+        </td>
+        <td>
+          {{ user?.birth?.date }}
+        </td>
+      </tr>
+      <tr p-one-table-footer-row *pOneTableFooterRow>
+        <td colspan="2">
+          Teste
+        </td>
+      </tr>
+    </p-one-table>
+    <!-- <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
           <th scope="col">
@@ -46,13 +85,6 @@
           <td>{{ user.birthDate | date }}</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </p-one-table-container>
-  <!-- <ngb-pagination
-    [collectionSize]="(filtredCategoriesLength$ | async)!"
-    [page]="(page$ | async)!"
-    [pageSize]="(pageSize$ | async)!"
-    (pageChange)="setCategoriesPage($event)"
-    [attr.aria-label]="'@PONE.FINANCIAL.CATEGORIES.PAGINATION.LABEL' | translate"
-  ></ngb-pagination> -->
 </p-one-container>

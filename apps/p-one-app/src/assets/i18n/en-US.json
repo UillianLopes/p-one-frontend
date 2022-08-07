@@ -426,6 +426,15 @@
           "PROFILE": "Profile",
           "BIRTH_DATE": "Birth date"
         }
+      },
+      "MODALS": {
+        "CREATE": {
+          "TITLE": "Create user",
+          "BUTTONS": {
+            "CREATE_USER": "Create user",
+            "CANCEL": "Cancel"
+          }
+        }
       }
     },
     "PROFILES": {

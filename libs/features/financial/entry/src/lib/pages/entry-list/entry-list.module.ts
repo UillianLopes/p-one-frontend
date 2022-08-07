@@ -8,6 +8,7 @@ import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   EllipsisDirective,
   POneBreadcrumbModule,
+  POneButtonWithOptionsModule,
   POneChipModule,
   POneContainerModule,
   POneContextMenuModule,
@@ -64,10 +65,9 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     POneNotificationsDisplayButtonModule,
     TranslateModule,
     EllipsisDirective,
-    POneTableContainerModule
+    POneTableContainerModule,
+    POneButtonWithOptionsModule
   ],
   providers: [EntryListFacade],
 })
-export class EntryListModule {
-  constructor() { }
-}
+export class EntryListModule {}

@@ -1,7 +1,8 @@
 <p-one-sidenav-item
   *ngIf="user$ | async as user"
-  [pOneTooltip]="contentTemplate"
-  trigger="click"
+  [pOneTooltip]="user.name"
+  [tooltipPosition]="'right'"
+  color="secondary"
 >
   <div pOneLeading class="p-one-user-sidenav-item__first-letters">
     {{ user.name | pOneInitials }}
@@ -9,26 +10,3 @@
   {{ user.name | pOneFirstName }}
 </p-one-sidenav-item>
 
-<ng-template #contentTemplate>
-  <ng-container *ngIf="user$ | async as user">
-    <h3>{{ user.name }}</h3>
-  </ng-container>
-  <div>
-    <div pOneFlexRow gap="8px" justification="flex-end">
-      <button class="btn btn-sm btn-outline-primary">
-        <i pOneIcon class="bi bi-box-arrow-right"></i>
-        Profile
-      </button>
-      <button class="btn btn-sm btn-outline-danger" (click)="signOut()">
-        <i pOneIcon class="bi bi-box-arrow-right"></i>
-        Logout
-      </button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #titleTemplate>
-  <span class="p-one-notifications-display-button__title">
-    Notificações não lidas
-  </span>
-</ng-template>

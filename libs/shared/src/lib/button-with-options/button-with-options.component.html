@@ -1,0 +1,15 @@
+<ng-template #menuTemplate>
+  <div pOneFlexColumn 
+       gap="8px" 
+       class="p-one-button-with-options__menu">
+    <ng-content select="button[p-one-button-option]"></ng-content>
+  </div>
+</ng-template>
+<button
+  class="btn btn-sm btn-icon"
+  [pOneTooltip]="menuTemplate"
+  tooltipPosition="left"
+  trigger="click"
+>
+  <i class="bi bi-three-dots-vertical"></i>
+</button>

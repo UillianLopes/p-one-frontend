@@ -19,11 +19,15 @@
           <ng-content select="[pOneSidenavHeader]"></ng-content>
         </div>
       </div>
-      <div  class="p-one-sidenav__items p-one-sidenav__items--gap">
+      <div class="p-one-sidenav__items p-one-sidenav__items--gap">
         <ng-content
           select="p-one-sidenav-item,p-one-sidenav-collapse,[pOneSideNavItem],p-one-sidenav-divider"
         ></ng-content>
       </div>
+    </div>
+
+    <div class="p-one-sidenav__items p-one-sidenav__items--gap p-one-sidenav__bottom">
+      <ng-content select="[pOneSidenavBottom]"></ng-content>
     </div>
   </div>
 </aside>

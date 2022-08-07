@@ -448,10 +448,91 @@
           "PROFILE": "Perfil",
           "BIRTH_DATE": "Nacimento"
         }
+      },
+      "BUTTONS": {
+        "CREATE_USER": "Criar usuário"
+      },
+      "MODALS": {
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nome",
+            "PLACEHOLDER": "Digite o nome do usuário..."
+          },
+          "EMAIL": {
+            "LABEL": "E-mail",
+            "PLACEHOLDER": "Digite o e-mail do usuário..."
+          },
+          "PROFILE": {
+            "LABEL": "Perfil",
+            "PLACEHOLDER": "Selecione o perfil do usuário..."
+          },
+          "BIRTH_DATE": {
+            "LABEL": "Nacimento",
+            "PLACEHOLDER": "Digite a data de nascimento do usuário..."
+          },
+          "PASSWORD": {
+            "LABEL": "Senha",
+            "PLACEHOLDER": "Digite a senha do usuário..."
+          },
+          "PASSWORD_CONFIRMATION": {
+            "LABEL": "Confirmação de senha",
+            "PLACEHOLDER": "Digite novamente a senha do usuário..."
+          }
+        },
+        "CREATE": {
+          "TITLE": "Criar usuário",
+          "SECTIONS": {
+            "PERSONAL_INFORMATION": "Informações pessoais",
+            "CREDENTIALS": "Credenciais",
+            "ADDRESS": "Endereço"
+          },
+          "BUTTONS": {
+            "CREATE_USER": "Criar usuário",
+            "CANCEL": "Cancelar"
+          }
+        }
       }
     },
     "PROFILES": {
       "TITLE": "Profiles"
+    }
+  },
+  "SHARED": {
+    "ADDRESS_FORM": {
+      "FIELDS": {
+        "STREET": {
+          "LABEL": "Rua",
+          "PLACEHOLDER": "Digite a rua..."
+        },
+        "NUMBER": {
+          "LABEL": "Número",
+          "PLACEHOLDER": "Digite o número..."
+        },
+        "COMPLEMENT": {
+          "LABEL": "Complemento",
+          "PLACEHOLDER": "Digite o complemento..."
+        },
+        "DISTRICT": {
+          "LABEL": "Bairro",
+          "PLACEHOLDER": "Digite o bairro..."
+        },
+        "CITY": {
+          "LABEL": "Cidade",
+          "PLACEHOLDER": "Digite a cidade..."
+        },
+        "STATE": {
+          "LABEL": "Estado",
+          "PLACEHOLDER": "Digite o estado..."
+        },
+        "COUNTRY": {
+          "LABEL": "País",
+          "PLACEHOLDER": "Digite o país..."
+        },
+        "ZIP_CODE": {
+          "LABEL": "CEP",
+          "PLACEHOLDER": "Digite o CEP..."
+        }
+      }
     }
   }
 }

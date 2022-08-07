@@ -17,15 +17,13 @@ export class MainComponent
   constructor(
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
-    private readonly _translateService: TranslateService,
-    private readonly _authenticationStoreFacade: AuthenticationStoreFacade
+    private readonly _authenticationStoreFacade: AuthenticationStoreFacade,
+    private readonly _translateService: TranslateService
   ) {
     super();
   }
 
   public ngOnInit(): void {
-    this._authenticationStoreFacade.load();
-
     this._notificationsStoreFacade.startNotificationsHub();
     this._notificationsStoreFacade.loadUnreadNotifications();
 
@@ -36,5 +34,9 @@ export class MainComponent
       );
 
     this._settingsStoreFacade.loadUserSettings();
+  }
+
+  public signOut(): void {
+    this._authenticationStoreFacade.signOut();
   }
 }

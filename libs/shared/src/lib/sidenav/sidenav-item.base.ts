@@ -1,15 +1,21 @@
-import { Directive, Input, Optional, TemplateRef } from '@angular/core';
+import { Location } from '@angular/common';
+import { Directive, Input, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { combineLatest, of } from 'rxjs';
-import { filter, map, delay } from 'rxjs/operators';
-import { startWith, withLatestFrom } from 'rxjs/operators';
+import { delay, filter, map, startWith, withLatestFrom } from 'rxjs/operators';
+
+import { Color } from '../@types';
 import { SidenavCollapseStore } from './sidenav-collapse/sidenav-collapse.state';
 import { ESidenavState } from './sidenav-state.enum';
 import { SidenavStore } from './sidenav.state';
-import { Location } from '@angular/common';
+
+
 
 @Directive()
 export class SidenavItemBase {
+    @Input()
+    leadingBackgroundColor: Color | 'transparent' = 'transparent';
+
     @Input()
     link?: string;
   
