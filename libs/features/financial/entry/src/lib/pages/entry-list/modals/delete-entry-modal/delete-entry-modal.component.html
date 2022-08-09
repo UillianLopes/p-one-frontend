@@ -1,0 +1,36 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    {{
+      '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.TITLE'
+        | translate: { count: entriesLength$ | async }
+    }}
+  </h5>
+  <p-one-dialog-body>
+    <p
+      [innerHtml]="
+        '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.QUESTION'
+          | translate
+            : {
+                count: entriesLength$ | async,
+                entriesTitles: entriesTitles$ | async
+              }
+      "
+    ></p>
+    <p
+      [innerHtml]="
+        '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.PAID_COMPLEMENT' | translate
+      "
+    ></p>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="deleteEntries()">
+      {{
+        '@PONE.FINANCIAL.ENTRIES.MODALS.DELETE.BUTTONS.DELETE_ENTRY'
+          | translate: { count: entriesLength$ | async }
+      }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

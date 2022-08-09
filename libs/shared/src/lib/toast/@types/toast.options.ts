@@ -18,3 +18,4 @@ export const TOAST_TEMPLATE = new InjectionToken<TemplateRef<any>>(
   'TOAST_TEMPLATE'
 );
 export const TOAST_TEXT = new InjectionToken<string>('TOAST_TEXT');
+export const TOAST_TEXTS = new InjectionToken<string[]>('TOAST_TEXTS');

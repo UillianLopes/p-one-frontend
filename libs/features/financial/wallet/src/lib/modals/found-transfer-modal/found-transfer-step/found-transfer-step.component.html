@@ -1,0 +1,79 @@
+<form [formGroup]="form">
+  <p-one-form-field>
+    <label pOneLabel>
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
+    </label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteWallet"
+      formControlName="wallet"
+      [placeholder]="
+        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER' | translate
+      "
+    />
+
+    <p-one-autocomplete
+      #autoCompleteWallet="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
+        {{ wallet.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+
+  <p-one-form-field>
+    <label pOneLabel>
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
+    </label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteCategory"
+      formControlName="category"
+      [placeholder]="
+        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
+      "
+    />
+
+    <p-one-autocomplete
+      #autoCompleteCategory="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option
+        *ngFor="let category of categories$ | async"
+        [value]="category"
+      >
+        {{ category.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+
+  <p-one-form-field>
+    <label pOneLabel>
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
+    </label>
+
+    <input
+      pOneInput
+      [pOneAutocomplete]="autoCompleteSubCategory"
+      formControlName="subCategory"
+      [placeholder]="
+        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
+      "
+    />
+
+    <p-one-autocomplete
+      #autoCompleteSubCategory="pOneAutocomplete"
+      [displayFn]="displayFn"
+    >
+      <p-one-option
+        *ngFor="let subCategory of subCategories$ | async"
+        [value]="subCategory"
+      >
+        {{ subCategory.name }}
+      </p-one-option>
+    </p-one-autocomplete>
+  </p-one-form-field>
+</form>

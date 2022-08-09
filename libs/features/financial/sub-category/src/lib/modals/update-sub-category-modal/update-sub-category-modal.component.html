@@ -1,0 +1,99 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    {{ '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.TITLE' | translate }}
+  </h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <p-one-form-field>
+        <label pOneLabel for="categoryNameInput">
+          {{
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.NAME.LABEL' | translate
+          }}
+        </label>
+        <input
+          #categoryNameInput
+          pOneInput
+          [placeholder]="
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.NAME.PLACEHOLDER'
+              | translate
+          "
+          formControlName="name"
+        />
+      </p-one-form-field>
+
+      <p-one-form-field>
+        <label pOneLabel for="categoryNameInput">
+          {{
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.CATEGORY.LABEL'
+              | translate
+          }}
+        </label>
+        <input
+          #categoryNameInput
+          pOneInput
+          [placeholder]="
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.CATEGORY.PLACEHOLDER'
+              | translate
+          "
+          formControlName="category"
+          [pOneAutocomplete]="categoryAutocomplete"
+        />
+
+        <p-one-autocomplete
+          #categoryAutocomplete="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            [value]="category"
+            *ngFor="let category of categories$ | async"
+          >
+            {{ category.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel for="descriptionInput">
+          {{
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.LABEL'
+              | translate
+          }}
+        </label>
+        <textarea
+          #descriptionInput
+          pOneInput
+          [placeholder]="
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.PLACEHOLDER'
+              | translate
+          "
+          formControlName="description"
+        ></textarea>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label for="colorInput">
+          {{
+            '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.FIELDS.COLOR.LABEL' | translate
+          }}
+        </label>
+        <p-one-color-picker
+          #colorInput
+          formControlName="color"
+        ></p-one-color-picker>
+      </p-one-form-field>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isCreateSubCategoryDisabled$ | async"
+      (click)="updateSubCategory()"
+    >
+      {{
+        '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.UPDATE.BUTTONS.UPDATE_SUB_CATEGORY'
+          | translate
+      }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

@@ -1,24 +1,30 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { FormFieldStore } from './form-field.state';
 
 @Component({
   selector: 'p-one-form-field',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss'],
-  host: {
-    class: 'p-one-form-field',
-    '[class.p-one-form-field--no-padding]': 'noPadding',
-  },
-  encapsulation: ViewEncapsulation.None,
+  providers: [FormFieldStore],
 })
 export class FormFieldComponent {
-  private _noPadding!: boolean;
+  public readonly isLoading$ = this._formFieldStore.isLoading$;
+  public readonly noPadding$ = this._formFieldStore.noPadding$;
 
   @Input()
-  set noPadding(v: boolean | string | undefined) {
-    this._noPadding = v === undefined || v === '' || v === null || v === true;
+  public set noPadding(noPadding: boolean | string | undefined) {
+    if (typeof noPadding === 'string' || noPadding === undefined) {
+      this._formFieldStore.setNoPadding(true);
+    } else {
+      this._formFieldStore.setNoPadding(noPadding);
+    }
   }
 
-  get noPadding(): boolean {
-    return this._noPadding;
+  @Input()
+  public set isLoading(isLoading: boolean) {
+    this._formFieldStore.setIsLoading(isLoading);
   }
+
+  constructor(private readonly _formFieldStore: FormFieldStore) {}
 }

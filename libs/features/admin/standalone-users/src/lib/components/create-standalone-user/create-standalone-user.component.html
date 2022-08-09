@@ -1,0 +1,111 @@
+<p-one-card [isLoading]="(isLoading$ | async)!">
+  <span pOneCardHeader>
+    <h4>{{ '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.TITLE' | translate }}</h4>
+  </span>
+  <form [formGroup]="form">
+    <p-one-form-field>
+      <label for="nameInput">
+        {{
+          '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.NAME.LABEL'
+            | translate
+        }}
+      </label>
+      <input
+        #nameInput
+        pOneInput
+        formControlName="name"
+        [placeholder]="
+          '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.NAME.PLACEHOLDER'
+            | translate
+        "
+      />
+    </p-one-form-field>
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+        <label for="emailInput">
+          {{
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.EMAIL.LABEL'
+              | translate
+          }}
+        </label>
+        <input
+          #emailInput
+          pOneInput
+          formControlName="email"
+          [placeholder]="
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.EMAIL.PLACEHOLDER'
+              | translate
+          "
+          type="email"
+        />
+      </p-one-form-field>
+      <p-one-form-field pOneGridColumn="150px">
+        <label for="birthDateInput">
+          {{
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.BIRTH_DATE.LABEL'
+              | translate
+          }}
+        </label>
+        <input
+          #birthDateInput
+          pOneInput
+          pOneDatepicker
+          formControlName="birthDate"
+          [placeholder]="
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.BIRTH_DATE.PLACEHOLDER'
+              | translate
+          "
+        />
+      </p-one-form-field>
+    </div>
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label for="nameInput">
+          {{
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.PASSWORD.LABEL'
+              | translate
+          }}
+        </label>
+        <input
+          #nameInput
+          pOneInput
+          formControlName="password"
+          [placeholder]="
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.PASSWORD.PLACEHOLDER'
+              | translate
+          "
+          type="password"
+        />
+      </p-one-form-field>
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label for="nameInput">
+          {{
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.PASSWORD_CONFIRMATION.LABEL'
+              | translate
+          }}
+        </label>
+        <input
+          #nameInput
+          pOneInput
+          formControlName="passwordConfirmation"
+          [placeholder]="
+            '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.FIELDS.PASSWORD_CONFIRMATION.PLACEHOLDER'
+              | translate
+          "
+        />
+      </p-one-form-field>
+    </div>
+  </form>
+  <div pOneCardFooter pOneFlexRow justification="flex-end">
+    <button
+      class="btn btn-primary"
+      [disabled]="isLoading$ | async"
+      (click)="createUser()"
+    >
+      {{
+        '@PONE.ADMIN.STANDALONE_USERS.CARDS.CREATE.BUTTONS.CREATE_USER'
+          | translate
+      }}
+    </button>
+  </div>
+</p-one-card>

@@ -1,0 +1,82 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    {{ '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.TITLE' | translate }}
+  </h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="categoryNameInput">{{
+            '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.NAME.LABEL' | translate
+          }}</label>
+          <input
+            #categoryNameInput
+            pOneInput
+            [placeholder]="
+              '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.NAME.PLACEHOLDER'
+                | translate
+            "
+            formControlName="name"
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="200px">
+          <label pOneLabel for="categoryNameInput">
+            {{ '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.TYPE.LABEL' | translate }}
+          </label>
+          <select pOneInput formControlName="type">
+            <option [ngValue]="EntryType.Debit">
+              {{
+                '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.TYPE.OPTIONS.DEBIT'
+                  | translate
+              }}
+            </option>
+            <option [ngValue]="EntryType.Credit">
+              {{
+                '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.TYPE.OPTIONS.CREDIT'
+                  | translate
+              }}
+            </option>
+          </select>
+        </p-one-form-field>
+      </div>
+      <p-one-form-field>
+        <label pOneLabel for="descriptionInput">
+          {{
+            '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.LABEL'
+              | translate
+          }}
+        </label>
+        <textarea
+          #descriptionInput
+          pOneInput
+          [placeholder]="
+            '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.DESCRIPTION.PLACEHOLDER'
+              | translate
+          "
+          formControlName="description"
+        ></textarea>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label for="colorInput">{{
+          '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.FIELDS.COLOR.LABEL' | translate
+        }}</label>
+        <p-one-color-picker
+          #colorInput
+          formControlName="color"
+        ></p-one-color-picker>
+      </p-one-form-field>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isCreateCategoryDisabled$ | async"
+      (click)="updateCategory()"
+    >
+      {{ '@PONE.FINANCIAL.CATEGORIES.MODALS.UPDATE.BUTTONS.UPDATE_CATEGORY' | translate }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

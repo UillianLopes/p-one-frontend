@@ -1,0 +1,8 @@
+<ul *ngIf="row && row.template as template">
+  <ng-container *ngFor="let item of data$ | async">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: item }"
+    ></ng-container>
+  </ng-container>
+</ul>

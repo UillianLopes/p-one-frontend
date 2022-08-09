@@ -184,9 +184,9 @@ export class DatepickerCalendarStore extends ComponentStore<DatepickerCalendarSt
       value:
         begin && end
           ? {
-              begin: new Date(begin.year, begin.month - 1, begin.day),
-              end: new Date(end.year, end.month - 1, end.day),
-            }
+            begin: new Date(begin.year, begin.month - 1, begin.day),
+            end: new Date(end.year, end.month - 1, end.day),
+          }
           : undefined,
       hover: undefined,
     };
@@ -236,6 +236,7 @@ export class DatepickerCalendarStore extends ComponentStore<DatepickerCalendarSt
 
   public readonly setValue = this.updater(
     (state, value: Date | RangepickerValue) => {
+
       if (value instanceof Date) {
         return {
           ...state,
@@ -257,20 +258,20 @@ export class DatepickerCalendarStore extends ComponentStore<DatepickerCalendarSt
         value,
         begin: begin
           ? {
-              year: begin.getFullYear(),
-              month: begin.getMonth() + 1,
-              day: begin.getDate(),
-            }
+            year: begin.getFullYear(),
+            month: begin.getMonth() + 1,
+            day: begin.getDate(),
+          }
           : undefined,
         end: end
           ? {
-              year: end.getFullYear(),
-              month: end.getMonth() + 1,
-              day: end.getDate(),
-            }
+            year: end.getFullYear(),
+            month: end.getMonth() + 1,
+            day: end.getDate(),
+          }
           : undefined,
-        year: begin ? begin.getFullYear() : undefined,
-        month: begin ? begin.getMonth() + 1 : undefined,
+        year: begin ? begin.getFullYear() : state.year,
+        month: begin ? begin.getMonth() + 1 : state.month,
       };
     }
   );

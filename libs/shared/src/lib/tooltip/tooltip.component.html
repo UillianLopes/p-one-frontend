@@ -1,4 +1,8 @@
-<div class="p-one-tooltip">
+<div
+  class="p-one-tooltip"
+  [@tooltipAnimation]="status$ | async"
+  *ngIf="config && config.useTooltipStyle; else noStyleTemplate"
+>
   <ng-container *ngIf="data">
     <span>{{ data }}</span>
   </ng-container>
@@ -9,3 +13,12 @@
     ></ng-container>
   </ng-container>
 </div>
+
+<ng-template #noStyleTemplate>
+  <ng-container *ngIf="template">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: this.tooltipRef }"
+    ></ng-container>
+  </ng-container>
+</ng-template>

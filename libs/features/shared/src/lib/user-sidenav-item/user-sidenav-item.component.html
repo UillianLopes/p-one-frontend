@@ -1,0 +1,12 @@
+<p-one-sidenav-item
+  *ngIf="user$ | async as user"
+  [pOneTooltip]="user.name"
+  [tooltipPosition]="'right'"
+  color="secondary"
+>
+  <div pOneLeading class="p-one-user-sidenav-item__first-letters">
+    {{ user.name | pOneInitials }}
+  </div>
+  {{ user.name | pOneFirstName }}
+</p-one-sidenav-item>
+

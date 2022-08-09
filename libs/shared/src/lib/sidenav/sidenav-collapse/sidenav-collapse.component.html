@@ -1,3 +1,4 @@
+
 <div
   class="p-one-sidenav-collapse__item"
   [class.p-one-sidenav-collapse__item--active]="
@@ -7,7 +8,7 @@
   [@sidenavCollapseLeftPaddingAnimation]="sidenavPaddingLeftState$ | async"
   [pOneTooltip]="tooltip"
   tooltipPosition="right"
-  [canTooltipOpen]="canTooltipOpen$ | async"
+  [canTooltipOpen]="(canTooltipOpen$ | async)!"
 >
   <div class="p-one-sidenav-collapse__item__leading">
     <ng-content select="[pOneIcon],[pOneSidenavIcon]"></ng-content>
@@ -28,6 +29,7 @@
   class="p-one-sidenav-collapse__collapsable"
   [@sidenavColllapseAnimation]="collapseState$ | async"
 >
+  <div style="height: 4px; min-height: 4px"></div>
   <div class="p-one-sidenav-collapse__items">
     <ng-content select="p-one-sidenav-item,p-one-sidenav-collapse"></ng-content>
   </div>

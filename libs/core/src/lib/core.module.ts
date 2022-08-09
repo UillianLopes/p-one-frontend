@@ -3,7 +3,9 @@ import localeEn from '@angular/common/locales/en';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
 import { HammerModule } from '@angular/platform-browser';
+import { TitleStrategy } from '@angular/router';
 import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { TemplatePageTitleStrategy } from './defaults';
 
 import { LuxonDateFormatterParser } from './utils/luxon-date-formatter-parser';
 import { NgbCustomDateAdapter } from './utils/ngb-custom-date-adapter';
@@ -22,6 +24,7 @@ export class POneCoreModule {
     return {
       ngModule: POneCoreModule,
       providers: [
+        { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
         {
           provide: NgbDateAdapter,
           useClass: NgbCustomDateAdapter,

@@ -9,7 +9,7 @@ export function DestroyableMixin<T extends Constructor<{}>>(
 ) {
   @Directive()
   class Temporary extends Base implements OnDestroy {
-    destroyed$ = new Subject();
+    destroyed$ = new Subject<void>();
 
     constructor(...args: any[]) {
       super(args);

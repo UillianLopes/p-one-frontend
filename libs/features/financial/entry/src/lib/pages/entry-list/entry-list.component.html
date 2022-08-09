@@ -1,0 +1,307 @@
+<p-one-container [isLoading]="(this.isLoading$ | async)!">
+  <p-one-header pOneHeader>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+
+    <h2 [ngSwitch]="entryType$ | async" pOneEllipsis>
+      <ng-container *ngSwitchCase="EntryType.Debit">
+        {{
+          '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_PAY' | translate
+        }}
+      </ng-container>
+      <ng-container *ngSwitchCase="EntryType.Credit">
+        {{
+          '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_BE_RECEIVED'
+            | translate
+        }}
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
+      </ng-container>
+    </h2>
+
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <div pOneHeader class="p-one-entry-list__sub-header">
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.TITLE' | translate }}
+      </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+    <p-one-filter-display
+      [data]="(filterToDisplay$ | async)!"
+      (removed$)="remove($event)"
+    ></p-one-filter-display>
+  </div>
+  <div pOneHeader class="p-one-entry-list__sub-header">
+    <button
+      class="btn btn-primary btn-sm"
+      routerLink="/main/financial/entries/create"
+    >
+      <span pOneEllipsis>
+        {{ '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.CREATE_ENTRY' | translate }}
+      </span>
+    </button>
+
+    <div pOneFlexRow alignment="center" gap="8px">
+      <button
+        class="btn btn-primary btn-sm"
+        (click)="openEntryListFilterDialog()"
+      >
+        <span pOneEllipsis>
+          {{
+            '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_COMPLETE_FILTER'
+              | translate
+          }}
+        </span>
+      </button>
+      <p-one-month-year-picker
+        [value]="(dateFilter$ | async)!"
+        (change$)="setDateFilter($event)"
+      >
+      </p-one-month-year-picker>
+      <p-one-radio
+        *ngIf="(entryType$ | async) === undefined"
+        appearance="outline"
+        color="secondary"
+        [value]="typeFilter$ | async"
+        (change$)="setTypeFilter($event)"
+      >
+        <p-one-radio-button [value]="null">
+          <span pOneEllipsis>
+            {{
+              '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate
+            }}
+          </span>
+        </p-one-radio-button>
+        <p-one-radio-button [value]="EntryType.Credit">
+          <span pOneEllipsis>
+            <span>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.CREDIT' | translate
+              }}
+            </span>
+            <i class="bi bi-arrow-up text-success"> </i>
+          </span>
+        </p-one-radio-button>
+        <p-one-radio-button [value]="EntryType.Debit">
+          <span pOneEllipsis>
+            <span>
+              {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.DEBIT' | translate }}
+            </span>
+            <i class="bi bi-arrow-down text-danger"> </i>
+          </span>
+        </p-one-radio-button>
+      </p-one-radio>
+    </div>
+  </div>
+
+  <p-one-table-container>
+    <table class="table table-sm table-hover table-condensed table--fix-head">
+      <thead>
+        <tr>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.PARCEL_NUMBER'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.TITLE' | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.DUE_DATE'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.CATEGORY'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.SUB_CATEGORY'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.AMOUNT' | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.TYPE' | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.STATUS' | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.BAR_CODE'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th
+            scope="col"
+            class="p-one-entry-list__menu-col column--fixed-on-right"
+          ></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of this.entries$ | async; trackByEntryId">
+          <td>
+            <span pOneEllipsis>
+              <ng-container
+                *ngIf="entry.recurrences > 0; else noRecurrencesTemplate"
+              >
+                ({{ entry.index }}/{{ entry.recurrences }})
+              </ng-container>
+              <ng-template #noRecurrencesTemplate> --- </ng-template>
+            </span>
+          </td>
+          <td>
+            <span pOneEllipsis>
+              {{ entry.title }}
+            </span>
+          </td>
+          <td>
+            <span pOneEllipsis>
+              {{ entry.dueDate | date }}
+            </span>
+          </td>
+          <td>
+            <span pOneEllipsis>{{ entry.category?.title }}</span>
+          </td>
+          <td>
+            <span pOneEllipsis>{{ entry.subCategory?.title }}</span>
+          </td>
+          <td>
+            {{
+              entry.value
+                | currency
+                  : (entry.currency
+                      ? entry.currency
+                      : (settingsCurrency$ | async)!)
+            }}
+          </td>
+          <td [ngSwitch]="entry.type">
+            <i
+              *ngSwitchCase="EntryType.Debit"
+              class="bi bi-arrow-down text-danger"
+            >
+            </i>
+
+            <i
+              *ngSwitchCase="EntryType.Credit"
+              class="bi bi-arrow-up text-success"
+            ></i>
+          </td>
+          <td [ngSwitch]="entry.paymentStatus">
+            <div pOneEllipsis>
+              <ng-container *ngSwitchCase="EntryPaymentStatus.Opened">
+                <span> Em aberto </span>
+                <i class="bi bi-check-circle text-primary"></i>
+              </ng-container>
+              <ng-container *ngSwitchCase="EntryPaymentStatus.ToPayToday">
+                Vence hoje
+                <i class="bi bi-exclamation-triangle text-warning"></i>
+              </ng-container>
+              <ng-container *ngSwitchCase="EntryPaymentStatus.Overdue">
+                Vencido
+                <i class="bi bi-exclamation-triangle text-danger"></i>
+              </ng-container>
+              <ng-container *ngSwitchCase="EntryPaymentStatus.Paid">
+                <ng-container [ngSwitch]="entry.type">
+                  <ng-container *ngSwitchCase="EntryType.Credit">
+                    Recebido
+                  </ng-container>
+                  <ng-container *ngSwitchCase="EntryType.Debit">
+                    Pago
+                  </ng-container>
+                </ng-container>
+
+                <i class="bi bi-check-circle text-success"></i>
+              </ng-container>
+            </div>
+          </td>
+
+          <td>
+            <span pOneEllipsis>
+              {{ entry.barCode }}
+            </span>
+          </td>
+
+          <td class="p-one-entry-list__menu-col column--fixed-on-right">
+            <p-one-button-with-options>
+              <button
+                p-one-button-option
+                color="success"
+                (click)="openPayEntryDialog(entry)"
+              >
+                <span class="material-icons-outlined" pOneIcon>payment</span>
+                {{
+                  '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY'
+                    | translate
+                }}
+              </button>
+              <button
+                p-one-button-option
+                color="warning"
+                (click)="openDeleteEntryDialog(entry)"
+              >
+                <i class="material-icons" pOneIcon>delete</i>
+                {{
+                  '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_DELETE_ENTRY'
+                    | translate
+                }}
+              </button>
+              <button
+                p-one-button-option
+                color="warning"
+                (click)="openEntryDetailsDialog(entry)"
+              >
+                <i class="bi bi-pencil" pOneIcon></i>
+                Detalhes
+              </button>
+            </p-one-button-with-options>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </p-one-table-container>
+</p-one-container>

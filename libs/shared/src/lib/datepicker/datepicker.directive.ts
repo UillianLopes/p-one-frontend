@@ -42,8 +42,17 @@ export class DatepickerDirective implements OnInit, ControlValueAccessor {
 
   constructor(private readonly _elementRef: ElementRef<HTMLInputElement>) {}
 
-  writeValue(obj?: Date): void {
-    this._value = obj;
+  writeValue(obj?: string | Date): void {
+    if (obj instanceof Date) {
+      this._value = obj;
+    } else if (typeof obj === 'string') {
+      const date = DateTime.fromISO(obj);
+
+      if (date.isValid) {
+        this._value = date.toJSDate();
+      }
+    }
+
     this._applyValueToElement();
   }
 

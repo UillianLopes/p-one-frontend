@@ -5,7 +5,7 @@ import { timer } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { v4 } from 'uuid';
 
-import { TOAST_OPTIONS, TOAST_TEMPLATE, TOAST_TEXT, ToastOptions } from './@types/toast.options';
+import { TOAST_OPTIONS, TOAST_TEMPLATE, TOAST_TEXT, TOAST_TEXTS, ToastOptions } from './@types/toast.options';
 import { TOAST_REF, ToastRef } from './@types/toast.ref';
 import { ToastComponent } from './toast.component';
 
@@ -26,7 +26,7 @@ export class ToastService {
   ) {}
 
   open(
-    content: TemplateRef<any> | string,
+    content: TemplateRef<any> | string | string[],
     options?: Partial<ToastOptions>
   ): { toastId: string; toastRef: ToastRef } {
     options = {
@@ -62,6 +62,10 @@ export class ToastService {
           {
             provide: TOAST_TEXT,
             useValue: typeof content === 'string' ? content : null,
+          },
+          {
+            provide: TOAST_TEXTS,
+            useValue: content instanceof Array ? content : null,
           },
           {
             provide: TOAST_REF,

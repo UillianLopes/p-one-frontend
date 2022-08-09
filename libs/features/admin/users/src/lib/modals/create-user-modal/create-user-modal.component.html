@@ -1,0 +1,156 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">
+    {{ '@PONE.ADMIN.USERS.MODALS.CREATE.TITLE' | translate }}
+  </h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <div pOneGrid gap="16px">
+        <div pOneGridColumn="minmax(0px, 1fr)">
+          <h6>
+            {{
+              '@PONE.ADMIN.USERS.MODALS.CREATE.SECTIONS.PERSONAL_INFORMATION'
+                | translate
+            }}
+          </h6>
+          <p-one-form-field>
+            <label pOneLabel for="categoryNameInput">
+              {{ '@PONE.ADMIN.USERS.MODALS.FIELDS.NAME.LABEL' | translate }}
+            </label>
+            <input
+              #categoryNameInput
+              pOneInput
+              [placeholder]="
+                '@PONE.ADMIN.USERS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
+              "
+              formControlName="name"
+            />
+          </p-one-form-field>
+
+          <p-one-form-field [isLoading]="(isProfilesLoading$ | async)!">
+            <label pOneLabel for="profileInput">
+              {{ '@PONE.ADMIN.USERS.MODALS.FIELDS.PROFILE.LABEL' | translate }}
+            </label>
+            <input
+              #profileInput
+              pOneInput
+              [placeholder]="
+                '@PONE.ADMIN.USERS.MODALS.FIELDS.PROFILE.PLACEHOLDER'
+                  | translate
+              "
+              formControlName="profile"
+              [pOneAutocomplete]="profilesAutocomplete"
+              i18n-placehoder
+            />
+
+            <p-one-autocomplete
+              #profilesAutocomplete="pOneAutocomplete"
+              [displayFn]="displayFn"
+            >
+              <p-one-option
+                [value]="profile"
+                *ngFor="let profile of profiles$ | async"
+              >
+                {{ profile.title }}
+              </p-one-option>
+            </p-one-autocomplete>
+          </p-one-form-field>
+          <p-one-form-field>
+            <label pOneLabel for="birthDateInput">
+              {{
+                '@PONE.ADMIN.USERS.MODALS.FIELDS.BIRTH_DATE.LABEL' | translate
+              }}
+            </label>
+            <input
+              #birthDateInput
+              pOneInput
+              pOneDatepicker
+              [placeholder]="
+                '@PONE.ADMIN.USERS.MODALS.FIELDS.BIRTH_DATE.PLACEHOLDER'
+                  | translate
+              "
+              formControlName="birthDate"
+              i18n-placehoder
+            />
+          </p-one-form-field>
+          <h6>
+            {{
+              '@PONE.ADMIN.USERS.MODALS.CREATE.SECTIONS.CREDENTIALS' | translate
+            }}
+          </h6>
+          <p-one-form-field>
+            <label pOneLabel for="emailInput">
+              {{ '@PONE.ADMIN.USERS.MODALS.FIELDS.EMAIL.LABEL' | translate }}
+            </label>
+            <input
+              #emailInput
+              pOneInput
+              [placeholder]="
+                '@PONE.ADMIN.USERS.MODALS.FIELDS.EMAIL.PLACEHOLDER' | translate
+              "
+              formControlName="email"
+              type="email"
+              autocomplete="off"
+            />
+          </p-one-form-field>
+          <div pOneGrid gap="16px">
+            <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+              <label pOneLabel for="passwordInput">
+                {{
+                  '@PONE.ADMIN.USERS.MODALS.FIELDS.PASSWORD.LABEL' | translate
+                }}
+              </label>
+              <input
+                #passwordInput
+                pOneInput
+                [placeholder]="
+                  '@PONE.ADMIN.USERS.MODALS.FIELDS.PASSWORD.PLACEHOLDER'
+                    | translate
+                "
+                formControlName="password"
+                type="password"
+                autocomplete="new-password"
+              />
+            </p-one-form-field>
+            <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+              <label pOneLabel for="passwordConfirmationInput">
+                {{
+                  '@PONE.ADMIN.USERS.MODALS.FIELDS.PASSWORD_CONFIRMATION.LABEL'
+                    | translate
+                }}
+              </label>
+              <input
+                #passwordConfirmationInput
+                pOneInput
+                [placeholder]="
+                  '@PONE.ADMIN.USERS.MODALS.FIELDS.PASSWORD_CONFIRMATION.PLACEHOLDER'
+                    | translate
+                "
+                formControlName="passwordConfirmation"
+                type="password"
+                autocomplete="new-password"
+              />
+            </p-one-form-field>
+          </div>
+        </div>
+        <div pOneGridColumn="300px">
+          <h6>
+            {{ '@PONE.ADMIN.USERS.MODALS.CREATE.SECTIONS.ADDRESS' | translate }}
+          </h6>
+          <p-one-address-form formControlName="address"></p-one-address-form>
+        </div>
+      </div>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.ADMIN.USERS.MODALS.CREATE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isSomethingLoading$ | async"
+      (click)="createUser()"
+    >
+      {{ '@PONE.ADMIN.USERS.MODALS.CREATE.BUTTONS.CREATE_USER' | translate }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

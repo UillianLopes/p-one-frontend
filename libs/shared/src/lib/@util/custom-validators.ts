@@ -26,10 +26,14 @@ export class CustomValidators {
     };
   }
 
-  public static requireToBeObject: ValidatorFn = (control) =>
-    control.value && typeof control.value === 'object'
+  public static requireToBeObject: ValidatorFn = (control) => {
+    if (!control.value) {
+      return null;
+    }
+    return typeof control.value === 'object'
       ? null
       : { requireToBeObject: true };
+  };
 
   public static whenParent(
     validator: ValidatorFn,
