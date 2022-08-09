@@ -23,7 +23,7 @@ jobs:
 
       - name: npm install, build
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build-financial-app-prod
 
       - name: Upload artifact for deployment job
