@@ -42,7 +42,7 @@
     "@angular/router": "14.1.1",
     "@ctrl/tinycolor": "^3.4.0",
     "@microsoft/signalr": "^6.0.3",
-    "@ng-bootstrap/ng-bootstrap": "12.1.2",
+    "@ng-bootstrap/ng-bootstrap": "13.0.0",
     "@ngrx/component-store": "14.0.2",
     "@ngrx/effects": "14.0.2",
     "@ngrx/store": "14.0.2",
@@ -79,7 +79,7 @@
     "@angular-eslint/eslint-plugin": "14.0.2",
     "@angular-eslint/eslint-plugin-template": "14.0.2",
     "@angular-eslint/template-parser": "14.0.2",
-    "@angular/cli": "~14.0.0",
+    "@angular/cli": "~14.1.0",
     "@angular/compiler-cli": "14.1.1",
     "@angular/language-service": "14.1.1",
     "@ngrx/schematics": "14.0.2",
@@ -97,8 +97,8 @@
     "@types/luxon": "^2.0.1",
     "@types/node": "14.14.33",
     "@types/uuid": "^8.3.1",
-    "@typescript-eslint/eslint-plugin": "5.24.0",
-    "@typescript-eslint/parser": "5.24.0",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
     "cypress": "^7.3.0",
     "dotenv": "10.0.0",
     "eslint": "8.15.0",
@@ -114,4 +114,3 @@
     "typescript": "4.7.4"
   }
 }
-
