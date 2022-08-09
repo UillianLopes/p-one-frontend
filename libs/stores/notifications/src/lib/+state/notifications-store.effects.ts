@@ -1,18 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpTransportType } from '@microsoft/signalr';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { NOTIFICATION_ENDPOINT, NotificationModel, NotificationService } from '@p-one/domain/notification';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import {
-  createSignalRHub,
-  mergeMapHubToAction,
-  ofHub,
-  signalrHubUnstarted,
-  startSignalRHub,
-} from 'ngrx-signalr-core';
+import { createSignalRHub, mergeMapHubToAction, ofHub, signalrHubUnstarted, startSignalRHub } from 'ngrx-signalr-core';
 import { merge, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { NotificationModel, NotificationService, NOTIFICATION_ENDPOINT } from '@p-one/domain/notification';
-
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 
 import {
   ENotificationsStoreActions,
@@ -92,7 +85,14 @@ export class NotificationsStoreEffects {
           options: {
             transport: HttpTransportType.WebSockets,
             accessTokenFactory: () =>
-              this._oidcSecurityService.getAccessToken(),
+              new Promise((resolve) => {
+                this._oidcSecurityService
+                  .getAccessToken()
+                  .pipe(take(1))
+                  .subscribe((accessToken) => {
+                    resolve(accessToken);
+                  });
+              }),
             logMessageContent: true,
           },
         });
@@ -122,5 +122,5 @@ export class NotificationsStoreEffects {
     private readonly _oidcSecurityService: OidcSecurityService,
     @Inject(NOTIFICATION_ENDPOINT)
     private readonly _notificationEndpoint: string
-  ) { }
+  ) {}
 }
