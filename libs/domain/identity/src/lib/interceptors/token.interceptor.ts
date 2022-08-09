@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { TOKEN_REQUIRED_ENDPOINTS } from '../constants';
 
@@ -34,12 +34,12 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    return next.handle(
+    return this._oidcSecurityService.getAccessToken().pipe(switchMap((token) =>  next.handle(
       req.clone({
         setHeaders: {
-          Authorization: `Bearer ${this._oidcSecurityService.getAccessToken()}`,
+          Authorization: `Bearer ${token}`,
         },
       })
-    );
+    )));
   }
 }

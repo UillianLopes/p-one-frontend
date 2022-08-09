@@ -7,7 +7,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   protected readonly uniqueId = `${this._nameId}-${uniqueId()}`;
 
-  private readonly _updated$ = new Subject();
+  private readonly _updated$ = new Subject<void>();
   private readonly _resized$ = new Subject<DOMRect>();
   private readonly _resizeObserver = new ResizeObserver(() =>
     this._ngZone.run(() => {
@@ -28,7 +28,7 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public animationDuration = 300;
 
-  protected readonly destroyed$ = new Subject();
+  protected readonly destroyed$ = new Subject<void>();
 
   constructor(
     protected readonly _elementRef: ElementRef<HTMLElement>,
@@ -39,6 +39,7 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed$.next();
+    this.destroyed$.complete();
     this._resizeObserver.unobserve(this._elementRef.nativeElement);
     this._resizeObserver.disconnect();
   }
@@ -58,32 +59,17 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this._updated$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      this.update(
-        this._data,
-        this._oldData,
-        this._getContainerRect()
-      );
+      this.update(this._data, this._oldData, this._getContainerRect());
     });
 
     this._resizeObserver.observe(this._elementRef.nativeElement);
   }
 
-  abstract init(
-    data: T,
-    containerRect: DOMRect
-  ): void;
+  abstract init(data: T, containerRect: DOMRect): void;
 
-  abstract update(
-    data: T,
-    oldData: T,
-    containerRect: DOMRect
-  ): void;
+  abstract update(data: T, oldData: T, containerRect: DOMRect): void;
 
-  abstract resize(
-    data: T,
-    oldData: T,
-    containerRect: DOMRect
-  ): void;
+  abstract resize(data: T, oldData: T, containerRect: DOMRect): void;
 
   private _getContainerRect(): DOMRect {
     return this._elementRef.nativeElement.getBoundingClientRect();

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor, UntypedFormBuilder, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -19,10 +19,10 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 export class PhoneFormComponent
   implements OnInit, ControlValueAccessor, OnDestroy
 {
-  destroyed$ = new Subject();
+  destroyed$ = new Subject<void>();
   phoneFormGroups$ = new Observable<UntypedFormGroup[]>();
-  phoneFormGroupsNeedsToChange$ = new Subject();
-  phoneFormGroupsValuesChanged$ = new Subject();
+  phoneFormGroupsNeedsToChange$ = new Subject<void>();
+  phoneFormGroupsValuesChanged$ = new Subject<void>();
 
   phoneFormArray = this._formBuilder.array([this._buildPhoneForm()]);
 

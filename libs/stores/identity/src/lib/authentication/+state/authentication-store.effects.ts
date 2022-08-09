@@ -7,7 +7,6 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import {
   AuthenticationStoreActionsUnion,
   EAuthenticationStoreActions,
-  loadFailure,
   loadSuccess,
   signIn,
   signOutFailure,
@@ -22,12 +21,13 @@ export class AuthenticationStoreEffects {
       switchMap(() =>
         this._oidcService.checkAuth(window.location.toString()).pipe(
           map(({ userData, isAuthenticated }) => {
+            console.log('USER DATA -> ', userData);
             if (userData && !isAuthenticated) {
               return signIn();
             }
 
             if (!isAuthenticated) {
-              return loadFailure();
+              return signIn();
             }
 
             return loadSuccess({

@@ -190,7 +190,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public maxValue = 100;
 
-  private readonly _destroyed$ = new Subject();
+  private readonly _destroyed$ = new Subject<void>();
   private readonly _resized$ = new Subject<DOMRect>();
   private readonly _nativeElement = this._elementRef.nativeElement;
   private readonly _resizeObserver = new ResizeObserver(() =>
@@ -256,11 +256,12 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this._resizeObserver.unobserve(this._nativeElement);
     this._resizeObserver.disconnect();
     this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   ngAfterViewInit(): void {
     this._resizeObserver.observe(this._nativeElement);
-    this._resized$.next();
+    this._resized$.next(this._nativeElement.getBoundingClientRect());
   }
 
   ngOnInit(): void {

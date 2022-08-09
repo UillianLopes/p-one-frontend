@@ -13,7 +13,7 @@ import { ColorPickerPopupComponent } from './color-picker-popup/color-picker-pop
   exportAs: 'pOneColorPicker',
 })
 export class ColorPickerDirective implements OnDestroy {
-  private readonly _destroyed$ = new Subject();
+  private readonly _destroyed$ = new Subject<void>();
   private _overlayRef?: OverlayRef;
   private get _color() {
     return (

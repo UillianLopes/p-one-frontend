@@ -22,9 +22,14 @@ export class HasRolesDirective extends DestroyableMixin() implements OnInit {
 
   public ngOnInit(): void {
     this._service.roles$.pipe(takeUntil(this.destroyed$)).subscribe((roles) => {
+      if (!roles) {
+        return;
+      }
       if (
-        (this.operator == 'OR' && this.roles.some((role) => roles.includes(role))) ||
-        (this.operator == 'AND' && this.roles.every((role) => roles.includes(role)))
+        (this.operator == 'OR' &&
+          this.roles.some((role) => roles.includes(role))) ||
+        (this.operator == 'AND' &&
+          this.roles.every((role) => roles.includes(role)))
       ) {
         this._viewContainerRef.createEmbeddedView(this._templateRef);
       } else {
