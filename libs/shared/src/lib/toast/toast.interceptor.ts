@@ -15,6 +15,8 @@ export class ToastInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       tap((event) => {
+
+        console.log(event);
         if (event instanceof HttpErrorResponse) {
           const { message, messages } = event.error;
           if (message) {

@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { map, Observable, take } from 'rxjs';
 
 @Injectable()
 export class WithoutAuthGuard implements CanActivate {
@@ -18,11 +13,15 @@ export class WithoutAuthGuard implements CanActivate {
   canActivate(
     _: ActivatedRouteSnapshot,
     __: RouterStateSnapshot
-  ): boolean | UrlTree {
-    if (this._oidcSecurityService.isAuthenticated()) {
-      return this._router.createUrlTree(['/main']);
-    }
+  ): Observable<boolean | UrlTree> {
+    return this._oidcSecurityService.isAuthenticated().pipe(take(1)).pipe(
+      map((isAuthenticated) => {
+        if (isAuthenticated) {
+          return this._router.createUrlTree(['/main']);
+        }
 
-    return true;
+        return true;
+      })
+    );
   }
 }
