@@ -11,7 +11,7 @@
     [autoClose]="false"
     trigger="click"
   >
-    <b>{{ monthToDisplay$ | async | titlecase }} / {{ year$ | async }}</b>
+    <b pOneEllipsis>{{ monthToDisplay$ | async | titlecase }} / {{ year$ | async }}</b>
   </button>
   <button
     class="btn btn-outline-secondary btn-sm p-one-month-year-picker__actions"

@@ -18,8 +18,8 @@ export class ContainerComponent extends DestroyableMixin() implements OnInit {
   readonly isLoading$ = this._facade.isLoading$;
 
   @Input()
-  set isLoading(value: boolean | null) {
-    this._facade.setIsLoading(value ?? false);
+  set isLoading(value: boolean) {
+    this._facade.setIsLoading(value);
   }
 
   constructor(private readonly _facade: ContainerFacade) {

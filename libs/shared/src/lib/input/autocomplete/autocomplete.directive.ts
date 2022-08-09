@@ -57,21 +57,37 @@ export class AutocompleteDirective
       .pipe(takeUntil(this.destroyed$))
       .subscribe((obj) => {
         this._ngControl?.control?.setValue(obj);
+        this._ngControl?.control?.markAsDirty();
+
+        this.close();
+      });
+
+    this._ngControl.control?.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((obj) => {
+        const element = this._elementRef.nativeElement as HTMLInputElement;
         if (!this.clearAfterSelect) {
-          (this._elementRef.nativeElement as HTMLInputElement).value = this
-            .autocomplete.displayFn
-            ? this.autocomplete.displayFn(obj)
-            : obj ?? '';
+          if (typeof obj === 'string') {
+            element.value = obj;
+          } else if (obj) {
+            element.value = this.autocomplete.displayFn
+              ? this.autocomplete.displayFn(obj)
+              : JSON.stringify(obj);
+          } else {
+            element.value = '';
+          }
         } else {
           (this._elementRef.nativeElement as HTMLInputElement).value = '';
         }
-
-        this.close();
       });
   }
 
   @HostListener('focus')
   open() {
+    if (this.disabled) {
+      return;
+    }
+
     if (this._overlayRef) {
       return;
     }
@@ -123,4 +139,20 @@ export class AutocompleteDirective
     this._overlayRef?.detach();
     this._overlayRef = undefined;
   }
+
+  @HostListener('keydown') onKeyDown() {
+    this.open();
+  }
+
+  @HostListener('click') click() {
+    this.open();
+  }
+}
+
+@Directive({
+  selector: 'input[pOneSmallAutocomplete]',
+})
+export class SmallAutocompleteDirective extends AutocompleteDirective {
+  @Input('pOneSmallAutocomplete')
+  public autocomplete!: AutocompleteComponent;
 }

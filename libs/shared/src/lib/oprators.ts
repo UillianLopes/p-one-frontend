@@ -2,7 +2,10 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { fromEvent, Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-export const observeResize$ = (element: HTMLElement) => {
+export const observeResize$ = (
+  element: HTMLElement,
+  unsubscriber$: Observable<void>
+) => {
   return new Observable<DOMRect>(function (subscriber) {
     const resizeObserver = new ResizeObserver(() => {
       subscriber.next(element.getBoundingClientRect());
@@ -10,6 +13,12 @@ export const observeResize$ = (element: HTMLElement) => {
 
     resizeObserver.observe(element);
     subscriber.next(element.getBoundingClientRect());
+
+    unsubscriber$.pipe(takeUntil(unsubscriber$)).subscribe(() => {
+      resizeObserver.unobserve(element);
+      resizeObserver.disconnect();
+      subscriber.complete();
+    });
   });
 };
 

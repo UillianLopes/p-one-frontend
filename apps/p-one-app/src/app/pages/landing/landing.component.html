@@ -1,0 +1,45 @@
+<main class="p-one-landing__main">
+  <div class="container">
+    <nav class="p-one-landing__nav">
+      <div class="p-one-landing__leading">
+        <h4>{{ '@PONE.LANDING.TITLE' | translate }}</h4>
+      </div>
+
+      <div class="p-one-landing__trailing">
+        <p-one-radio
+          appearance="outline"
+          color="light"
+          [formControl]="languageControl"
+          size="md"
+        >
+          <p-one-radio-button value="en-US">en-US</p-one-radio-button>
+          <p-one-radio-button value="pt-BR">pt-BR</p-one-radio-button>
+        </p-one-radio>
+        <button class="btn btn-outline-light" (click)="signIn()">
+          {{ '@PONE.LANDING.BUTTONS.SIGN_IN' | translate }}
+        </button>
+      </div>
+    </nav>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="assets/img/analytics.svg" />
+      </div>
+      <div class="col-lg-8">
+        <h1>{{ '@PONE.LANDING.WELCOME' | translate }}</h1>
+        <br />
+        <h3>{{ '@PONE.LANDING.PARAGRAPHS.FIRST' | translate }}</h3>
+        <h4>
+          {{ '@PONE.LANDING.PARAGRAPHS.SECOND' | translate }}
+        </h4>
+        <ul>
+          <li>{{ '@PONE.LANDING.TOPICS.DASHBOARD' | translate }}</li>
+          <li>{{ '@PONE.LANDING.TOPICS.ENTRIES' | translate }}</li>
+          <li>{{ '@PONE.LANDING.TOPICS.ORGANIZATION' | translate }}</li>
+        </ul>
+        <p-one-create-standalone-user></p-one-create-standalone-user>
+      </div>
+    </div>
+  </div>
+</main>

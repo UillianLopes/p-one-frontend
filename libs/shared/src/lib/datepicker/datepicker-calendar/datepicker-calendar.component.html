@@ -1,5 +1,5 @@
 <p-one-month-year-picker
-  [value]="monthAndYear$ | async"
+  [value]="(monthAndYear$ | async)!"
   (change$)="setMonthAndYear($event)"
 ></p-one-month-year-picker>
 
@@ -21,7 +21,7 @@
       [month]="(month$ | async)!"
       [begin]="(begin$ | async)!"
       [end]="(end$ | async)!"
-      [selected]="selected$ | async"
+      [selected]="(selected$ | async)!"
       [hover]="(hover$ | async)!"
     ></p-one-datepicker-day>
   </ng-container>

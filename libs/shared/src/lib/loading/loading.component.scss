@@ -13,10 +13,19 @@
 }
 
 .p-one-loading {
+  $self: &;
+
   &__squares {
     display: flex;
     flex-direction: row;
     gap: 16px;
+    &--small {
+      #{$self}__square {
+        width: 20px;
+        height: 20px;
+      }
+      gap: 8px;
+    }
   }
 
   &__square {

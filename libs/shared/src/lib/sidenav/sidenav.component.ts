@@ -9,7 +9,7 @@ import {
   QueryList,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay, distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
+import { delay, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../..';
 import { observeResize$ } from '../oprators';
@@ -36,7 +36,7 @@ export class SidenavComponent
   public items!: QueryList<SidenavItemComponent>;
   public items$!: Observable<SidenavItemComponent[]>;
 
-  public readonly state$ = this._store.sidenavState$.pipe(shareReplay());
+  public readonly state$ = this._store.sidenavState$;
   public readonly isFixed$ = this._store.isFixed$;
   public readonly isFloating$ = this._store.isFloating$;
   public readonly sidenaHeaderState$ = this._store.sidenavState$.pipe(
@@ -66,7 +66,7 @@ export class SidenavComponent
       return;
     }
 
-    observeResize$(sidenavItems)
+    observeResize$(sidenavItems, this.destroyed$)
       .pipe(
         takeUntil(this.destroyed$),
         map(({ width }) => width),

@@ -1,0 +1,30 @@
+<p-one-form-field>
+  <div class="input-group input-group-sm">
+    <span class="input-group-text">
+      <ng-content select="label,[pOneLabel]"></ng-content>
+    </span>
+
+    <ng-content select="[pOneDetailsInput]"></ng-content>
+
+    <ng-container *ngIf="canEdit$ | async">
+      <ng-container *ngIf="isEditing$ | async; else isEditingTemplate">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+          (click)="confirm()"
+        >
+          <i class="bi bi-check"></i>
+        </button>
+      </ng-container>
+      <ng-template #isEditingTemplate>
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+          (click)="makeTheFieldEditable()"
+        >
+          <i class="bi bi-pencil"></i>
+        </button>
+      </ng-template>
+    </ng-container>
+  </div>
+</p-one-form-field>

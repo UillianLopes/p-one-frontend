@@ -3,17 +3,91 @@
 table.table {
   border-spacing: 0px;
   border-collapse: separate;
+
   &--fix-head {
-    thead tr th {
+    thead tr {
       position: sticky;
-      top: 0;
+      top: 0px;
+      z-index: 3;
+
+      th {
+        background: var(--bs-white);
+        border-bottom: 2px solid var(--bs-gray-800);
+      }
+    }
+  }
+
+  min-width: 0px;
+  width: 100%;
+
+  $self: &;
+  tr td {
+    &.column--fixed-on-right {
+      position: sticky;
+      right: 0;
       z-index: 2;
       background: var(--bs-white);
-      border-bottom: 2px solid var(--bs-gray-800);
     }
+    &.column--fixed-on-left {
+      position: sticky;
+      left: 0px;
+      z-index: 2;
+      background: var(--bs-white);
+    }
+  }
+  tr th {
+    &.column--fixed-on-right {
+      position: sticky;
+      right: 0px;
+      top: 0px;
+      z-index: 2;
+      background: var(--bs-white);
+    }
+    &.column--fixed-on-left {
+      position: sticky;
+      left: 0px;
+      top: 0px;
+      z-index: 3;
+      background: var(--bs-white);
+    }
+  }
+  tr {
+    cursor: pointer;
+    td {
+      transition: 0.1s linear;
+      &:hover {
+        transition: 0.1s linear;
+      }
+    }
+    transition: 0.1s linear;
+    &:hover {
+      transition: 0.1s linear;
+    }
+  }
+  .btn-icon {
+    padding: 0px !important;
   }
 }
 
 .p-one-context-menu-host {
   cursor: default;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(var(--bs-primary-rgb),0.1);
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: rgba(var(--bs-primary-rgb),0.2);
+}
+::-webkit-scrollbar-thumb:hover{
+  background: rgba(var(--bs-primary-rgb),0.4);
+}
+::-webkit-scrollbar-thumb:active{
+  background: rgba(var(--bs-primary-rgb),.9);
 }

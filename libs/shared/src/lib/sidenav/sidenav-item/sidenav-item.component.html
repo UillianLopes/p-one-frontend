@@ -5,10 +5,10 @@
   [@sidenavItemPaddingLeftAnimation]="sidenavPaddingLeftState$ | async"
   [pOneTooltip]="tooltip"
   tooltipPosition="right"
-  [canTooltipOpen]="canTooltipOpen$ | async"
+  [canTooltipOpen]="(canTooltipOpen$ | async)!"
 >
-  <div class="p-one-sidenav-item__leading">
-    <ng-content select="[pOneIcon]"></ng-content>
+  <div class="p-one-sidenav-item__leading" [ngClass]="(class$ | async)!">
+    <ng-content select="[pOneIcon],[pOneLeading]"></ng-content>
   </div>
   <div class="p-one-sidenav-item__content">
     <ng-content></ng-content>

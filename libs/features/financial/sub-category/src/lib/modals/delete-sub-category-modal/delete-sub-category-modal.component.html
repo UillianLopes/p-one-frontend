@@ -1,0 +1,27 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 p-one-dialog-header>
+    {{
+      '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.TITLE'
+        | translate: (toBeDeletedSubCategoriesNames$ | async)
+    }}
+  </h5>
+  <p-one-dialog-body>
+    <p
+      [innerHTML]="
+        '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.QUESTION'
+          | translate: (toBeDeletedSubCategoriesNames$ | async)
+      "
+    ></p>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button class="btn btn-primary btn-sm" (click)="deleteSubCategory()">
+      {{
+        '@PONE.FINANCIAL.SUB_CATEGORIES.MODALS.DELETE.BUTTONS.DELETE_CATEGORY'
+          | translate: (toBeDeletedSubCategoriesNames$ | async)
+      }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>

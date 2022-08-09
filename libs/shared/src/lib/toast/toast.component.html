@@ -12,5 +12,10 @@
   [class.p-one-toast--closed]="ref.closed$ | async"
 >
   <ng-container *ngIf="template" [ngTemplateOutlet]="template"></ng-container>
-  <ng-container *ngIf="text">{{ text }}</ng-container>
+  <ng-container *ngIf="text">{{ text | translate }}</ng-container>
+  <ng-container *ngIf="texts">
+    <ng-container *ngFor="let text of texts">
+      {{ text | translate }} <br />
+    </ng-container>
+  </ng-container>
 </section>

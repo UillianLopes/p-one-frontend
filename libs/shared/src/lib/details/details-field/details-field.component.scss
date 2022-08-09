@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+.p-one-details-field {
+  &__input {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0px, 1fr) auto;
+    align-items: center;
+  }
+}

@@ -1,0 +1,131 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <h5 class="card-header">
+    {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+  </h5>
+  <p-one-dialog-body>
+    <form [formGroup]="this.form">
+      <p-one-form-field>
+        <p-one-radio [value]="mode$ | async" (change$)="setMode($event)">
+          <p-one-radio-button [value]="EWalletType.Balance">
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TYPES.BANK_ACCOUNT'
+                | translate
+            }}
+          </p-one-radio-button>
+          <p-one-radio-button [value]="EWalletType.Wallet">
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TYPES.DIGITAL_WALLET'
+                | translate
+            }}
+          </p-one-radio-button>
+        </p-one-radio>
+      </p-one-form-field>
+
+      <p-one-form-field>
+        <label pOneLabel>{{
+          '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.NAME.LABEL' | translate
+        }}</label>
+        <input
+          pOneInput
+          formControlName="name"
+          [placeholder]="
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.NAME.PLACEHOLDER' | translate
+          "
+        />
+      </p-one-form-field>
+      <div class="row">
+        <p-one-form-field class="col">
+          <label pOneLabel>{{
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CURRENCY.LABEL' | translate
+          }}</label>
+          <select pOneInput formControlName="currency">
+            <option ngValue="BRL">Real (BRL)</option>
+            <option ngValue="USD">Dollar (USD)</option>
+          </select>
+        </p-one-form-field>
+        <p-one-form-field class="col">
+          <label pOneLabel for="colorInput">
+            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.COLOR.LABEL' | translate }}
+          </label>
+          <p-one-color-picker
+            #colorInput
+            formControlName="color"
+          ></p-one-color-picker>
+        </p-one-form-field>
+      </div>
+
+      <ng-container *ngIf="(mode$ | async) === EWalletType.Balance">
+        <p-one-form-field>
+          <label pOneLabel for="agencyInput" i18n>Banco</label>
+          <input
+            #agencyInput
+            pOneInput
+            placeholder="Selecione a instituição"
+            formControlName="bank"
+            type="text"
+            [pOneAutocomplete]="banksAutocomplete"
+          />
+          <p-one-autocomplete
+            #banksAutocomplete="pOneAutocomplete"
+            [displayFn]="displayBankFn"
+          >
+            <p-one-option
+              *ngFor="let bank of filtredBanks$ | async"
+              [value]="bank"
+            >
+              {{ bank.code }} - {{ bank.name }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+        <div pOneGrid gap="16px">
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="agencyInput">
+              {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.AGENCY.LABEL' | translate }}
+            </label>
+            <input
+              #agencyInput
+              pOneInput
+              [placeholder]="
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.AGENCY.PLACEHOLDER' | translate
+              "
+              formControlName="agency"
+              type="tel"
+            />
+          </p-one-form-field>
+
+          <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+            <label pOneLabel for="numberInput" i18n>
+              {{
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.LABEL' | translate
+              }}
+            </label>
+            <input
+              #numberInput
+              pOneInput
+              [placeholder]="
+                '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.ACCOUNT_NUMBER.PLACEHOLDER'
+                  | translate
+              "
+              formControlName="number"
+              type="tel"
+            />
+          </p-one-form-field>
+        </div>
+      </ng-container>
+    </form>
+  </p-one-dialog-body>
+  <p-one-dialog-footer>
+    <button class="btn btn-outline-danger btn-sm" pOneDialogClose>
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button
+      class="btn btn-primary btn-sm"
+      [disabled]="isCreateWalletDisabled$ | async"
+      (click)="createWallet()"
+    >
+      {{
+        '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.BUTTONS.CREATE_WALLET' | translate
+      }}
+    </button>
+  </p-one-dialog-footer>
+</p-one-dialog>
