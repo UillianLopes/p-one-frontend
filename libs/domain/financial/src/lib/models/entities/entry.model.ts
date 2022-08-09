@@ -1,6 +1,7 @@
 import { OptionModel } from '@p-one/core';
 
 import { EEntryPaymentStatus, EEntryType } from '../enums';
+import { PaymentModel } from './payment.model';
 
 export interface EntryModel {
   id: string;
@@ -18,4 +19,5 @@ export interface EntryModel {
   barCode: string;
   paymentStatus: EEntryPaymentStatus;
   currency: string;
+  payments: PaymentModel[];
 }

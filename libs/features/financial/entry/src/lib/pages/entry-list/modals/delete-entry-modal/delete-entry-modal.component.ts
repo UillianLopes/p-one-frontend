@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 
-import {
-  DeleteEntryModalData,
-  DeleteEntryModalStore,
-} from './delete-entry-modal.state';
+import { DeleteEntryModalData, DeleteEntryModalStore } from './delete-entry-modal.state';
 
 @Component({
   selector: 'p-one-delete-entry-modal',

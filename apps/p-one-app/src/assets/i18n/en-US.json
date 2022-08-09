@@ -87,6 +87,7 @@
         "DELETE": {
           "TITLE": "Delete {count, plural, =0{entry} one {entry} other {entries}}",
           "QUESTION": "Are you sure you want to delete the following {count, plural, =0{entry} one {entry} other {entries}}: <b>{entriesTitles}</b>?",
+          "PAID_COMPLEMENT": "Doing this may change your balance",
           "BUTTONS": {
             "CANCEL": "Cancel",
             "DELETE_ENTRY": "Delete {count, plural, =0{entry} one {entry} other {entries}}"
@@ -430,6 +431,39 @@
       "MODALS": {
         "CREATE": {
           "TITLE": "Create user",
+          "BUTTONS": {
+            "CREATE_USER": "Create user",
+            "CANCEL": "Cancel"
+          }
+        }
+      }
+    },
+    "STANDALONE_USERS": {
+      "CARDS": {
+        "CREATE": {
+          "TITLE": "Want to register?",
+          "FIELDS": {
+            "NAME": {
+              "LABEL": "Name",
+              "PLACEHOLDER": "Type your name"
+            },
+            "EMAIL": {
+              "LABEL": "Email",
+              "PLACEHOLDER": "Type your email"
+            },
+            "BIRTH_DATE": {
+              "LABEL": "Birth date",
+              "PLACEHOLDER": "Select your birth date"
+            },
+            "PASSWORD": {
+              "LABEL": "Password",
+              "PLACEHOLDER": "Type your password"
+            },
+            "PASSWORD_CONFIRMATION": {
+              "LABEL": "Password confirmation",
+              "PLACEHOLDER": "Type your password again"
+            }
+          },
           "BUTTONS": {
             "CREATE_USER": "Create user",
             "CANCEL": "Cancel"

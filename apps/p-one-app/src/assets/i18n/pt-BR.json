@@ -168,6 +168,7 @@
         "DELETE": {
           "TITLE": "Exclusão de {count, plural, =0{entrada} one {entrada} other {entradas}}",
           "QUESTION": "Tem certeza que deseja excluir {count, plural, =0{a} one {a} other {as}} {count, plural, =0{entrada} one {entrada} other {entradas}} <b>{entriesTitles}</b>?",
+          "PAID_COMPLEMENT": "Fazer isso por alterar o saldo de suas carteiras!",
           "BUTTONS": {
             "CANCEL": "Cancelar",
             "DELETE_ENTRY": "Excluir {count, plural, =0{entrada} one {entrada} other {entradas}}"
@@ -485,6 +486,39 @@
             "PERSONAL_INFORMATION": "Informações pessoais",
             "CREDENTIALS": "Credenciais",
             "ADDRESS": "Endereço"
+          },
+          "BUTTONS": {
+            "CREATE_USER": "Criar usuário",
+            "CANCEL": "Cancelar"
+          }
+        }
+      }
+    },
+    "STANDALONE_USERS": {
+      "CARDS": {
+        "CREATE": {
+          "TITLE": "Quer se registrar?",
+          "FIELDS": {
+            "NAME": {
+              "LABEL": "Nome",
+              "PLACEHOLDER": "Digite seu nome"
+            },
+            "EMAIL": {
+              "LABEL": "E-mail",
+              "PLACEHOLDER": "Digite seu e-mail"
+            },
+            "BIRTH_DATE": {
+              "LABEL": "Nascimento",
+              "PLACEHOLDER": "Selecione sua data de nascimento"
+            },
+            "PASSWORD": {
+              "LABEL": "Senha",
+              "PLACEHOLDER": "Digite sua senha"
+            },
+            "PASSWORD_CONFIRMATION": {
+              "LABEL": "Confirmação de senha",
+              "PLACEHOLDER": "Digite sua senha novamente"
+            }
           },
           "BUTTONS": {
             "CREATE_USER": "Criar usuário",

@@ -7,7 +7,6 @@ import { catchError, map } from 'rxjs/operators';
 import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
 import {
   BuildEntryReccurrenceRequest,
-  CategoryModel,
   CreateEntryRequest,
   EntryFilterRequest,
   EntryModel,
@@ -15,6 +14,7 @@ import {
   PayEntryRequest,
   RecurrenceModel,
 } from '../models';
+import { UpdateEntryRequest } from '../models/requests/update-entry.request';
 
 @Injectable()
 export class EntryService {
@@ -52,12 +52,9 @@ export class EntryService {
       );
   }
 
-  create(entry: Partial<CreateEntryRequest>): Observable<EntryModel[]> {
+  create(body: Partial<CreateEntryRequest>): Observable<EntryModel[]> {
     return this._httpClient
-      .post<ResponseModel<EntryModel[]>>(
-        `${this._financialApiUrl}/Entry`,
-        entry
-      )
+      .post<ResponseModel<EntryModel[]>>(`${this._financialApiUrl}/Entry`, body)
       .pipe(
         map((resposne) => resposne.data),
         catchError((err) =>
@@ -66,11 +63,22 @@ export class EntryService {
       );
   }
 
-  update(id: string, category: CategoryModel): Observable<EntryModel> {
+  update(id: string, body: Partial<UpdateEntryRequest>): Observable<any> {
     return this._httpClient
-      .put<ResponseModel<EntryModel>>(
+      .put<ResponseModel>(`${this._financialApiUrl}/Entry/${id}`, body)
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  patch(id: string, patch: string, value: any): Observable<EntryModel> {
+    return this._httpClient
+      .patch<ResponseModel<EntryModel>>(
         `${this._financialApiUrl}/Entry/${id}`,
-        category
+        { op: 'replace', patch, value }
       )
       .pipe(
         map((resposne) => resposne.data),

@@ -14,8 +14,8 @@ import { AddressFormComponent } from './address-form.component';
     ReactiveFormsModule,
     FormsModule,
     POneGridModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [AddressFormComponent],
 })
-export class AddressFormModule { }
+export class POneAddressFormModule {}

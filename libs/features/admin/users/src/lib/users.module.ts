@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddressFormModule, POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
+import { POneAddressFormModule, POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
   POneContainerModule,
@@ -14,7 +14,6 @@ import {
   POneInputModule,
   POneSidenavModule,
   POneTableContainerModule,
-  POneTableModule,
 } from '@p-one/shared';
 
 import { CreateUserModalComponent } from './modals/create-user-modal/create-user-modal.component';
@@ -42,9 +41,8 @@ import { UsersRoutingModule } from './users.routing';
     POneInputModule,
     POneDialogModule,
     POneGridModule,
-    AddressFormModule,
+    POneAddressFormModule,
     POneDatepickerModule,
-    POneTableModule
   ],
 })
 export class UsersModule {}

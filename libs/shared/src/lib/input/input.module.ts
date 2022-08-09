@@ -6,7 +6,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { POneChipModule } from '../chip/chip.module';
 import { POneLoadingModule } from '../loading';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
-import { AutocompleteDirective } from './autocomplete/autocomplete.directive';
+import { AutocompleteDirective, SmallAutocompleteDirective } from './autocomplete/autocomplete.directive';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FormFieldComponent } from './form-field/form-field.component';
 import { InputDirective, LargeInputDirective, SmallInputDirective } from './input.directive';
@@ -32,6 +32,7 @@ import { RadioComponent } from './radio/radio.component';
     RadioButtonComponent,
     RadioComponent,
     MultipleAutocompleteComponent,
+    SmallAutocompleteDirective
   ],
   imports: [
     CommonModule,
@@ -54,6 +55,7 @@ import { RadioComponent } from './radio/radio.component';
     RadioButtonComponent,
     RadioComponent,
     MultipleAutocompleteComponent,
+    SmallAutocompleteDirective
   ],
 })
 export class POneInputModule {}

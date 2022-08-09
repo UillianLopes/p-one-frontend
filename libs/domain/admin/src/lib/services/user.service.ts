@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ADMIN_ENDPOINT } from '../constants/admin-endpoints.token';
 import { SettingsModel, UserModel } from '../models';
 import { GetAllUsersQuery } from '../queries';
-import { CreateUserRequest } from '../requests';
+import { CreateStandaloneUserRequest, CreateUserRequest } from '../requests';
 
 @Injectable()
 export class UserService {
@@ -31,6 +31,17 @@ export class UserService {
   public create(user: Partial<CreateUserRequest>): Observable<unknown> {
     return this._httpClient
       .post<ResponseModel<unknown>>(`${this._adminEndpoint}/user`, user)
+      .pipe(map(({ data }) => data));
+  }
+
+  public createStandaloneUser(
+    user: Partial<CreateStandaloneUserRequest>
+  ): Observable<unknown> {
+    return this._httpClient
+      .post<ResponseModel<unknown>>(
+        `${this._adminEndpoint}/user/createstandalone`,
+        user
+      )
       .pipe(map(({ data }) => data));
   }
 

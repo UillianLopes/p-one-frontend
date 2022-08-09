@@ -153,11 +153,11 @@
     <ng-container pOneSidenavBottom>
       <p-one-sidenav-divider></p-one-sidenav-divider>
       <p-one-sidenav-item
-        [tooltip]="'@PONE.MAIN.SIDENAV.LOGOUT' | translate"
+        [tooltip]="'@PONE.MAIN.SIDENAV.SIGN_OUT' | translate"
         (click)="signOut()"
       >
         <i pOneIcon class="bi bi-box-arrow-right text-danger"></i>
-        Logout
+        {{ '@PONE.MAIN.SIDENAV.SIGN_OUT' | translate }}
       </p-one-sidenav-item>
     </ng-container>
   </p-one-sidenav>

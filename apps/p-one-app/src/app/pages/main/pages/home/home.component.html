@@ -1,5 +1,9 @@
-<p-one-list [data]="['Test', 'Teste', 'Test']">
-  <li *pOneListRow="let test">
-    {{test}}
-  </li>
-</p-one-list>
+<form [formGroup]="form">
+  <p-one-details-field>
+    <label>Name</label>
+    <input pOneSmallInput 
+           pOneDetailsInput
+           type="text" 
+           formControlName="name" />
+  </p-one-details-field>
+</form>

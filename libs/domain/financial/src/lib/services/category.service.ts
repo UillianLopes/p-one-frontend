@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ResponseModel, serializeToQueryParams } from '@p-one/core';
+import { OptionModel, ResponseModel, serializeToQueryParams } from '@p-one/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -18,6 +18,22 @@ export class CategoryService {
     return this._httpClient
       .get<ResponseModel<CategoryModel[]>>(
         `${this._financialApiUrl}/Category`,
+        {
+          params: serializeToQueryParams({ type }),
+        }
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  getAllAsOptions(type?: EEntryType): Observable<OptionModel[]> {
+    return this._httpClient
+      .get<ResponseModel<OptionModel[]>>(
+        `${this._financialApiUrl}/Category/GetAllAsOptions`,
         {
           params: serializeToQueryParams({ type }),
         }

@@ -1,8 +1,7 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpResponse } from '@microsoft/signalr';
 import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { ToastService } from './toast.service';
 
@@ -15,7 +14,6 @@ export class ToastInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      filter((event) => event instanceof HttpResponse),
       tap((event) => {
         if (event instanceof HttpErrorResponse) {
           const { message, messages } = event.error;
@@ -27,7 +25,14 @@ export class ToastInterceptor implements HttpInterceptor {
             this._toastService.open(messages, { color: 'danger' });
           }
         } else if (event instanceof HttpResponse) {
-          console.log('RESPONSE -> ', event);
+          const { message, messages } = event.body;
+          if (message) {
+            this._toastService.open(messages, { color: 'success' });
+          }
+
+          if (messages) {
+            this._toastService.open(messages, { color: 'success' });
+          }
         }
       })
     );

@@ -6,6 +6,7 @@ import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, take } from 'rxjs/operators';
 
 import { EntryListFacade } from './+state/entry-list.facade';
+import { EntryDetailsModalComponent } from './modals/entry-details-modal/entry-details-modal.component';
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
 
 @Component({
@@ -85,6 +86,17 @@ export class EntryListComponent
 
   public openPayEntryDialog(entry: EntryModel): void {
     this._facade.openPayEntryDialog(entry);
+  }
+
+  public openEntryDetailsDialog(entry: EntryModel): void {
+    this._dialogService.open(
+      EntryDetailsModalComponent,
+      {
+        maxWidth: '800px',
+        minWidth: '800px',
+      },
+      entry
+    );
   }
 
   public ngOnInit(): void {

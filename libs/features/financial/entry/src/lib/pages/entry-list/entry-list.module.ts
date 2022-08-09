@@ -12,12 +12,15 @@ import {
   POneChipModule,
   POneContainerModule,
   POneContextMenuModule,
+  POneDatepickerModule,
+  POneDetailsModule,
   POneDialogModule,
   POneFilterDisplayModule,
   POneFlexModule,
   POneGridModule,
   POneHeaderModule,
   POneInputModule,
+  POneLoadingModule,
   POneMonthYearPickerModule,
   POneSidenavModule,
   POneTableContainerModule,
@@ -31,6 +34,10 @@ import { entityListReducer as entryListReducer, ENTRY_LIST_KEY } from './+state/
 import { EntryListComponent } from './entry-list.component';
 import { EntryListRoutingModule } from './entry-list.routing';
 import { DeleteEntryModalComponent } from './modals/delete-entry-modal/delete-entry-modal.component';
+import {
+  EntryDetailsModalFormComponent,
+} from './modals/entry-details-modal/entry-details-modal-form/entry-details-modal-form.component';
+import { EntryDetailsModalComponent } from './modals/entry-details-modal/entry-details-modal.component';
 import { EntryListFilterComponent } from './modals/entry-list-filter/entry-list-filter.component';
 import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal.component';
 
@@ -40,6 +47,8 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     EntryListFilterComponent,
     DeleteEntryModalComponent,
     PayEntryModalComponent,
+    EntryDetailsModalComponent,
+    EntryDetailsModalFormComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +75,10 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     TranslateModule,
     EllipsisDirective,
     POneTableContainerModule,
-    POneButtonWithOptionsModule
+    POneButtonWithOptionsModule,
+    POneDetailsModule,
+    POneDatepickerModule,
+    POneLoadingModule,
   ],
   providers: [EntryListFacade],
 })

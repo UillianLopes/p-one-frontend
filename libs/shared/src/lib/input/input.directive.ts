@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
-import { UntypedFormControl, NgControl } from '@angular/forms';
+import { Directive, ElementRef, HostBinding, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
+import { NgControl, UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
@@ -16,6 +16,8 @@ export class InputDirective
   implements OnDestroy, OnInit
 {
   invalid$?: Observable<boolean | undefined>;
+
+  @HostBinding('disabled') public disabled = false;
 
   @Input()
   public useFormControl = true;
@@ -36,6 +38,15 @@ export class InputDirective
     if (this._elementRef.nativeElement instanceof HTMLSelectElement) {
       return this._elementRef.nativeElement.value;
     }
+  }
+
+  public get isPristine(): boolean | undefined {
+    return this._ngControl?.control?.pristine;
+  }
+
+  public get isDirty(): boolean | undefined {
+
+    return this._ngControl?.control?.dirty;
   }
 
   constructor(
@@ -86,6 +97,14 @@ export class InputDirective
         });
       }
     }
+  }
+
+  public markAsPristine(): void {
+    this._ngControl?.control?.markAsPristine();
+  }
+
+  public markAsDirty(): void {
+    this._ngControl?.control?.markAsPristine();
   }
 }
 @Directive({

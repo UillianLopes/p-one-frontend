@@ -1,0 +1,14 @@
+<p-one-dialog [isLoading]="isLoading$ | async">
+  <p-one-dialog-header>
+    <h4>Detalhamento da entrada</h4>
+  </p-one-dialog-header>
+  <p-one-dialog-body *ngIf="entry$ | async as entry">
+    <p-one-entry-details-modal-form
+      [entry]="entry"
+    ></p-one-entry-details-modal-form>
+  </p-one-dialog-body>
+
+  <p-one-dialog-footer>
+    <button class="btn btn-sm btn-primary" pOneDialogClose>Fechar</button>
+  </p-one-dialog-footer>
+</p-one-dialog>
