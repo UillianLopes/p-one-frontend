@@ -1,0 +1,5 @@
+<div class="wallet-card" [style.background]="wallet?.color">
+  <h3> {{ wallet?.name }} </h3>
+
+  <span> {{ wallet?.value | currency : (wallet?.currency ? wallet?.currency : (settingsCurrency$ | async)!) }} </span>
+</div>
