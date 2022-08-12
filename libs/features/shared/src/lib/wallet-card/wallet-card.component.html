@@ -1,0 +1,13 @@
+<div
+  class="wallet-card"
+  [style.background]="backgroundColor$ | async"
+  [style.color]="color$ | async"
+>
+  <span class="wallet-card__title">{{ name$ | async }}</span>
+
+  <br />
+
+  <span>
+    {{ (value$ | async)! | currency: (currency$ | async)! }}
+  </span>
+</div>

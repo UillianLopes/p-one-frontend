@@ -1,0 +1,19 @@
+<p-one-container>
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h2>{{ '@PONE.HOME.TITLE' | translate }}</h2>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <div style="padding: 8px">
+    <p-one-wallets-section></p-one-wallets-section>
+  </div>
+</p-one-container>

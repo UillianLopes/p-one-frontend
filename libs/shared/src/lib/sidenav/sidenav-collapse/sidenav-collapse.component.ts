@@ -41,6 +41,10 @@ export class SidenavCollapseComponent
     this._store.setLink(link);
   }
 
+  @Input() set collapseState(collapseState: ESidenavState) {
+    this._store.setCollapseState(collapseState);
+  }
+
   public readonly collapseState$ = this._store.collapseState$;
   public readonly isLinkActivated$ = this._store.isLinkActivated$;
 

@@ -30,10 +30,14 @@
   <main class="p-one-settings__content">
     <form [formGroup]="form">
       <p-one-card>
-        <ng-container pOneCardTitle>{{
-          '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.TITLE'
-            | translate
-        }}</ng-container>
+        <ng-container pOneCardHeader>
+          <h5>
+            {{
+              '@PONE.LIBS.ADMIN.SETTINGS.SECTIONS.GENERAL_SETTINGS.TITLE'
+                | translate
+            }}
+          </h5>
+        </ng-container>
         <section class="p-one-settings__fields-grid">
           <p-one-form-field>
             <label>{{
