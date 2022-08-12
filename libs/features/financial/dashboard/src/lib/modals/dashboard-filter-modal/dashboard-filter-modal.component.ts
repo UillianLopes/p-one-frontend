@@ -1,11 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import {
-  CategoryModel,
-  DashboardFilter,
-  SubCategoryModel,
-  WalletModel,
-} from '@p-one/domain/financial';
+import { CategoryModel, DashboardFilter, SubCategoryModel, WalletModel } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -28,16 +23,16 @@ export class DashboardFilterModalComponent
     subCategories: [this._filter?.subCategories],
   });
 
+  private readonly _categories = this.form.get('categories');
+  private readonly _subCategories = this.form.get('subCategories');
+  private readonly _wallets = this.form.get('wallets');
+
   public readonly filtredCategories$ = this._store.filtredCategories$;
   public readonly filtredSubCategories$ = this._store.filtredSubCategories$;
   public readonly filtredWallets$ = this._store.filtredWallets$;
   public readonly isSomethingLoading$ = this._store.isSomethingLoading$;
 
   public readonly displayFn = (obj: any) => obj.name;
-
-  private readonly _categories = this.form.get('categories');
-  private readonly _subCategories = this.form.get('subCategories');
-  private readonly _wallets = this.form.get('wallets');
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
@@ -54,9 +49,9 @@ export class DashboardFilterModalComponent
     this._store.loadCategories();
     this._store.loadSubCategories();
 
-    this._categories.valueChanges
+    this._categories?.valueChanges
       .pipe(
-        startWith(this._categories.value),
+        startWith(this._categories?.value),
         takeUntil(this.destroyed$),
         filter((value) => value instanceof Array || !value),
         map(
@@ -68,7 +63,7 @@ export class DashboardFilterModalComponent
         this._store.setSelectedCategoriesIds(categoriesIds)
       );
 
-    this._subCategories.valueChanges
+    this._subCategories?.valueChanges
       .pipe(
         startWith(this._subCategories.value),
         takeUntil(this.destroyed$),

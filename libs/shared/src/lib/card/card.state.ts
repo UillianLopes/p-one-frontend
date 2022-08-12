@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+
 import { Color } from '../@types/color.type';
 
 export interface CardState {
@@ -17,6 +18,7 @@ const COLORS_CLASSES = new Map<Color, string[]>([
   ['info', ['bg-info', 'text-white']],
   ['light', ['bg-light', 'text-dark']],
   ['dark', ['bg-dark', 'text-white']],
+  ['default', []]
 ]);
 
 @Injectable()
@@ -30,7 +32,7 @@ export class CardStore extends ComponentStore<CardState> {
   constructor() {
     super({
       isLoading: false,
-      color: 'light',
+      color: 'default',
     });
   }
 

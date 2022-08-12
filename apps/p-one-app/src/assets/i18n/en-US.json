@@ -22,6 +22,9 @@
       "SIGN_OUT": "Sign out"
     }
   },
+  "HOME": {
+    "TITLE": "Home"
+  },
   "LANDING": {
     "TITLE": "POne Financeiro",
     "WELCOME": "Welcome to POne Financeiro",

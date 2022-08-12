@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DestroyableMixin } from '@p-one/shared';
+import { DestroyableMixin, ESidenavState } from '@p-one/shared';
 import { AuthenticationStoreFacade, SettingsStoreFacade } from '@p-one/stores/identity';
 import { NotificationsStoreFacade } from '@p-one/stores/notifications';
 import { skip, takeUntil } from 'rxjs/operators';
@@ -14,6 +14,8 @@ export class MainComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
+  ESidenavState = ESidenavState;
+  
   constructor(
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,

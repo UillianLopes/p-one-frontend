@@ -36,6 +36,13 @@ export class SidenavCollapseStore extends ComponentStore<SidenavCollapseState> {
     (isLinkActivated, state) => isLinkActivated && state == ESidenavState.CLOSED
   );
 
+  public readonly setCollapseState = this.updater((state, collapseState: ESidenavState) => {
+    return {
+      ...state,
+      state: collapseState,
+    };
+  });
+
   public readonly open = this.updater((state) => {
     return {
       ...state,
