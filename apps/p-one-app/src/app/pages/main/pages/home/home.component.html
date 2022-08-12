@@ -13,10 +13,7 @@
       pOneTrailing
     ></p-one-notifications-display-button>
   </p-one-header>
-  <div style="display: flex; flex-direction: row; gap: 16px; padding: 16px">
-    <p-one-wallet-card
-      *ngFor="let wallet of wallets$ | async"
-      [wallet]="wallet"
-    ></p-one-wallet-card>
+  <div style="padding: 8px">
+    <p-one-wallets-section></p-one-wallets-section>
   </div>
 </p-one-container>

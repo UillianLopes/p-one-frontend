@@ -16,7 +16,7 @@ function findGroupInOldData(
     return undefined;
   }
 
-  return oldData.groups.find((group) => group.name === group.name);
+  return oldData.groups.find(({ name }) => name === group.name);
 }
 
 @Component({
@@ -538,7 +538,7 @@ export class LineChartComponent
         .selectAll('circle')
         .data(({ series, color, name }) =>
           series
-            .filter(({ value }) => value !== null)
+            .filter(({ value }) => value !== null && value !== undefined)
             .map((serie) => ({
               ...serie,
               color,
@@ -612,7 +612,7 @@ export class LineChartComponent
     for (let serie of series) {
       const index = series.indexOf(serie);
 
-      if (serie.value === null) {
+      if (serie.value === null || serie.value === undefined) {
         if (line.length > 0) {
           paths.push(d3.line()(line) ?? '');
           line = [];
@@ -645,7 +645,7 @@ export class LineChartComponent
   ) {
     let paths: string[] = [];
 
-    for (let serie of series.filter(({ value }) => value !== null)) {
+    for (let serie of series.filter(({ value }) => value !== null && value !== undefined)) {
       const indexInSeries = series.indexOf(serie);
       const previousInSeries = series[indexInSeries - 1];
       if (previousInSeries && previousInSeries.value === serie.value) {
@@ -675,12 +675,20 @@ export class LineChartComponent
       const nextSerie = series[index + 1];
       const previosSerie = series[index - 1];
 
-      if (serie.value === null) {
-        if (previosSerie && previosSerie.value !== null) {
+      if (serie.value === null || serie.value === undefined) {
+        if (
+          previosSerie &&
+          previosSerie.value !== null &&
+          previosSerie.value !== undefined
+        ) {
           lines.push([xScale(index - 1), yScale(previosSerie.value)]);
         }
 
-        if (nextSerie && nextSerie.value !== null) {
+        if (
+          nextSerie &&
+          nextSerie.value !== null &&
+          nextSerie.value !== undefined
+        ) {
           lines.push([xScale(index + 1), yScale(nextSerie.value)]);
         }
 

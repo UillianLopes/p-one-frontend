@@ -15,8 +15,7 @@ export class BalancesOvertimeChartComponent {
     this._store.setFilter(filter);
   }
 
-  public readonly balancesOverTimeLineChartData$ = this._store
-    .balancesOverTimeLineChartData$;
+  public readonly balancesOverTimeLineChartData$ = this._store.balancesOverTimeLineChartData$;
 
   constructor(private readonly _store: BalancesOverTimeChartStore) { }
 }
