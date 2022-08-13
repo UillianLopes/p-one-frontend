@@ -1,0 +1,20 @@
+<ng-template #menuTemplate>
+  <div
+    pOneFlexColumn
+    gap="4px"
+    *ngIf="actionsCellOptions && actionsCellOptions.template as template"
+  >
+    <ng-container [ngTemplateOutlet]="template"></ng-container>
+  </div>
+</ng-template>
+
+<div class="p-one-actions-cell__content" *ngIf="actionsCellOptions">
+  <button
+    class="p-one-actions-cell__button"
+    [pOneTooltip]="menuTemplate"
+    tooltipPosition="left"
+    trigger="click"
+  >
+    <i class="bi bi-three-dots-vertical"></i>
+  </button>
+</div>

@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
+  POneButtonModule,
   POneCardModule,
   POneContainerModule,
   POneDynamicFormsModule,
@@ -34,6 +35,7 @@ import { SettingsRoutingModule } from './settings.routing';
     POneCardModule,
     POneBreadcrumbModule,
     POneFlexModule,
+    POneButtonModule,
     TranslateModule,
   ],
 })

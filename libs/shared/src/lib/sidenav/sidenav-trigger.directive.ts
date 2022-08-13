@@ -14,6 +14,7 @@ export class SidenavTriggerDirective {
 
   @HostListener('click')
   public toggle(): void {
+    console.log('CLICK')
     this._sidenavStore.toggle();
   }
 }

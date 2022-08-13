@@ -8,7 +8,7 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2>{{ '@PONE.LIBS.ADMIN.SETTINGS.TITLE' | translate }}</h2>
+    <h4>{{ '@PONE.LIBS.ADMIN.SETTINGS.TITLE' | translate }}</h4>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
@@ -22,7 +22,12 @@
   </p-one-sub-header>
   <p-one-sub-header>
     <div pOneFlexRow>
-      <button class="btn btn-sm btn-primary" (click)="updateSettings()">
+      <button
+        p-one-button
+        size="small"
+        [isLoading]="(isSettingsLoading$ | async)!"
+        (click)="updateSettings()"
+      >
         {{ '@PONE.LIBS.ADMIN.SETTINGS.BUTTONS.SAVE_SETTINGS' | translate }}
       </button>
     </div>
@@ -54,7 +59,6 @@
             >
               <option ngValue="pt-BR">Português (BR)</option>
               <option ngValue="en-US">English (US)</option>
-              <option ngValue="fr">French (FR)</option>
             </select>
           </p-one-form-field>
 

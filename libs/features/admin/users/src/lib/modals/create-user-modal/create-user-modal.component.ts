@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { OptionModel } from '@p-one/core';
+import { OptionModel, trackById } from '@p-one/core';
 import { CustomValidators, DestroyableMixin, updateValueAndValidityMarkingControlsAreDirty } from '@p-one/shared';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -44,9 +44,11 @@ export class CreateUserModalComponent
   public readonly isSomethingLoading$ = this._store.isSomethingLoading$;
 
   public readonly profiles$ = this._store.profiles$;
-
+  public readonly trackById = trackById;
+  
   public readonly displayFn = (profile: OptionModel): string => profile.title;
 
+  
   constructor(
     private readonly _store: CreateUserModalStore,
     private readonly _formBuilder: UntypedFormBuilder

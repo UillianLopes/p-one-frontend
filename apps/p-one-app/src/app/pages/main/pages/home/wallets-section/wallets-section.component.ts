@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { trackById } from '@p-one/core';
 
 import { HomeStoreFacade } from '../+state/home-store.facade';
 
@@ -9,6 +10,8 @@ import { HomeStoreFacade } from '../+state/home-store.facade';
 })
 export class WalletsSectionComponent {
   public readonly wallets$ = this._facade.wallets$;
+
+  public readonly trackById = trackById;
 
   constructor(private readonly _facade: HomeStoreFacade) {}
 }

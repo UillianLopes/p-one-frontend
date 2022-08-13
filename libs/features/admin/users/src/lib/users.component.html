@@ -8,7 +8,7 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h2>{{ '@PONE.ADMIN.USERS.TITLE' | translate }}</h2>
+    <h4>{{ '@PONE.ADMIN.USERS.TITLE' | translate }}</h4>
     <p-one-notifications-display-button
       pOneTrailing
     ></p-one-notifications-display-button>
@@ -45,10 +45,11 @@
           <th scope="col">
             {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.BIRTH_DATE' | translate }}
           </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$ | async">
+        <tr *ngFor="let user of users$ | async; trackBy: trackById">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.profile.title }}</td>

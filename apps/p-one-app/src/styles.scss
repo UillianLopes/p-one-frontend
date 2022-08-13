@@ -36,3 +36,14 @@ body {
 .debit {
   color: var(--bs-danger);
 }
+
+.initial-loading {
+  height: 100vh;
+  width: 100vh;
+
+  &__spinners {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+}
