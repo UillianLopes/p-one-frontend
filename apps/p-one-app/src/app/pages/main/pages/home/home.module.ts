@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule, WalletCardModule } from '@p-one/features/shared';
 import {
   ListModule,
+  POneButtonModule,
   POneCardModule,
   POneContainerModule,
   POneDetailsModule,
@@ -37,6 +38,7 @@ import { WalletsSectionComponent } from './wallets-section/wallets-section.compo
     TranslateModule,
     POneFlexModule,
     POneCardModule,
+    POneButtonModule,
   ],
 })
 export class HomeModule {}

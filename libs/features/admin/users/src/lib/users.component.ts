@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from '@p-one/domain/admin';
+import { trackById } from '@p-one/core';
 
 import { UsersStoreFacade } from './store/users-store.facade';
 
@@ -11,7 +11,7 @@ import { UsersStoreFacade } from './store/users-store.facade';
 export class UsersComponent implements OnInit {
   public readonly users$ = this._facade.users$;
   public readonly usersAmmount$ = this._facade.usersAmmount$;
-  public readonly trackBy = (index: number, user: UserModel) => user.id;
+  public readonly trackById = trackById;
 
   constructor(private readonly _facade: UsersStoreFacade) {}
 

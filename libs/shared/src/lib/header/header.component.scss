@@ -8,6 +8,7 @@
   background: var(--bs-primary);
 
   color: white;
+  align-items: center;
 
   gap: 16px;
 
@@ -27,5 +28,11 @@
 
   &__trailing {
     grid-column: 3;
+  }
+
+  h5,
+  h4 {
+    margin: 0px;
+    margin-inline: 0px;
   }
 }

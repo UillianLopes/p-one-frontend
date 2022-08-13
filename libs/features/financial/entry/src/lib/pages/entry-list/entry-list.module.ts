@@ -8,7 +8,7 @@ import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   EllipsisDirective,
   POneBreadcrumbModule,
-  POneButtonWithOptionsModule,
+  POneButtonModule,
   POneChipModule,
   POneContainerModule,
   POneContextMenuModule,
@@ -24,6 +24,7 @@ import {
   POneMonthYearPickerModule,
   POneSidenavModule,
   POneTableContainerModule,
+  POneTableUtilsModule,
   POneTooltipModule,
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
@@ -75,10 +76,11 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     TranslateModule,
     EllipsisDirective,
     POneTableContainerModule,
-    POneButtonWithOptionsModule,
     POneDetailsModule,
     POneDatepickerModule,
     POneLoadingModule,
+    POneTableUtilsModule,
+    POneButtonModule,
   ],
   providers: [EntryListFacade],
 })

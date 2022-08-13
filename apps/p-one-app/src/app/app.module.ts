@@ -12,7 +12,7 @@ import { POneAdminDomainModule } from '@p-one/domain/admin';
 import { POneFinancialDomainModule } from '@p-one/domain/financial';
 import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS } from '@p-one/domain/identity';
 import { POneNotificationDomainModule } from '@p-one/domain/notification';
-import { POneRolesModule, POneToastModule } from '@p-one/shared';
+import { POneLoadingModule, POneRolesModule, POneToastModule } from '@p-one/shared';
 import { AuthenticationStoreModule, SettingsStoreModule } from '@p-one/stores/identity';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
@@ -101,6 +101,7 @@ import { AppRoutingModule } from './app.routing';
     AuthenticationStoreModule,
     SettingsStoreModule,
     POneRolesModule.forRoot(),
+    POneLoadingModule,
   ],
   bootstrap: [AppComponent],
   providers: [

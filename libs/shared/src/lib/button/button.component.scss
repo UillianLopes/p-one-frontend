@@ -1,0 +1,9 @@
+.p-one-button {
+  &__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    justify-items: center;
+    gap: 4px;
+  }
+}

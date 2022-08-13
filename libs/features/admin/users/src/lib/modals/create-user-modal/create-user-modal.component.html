@@ -48,7 +48,7 @@
             >
               <p-one-option
                 [value]="profile"
-                *ngFor="let profile of profiles$ | async"
+                *ngFor="let profile of profiles$ | async; trackBy: trackById"
               >
                 {{ profile.title }}
               </p-one-option>

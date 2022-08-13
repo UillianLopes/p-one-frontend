@@ -2,7 +2,7 @@
   "LIBS": {
     "ADMIN": {
       "SETTINGS": {
-        "TITLE": "Cadastro de usuários",
+        "TITLE": "Configurações",
         "BUTTONS": {
           "SAVE_SETTINGS": "Salvar configurações"
         },
