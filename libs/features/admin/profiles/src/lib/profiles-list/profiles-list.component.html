@@ -1,0 +1,23 @@
+<p-one-container> 
+  <p-one-header>
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h4>{{ '@PONE.ADMIN.PROFILES.TITLE' | translate }}</h4>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
+  </p-one-header>
+  <p-one-sub-header>
+    <p-one-breadcrumb>
+      <p-one-breadcrumb-item>
+        {{ '@PONE.ADMIN.PROFILES.TITLE' | translate }}
+      </p-one-breadcrumb-item>
+    </p-one-breadcrumb>
+  </p-one-sub-header>
+</p-one-container>

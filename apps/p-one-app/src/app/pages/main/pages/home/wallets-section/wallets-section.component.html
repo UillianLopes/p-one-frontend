@@ -5,7 +5,7 @@
   <div class="p-one-wallets-section__container">
     <div pOneFlexRow gap="16px">
       <p-one-wallet-card
-        *ngFor="let wallet of wallets$ | async"
+        *ngFor="let wallet of wallets$ | async; trackBy: trackById"
         [wallet]="wallet"
       ></p-one-wallet-card>
     </div>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ADMIN_ENDPOINT } from '../constants';
+import { ProfileModel } from '../models';
 
 @Injectable()
 export class ProfileService {
@@ -17,6 +18,14 @@ export class ProfileService {
     return this._httpClient
       .get<ResponseModel<OptionModel[]>>(
         `${this._adminEndpoint}/profile/getAllAsOptions`
+      )
+      .pipe(map(({ data }) => data));
+  }
+
+  public getAll(): Observable<ProfileModel[]> {
+    return this._httpClient
+      .get<ResponseModel<ProfileModel[]>>(
+        `${this._adminEndpoint}/profile`
       )
       .pipe(map(({ data }) => data));
   }

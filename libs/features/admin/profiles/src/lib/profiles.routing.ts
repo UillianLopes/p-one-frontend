@@ -7,6 +7,18 @@ const routes: Routes = [
   {
     path: '',
     component: ProfilesComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full',
+      },
+      {
+        path: 'list',
+        loadChildren: () =>
+          import('./profiles-list').then((m) => m.ProfilesListModule),
+      },
+    ],
   },
 ];
 

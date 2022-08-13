@@ -9,7 +9,7 @@
       <i class="bi bi-list"></i>
     </button>
 
-    <h2 [ngSwitch]="entryType$ | async" pOneEllipsis>
+    <h4 [ngSwitch]="entryType$ | async" pOneEllipsis>
       <ng-container *ngSwitchCase="EntryType.Debit">
         {{
           '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.BILLS_TO_PAY' | translate
@@ -24,7 +24,7 @@
       <ng-container *ngSwitchDefault>
         {{ '@PONE.FINANCIAL.ENTRIES.LIST.ENTRY_TYPES.ALL_BILLS' | translate }}
       </ng-container>
-    </h2>
+    </h4>
 
     <p-one-notifications-display-button
       pOneTrailing

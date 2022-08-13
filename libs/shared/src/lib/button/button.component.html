@@ -1,0 +1,8 @@
+
+  <span
+    class="spinner-border spinner-border-sm"
+    role="status"
+    aria-hidden="true"
+    *ngIf="isLoading$ | async"
+  ></span>
+  <ng-content></ng-content>
