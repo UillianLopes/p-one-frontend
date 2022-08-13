@@ -18,6 +18,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./profiles-list').then((m) => m.ProfilesListModule),
       },
+      {
+        path: ':profileId/details',
+        loadChildren: () =>
+          import('./profile-details').then((m) => m.ProfileDetailsModule),
+      },
     ],
   },
 ];

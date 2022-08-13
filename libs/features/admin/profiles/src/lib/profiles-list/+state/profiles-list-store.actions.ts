@@ -29,7 +29,7 @@ export const loadProfilesFailure = createAction(
 
 export const resetState = createAction(EProfilesListStoreActions.RESET_STATE);
 
-const _actionsUnion = union({
+const _profilesListStoreActionsUnion = union({
   loadProfiles,
   loadProfilesSuccess,
   loadProfilesFailure,
@@ -37,4 +37,4 @@ const _actionsUnion = union({
   resetState,
 });
 
-export type ProfilesListStoreActionsUnion = typeof _actionsUnion;
+export type ProfilesListStoreActionsUnion = typeof _profilesListStoreActionsUnion;

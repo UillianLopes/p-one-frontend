@@ -1,2 +1,3 @@
 export * from './lib/profiles-list';
-export * from './lib/profiles.module'
+export * from './lib/profile-details';
+export * from './lib/profiles.module';

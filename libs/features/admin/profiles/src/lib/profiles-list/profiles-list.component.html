@@ -38,6 +38,7 @@
           </th>
           <th scope="col">Descrição</th>
           <th scope="col" p-one-ellipsis-cell>Roles</th>
+          <th p-one-actions-cell></th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +46,29 @@
           <td>{{ profile.name }}</td>
           <td>{{ profile.description }}</td>
           <td p-one-ellipsis-cell>{{ profile.roles }}</td>
+          <td p-one-actions-cell>
+            <ng-container *pOneActionsCellOptions>
+              <button
+                p-one-button
+                size="small"
+                appearance="outline"
+                color="danger"
+              >
+                <i class="bi bi-trash" pOneIcon></i>
+                Excluir
+              </button>
+              <button
+                p-one-button
+                size="small"
+                appearance="outline"
+                [routerLink]="['../', profile.id, 'details']"
+                [relativeTo]="activatedRoute.parent"
+              >
+                <i class="bi bi-pencil" pOneIcon></i>
+                Editar
+              </button>
+            </ng-container>
+          </td>
         </tr>
       </tbody>
     </table>

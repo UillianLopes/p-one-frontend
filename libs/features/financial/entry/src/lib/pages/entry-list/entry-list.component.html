@@ -176,10 +176,7 @@
               }}
             </span>
           </th>
-          <th
-            scope="col"
-            class="p-one-entry-list__menu-col column--fixed-on-right"
-          ></th>
+          <th scope="col" p-one-actions-cell></th>
         </tr>
       </thead>
       <tbody>
@@ -266,38 +263,46 @@
             </span>
           </td>
 
-          <td class="p-one-entry-list__menu-col column--fixed-on-right">
-            <p-one-button-with-options>
+          <td p-one-actions-cell>
+            <ng-container *pOneActionsCellOptions>
               <button
-                p-one-button-option
+                p-one-button
+                size="small"
                 color="success"
+                appearance="outline"
                 (click)="openPayEntryDialog(entry)"
               >
-                <span class="material-icons-outlined" pOneIcon>payment</span>
+                <i class="bi bi-credit-card" pOneIcon></i>
                 {{
                   '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY'
                     | translate
                 }}
               </button>
               <button
-                p-one-button-option
-                color="warning"
+                p-one-button
+                size="small"
+                color="danger"
+                appearance="outline"
                 (click)="openDeleteEntryDialog(entry)"
               >
-                <i class="material-icons" pOneIcon>delete</i>
+                <i class="bi bi-trash" pOneIcon></i>
+
                 {{
                   '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_DELETE_ENTRY'
                     | translate
                 }}
               </button>
               <button
-                p-one-button-option
+                p-one-button
+                size="small"
+                appearance="outline"
                 (click)="openEntryDetailsDialog(entry)"
               >
-                <i class="bi bi-pencil" pOneIcon></i>
+                <i class="bi bi-eye" pOneIcon></i>
+
                 Detalhes
               </button>
-            </p-one-button-with-options>
+            </ng-container>
           </td>
         </tr>
       </tbody>

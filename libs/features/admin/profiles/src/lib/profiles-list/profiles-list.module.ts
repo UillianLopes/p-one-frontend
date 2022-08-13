@@ -4,12 +4,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
+  POneButtonModule,
   POneContainerModule,
   POneHeaderModule,
   POneInputModule,
   POneSidenavModule,
   POneTableContainerModule,
-  TableUtilsModule,
+  POneTableUtilsModule,
 } from '@p-one/shared';
 
 import { ProfilesListStoreModule } from './+state/profiles-list-store.module';
@@ -30,7 +31,8 @@ import { ProfilesRoutingModule as ProfilesListRoutingModule } from './profiles-l
     POneTableContainerModule,
     POneInputModule,
     TranslateModule,
-    TableUtilsModule,
+    POneTableUtilsModule,
+    POneButtonModule,
   ],
 })
 export class ProfilesListModule {}

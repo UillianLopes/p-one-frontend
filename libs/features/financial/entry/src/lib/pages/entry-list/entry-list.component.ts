@@ -29,8 +29,7 @@ export class EntryListComponent
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
   public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
   public readonly entryType$ = this._facade.entryType$;
-  public readonly settingsCurrency$ =
-    this._settingsStoreFacade.settingsCurrency$;
+  public readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: EntryListFacade,

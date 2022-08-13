@@ -60,7 +60,6 @@ export * from './lib/list';
 
 export * from './lib/roles';
 
-export * from './lib/button-with-options';
 export * from './lib/details';
 export * from './lib/button';
 
