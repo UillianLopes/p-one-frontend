@@ -1,0 +1,7 @@
+.p-one-ellipsis-cell {
+  &__content {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

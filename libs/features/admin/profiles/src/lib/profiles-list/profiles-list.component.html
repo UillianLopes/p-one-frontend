@@ -1,4 +1,4 @@
-<p-one-container> 
+<p-one-container>
   <p-one-header>
     <button
       class="btn btn-outline-light"
@@ -20,4 +20,33 @@
       </p-one-breadcrumb-item>
     </p-one-breadcrumb>
   </p-one-sub-header>
+  <p-one-sub-header>
+    <button class="btn btn-primary btn-sm">
+      {{ '@PONE.ADMIN.USERS.BUTTONS.CREATE_USER' | translate }}
+    </button>
+
+    <p-one-form-field noPadding>
+      <input pOneSmallInput />
+    </p-one-form-field>
+  </p-one-sub-header>
+  <p-one-table-container>
+    <table class="table table-sm table-hover table--fix-head">
+      <thead>
+        <tr>
+          <th scope="col">
+            {{ '@PONE.ADMIN.USERS.TABLE.COLUMNS.NAME' | translate }}
+          </th>
+          <th scope="col">Descrição</th>
+          <th scope="col" p-one-ellipsis-cell>Roles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profile of profiles$ | async; trackBy: trackById">
+          <td>{{ profile.name }}</td>
+          <td>{{ profile.description }}</td>
+          <td p-one-ellipsis-cell>{{ profile.roles }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </p-one-table-container>
 </p-one-container>

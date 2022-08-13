@@ -10,10 +10,12 @@ import { ProfilesListStoreFacade } from './+state/profiles-list-store.facade';
 })
 export class ProfilesListComponent implements OnInit {
   public readonly trackById = trackById;
+
+  public readonly profiles$ = this._facade.profiles$;
   
-  constructor(private readonly _profilesListStore: ProfilesListStoreFacade) {}
+  constructor(private readonly _facade: ProfilesListStoreFacade) {}
 
   public ngOnInit(): void {
-    this._profilesListStore.loadProfiles();
+    this._facade.loadProfiles();
   }
 }

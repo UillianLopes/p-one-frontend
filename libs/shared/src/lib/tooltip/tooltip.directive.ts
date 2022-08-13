@@ -24,7 +24,7 @@ export const BOTTOM: ConnectedPosition = {
   overlayY: 'top',
   originY: 'bottom',
   offsetY: 4,
-  weight: 1
+  weight: 1,
 };
 
 export const RIGHT: ConnectedPosition = {
@@ -33,7 +33,7 @@ export const RIGHT: ConnectedPosition = {
   overlayY: 'center',
   originY: 'center',
   offsetX: 4,
-  weight: 1
+  weight: 1,
 };
 
 export const LEFT: ConnectedPosition = {
@@ -42,7 +42,7 @@ export const LEFT: ConnectedPosition = {
   overlayY: 'center',
   originY: 'center',
   offsetX: -8,
-  weight: 1
+  weight: 1,
 };
 
 export const TOP: ConnectedPosition = {
@@ -51,7 +51,7 @@ export const TOP: ConnectedPosition = {
   overlayY: 'bottom',
   originY: 'top',
   offsetY: 4,
-  weight: 1
+  weight: 1,
 };
 
 export type TooltipPosition = 'bottom' | 'right' | 'left' | 'top';
@@ -129,7 +129,7 @@ export class TooltipDirective implements OnDestroy {
     }
 
     const position = POSITIONS.get(this.tooltipPosition) ?? [BOTTOM];
-    
+
     const overlayRef = this._overlay.create({
       positionStrategy: this._overlay
         .position()
