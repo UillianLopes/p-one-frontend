@@ -1,4 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { ProfileModel } from '@p-one/domain/admin';
+import { ApplicationModel } from 'libs/domain/admin/src/lib/models/application.model';
 
 import * as ProfileDetailsStoreActions from './profile-details-store.actions';
 
@@ -6,27 +8,33 @@ export const PROFILE_DETAILS_STORE_FEATURE_KEY = 'profileDetailsStore';
 
 export interface ProfileDetailsStoreState {
   isLoading: boolean;
+
   profileId?: string;
-  roles: string[];
+
+  applications: ApplicationModel[];
+  isApplicationsLoading: boolean;
+
+  profile?: ProfileModel;
 }
 
 const initialState: ProfileDetailsStoreState = {
   isLoading: false,
-  roles: [],
+  isApplicationsLoading: false,
+  applications: [],
 };
 
 const _profileDetailsStoreReducer = createReducer(
   initialState,
 
-  on(ProfileDetailsStoreActions.loadProfileRoles, (state, { profileId }) => ({
+  on(ProfileDetailsStoreActions.loadProfileRoles, (state) => ({
     ...state,
-    profileId,
     isLoading: true,
   })),
   on(
     ProfileDetailsStoreActions.loadProfileRolesSuccess,
-    (state, { applications }) => ({
+    (state, { applications, profileId }) => ({
       ...state,
+      profileId,
       applications,
       isLoading: false,
     })

@@ -17,7 +17,9 @@ export class ProfilesDetailsStoreEffects {
       ofType(EProfileDetailsStoreActions.LOAD_PROFILE_ROLES),
       switchMap(({ profileId }) =>
         this._service.getRoles(profileId).pipe(
-          map((applications) => loadProfileRolesSuccess({ applications })),
+          map((applications) =>
+            loadProfileRolesSuccess({ applications, profileId })
+          ),
           catchError((error) => of(loadProfileFailure({ error })))
         )
       )

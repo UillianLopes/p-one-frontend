@@ -1,1 +1,34 @@
-<p>profile-details works!</p>
+<p-one-container>
+  <p-one-header>
+    <button
+      pOneLeading
+      p-one-button
+      appearance="outline"
+      color="light"
+      pOneSidenavTrigger
+      pOneIcon
+    >
+      <i class="bi bi-list"></i>
+    </button>
+    <h4>Detalhes da entrada</h4>
+  </p-one-header>
+
+  <div pOneFlexColumn style="padding: 16px 8px">
+    <div class="card" *ngFor="let application of applications$ | async">
+      <div class="card-header">
+        <div pOneFlexRow alignment="center">
+          <p-one-collapse-indicator
+            pOneCollapseTrigger
+            [collapsable]="collapse"
+          ></p-one-collapse-indicator>
+          <h5 style="margin: 0px; margin-inline: 0px">
+            {{ application.title | translate }}
+          </h5>
+        </div>
+      </div>
+      <div class="card-body" p-one-collapse #collapse>
+        <table></table>
+      </div>
+    </div>
+  </div>
+</p-one-container>

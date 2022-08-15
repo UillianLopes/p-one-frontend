@@ -36,7 +36,7 @@ export const loadProfileRoles = createAction(
 
 export const loadProfileRolesSuccess = createAction(
   EProfileDetailsStoreActions.LOAD_PROFILE_ROLES_SUCCESS,
-  props<{ applications: ApplicationModel[] }>()
+  props<{ applications: ApplicationModel[]; profileId: string }>()
 );
 
 export const loadProfileRolesFailure = createAction(
