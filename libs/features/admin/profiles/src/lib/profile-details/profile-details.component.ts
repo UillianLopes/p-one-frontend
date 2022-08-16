@@ -23,6 +23,9 @@ export class ProfileDetailsComponent
   public readonly applications$ = this._profileDetailsStoreFacade.applications$;
   public readonly profile$ = this._profileDetailsStoreFacade.profile$;
 
+  public trackByTitle = (index: number, item: { title: string }) => item.title;
+  public trackByDescription = (index: number, item: { description: string }) => item.description;
+
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _profileDetailsStoreFacade: ProfileDetailsStoreFacade,
@@ -36,6 +39,16 @@ export class ProfileDetailsComponent
       this.form.patchValue(profile ?? {});
     });
 
-    this._profileDetailsStoreFacade.loadProfileRoles(this._activatedRoute.snapshot.params['profileId']);
+    this._profileDetailsStoreFacade.loadProfileAndRoles(
+      this._activatedRoute.snapshot.params['profileId']
+    );
+  }
+
+  public toggleRole(isChecked: boolean, key: string) {
+    if (!isChecked) {
+      this._profileDetailsStoreFacade.addRole(key);
+    } else {
+      this._profileDetailsStoreFacade.removeRole(key);
+    }
   }
 }

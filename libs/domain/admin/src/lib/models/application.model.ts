@@ -14,4 +14,5 @@ export interface RoleModel {
   title: string;
   description: string;
   key: string;
+  isActive: boolean;
 }

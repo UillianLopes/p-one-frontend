@@ -2,7 +2,7 @@
   class="p-one-checkbox"
   [class.p-one-checkbox--checked]="isChecked$ | async"
   [class.p-one-checkbox--indeterminated]="isIndeterminated$ | async"
-  (click)="toggle($event)"
+  (click)="toggle()"
 >
   <div class="p-one-checkbox__checkmark-wrapper">
     <i
@@ -17,5 +17,3 @@
     ></i>
   </div>
 </div>
-
-<input [formControl]="formControl" type="checkbox" hidden />

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   POneButtonModule,
@@ -34,6 +34,7 @@ import { ProfileDetailsRoutingModule } from './profile-details.routing';
     POneGridModule,
     POneInputModule,
     ReactiveFormsModule,
+    FormsModule,
     TranslateModule,
   ],
 })

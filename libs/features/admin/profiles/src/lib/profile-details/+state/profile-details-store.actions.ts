@@ -3,57 +3,84 @@ import { ProfileModel } from '@p-one/domain/admin';
 import { ApplicationModel } from 'libs/domain/admin/src/lib/models/application.model';
 
 export enum EProfileDetailsStoreActions {
-  LOAD_PROFILE = '[Profile Details Store] Load Profile',
-  LOAD_PROFILE_SUCCESS = '[Profile Details Store] Load Profile Success',
-  LOAD_PROFILE_FAILURE = '[Profile Details Store] Load Profile Failure',
+  LOAD_PROFILE_AND_ROLES = '[Profile Details Store] Load Profile and Roles',
+  LOAD_PROFILE_AND_ROLES_SUCCESS = '[Profile Details Store] Load Profile and Roles Success',
+  LOAD_PROFILE_AND_ROLES_FAILURE = '[Profile Details Store] Load Profile and Roles Failure',
 
-  LOAD_PROFILE_ROLES = '[Profile Details Store] Load Profile Roles',
-  LOAD_PROFILE_ROLES_SUCCESS = '[Profile Details Store] Load Profile Roles Success',
-  LOAD_PROFILE_ROLES_FAILURE = '[Profile Details Store] Load Profile Roles Failure',
+  ADD_ROLE = '[Profile Details Store] Add Role',
+  ADD_ROLE_SUCCESS = '[Profile Details Store] Add Role Success',
+  ADD_ROLE_FAILURE = '[Profile Details Store] Add Role Failure',
 
-  RESED_STATE = '[ProfileDetails] Reset State',
+  REMOVE_ROLE = '[Profile Details Store] Remove Role',
+  REMOVE_ROLE_SUCCESS = '[Profile Details Store] Remove Role Success',
+  REMOVE_ROLE_FAILURE = '[Profile Details Store] Remove Role Failure',
+
+  RESED_STATE = '[Profile Details Store] Reset State',
 }
 
-export const loadProfile = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE,
+export const loadProfileAndRoles = createAction(
+  EProfileDetailsStoreActions.LOAD_PROFILE_AND_ROLES,
   props<{ profileId: string }>()
 );
 
-export const loadProfileSuccess = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE_SUCCESS,
-  props<{ profile: ProfileModel }>()
+export const loadProfileAndRolesSuccess = createAction(
+  EProfileDetailsStoreActions.LOAD_PROFILE_AND_ROLES_SUCCESS,
+  props<{
+    applications: ApplicationModel[];
+    profile: ProfileModel;
+    profileId: string;
+  }>()
 );
 
-export const loadProfileFailure = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE_FAILURE,
+export const loadProfileAndRolesFailure = createAction(
+  EProfileDetailsStoreActions.LOAD_PROFILE_AND_ROLES_FAILURE,
   props<{ error: unknown }>()
 );
 
-export const loadProfileRoles = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE_ROLES,
-  props<{ profileId: string }>()
+export const addRole = createAction(
+  EProfileDetailsStoreActions.ADD_ROLE,
+  props<{ key: string }>()
 );
 
-export const loadProfileRolesSuccess = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE_ROLES_SUCCESS,
-  props<{ applications: ApplicationModel[]; profileId: string }>()
+export const addRoleSuccess = createAction(
+  EProfileDetailsStoreActions.ADD_ROLE_SUCCESS,
+  props<{ key: string }>()
 );
 
-export const loadProfileRolesFailure = createAction(
-  EProfileDetailsStoreActions.LOAD_PROFILE_ROLES_FAILURE,
+export const addRoleFailure = createAction(
+  EProfileDetailsStoreActions.ADD_ROLE_FAILURE,
+  props<{ error: unknown }>()
+);
+
+export const removeRole = createAction(
+  EProfileDetailsStoreActions.REMOVE_ROLE,
+  props<{ key: string }>()
+);
+
+export const removeRoleSuccess = createAction(
+  EProfileDetailsStoreActions.REMOVE_ROLE_SUCCESS,
+  props<{ key: string }>()
+);
+
+export const removeRoleFailure = createAction(
+  EProfileDetailsStoreActions.REMOVE_ROLE_FAILURE,
   props<{ error: unknown }>()
 );
 
 export const resetState = createAction(EProfileDetailsStoreActions.RESED_STATE);
 
 const _profileDetailsStoreActionsUnion = union({
-  loadProfile,
-  loadProfileSuccess,
-  loadProfileFailure,
+  loadProfileAndRoles,
+  loadProfileAndRolesSuccess,
+  loadProfileAndRolesFailure,
 
-  loadProfileRoles,
-  loadProfileRolesSuccess,
-  loadProfileRolesFailure,
+  removeRole,
+  removeRoleFailure,
+  removeRoleSuccess,
+
+  addRole,
+  addRoleFailure,
+  addRoleSuccess,
 
   resetState,
 });

@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
-import { map, mergeAll, takeUntil } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../../@mixins/destroyable.mixin';
 import { checkboxCheckmarkAnimation, checkboxMinusAnimation } from './checkbox.animations';
+import { CheckBoxStore } from './checkbox.state';
 
 @Component({
   selector: 'p-one-checkbox',
@@ -18,48 +19,54 @@ import { checkboxCheckmarkAnimation, checkboxMinusAnimation } from './checkbox.a
       useExisting: forwardRef(() => CheckboxComponent),
       multi: true,
     },
+    CheckBoxStore,
   ],
 })
 export class CheckboxComponent
   extends DestroyableMixin()
   implements OnInit, ControlValueAccessor
 {
-  public readonly formControl = new UntypedFormControl(false);
-  public readonly isIndeterminated$ = new BehaviorSubject<boolean>(false);
+  public readonly isIndeterminated$ = this._store.isIndeterminated$;
+  public readonly isChecked$ = this._store.isChecked$;
 
-  private readonly _notifyValueChanged$ = new Subject<boolean>();
   public readonly animationState$ = combineLatest([
-    of(this.formControl.valueChanges, this._notifyValueChanged$).pipe(
-      mergeAll()
-    ),
+    this.isChecked$,
     this.isIndeterminated$,
   ]).pipe(
-    map(([value, isIndeterminated]) =>
-      isIndeterminated ? 'indeterminated' : value ? 'checked' : 'unchecked'
+    map(([isChecked, isIndeterminated]) =>
+      isIndeterminated ? 'indeterminated' : isChecked ? 'checked' : 'unchecked'
     )
   );
 
-  public readonly isChecked$ = this.animationState$.pipe(
-    map((value) => value == 'checked')
-  );
   @Output()
-  readonly valueChange$ = this.formControl.valueChanges;
+  readonly valueChange$ = new EventEmitter<boolean>();
+
+  private _value = false;
+  private _initialized = false;
+
+  @Input() set value(value: boolean) {
+    if (!this._initialized) {
+      this.writeValue(value);
+    }
+  }
 
   @Input()
-  set isIndeterminated(isIndeterminated: boolean | null) {
-    this.isIndeterminated$.next(isIndeterminated ?? false);
+  set isIndeterminated(isIndeterminated: boolean) {
+    this._store.setIsIndeterminated(isIndeterminated);
   }
 
   onTouched?: () => void;
   onChange?: (value: any) => void;
 
-  constructor() {
+  constructor(private readonly _store: CheckBoxStore) {
     super();
   }
 
-  writeValue(obj: any): void {
-    this.formControl.setValue(obj, { emitEvent: false });
-    this._notifyValueChanged$.next(obj);
+  writeValue(obj: boolean): void {
+    this._value = obj;
+    this._store.setIsChecked(this._value);
+
+    if (!this._initialized) this._initialized = true;
   }
 
   registerOnChange(fn: any): void {
@@ -70,24 +77,19 @@ export class CheckboxComponent
     this.onTouched = fn;
   }
 
-  toggle($event: MouseEvent): void {
-    $event.stopPropagation();
-    this.isIndeterminated$.next(false);
-    const value = this.formControl.value;
-    this.formControl.setValue(!value);
+  toggle(): void {
+    this._store.setIsIndeterminated(false);
+    this.valueChange$.next(this._value);
+    this.writeValue(!this._value);
+
+    if (this.onTouched) {
+      this.onTouched();
+    }
+
+    if (this.onChange) {
+      this.onChange(this._value);
+    }
   }
 
-  ngOnInit(): void {
-    this.formControl.valueChanges
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((value) => {
-        if (this.onTouched) {
-          this.onTouched();
-        }
-
-        if (this.onChange) {
-          this.onChange(value);
-        }
-      });
-  }
+  ngOnInit(): void {}
 }

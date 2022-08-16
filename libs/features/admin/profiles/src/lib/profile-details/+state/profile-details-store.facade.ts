@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { loadProfileRoles } from './profile-details-store.actions';
+import { loadProfileAndRoles } from './profile-details-store.actions';
+import * as ProfileDetailsStoreActions from './profile-details-store.actions';
 import { ProfileDetailsStoreState } from './profile-details-store.reducer';
 import * as ProfileDetailsStoreSelectors from './profile-details-store.selectors';
 
@@ -22,7 +23,19 @@ export class ProfileDetailsStoreFacade {
 
   constructor(private readonly _store: Store<ProfileDetailsStoreState>) {}
 
-  public loadProfileRoles(profileId: string): void {
-    this._store.dispatch(loadProfileRoles({ profileId }));
+  public loadProfileAndRoles(profileId: string): void {
+    this._store.dispatch(loadProfileAndRoles({ profileId }));
+  }
+
+  public addRole(key: string): void {
+    this._store.dispatch(
+      ProfileDetailsStoreActions.addRole({ key })
+    );
+  }
+
+  public removeRole(key: string): void {
+    this._store.dispatch(
+      ProfileDetailsStoreActions.removeRole({ key })
+    );
   }
 }

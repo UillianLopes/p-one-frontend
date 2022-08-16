@@ -21,8 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "p-one",
-            "style": "kebab-case"
+            "prefix": "p-one"
           }
         ]
       }

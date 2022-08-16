@@ -15,6 +15,24 @@ export class ProfileService {
     @Inject(ADMIN_ENDPOINT) private readonly _adminEndpoint: string
   ) {}
 
+  public addRole(profileId: string, key: string): Observable<unknown> {
+    return this._httpClient
+      .put<ResponseModel<unknown>>(
+        `${this._adminEndpoint}/profile/${profileId}/addRole`,
+        { key }
+      )
+      .pipe(map(({ data }) => data));
+  }
+
+  public removeRole(profileId: string, key: string): Observable<unknown> {
+    return this._httpClient
+      .put<ResponseModel<unknown>>(
+        `${this._adminEndpoint}/profile/${profileId}/removeRole`,
+        { key }
+      )
+      .pipe(map(({ data }) => data));
+  }
+
   public getAllAsOptions(): Observable<OptionModel[]> {
     return this._httpClient
       .get<ResponseModel<OptionModel[]>>(
@@ -29,9 +47,19 @@ export class ProfileService {
       .pipe(map(({ data }) => data));
   }
 
-  public getRoles(profileId: string): Observable<ApplicationModel[]> {
+  public getApplicationsAndRoles(
+    profileId: string
+  ): Observable<ApplicationModel[]> {
     return this._httpClient
       .get<ResponseModel<ApplicationModel[]>>(
+        `${this._adminEndpoint}/profile/${profileId}/getApplicationsAndRoles`
+      )
+      .pipe(map(({ data }) => data));
+  }
+
+  public get(profileId: string): Observable<ProfileModel> {
+    return this._httpClient
+      .get<ResponseModel<ProfileModel>>(
         `${this._adminEndpoint}/profile/${profileId}`
       )
       .pipe(map(({ data }) => data));
