@@ -23,7 +23,11 @@
 
   &__content {
     grid-row: 2;
-    overflow: auto;
+    overflow: hidden;
+
+    &--is-scrolling {
+      overflow: auto;
+    }
   }
 
   &__footer {
