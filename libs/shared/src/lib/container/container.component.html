@@ -7,7 +7,7 @@
   *ngIf="isScrolling$ | async as isScrolling; else notScrollingTemplate"
 >
   <section
-    class="p-one-container__content p-one-container__content--scrolling"
+    class="p-one-container__content p-one-container__content--is-scrolling"
     cdkScrollable
   >
     <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>

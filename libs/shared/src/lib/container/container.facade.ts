@@ -10,7 +10,7 @@ export interface ContainerState {
 export class ContainerFacade {
   private readonly _state$ = new BehaviorSubject<ContainerState>({
     isLoading: false,
-    isScrolling: false,
+    isScrolling: true,
   });
 
   readonly isLoading$ = this._state$.pipe(map(({ isLoading }) => isLoading));

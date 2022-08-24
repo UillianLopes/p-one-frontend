@@ -4,7 +4,7 @@ import { Directive, Input } from '@angular/core';
   selector: '[pOneGridRow]',
 })
 export class GridRowDirective {
-  @Input()
+  @Input('pOneGridRow')
   size?: string;
 
   constructor() {}

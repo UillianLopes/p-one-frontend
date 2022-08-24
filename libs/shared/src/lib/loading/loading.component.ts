@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { LoadingStore } from './loading.state';
 
@@ -8,14 +8,20 @@ import { LoadingStore } from './loading.state';
   styleUrls: ['./loading.component.scss'],
   providers: [LoadingStore],
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent {
   public readonly isSmall$ = this._loadingStore.isSmall$;
 
-  @Input() public set size(size: 'small' | 'normal') {
+  @Input()
+  public set size(size: 'small' | 'normal') {
     this._loadingStore.setSize(size);
   }
 
-  constructor(private readonly _loadingStore: LoadingStore) {}
+  @Input()
+  public set withBackground(withBackground: boolean) {
+    this._loadingStore.setWithBackground(withBackground);
+  }
 
-  ngOnInit(): void {}
+  public readonly withBackground$ = this._loadingStore.withBackground$;
+
+  constructor(private readonly _loadingStore: LoadingStore) {}
 }

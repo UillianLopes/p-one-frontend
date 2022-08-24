@@ -14,4 +14,4 @@ export const walletsSelector = createSelector(
 export const isWalletsLoadingSelector = createSelector(
   homeStoreSelector,
   ({ isWalletsLoading }) => isWalletsLoading
-)
+);
