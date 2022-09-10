@@ -1,38 +1,45 @@
 <p-one-container [isLoading]="(this.isLoading$ | async)!">
   <p-one-header pOneHeader>
-    <button class="btn btn-outline-light" pOneLeading pOneSidenavTrigger #sidenavTrigger="pOneSidenavTrigger">
+    <button
+      class="btn btn-outline-light"
+      pOneLeading
+      pOneSidenavTrigger
+      #sidenavTrigger="pOneSidenavTrigger"
+    >
       <i class="bi bi-list"></i>
     </button>
 
     <h4>Entradas</h4>
-    <p-one-notifications-display-button pOneTrailing></p-one-notifications-display-button>
+    <p-one-notifications-display-button
+      pOneTrailing
+    ></p-one-notifications-display-button>
   </p-one-header>
-  <div pOneHeader class="p-one-entry-create__sub-header">
+  <p-one-sub-header>
     <p-one-breadcrumb>
       <p-one-breadcrumb-item link="/main/financial/entries/list">
         Entradas
       </p-one-breadcrumb-item>
       <p-one-breadcrumb-item>Criar entrada</p-one-breadcrumb-item>
     </p-one-breadcrumb>
-  </div>
-  <div pOneFlexColumn gap="16px" class="p-one-entry-create__panel">
-    <p-one-stepper>
-      <p-one-step [isInvalid]="(isFirstStepInvalid$ | async)!">
-        <span pOneStepHeader>Informações basicas</span>
-        <div pOneFlexRow justification="center">
-          <div class="p-one-entry-create__form">
-            <p-one-first-step></p-one-first-step>
-          </div>
-        </div>
-      </p-one-step>
-      <p-one-step [isInvalid]="(isSecondStepInvalid$ | async)!">
-        <span pOneStepHeader>Recorrência</span>
-        <div pOneFlexRow justification="center">
-          <div class="p-one-entry-create__form">
-            <p-one-second-step></p-one-second-step>
-          </div>
-        </div>
-      </p-one-step>
-    </p-one-stepper>
+  </p-one-sub-header>
+
+  <div
+    pOneFlexColumn
+    gap="16px"
+    alignment="center"
+    class="p-one-entry-create__panel"
+  >
+    <div style="width: 800px">
+      <p-one-general-info-card></p-one-general-info-card>
+    </div>
+
+    <div style="width: 800px" [ngSwitch]="(generalInfoFormType$ | async)!">
+      <p-one-installments-card
+        *ngSwitchCase="EntryType.Installments"
+      ></p-one-installments-card>
+      <p-one-recurrence-card
+        *ngSwitchCase="EntryType.Recurrent"
+      ></p-one-recurrence-card>
+    </div>
   </div>
 </p-one-container>

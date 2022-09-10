@@ -1,4 +1,14 @@
-import { Directive, ElementRef, HostBinding, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Renderer2,
+} from '@angular/core';
 import { NgControl, UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -19,8 +29,8 @@ export class InputDirective
 
   @HostBinding('disabled') public disabled = false;
 
-  @Input()
-  public useFormControl = true;
+  @Input() public useFormControl = true;
+  @Input() public selectContentOnClick = false;
 
   get value(): any {
     if (this._ngControl) {
@@ -45,7 +55,6 @@ export class InputDirective
   }
 
   public get isDirty(): boolean | undefined {
-
     return this._ngControl?.control?.dirty;
   }
 
@@ -57,12 +66,26 @@ export class InputDirective
     super();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._setupInvalidValidation();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     super.ngOnDestroy();
+  }
+
+  public markAsPristine(): void {
+    this._ngControl?.control?.markAsPristine();
+  }
+
+  public markAsDirty(): void {
+    this._ngControl?.control?.markAsPristine();
+  }
+
+  @HostListener('click') public onClick(): void {
+    if (this.selectContentOnClick && this._elementRef.nativeElement instanceof HTMLInputElement) {
+      this._elementRef.nativeElement.select();
+    }
   }
 
   private _setupInvalidValidation(): void {
@@ -97,14 +120,6 @@ export class InputDirective
         });
       }
     }
-  }
-
-  public markAsPristine(): void {
-    this._ngControl?.control?.markAsPristine();
-  }
-
-  public markAsDirty(): void {
-    this._ngControl?.control?.markAsPristine();
   }
 }
 @Directive({

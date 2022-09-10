@@ -1,4 +1,4 @@
-export interface RecurrenceModel {
+export interface InstallmentModel {
   index: number;
   value: number;
   dueDate: Date;

@@ -1,7 +1,8 @@
+import { NamedModel } from '@p-one/core';
+
 import { CategoryModel } from './category.model';
 
-export interface SubCategoryModel {
-  name: string;
+export interface SubCategoryModel extends NamedModel {
   description?: string;
   id?: string;
   category?: CategoryModel;

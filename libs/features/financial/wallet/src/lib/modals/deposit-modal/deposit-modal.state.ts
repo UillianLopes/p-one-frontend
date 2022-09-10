@@ -3,7 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import {
   CategoryModel,
   CategoryService,
-  EEntryType,
+  EEntryOperation,
   ErrorModel,
   SubCategoryModel,
   SubCategoryService,
@@ -107,7 +107,7 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
   public readonly loadCategories = this.effect((event$: Observable<void>) => {
     return event$.pipe(
       tap(() => this.setIsLoading(true)),
-      switchMap(() => this._categoryService.get(EEntryType.Credit)),
+      switchMap(() => this._categoryService.get(EEntryOperation.Credit)),
       tap({
         next: (categories) => this.loadCategoriesSuccess(categories),
         error: (error) => this.failure(error),

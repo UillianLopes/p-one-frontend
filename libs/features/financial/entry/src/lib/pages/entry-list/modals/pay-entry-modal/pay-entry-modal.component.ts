@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { EEntryType, EntryModel, WalletModel } from '@p-one/domain/financial';
+import { EEntryOperation, EntryModel, WalletModel } from '@p-one/domain/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { PayEntryModalStore } from './pay-entry-modal.state';
   providers: [PayEntryModalStore],
 })
 export class PayEntryModalComponent implements OnInit {
-  public readonly EntryType = EEntryType;
+  public readonly EntryType = EEntryOperation;
   public readonly isLoading$ = this._store.isLoading$;
   public readonly balances$ = this._store.balances$;
   public readonly entry$ = this._store.entry$;

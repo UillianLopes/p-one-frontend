@@ -8,7 +8,7 @@
   <button
     class="btn btn-outline-secondary btn-sm"
     [pOneTooltip]="tooltipTemplate"
-    [autoClose]="false"
+    [autoClose]="true"
     trigger="click"
   >
     <b pOneEllipsis>{{ monthToDisplay$ | async | titlecase }} / {{ year$ | async }}</b>

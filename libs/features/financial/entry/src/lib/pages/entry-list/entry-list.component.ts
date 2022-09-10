@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EEntryPaymentStatus, EEntryType, EntryModel } from '@p-one/domain/financial';
+import { EEntryOperation, EEntryPaymentStatus, EntryModel } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, take } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class EntryListComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  public readonly EntryType = EEntryType;
+  public readonly EntryType = EEntryOperation;
   public readonly EntryPaymentStatus = EEntryPaymentStatus;
 
   public readonly entries$ = this._facade.entries$;
@@ -27,9 +27,12 @@ export class EntryListComponent
 
   public readonly filter$ = this._facade.filter$;
   public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
-  public readonly typeFilter$ = this.filter$.pipe(map(({ type }) => type));
+  public readonly operationFilter$ = this.filter$.pipe(
+    map(({ operation }) => operation)
+  );
   public readonly entryType$ = this._facade.entryType$;
-  public readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
+  public readonly settingsCurrency$ =
+    this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: EntryListFacade,
@@ -65,9 +68,9 @@ export class EntryListComponent
     this._facade.removeFilter(id);
   }
 
-  public setTypeFilter(type?: EEntryType): void {
+  public setTypeFilter(operation?: EEntryOperation): void {
     this._facade.patchEntriesFilter({
-      type,
+      operation,
     });
   }
 

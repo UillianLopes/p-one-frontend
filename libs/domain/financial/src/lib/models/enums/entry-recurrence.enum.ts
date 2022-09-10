@@ -1,8 +1,7 @@
 export enum EEntryRecurrence {
-  OneTime,
-  EveryLastMonthDay,
-  Every15Days,
-  Every30Days,
-  EveryExactNumberOfDays,
-  EveveryDay,
+  EveryLastDayOfMonth = 1,
+  EverySpecificDayOfMonth = 2,
+  EveryWeek = 3
 }
+
+

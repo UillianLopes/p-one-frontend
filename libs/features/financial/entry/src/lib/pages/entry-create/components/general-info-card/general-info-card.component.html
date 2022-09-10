@@ -1,0 +1,114 @@
+<p-one-card>
+  <h5 pOneCardHeader>Informações gerais</h5>
+  <form [formGroup]="this.form">
+    <p-one-form-field>
+      <label for="titleInput" pOneLabel>Titulo</label>
+      <input #titleInput type="text" pOneInput formControlName="title" />
+    </p-one-form-field>
+    <div pOneFlexRow justification="space-between">
+      <p-one-form-field>
+        <label pOneLabel i18n>Operação</label>
+        <p-one-radio formControlName="operation">
+          <p-one-radio-button [value]="EntryOperation.Credit">
+            Crédito
+          </p-one-radio-button>
+          <p-one-radio-button [value]="EntryOperation.Debit">
+            Débito
+          </p-one-radio-button>
+        </p-one-radio>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel i18n>Tipo</label>
+        <p-one-radio formControlName="type">
+          <p-one-radio-button [value]="EntryType.Normal">
+            Normal
+          </p-one-radio-button>
+          <p-one-radio-button [value]="EntryType.Installments">
+            Parcelada
+          </p-one-radio-button>
+          <p-one-radio-button [value]="EntryType.Recurrent">
+            Recorrente
+          </p-one-radio-button>
+        </p-one-radio>
+      </p-one-form-field>
+      <p-one-form-field *ngIf="isANormalEntry$ | async">
+        <label pOneLabel i18n>Vencimento</label>
+        <input pOneInput pOneDatepicker formControlName="dueDate" />
+      </p-one-form-field>
+    </div>
+
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryTypeSelect">Moéda</label>
+        <select
+          #entryTypeSelect
+          class="form-control"
+          formControlName="currency"
+        >
+          <option ngValue="BRL">Real (BRL)</option>
+          <option ngValue="USD">Dolar (USD)</option>
+        </select>
+      </p-one-form-field>
+
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryValueInput" i18n> Valor </label>
+        <input
+          #entryValueInput
+          pOneInput
+          [selectContentOnClick]="true"
+          formControlName="value"
+          currencyMask
+        />
+      </p-one-form-field>
+    </div>
+
+    <div pOneGrid columns="minmax(0px, 1fr) minmax(0px, 1fr)" gap="16px">
+      <p-one-form-field>
+        <label for="autoCompleteCategory" pOneLabel>Categoria</label>
+        <input
+          [pOneAutocomplete]="autoCompleteCategory"
+          formControlName="category"
+        />
+        <p-one-autocomplete
+          #autoCompleteCategory="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            *ngFor="let category of this.categories$ | async"
+            [value]="category"
+          >
+            {{ category.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
+      <p-one-form-field>
+        <label pOneLabel for="autoCompleteSubCategory"> Sub categoria </label>
+        <input
+          pOneInput
+          [pOneAutocomplete]="autoCompleteSubCategory"
+          formControlName="subCategory"
+        />
+        <p-one-autocomplete
+          #autoCompleteSubCategory="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            *ngFor="let subCategory of this.subCategories$ | async"
+            [value]="subCategory"
+          >
+            {{ subCategory.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
+    </div>
+  </form>
+  <ng-container pOneCardFooter *ngIf="isANormalEntry$ | async">
+    <button
+      p-one-button
+      (click)="createEntry()"
+      [disabled]="(isFormValid$ | async)!"
+    >
+      <ng-container> Criar entrada </ng-container>
+    </button>
+  </ng-container>
+</p-one-card>

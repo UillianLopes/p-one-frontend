@@ -1,0 +1,62 @@
+<p-one-card>
+  <h5 pOneCardHeader>Recorrencias</h5>
+  <form [formGroup]="form">
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 150px)">
+        <label pOneLabel>Inicio</label>
+        <input pOneInput pOneDatepicker formControlName="begin" />
+      </p-one-form-field>
+      <p-one-form-field pOneGridColumn="minmax(0px, 150px)">
+        <label pOneLabel>Fim</label>
+        <input pOneInput pOneDatepicker formControlName="end" />
+      </p-one-form-field>
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryTypeSelect" i18n>Tipo</label>
+        <select
+          #entryTypeSelect
+          class="form-control"
+          formControlName="recurrence"
+        >
+          <option [ngValue]="EntryRecurrence.EveryLastDayOfMonth">
+            Todo ultimo dia do mês
+          </option>
+          <option [ngValue]="EntryRecurrence.EverySpecificDayOfMonth">
+            Todo mês no dia
+          </option>
+          <option [ngValue]="EntryRecurrence.EveryWeek">
+            Toda semana no dia
+          </option>
+        </select>
+      </p-one-form-field>
+      <ng-container [ngSwitch]="recurrence$ | async">
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EverySpecificDayOfMonth"
+          pOneGridColumn="minmax(0px, 150px)"
+        >
+          <label pOneLabel>Dia</label>
+          <input pOneInput type="number" [formControl]="dayOfMonthControl" />
+        </p-one-form-field>
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EveryWeek"
+          pOneGridColumn="minmax(0px, 150px)"
+        >
+          <label pOneLabel i18n> Dia </label>
+          <select pOneInput [formControl]="dayOfWeekControl">
+            <option [ngValue]="WeekDay.Sunday">Domingo</option>
+            <option [ngValue]="WeekDay.Monday">Segunda</option>
+            <option [ngValue]="WeekDay.Tuesday">Terça</option>
+            <option [ngValue]="WeekDay.Wednesday">Quarta</option>
+            <option [ngValue]="WeekDay.Thursday">Quinta</option>
+            <option [ngValue]="WeekDay.Friday">Sexta</option>
+            <option [ngValue]="WeekDay.Saturday">Sábado</option>
+          </select>
+        </p-one-form-field>
+      </ng-container>
+    </div>
+  </form>
+  <ng-container pOneCardFooter>
+    <button p-one-button (click)="createRecurrentEntry()">
+      Criar recorrencia
+    </button>
+  </ng-container>
+</p-one-card>

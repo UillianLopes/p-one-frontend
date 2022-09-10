@@ -1,12 +1,12 @@
 import { CategoryModel, SubCategoryModel } from '../entities';
-import { EEntryPaymentStatus, EEntryType } from '../enums';
+import { EEntryOperation, EEntryPaymentStatus } from '../enums';
 
 export interface EntryFilter {
   text?: string;
   categories: CategoryModel[];
   subCategories: SubCategoryModel[];
   date: { month: number; year: number };
-  type?: EEntryType;
+  operation?: EEntryOperation;
   minValue?: number;
   maxValue?: number;
   paymentStatus?: EEntryPaymentStatus;

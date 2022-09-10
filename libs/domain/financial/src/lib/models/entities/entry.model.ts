@@ -1,11 +1,11 @@
 import { OptionModel } from '@p-one/core';
 
-import { EEntryPaymentStatus, EEntryType } from '../enums';
+import { EEntryOperation, EEntryPaymentStatus } from '../enums';
 import { PaymentModel } from './payment.model';
 
 export interface EntryModel {
   id: string;
-  type: EEntryType;
+  type: EEntryOperation;
   recurrences: number;
   value: number;
   fees: number;

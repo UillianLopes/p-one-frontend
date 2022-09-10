@@ -17,7 +17,10 @@
 <ng-template #notScrollingTemplate>
   <section class="p-one-container__content">
     <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
-    <p-one-loading *ngIf="isLoading$ | async"></p-one-loading>
+    <p-one-loading
+      *ngIf="isLoading$ | async"
+      [withBackground]="true"
+    ></p-one-loading>
   </section>
 </ng-template>
 

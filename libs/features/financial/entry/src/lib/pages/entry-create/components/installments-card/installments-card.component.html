@@ -1,0 +1,158 @@
+<p-one-card>
+  <h5 pOneCardHeader>Parcelamento</h5>
+  <form [formGroup]="this.form">
+    <div pOneGrid gap="16px">
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel>Referencia</label>
+        <p-one-month-year-picker
+          formControlName="begin"
+        ></p-one-month-year-picker>
+      </p-one-form-field>
+      <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+        <label pOneLabel for="entryTypeSelect" i18n>Tipo</label>
+        <select
+          #entryTypeSelect
+          class="form-control"
+          formControlName="recurrence"
+        >
+          <option [ngValue]="EntryRecurrence.EveryLastDayOfMonth">
+            Todo ultimo dia do mês
+          </option>
+          <option [ngValue]="EntryRecurrence.EverySpecificDayOfMonth">
+            Todo mês no dia
+          </option>
+          <option [ngValue]="EntryRecurrence.EveryWeek">
+            Toda semana no dia
+          </option>
+        </select>
+      </p-one-form-field>
+    </div>
+
+    <div pOneGrid gap="16px">
+      <ng-container [ngSwitch]="installmentsFromRecurrence$ | async">
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EverySpecificDayOfMonth"
+          pOneGridColumn="100px"
+        >
+          <label pOneLabel for="entryDayInput" i18n> Dia </label>
+          <input
+            #entryDayInput
+            pOneInput
+            type="number"
+            [formControl]="dayControl"
+          />
+        </p-one-form-field>
+
+        <p-one-form-field
+          *ngSwitchCase="EntryRecurrence.EveryWeek"
+          pOneGridColumn="100px"
+        >
+          <label pOneLabel i18n> Dia </label>
+          <select pOneInput [formControl]="dayOfWeekControl">
+            <option [ngValue]="WeekDay.Sunday">Domingo</option>
+            <option [ngValue]="WeekDay.Monday">Segunda</option>
+            <option [ngValue]="WeekDay.Tuesday">Terça</option>
+            <option [ngValue]="WeekDay.Wednesday">Quarta</option>
+            <option [ngValue]="WeekDay.Thursday">Quinta</option>
+            <option [ngValue]="WeekDay.Friday">Sexta</option>
+            <option [ngValue]="WeekDay.Saturday">Sábado</option>
+          </select>
+        </p-one-form-field>
+      </ng-container>
+      <p-one-form-field pOneGridColumn="auto">
+        <label pOneLabel for="distribuitionInput" i18n>
+          Distribuição de valor
+        </label>
+        <select
+          pOneInput
+          #distribuitionInput
+          formControlName="valueDistribuition"
+        >
+          <option [ngValue]="EntryValueDistribuitioin.Divide">Dividir</option>
+          <option [ngValue]="EntryValueDistribuitioin.Repeat">Repetir</option>
+        </select>
+      </p-one-form-field>
+
+      <p-one-form-field pOneGridColumn="100px">
+        <label pOneLabel for="recurrenceInput" i18n> Parcelas </label>
+        <input
+          #recurrenceInput
+          pOneInput
+          type="number"
+          formControlName="installments"
+        />
+      </p-one-form-field>
+    </div>
+
+    <div pOneFlexRow justification="center" alignment="center">
+      <button
+        p-one-button
+        (click)="buildInstallments()"
+        [disabled]="(isGenerateInstallmentsDisabled$ | async)!"
+        [isLoading]="(isBuildingRecurrences$ | async)!"
+      >
+        Gerar parcelas
+      </button>
+    </div>
+
+    <ng-container *ngIf="installments$ | async as installments">
+      <h5 class="card-title">Parcelas</h5>
+      <div class="p-one-second-step__recurrences">
+        <table class="table table-sm table--fix-head">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+              <th>Linha digitável</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let installment of installments; trackBy: trackById">
+              <td>{{ installment.index }}</td>
+              <td>
+                {{
+                  installment.value
+                    | currency: (generalInfoFormCurrency$ | async)!
+                }}
+              </td>
+              <td [ngSwitch]="installmentsFromRecurrence$ | async">
+                <ng-container *ngSwitchCase="EntryRecurrence.EveryWeek">
+                  {{ installment.dueDate | date: 'EEEE dd/MM/yyyy' }}
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{ installment.dueDate | date: 'dd/MM/yyyy' }}
+                </ng-container>
+              </td>
+              <td>
+                <div class="input-group input-group-sm">
+                  <input
+                    type="tel"
+                    class="form-control form-control-sm"
+                    placeholder="Insira aqui o código de barras"
+                    type="tel"
+                    [ngModel]="installment.barCode"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span class="input-group-text">
+                    <i class="bi bi-upc"></i>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+  </form>
+  <div pOneCardFooter pOneFlexRow gap="16px">
+    <button
+      p-one-button
+      [disabled]="(isCreateButtonDisabled$ | async)!"
+      [isLoading]="(isLoading$ | async)!"
+      (click)="createInstallmentEntries()"
+    >
+      Criar parcelamento
+    </button>
+  </div>
+</p-one-card>

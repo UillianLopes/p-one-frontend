@@ -1,9 +1,10 @@
-import { EEntryType } from '../enums';
+import { NamedModel } from '@p-one/core';
 
-export interface CategoryModel {
-  name: string;
+import { EEntryOperation } from '../enums';
+
+export interface CategoryModel extends NamedModel {
   description?: string;
   id?: string;
-  type?: EEntryType;
+  type?: EEntryOperation;
   color?: string;
 }

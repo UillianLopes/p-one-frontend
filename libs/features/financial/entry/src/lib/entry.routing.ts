@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EEntryType } from '@p-one/domain/financial';
+import { EEntryOperation } from '@p-one/domain/financial';
 
 import { EntryComponent } from './entry.component';
 
@@ -38,7 +38,7 @@ const routes: Routes = [
             (m) => m.EntryListModule
           ),
         data: {
-          type: EEntryType.Debit,
+          type: EEntryOperation.Debit,
         },
       },
       {
@@ -48,7 +48,7 @@ const routes: Routes = [
             (m) => m.EntryListModule
           ),
         data: {
-          type: EEntryType.Credit,
+          type: EEntryOperation.Credit,
         },
       },
     ],

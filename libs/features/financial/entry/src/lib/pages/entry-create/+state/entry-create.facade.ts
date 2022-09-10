@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
+import { FormControlStatus } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { EEntryType } from '@p-one/domain/financial';
+import { EEntryOperation } from '@p-one/domain/financial';
 
-import { FirstStepFormModel } from '../@types/first-step-form.model';
-import { SecondStepFormModel } from '../@types/second-step-form.model';
+import { InstallmentsFormModel } from '../@types/installments-form.model';
+import { RecurrenceFormModel } from '../@types/recurrence-form.model';
 import {
-  buildRecurrences,
+  buildInstallments,
   createEntry,
+  createInstallmentEntries,
+  createRecurrentEntry,
   loadCategories,
   loadSubCategories,
+  patchFormStatus,
+  patchGeneralInfoForm,
+  patchInstallmentsForm,
+  patchRecurrenceForm,
+  resetGeneralInfoForm,
+  resetInstallmentsForm,
+  resetRecurrenceForm,
   resetState,
   setCategoriesFilter,
-  setFirstStepForm,
-  setSecondStepForm,
   setSubCategoriesFilter,
 } from './entry-create.actions';
 import { EntryCreateState } from './entry-create.reducer';
@@ -32,69 +40,113 @@ export class EntryCreateFacade {
     EntryCreateSelectors.isLoadingSelector
   );
 
-  readonly recurrences$ = this._store.select(
-    EntryCreateSelectors.recurrencesSelector
+  readonly generalInfoForm$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormSelector
   );
 
-  readonly recurrence$ = this._store.select(
-    EntryCreateSelectors.recurrenceSelector
+  readonly generalInfoFormValue$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormValueSelector
   );
 
-  readonly firstStepForm$ = this._store.select(
-    EntryCreateSelectors.firstStepFormSelector
+  readonly generalInfoFormType$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormTypeSelector
   );
 
-  readonly secondStepForm$ = this._store.select(
-    EntryCreateSelectors.secondStepFormSelector
+  readonly generalInfoFormCurrencySelector$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormCurrencySelector
   );
 
-  readonly isFirstStepInvalid$ = this._store.select(
-    EntryCreateSelectors.isFirstStepInvalidSelector
+  readonly installmentsForm$ = this._store.select(
+    EntryCreateSelectors.installmentsFormSelector
   );
 
-  readonly isSecondStepInvalid$ = this._store.select(
-    EntryCreateSelectors.isSecondStepInvalidSelector
+  readonly installmentsFromRecurrence$ = this._store.select(
+    EntryCreateSelectors.installmentsFormRecurrenceSelector
+  );
+
+  readonly installments$ = this._store.select(
+    EntryCreateSelectors.installmentsSelector
   );
 
   readonly isBuildingRecurrences$ = this._store.select(
     EntryCreateSelectors.isBuildingRecurrencesSelector
   );
 
+  readonly formStatus$ = this._store.select(
+    EntryCreateSelectors.formStatusSelector
+  );
+
+  readonly recurrenceForm$ = this._store.select(
+    EntryCreateSelectors.recurrenceFormSelector
+  );
+
+  readonly recurrenceFormRecurrence$ = this._store.select(
+    EntryCreateSelectors.recurrenceFormRecurrenceSelector
+  );
+
   constructor(private readonly _store: Store<EntryCreateState>) {}
 
-  setFirstStepForm(firstStepForm: FirstStepFormModel) {
-    this._store.dispatch(setFirstStepForm({ firstStepForm }));
+  patchGeneralInfoForm(generalInfoForm: Partial<InstallmentsFormModel>): void {
+    this._store.dispatch(patchGeneralInfoForm({ generalInfoForm }));
   }
 
-  setSecondStepForm(secondStepForm: SecondStepFormModel) {
-    this._store.dispatch(setSecondStepForm({ secondStepForm }));
+  resetGeneralInfoForm(): void {
+    this._store.dispatch(resetGeneralInfoForm());
   }
 
-  setCategoriesFilter(categoriesFilter: string) {
+  pathInstallmentsForm(installmentsForm: Partial<InstallmentsFormModel>): void {
+    this._store.dispatch(patchInstallmentsForm({ installmentsForm }));
+  }
+
+  resetInstallmentsForm(): void {
+    this._store.dispatch(resetInstallmentsForm());
+  }
+
+  pathRecurrenceForm(recurrenceForm: Partial<RecurrenceFormModel>): void {
+    this._store.dispatch(patchRecurrenceForm({ recurrenceForm }));
+  }
+
+  resetRecurrenceForm(): void {
+    this._store.dispatch(resetRecurrenceForm());
+  }
+
+  setCategoriesFilter(categoriesFilter: string): void {
     this._store.dispatch(setCategoriesFilter({ categoriesFilter }));
   }
 
-  setSubCategoriesFilter(subCategoriesFilter: string) {
+  setSubCategoriesFilter(subCategoriesFilter: string): void {
     this._store.dispatch(setSubCategoriesFilter({ subCategoriesFilter }));
   }
 
-  loadCategories(targetType: EEntryType): void {
-    this._store.dispatch(loadCategories({ targetType }));
+  loadCategories(targetOperation: EEntryOperation): void {
+    this._store.dispatch(loadCategories({ targetOperation }));
   }
 
   loadSubCategories(categoryId: string): void {
     this._store.dispatch(loadSubCategories({ categoryId }));
   }
 
-  resetState(): void {
-    this._store.dispatch(resetState());
-  }
-
-  buildRecurrences(): void {
-    this._store.dispatch(buildRecurrences());
+  buildInstallments(): void {
+    this._store.dispatch(buildInstallments());
   }
 
   createEntry(): void {
     this._store.dispatch(createEntry());
+  }
+
+  createRecurrentEntry(): void {
+    this._store.dispatch(createRecurrentEntry());
+  }
+
+  createInstallmentEntries(): void {
+    this._store.dispatch(createInstallmentEntries());
+  }
+
+  patchFormStatus(formKey: string, status: FormControlStatus): void {
+    this._store.dispatch(patchFormStatus({ formKey, status }));
+  }
+
+  resetState(): void {
+    this._store.dispatch(resetState());
   }
 }

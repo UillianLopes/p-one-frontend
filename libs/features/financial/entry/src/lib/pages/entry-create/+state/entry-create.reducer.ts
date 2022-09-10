@@ -1,24 +1,28 @@
+import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  CategoryModel,
-  RecurrenceModel,
-  SubCategoryModel,
-} from '@p-one/domain/financial';
+import { FormStatusModel } from '@p-one/core';
+import { CategoryModel, InstallmentModel, SubCategoryModel } from '@p-one/domain/financial';
 
-import { FirstStepFormModel } from '../@types/first-step-form.model';
-import { SecondStepFormModel } from '../@types/second-step-form.model';
+import { GeneralInfoFormModel } from '../@types';
+import { InstallmentsFormModel } from '../@types/installments-form.model';
+import { RecurrenceFormModel } from '../@types/recurrence-form.model';
 import {
-  buildRecurrences,
-  buildRecurrencesFailure,
-  buildRecurrencesSuccess,
+  buildInstallments,
+  buildInstallmentsFailure,
+  buildInstallmentsSuccess,
   loadCategoriesFailure,
   loadCategoriesSuccess,
   loadSubCategoriesFailure,
   loadSubCategoriesSuccess,
+  patchFormStatus,
+  patchGeneralInfoForm,
+  patchInstallmentsForm,
+  patchRecurrenceForm,
+  resetGeneralInfoForm,
+  resetInstallmentsForm,
+  resetRecurrenceForm,
   resetState,
   setCategoriesFilter,
-  setFirstStepForm,
-  setSecondStepForm,
   setSubCategoriesFilter,
 } from './entry-create.actions';
 
@@ -34,10 +38,13 @@ export interface EntryCreateState {
   categoriesFilter?: string;
   categories?: CategoryModel[];
 
-  recurrences: RecurrenceModel[];
+  installments: InstallmentModel[];
 
-  firstStepForm: Partial<FirstStepFormModel>;
-  secondStepForm: Partial<SecondStepFormModel>;
+  generalInfoForm: Partial<GeneralInfoFormModel>;
+  installmentsForm: Partial<InstallmentsFormModel>;
+  recurrenceForm: Partial<RecurrenceFormModel>;
+
+  formStatus: FormStatusModel;
 
   error?: unknown;
 }
@@ -45,9 +52,11 @@ export interface EntryCreateState {
 const initialState: EntryCreateState = {
   loading: false,
   isBuildingRecurrences: false,
-  firstStepForm: {},
-  secondStepForm: {},
-  recurrences: []
+  generalInfoForm: {},
+  installmentsForm: {},
+  recurrenceForm: {},
+  installments: [],
+  formStatus: {},
 };
 
 const _entryCreateReducer = createReducer<EntryCreateState>(
@@ -96,22 +105,22 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     };
   }),
 
-  on(buildRecurrences, (state) => {
+  on(buildInstallments, (state) => {
     return {
       ...state,
       isBuildingRecurrences: true,
     };
   }),
 
-  on(buildRecurrencesSuccess, (state, { recurrences }) => {
+  on(buildInstallmentsSuccess, (state, { installments }) => {
     return {
       ...state,
-      recurrences,
+      installments,
       isBuildingRecurrences: false,
     };
   }),
 
-  on(buildRecurrencesFailure, (state, { error }) => {
+  on(buildInstallmentsFailure, (state, { error }) => {
     return {
       ...state,
       error,
@@ -119,20 +128,49 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     };
   }),
 
-  on(setFirstStepForm, (state, { firstStepForm }) => {
+  on(patchGeneralInfoForm, ({ generalInfoForm, ...state }, action) => {
     return {
       ...state,
-      firstStepForm,
+      generalInfoForm: {
+        ...generalInfoForm,
+        ...action.generalInfoForm,
+      },
     };
   }),
 
-  on(setSecondStepForm, (state, { secondStepForm }) => {
+  on(patchInstallmentsForm, ({ installmentsForm, ...state }, action) => {
     return {
       ...state,
-      secondStepForm,
-      recurrences: [],
+      installmentsForm: {
+        ...installmentsForm,
+        ...action.installmentsForm,
+      },
+      installments: [],
     };
   }),
+
+  on(patchRecurrenceForm, ({ recurrenceForm, ...state }, action) => {
+    return {
+      ...state,
+      recurrenceForm: {
+        ...recurrenceForm,
+        ...action.recurrenceForm,
+      },
+      installments: [],
+    };
+  }),
+
+  on(resetRecurrenceForm, (state) => ({ ...state, recurrenceForm: {} })),
+  on(resetGeneralInfoForm, (state) => ({ ...state, generalInfoForm: {} })),
+  on(resetInstallmentsForm, (state) => ({ ...state, installmentsForm: {} })),
+
+  on(patchFormStatus, ({ formStatus, ...state }, { formKey, status }) => ({
+    ...state,
+    formStatus: {
+      ...formStatus,
+      [formKey]: status,
+    },
+  })),
 
   on(resetState, () => {
     return {

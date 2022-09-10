@@ -7,12 +7,16 @@ import { StoreModule } from '@ngrx/store';
 import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
   POneBreadcrumbModule,
+  POneButtonModule,
+  POneCardModule,
   POneContainerModule,
+  POneDatepickerModule,
   POneFilterDisplayModule,
   POneFlexModule,
   POneGridModule,
   POneHeaderModule,
   POneInputModule,
+  POneMonthYearPickerModule,
   POneSidenavModule,
   POneStepperModule,
 } from '@p-one/shared';
@@ -21,18 +25,18 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { EntryCreateEffects } from './+state/entry-create.effects';
 import { EntryCreateFacade } from './+state/entry-create.facade';
 import { ENTRY_CREATE_KEY, entryCreateReducer } from './+state/entry-create.reducer';
-import { FirstStepComponent } from './components/first-step/first-step.component';
-import { SecondStepComponent } from './components/second-step/second-step.component';
-import { ThirdStepComponent } from './components/third-step/third-step.component';
+import { GeneralInfoCardComponent } from './components/general-info-card/general-info-card.component';
+import { InstallmentsCardComponent } from './components/installments-card/installments-card.component';
+import { RecurrenceCardComponent } from './components/recurrence-card/recurrence-card.component';
 import { EntryCreateComponent } from './entry-create.component';
 import { EntryCreateRoutingModule } from './entry-create.routing';
 
 @NgModule({
   declarations: [
     EntryCreateComponent,
-    FirstStepComponent,
-    SecondStepComponent,
-    ThirdStepComponent,
+    GeneralInfoCardComponent,
+    InstallmentsCardComponent,
+    RecurrenceCardComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,10 @@ import { EntryCreateRoutingModule } from './entry-create.routing';
     NgxCurrencyModule,
     POneBreadcrumbModule,
     POneNotificationsDisplayButtonModule,
+    POneCardModule,
+    POneButtonModule,
+    POneDatepickerModule,
+    POneMonthYearPickerModule,
   ],
   providers: [EntryCreateFacade],
 })

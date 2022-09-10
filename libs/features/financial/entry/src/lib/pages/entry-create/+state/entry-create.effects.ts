@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  CategoryService,
-  CreateEntryRequest,
-  EEntryRecurrence,
-  EntryService,
-  SubCategoryService,
-} from '@p-one/domain/financial';
-import { ToastService } from '@p-one/shared';
+import { CategoryService, EntryService, SubCategoryService } from '@p-one/domain/financial';
 import { of } from 'rxjs';
-import {
-  catchError,
-  map,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import {
-  buildRecurrencesFailure,
-  buildRecurrencesSuccess,
+  buildInstallmentsFailure,
+  buildInstallmentsSuccess,
   createEntryFailure,
   createEntrySuccess,
   EEntryCreateActions,
@@ -37,8 +24,8 @@ export class EntryCreateEffects {
   public readonly loadCategoriesEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(EEntryCreateActions.LOAD_CATEGORIES),
-      switchMap(({ targetType }) => {
-        return this._categoryService.get(targetType).pipe(
+      switchMap(({ targetOperation }) => {
+        return this._categoryService.get(targetOperation).pipe(
           map((categories) => loadCategoriesSuccess({ categories })),
           catchError((error) => of(loadCategoriesFailure({ error })))
         );
@@ -58,15 +45,23 @@ export class EntryCreateEffects {
     )
   );
 
-  public readonly buildRecurrencesEffect$ = createEffect(() =>
+  public readonly buildInstallmentsEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EEntryCreateActions.BUILD_RECURRENCES),
-      withLatestFrom(this._facade.secondStepForm$),
-      switchMap(([_, form]) => {
-        return this._entryService.buildEntryRecurrence(form).pipe(
-          map((recurrences) => buildRecurrencesSuccess({ recurrences })),
-          catchError((error) => of(buildRecurrencesFailure({ error })))
-        );
+      ofType(EEntryCreateActions.BUILD_INSTALLMENTS),
+      withLatestFrom(
+        this._facade.generalInfoForm$,
+        this._facade.installmentsForm$
+      ),
+      switchMap(([, { value }, installmentsForm]) => {
+        return this._entryService
+          .buildInstallments({
+            value,
+            ...installmentsForm,
+          })
+          .pipe(
+            map((installments) => buildInstallmentsSuccess({ installments })),
+            catchError((error) => of(buildInstallmentsFailure({ error })))
+          );
       })
     )
   );
@@ -74,38 +69,65 @@ export class EntryCreateEffects {
   public readonly createEntryEffect$ = createEffect(() =>
     this._actions$.pipe(
       ofType(EEntryCreateActions.CREATE_ENTRY),
-      withLatestFrom(
-        this._facade.firstStepForm$,
-        this._facade.secondStepForm$,
-        this._facade.recurrences$
-      ),
-      switchMap(
-        ([
-          _,
-          { category, subCategory, ...firstStepForm },
-          { value, recurrence, dueDate, barCode },
-          recurrences,
-        ]) => {
-          let entryCreateRequest: Partial<CreateEntryRequest> = {
-            ...firstStepForm,
-            barCode,
+      withLatestFrom(this._facade.generalInfoForm$),
+      switchMap(([, { category, subCategory, ...generalInfoForm }]) => {
+        return this._entryService
+          .create({
+            ...generalInfoForm,
             subCategoryId: subCategory?.id,
             categoryId: category?.id,
-            recurrences: [...recurrences],
-          };
-
-          if (recurrence == EEntryRecurrence.OneTime) {
-            entryCreateRequest = {
-              ...entryCreateRequest,
-              value,
-              dueDate,
-            };
-          }
-
-          return this._entryService.create(entryCreateRequest).pipe(
+          })
+          .pipe(
             map(() => createEntrySuccess()),
             catchError((error) => of(createEntryFailure({ error })))
           );
+      })
+    )
+  );
+
+  public readonly createInstallmentEntriesEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EEntryCreateActions.CREATE_INSTALLMENT_ENTRIES),
+      withLatestFrom(this._facade.generalInfoForm$, this._facade.installments$),
+      switchMap(
+        ([, { category, subCategory, ...generalInfoForm }, installments]) => {
+          return this._entryService
+            .createInstallmentEntries({
+              ...generalInfoForm,
+              installments,
+              subCategoryId: subCategory?.id,
+              categoryId: category?.id,
+            })
+            .pipe(
+              map(() => createEntrySuccess()),
+              catchError((error) => of(createEntryFailure({ error })))
+            );
+        }
+      )
+    )
+  );
+
+  public readonly createRecurrentEntryEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EEntryCreateActions.CREATE_RECURRENT_ENTRY),
+      withLatestFrom(
+        this._facade.generalInfoForm$,
+        this._facade.recurrenceForm$
+      ),
+      switchMap(
+        ([, { category, subCategory, ...generalInfoForm }, recurrenceForm]) => {
+          return this._entryService
+            .createRecurrentEntry({
+              ...generalInfoForm,
+              ...recurrenceForm,
+              subCategoryId: subCategory?.id,
+              categoryId: category?.id,
+              dueDate: undefined,
+            })
+            .pipe(
+              map(() => createEntrySuccess()),
+              catchError((error) => of(createEntryFailure({ error })))
+            );
         }
       )
     )
@@ -116,7 +138,6 @@ export class EntryCreateEffects {
       this._actions$.pipe(
         ofType(EEntryCreateActions.CREATE_ENTRY_SUCCESS),
         tap(() => {
-          this._toastService.open(`Entry created with success`);
           this._router.navigate(['/main/financial/entries']);
         })
       ),
@@ -129,7 +150,6 @@ export class EntryCreateEffects {
     private readonly _categoryService: CategoryService,
     private readonly _subCategoryService: SubCategoryService,
     private readonly _facade: EntryCreateFacade,
-    private readonly _router: Router,
-    private readonly _toastService: ToastService
-  ) { }
+    private readonly _router: Router
+  ) {}
 }
