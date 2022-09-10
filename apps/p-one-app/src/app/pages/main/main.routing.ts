@@ -16,19 +16,17 @@ const routes: Routes = [
       {
         path: 'financial',
         loadChildren: () =>
-          import('./pages/financial/financial.module').then(
-            (e) => e.FinancialModule
-          ),
+          import('@p-one/features/financial').then((e) => e.FinancialModule),
       },
       {
         path: 'admin',
         loadChildren: () =>
-          import('./pages/admin/admin.module').then((e) => e.AdminModule),
+          import('@p-one/features/admin').then((e) => e.AdminModule),
       },
       {
         path: 'home',
         loadChildren: () =>
-          import('./pages/home/home.module').then((e) => e.HomeModule),
+          import('@p-one/features/home').then((e) => e.HomeModule),
       },
       {
         path: 'settings',

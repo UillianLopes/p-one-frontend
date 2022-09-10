@@ -42,14 +42,14 @@
           <p-one-radio
             appearance="outline"
             color="secondary"
-            formControlName="type"
+            formControlName="operation"
           >
             <p-one-radio-button [value]="null">Todos</p-one-radio-button>
-            <p-one-radio-button [value]="EntryType.Credit">
+            <p-one-radio-button [value]="EntryOperation.Credit">
               <span> Crédito </span>
               <i class="bi bi-arrow-up text-success"> </i>
             </p-one-radio-button>
-            <p-one-radio-button [value]="EntryType.Debit">
+            <p-one-radio-button [value]="EntryOperation.Debit">
               <span> Débito </span>
               <i class="bi bi-arrow-down text-danger"> </i>
             </p-one-radio-button>

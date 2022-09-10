@@ -1,15 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import {
-  CategoryModel,
-  EEntryType,
-  SubCategoryModel,
-} from '@p-one/domain/financial';
-import {
-  CustomValidators,
-  DestroyableMixin,
-  PONE_DIALOG_DATA,
-} from '@p-one/shared';
+import { CategoryModel, EEntryOperation, SubCategoryModel } from '@p-one/domain/financial';
+import { CustomValidators, DestroyableMixin, PONE_DIALOG_DATA } from '@p-one/shared';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { SubCategoryFacade } from '../../+state/sub-category.facade';
@@ -26,7 +18,7 @@ export class UpdateSubCategoryModalComponent
   readonly form = this._formBuilder.group({
     id: [this._subCategory.id, Validators.required],
     name: [this._subCategory.name, [Validators.required]],
-    type: [EEntryType.Credit, Validators.required],
+    type: [EEntryOperation.Credit, Validators.required],
     category: [
       this._subCategory.category,
       [CustomValidators.requireToBeObject],

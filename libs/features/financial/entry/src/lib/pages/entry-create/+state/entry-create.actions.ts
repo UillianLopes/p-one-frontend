@@ -1,13 +1,10 @@
+import { FormControlStatus } from '@angular/forms';
 import { createAction, props, union } from '@ngrx/store';
-import {
-  CategoryModel,
-  EEntryType,
-  RecurrenceModel,
-  SubCategoryModel,
-} from '@p-one/domain/financial';
+import { CategoryModel, EEntryOperation, InstallmentModel, SubCategoryModel } from '@p-one/domain/financial';
 
-import { FirstStepFormModel } from '../@types/first-step-form.model';
-import { SecondStepFormModel } from '../@types/second-step-form.model';
+import { GeneralInfoFormModel } from '../@types';
+import { InstallmentsFormModel } from '../@types/installments-form.model';
+import { RecurrenceFormModel } from '../@types/recurrence-form.model';
 
 export enum EEntryCreateActions {
   LOAD_CATEGORIES = '[Entry Create] Load categories',
@@ -20,16 +17,26 @@ export enum EEntryCreateActions {
   LOAD_SUB_CATEGORIES_SUCCESS = '[Entry Create] Load sub categories success',
   LOAD_SUB_CATEGORIES_FAILURE = '[Entry Create] Load sub categories failure',
 
-  BUILD_RECURRENCES = '[Entry Create] Build recurrences',
-  BUILD_RECURRENCES_SUCCESS = '[Entry Create] Build recurrences success',
-  BUILD_RECURRENCES_FAILURE = '[Entry Create] Build recurrences failure',
+  BUILD_INSTALLMENTS = '[Entry Create] Build installments',
+  BUILD_INSTALLMENTS_SUCCESS = '[Entry Create] Build installments success',
+  BUILD_INSTALLMENTS_FAILURE = '[Entry Create] Build installments failure',
 
   SET_SUB_CATEGORIES_FILTER = '[Entry Create] Set sub categories filter',
 
-  SET_FIRST_STEP_FORM = '[Entry Create] Set first step form',
-  SET_SECOND_STEP_FORM = '[Entry Create] Set second step form',
+  PATCH_GENERAL_INFO_FORM = '[Entry Create] Patch general info form',
+  RESET_GENERAL_INFO_FORM = '[Entry Create] Reset general info form',
+
+  PATCH_INSTALLMENTS_FORM = '[Entry Create] Patch installments form',
+  RESET_INSTALLMENTS_FORM = '[Entry Create] Reset installments form',
+
+  PATCH_RECURRENCE_FORM = '[Entry Create] Patch recurrence form',
+  RESET_RECURRENCE_FORM = '[Entry Create] Reset recurrence form',
+
+  PATCH_FORM_STATUS = '[Entry Create] Patch form status',
 
   CREATE_ENTRY = '[Entry Create] Create entry',
+  CREATE_INSTALLMENT_ENTRIES = '[Entry Create] Create installment entries',
+  CREATE_RECURRENT_ENTRY = '[Entry Create] Create recurrent entry',
   CREATE_ENTRY_SUCCESS = '[Entry Create] Create entry success',
   CREATE_ENTRY_FAILURE = '[Entry Create] Create entry failure',
 
@@ -40,10 +47,18 @@ export const resetState = createAction(EEntryCreateActions.RESET_STATE);
 
 export const loadCategories = createAction(
   EEntryCreateActions.LOAD_CATEGORIES,
-  props<{ targetType: EEntryType }>()
+  props<{ targetOperation: EEntryOperation }>()
 );
 
 export const createEntry = createAction(EEntryCreateActions.CREATE_ENTRY);
+
+export const createInstallmentEntries = createAction(
+  EEntryCreateActions.CREATE_INSTALLMENT_ENTRIES
+);
+
+export const createRecurrentEntry = createAction(
+  EEntryCreateActions.CREATE_RECURRENT_ENTRY
+);
 
 export const createEntrySuccess = createAction(
   EEntryCreateActions.CREATE_ENTRY_SUCCESS
@@ -89,28 +104,50 @@ export const setSubCategoriesFilter = createAction(
   props<{ subCategoriesFilter: string }>()
 );
 
-export const buildRecurrences = createAction(
-  EEntryCreateActions.BUILD_RECURRENCES
+export const buildInstallments = createAction(
+  EEntryCreateActions.BUILD_INSTALLMENTS
 );
 
-export const buildRecurrencesSuccess = createAction(
-  EEntryCreateActions.BUILD_RECURRENCES_SUCCESS,
-  props<{ recurrences: RecurrenceModel[] }>()
+export const buildInstallmentsSuccess = createAction(
+  EEntryCreateActions.BUILD_INSTALLMENTS_SUCCESS,
+  props<{ installments: InstallmentModel[] }>()
 );
 
-export const buildRecurrencesFailure = createAction(
-  EEntryCreateActions.BUILD_RECURRENCES_FAILURE,
-  props<{ error: any }>()
+export const buildInstallmentsFailure = createAction(
+  EEntryCreateActions.BUILD_INSTALLMENTS_FAILURE,
+  props<{ error: unknown }>()
 );
 
-export const setFirstStepForm = createAction(
-  EEntryCreateActions.SET_FIRST_STEP_FORM,
-  props<{ firstStepForm: FirstStepFormModel }>()
+export const patchGeneralInfoForm = createAction(
+  EEntryCreateActions.PATCH_GENERAL_INFO_FORM,
+  props<{ generalInfoForm: Partial<GeneralInfoFormModel> }>()
 );
 
-export const setSecondStepForm = createAction(
-  EEntryCreateActions.SET_SECOND_STEP_FORM,
-  props<{ secondStepForm: SecondStepFormModel }>()
+export const resetGeneralInfoForm = createAction(
+  EEntryCreateActions.RESET_GENERAL_INFO_FORM
+);
+
+export const patchInstallmentsForm = createAction(
+  EEntryCreateActions.PATCH_INSTALLMENTS_FORM,
+  props<{ installmentsForm: Partial<InstallmentsFormModel> }>()
+);
+
+export const resetInstallmentsForm = createAction(
+  EEntryCreateActions.RESET_INSTALLMENTS_FORM
+);
+
+export const patchFormStatus = createAction(
+  EEntryCreateActions.PATCH_FORM_STATUS,
+  props<{ formKey: string; status: FormControlStatus }>()
+);
+
+export const patchRecurrenceForm = createAction(
+  EEntryCreateActions.PATCH_RECURRENCE_FORM,
+  props<{ recurrenceForm: Partial<RecurrenceFormModel> }>()
+);
+
+export const resetRecurrenceForm = createAction(
+  EEntryCreateActions.RESET_RECURRENCE_FORM
 );
 
 const actionsUnion = union({
@@ -124,9 +161,24 @@ const actionsUnion = union({
   loadSubCategoriesFailure,
   setSubCategoriesFilter,
 
-  buildRecurrences,
-  buildRecurrencesSuccess,
-  buildRecurrencesFailure,
+  patchInstallmentsForm,
+  resetInstallmentsForm,
+
+  patchGeneralInfoForm,
+  resetGeneralInfoForm,
+
+  patchRecurrenceForm,
+  resetRecurrenceForm,
+
+  buildInstallments,
+  buildInstallmentsSuccess,
+  buildInstallmentsFailure,
+
+  createEntry,
+  createInstallmentEntries,
+  createRecurrentEntry,
+
+  patchFormStatus,
 
   resetState,
 });

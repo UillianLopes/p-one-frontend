@@ -1,4 +1,5 @@
 export enum EEntryType {
-  Credit = 1,
-  Debit = 2,
+  Normal = 1,
+  Installments = 2,
+  Recurrent = 3,
 }

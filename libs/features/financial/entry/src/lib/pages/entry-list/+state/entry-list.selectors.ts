@@ -39,7 +39,7 @@ export const pageSizeSelector = createSelector(
 
 export const typeFilterSelecotr = createSelector(
   filterSelector,
-  ({ type }) => type
+  ({ operation }) => operation
 );
 
 export const entryTypeSelector = createSelector(

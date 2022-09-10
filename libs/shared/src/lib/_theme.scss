@@ -1,3 +1,4 @@
+
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import './dialog/theme';
 
@@ -78,21 +79,21 @@ table.table {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   background: rgba(var(--bs-primary-rgb), 0.1);
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgba(var(--bs-primary-rgb), 0.2);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(var(--bs-primary-rgb), 0.4);
 }
+
 ::-webkit-scrollbar-thumb:active {
   background: rgba(var(--bs-primary-rgb), 0.9);
-}
-
-:root {
-  --bs-body-color: #2b2b2d;
 }

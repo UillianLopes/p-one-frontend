@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { QueryModel } from '@p-one/core';
-import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
+import { EEntryOperation, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 import {
   filterEntries,
@@ -48,7 +48,7 @@ export class EntryListFacade {
 
   constructor(private readonly _store: Store<EntryListState>) {}
 
-  public loadEntriesWithType(entryType?: EEntryType): void {
+  public loadEntriesWithType(entryType?: EEntryOperation): void {
     this._store.dispatch(loadEntriesWithType({ entryType }));
   }
 

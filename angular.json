@@ -167,6 +167,32 @@
       },
       "tags": []
     },
+    "features-admin": {
+      "projectType": "library",
+      "root": "libs/features/admin",
+      "sourceRoot": "libs/features/admin/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/admin"],
+          "options": {
+            "jestConfig": "libs/features/admin/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/admin/**/*.ts",
+              "libs/features/admin/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-admin-profiles": {
       "projectType": "library",
       "root": "libs/features/admin/profiles",
@@ -265,6 +291,32 @@
             "lintFilePatterns": [
               "libs/features/admin/users/**/*.ts",
               "libs/features/admin/users/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-financial": {
+      "projectType": "library",
+      "root": "libs/features/financial",
+      "sourceRoot": "libs/features/financial/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/financial"],
+          "options": {
+            "jestConfig": "libs/features/financial/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/financial/**/*.ts",
+              "libs/features/financial/**/*.html"
             ]
           }
         }
@@ -395,6 +447,32 @@
             "lintFilePatterns": [
               "libs/features/financial/wallet/**/*.ts",
               "libs/features/financial/wallet/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-home": {
+      "projectType": "library",
+      "root": "libs/features/home",
+      "sourceRoot": "libs/features/home/src",
+      "prefix": "p-one",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/home"],
+          "options": {
+            "jestConfig": "libs/features/home/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/home/**/*.ts",
+              "libs/features/home/**/*.html"
             ]
           }
         }

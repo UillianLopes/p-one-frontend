@@ -1,13 +1,16 @@
 <ng-content></ng-content>
 
-<div class="btn-group" *ngIf="buttons$">
+<div class="btn-group">
   <button
     class="btn"
-    [ngClass]="buttonClass$ | async"
+    [ngClass]="(buttonClass$ | async)!"
     *ngFor="let button of buttons$ | async"
     [class.active]="(value$ | async) === button.value"
     (click)="setValue(button.value)"
   >
-    <ng-container [ngTemplateOutlet]="button.template"></ng-container>
+    <ng-container
+      *ngIf="button.template as buttonTemplate"
+      [ngTemplateOutlet]="buttonTemplate"
+    ></ng-container>
   </button>
 </div>

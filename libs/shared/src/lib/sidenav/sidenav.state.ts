@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { Observable } from 'rxjs';
 import { tap, withLatestFrom } from 'rxjs/operators';
 
 import { ESidenavMode } from './sidenav-mode.enum';
@@ -10,11 +11,13 @@ export interface SidenavState {
   mode: ESidenavMode;
   sidenavWidth: number;
   sidenavHeaderHeight?: number;
+  id?: string;
 }
 
 @Injectable()
 export class SidenavStore extends ComponentStore<SidenavState> {
   public readonly sidenavState$ = this.select(({ state }) => state);
+  public readonly id$ = this.select(({ id }) => id);
 
   public readonly isOpened$ = this.select(
     this.sidenavState$,
@@ -62,14 +65,16 @@ export class SidenavStore extends ComponentStore<SidenavState> {
 
   public readonly toggle = this.effect((data$) => {
     return data$.pipe(
-      withLatestFrom(this.sidenavState$),
-      tap(([_, state]) => {
+      withLatestFrom(this.sidenavState$, this.id$),
+      tap(([_, state, id]) => {
         switch (state) {
           case ESidenavState.OPENED:
             this.close();
+            localStorage.setItem(`sidenav-status-${id}`, ESidenavState.CLOSED);
             break;
           case ESidenavState.CLOSED:
             this.open();
+            localStorage.setItem(`sidenav-status-${id}`, ESidenavState.CLOSED);
             break;
         }
       })
@@ -100,6 +105,21 @@ export class SidenavStore extends ComponentStore<SidenavState> {
       mode,
     };
   });
+
+  public readonly loadStatus = this.effect((event$: Observable<string>) =>
+    event$.pipe(
+      tap((id) => {
+        const sidenavState = localStorage.getItem(`sidenav-status-${id}`);
+
+        if (sidenavState) {
+          this.patchState({
+            state: sidenavState as ESidenavState,
+            id,
+          });
+        } else this.patchState({ id });
+      })
+    )
+  );
 
   constructor() {
     super({

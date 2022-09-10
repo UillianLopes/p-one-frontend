@@ -3,6 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 
 export interface LoadingState {
   size: 'small' | 'normal';
+  withBackground: boolean;
 }
 
 @Injectable()
@@ -13,9 +14,14 @@ export class LoadingStore extends ComponentStore<LoadingState> {
     (size) => size === 'small'
   );
 
+  public readonly withBackground$ = this.select(
+    ({ withBackground }) => withBackground
+  );
+
   constructor() {
     super({
       size: 'normal',
+      withBackground: false,
     });
   }
 
@@ -23,4 +29,8 @@ export class LoadingStore extends ComponentStore<LoadingState> {
     ...state,
     size,
   }));
+
+  public readonly setWithBackground = this.updater(
+    (state, withBackground: boolean) => ({ ...state, withBackground })
+  );
 }

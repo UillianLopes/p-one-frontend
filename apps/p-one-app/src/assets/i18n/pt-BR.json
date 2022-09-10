@@ -147,7 +147,7 @@
             "CATEGORY": "Categoria",
             "SUB_CATEGORY": "Sub categoria",
             "AMOUNT": "Valor",
-            "TYPE": "Tipo",
+            "OPERATION": "Operação",
             "STATUS": "Situação",
             "BAR_CODE": "C. barras"
           }

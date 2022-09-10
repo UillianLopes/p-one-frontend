@@ -66,7 +66,7 @@
             "CATEGORY": "Category",
             "SUB_CATEGORY": "Sub category",
             "AMOUNT": "Amount",
-            "TYPE": "Type",
+            "OPERATION": "Operation",
             "STATUS": "Status",
             "BAR_CODE": "Bar code"
           }

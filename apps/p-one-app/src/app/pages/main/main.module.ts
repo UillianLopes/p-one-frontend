@@ -13,11 +13,11 @@ import { MainRoutingModule } from './main.routing';
   imports: [
     CommonModule,
     MainRoutingModule,
+    TranslateModule,
     POneNotificationsStoreModule,
     POneSidenavModule,
     POneContainerModule,
     POneUserSidenavItemModule,
-    TranslateModule,
     POneRolesModule,
   ],
 })

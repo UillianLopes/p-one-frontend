@@ -11,9 +11,11 @@ import {
   EntryFilterRequest,
   EntryModel,
   ErrorModel,
+  InstallmentModel,
   PayEntryRequest,
-  RecurrenceModel,
 } from '../models';
+import { CreateInstallmentEntriesRequest } from '../models/requests/create-installment-entries.request';
+import { CreateRecurrentEntryRequest } from '../models/requests/create-recurrent-entry.request';
 import { UpdateEntryRequest } from '../models/requests/update-entry.request';
 
 @Injectable()
@@ -36,11 +38,11 @@ export class EntryService {
       );
   }
 
-  buildEntryRecurrence(
+  buildInstallments(
     model: Partial<BuildEntryReccurrenceRequest>
-  ): Observable<RecurrenceModel[]> {
+  ): Observable<InstallmentModel[]> {
     return this._httpClient
-      .post<ResponseModel<RecurrenceModel[]>>(
+      .post<ResponseModel<InstallmentModel[]>>(
         `${this._financialApiUrl}/Entry/BuildEntryRecurrence`,
         model
       )
@@ -55,6 +57,38 @@ export class EntryService {
   create(body: Partial<CreateEntryRequest>): Observable<EntryModel[]> {
     return this._httpClient
       .post<ResponseModel<EntryModel[]>>(`${this._financialApiUrl}/Entry`, body)
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  createRecurrentEntry(
+    body: Partial<CreateRecurrentEntryRequest>
+  ): Observable<EntryModel[]> {
+    return this._httpClient
+      .post<ResponseModel<EntryModel[]>>(
+        `${this._financialApiUrl}/Entry/CreateRecurrentEntry`,
+        body
+      )
+      .pipe(
+        map((resposne) => resposne.data),
+        catchError((err) =>
+          throwError({ messages: err.messages } as ErrorModel)
+        )
+      );
+  }
+
+  createInstallmentEntries(
+    body: Partial<CreateInstallmentEntriesRequest>
+  ): Observable<EntryModel[]> {
+    return this._httpClient
+      .post<ResponseModel<EntryModel[]>>(
+        `${this._financialApiUrl}/Entry/CreateInstallmentEntries`,
+        body
+      )
       .pipe(
         map((resposne) => resposne.data),
         catchError((err) =>

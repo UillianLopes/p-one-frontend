@@ -31,6 +31,7 @@
         "libs/features/admin/standalone-users/src/index.ts"
       ],
       "@p-one/features/admin/users": ["libs/features/admin/users/src/index.ts"],
+      "@p-one/features/financial": ["libs/features/financial/src/index.ts"],
       "@p-one/features/financial/category": [
         "libs/features/financial/category/src/index.ts"
       ],
@@ -49,6 +50,7 @@
       "@p-one/features/financial/wallet": [
         "libs/features/financial/wallet/src/index.ts"
       ],
+      "@p-one/features/home": ["libs/features/home/src/index.ts"],
       "@p-one/features/shared": ["libs/features/shared/src/index.ts"],
       "@p-one/shared": ["libs/shared/src/index.ts"],
       "@p-one/stores/identity": ["libs/stores/identity/src/index.ts"],
