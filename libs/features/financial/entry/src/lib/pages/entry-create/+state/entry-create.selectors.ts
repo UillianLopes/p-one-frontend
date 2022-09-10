@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { EEntryRecurrence } from '@p-one/domain/financial';
 import * as _ from 'lodash';
 
 import { ENTRY_CREATE_KEY, EntryCreateState } from './entry-create.reducer';
@@ -41,63 +40,62 @@ export const filtredSubCategoriesSelector = createSelector(
     _.filter(subCategories, (sc) => sc.name.toLowerCase().indexOf(filter) >= 0)
 );
 
-export const recurrencesSelector = createSelector(
+export const installmentsSelector = createSelector(
   stateSelector,
-  (state) => state.recurrences
+  ({ installments }) => installments
 );
 
-export const firstStepFormSelector = createSelector(
+export const generalInfoFormSelector = createSelector(
   stateSelector,
-  (state) => state.firstStepForm
+  ({ generalInfoForm }) => generalInfoForm
 );
 
-export const secondStepFormSelector = createSelector(
-  stateSelector,
-  (state) => state.secondStepForm
+export const generalInfoFormTypeSelector = createSelector(
+  generalInfoFormSelector,
+  ({ type }) => type
 );
 
-export const recurrenceSelector = createSelector(
-  secondStepFormSelector,
-  (secondStepForm) => secondStepForm?.recurrence
+export const generalInfoFormCurrencySelector = createSelector(
+  generalInfoFormSelector,
+  ({ currency }) => currency
+);
+
+export const generalInfoFormValueSelector = createSelector(
+  generalInfoFormSelector,
+  ({ value }) => value
+);
+
+export const installmentsFormSelector = createSelector(
+  stateSelector,
+  ({ installmentsForm }) => installmentsForm
+);
+
+export const installmentsFormRecurrenceSelector = createSelector(
+  installmentsFormSelector,
+  ({ recurrence }) => recurrence
+);
+
+export const recurrenceFormSelector = createSelector(
+  stateSelector,
+  ({ recurrenceForm }) => recurrenceForm
+);
+
+export const recurrenceFormRecurrenceSelector = createSelector(
+  recurrenceFormSelector,
+  ({ recurrence }) => recurrence
 );
 
 export const isLoadingSelector = createSelector(
   stateSelector,
-  (state) => state.loading
+  ({ loading }) => loading
 );
 
-export const isFirstStepInvalidSelector = createSelector(
-  firstStepFormSelector,
-  (form) => {
-    if (!form) return false;
-
-    const { title, category, subCategory } = form;
-
-    return !(
-      title &&
-      category &&
-      typeof category == 'object' &&
-      (!subCategory || typeof subCategory == 'object')
-    );
-  }
-);
-
-export const isSecondStepInvalidSelector = createSelector(
-  secondStepFormSelector,
-  recurrencesSelector,
-  (form, recurrences) => {
-    if (!(form && form.dueDate && form.value)) {
-      return true;
-    }
-
-    if (form.recurrence === EEntryRecurrence.OneTime) {
-      return recurrences?.length > 0;
-    }
-
-    return recurrences?.length < 1;
-  }
-);
 export const isBuildingRecurrencesSelector = createSelector(
   stateSelector,
   ({ isBuildingRecurrences }) => isBuildingRecurrences
+);
+
+export const formStatusSelector = createSelector(
+  stateSelector,
+  ({ formStatus }) => formStatus
 );

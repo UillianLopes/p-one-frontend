@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { Color } from '../@types';
 
+import { Color } from '../@types';
 import { CardStore } from './card.state';
 
 @Component({

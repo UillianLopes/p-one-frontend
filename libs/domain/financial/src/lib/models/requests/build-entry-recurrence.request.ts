@@ -1,11 +1,14 @@
+import { WeekDay } from '@angular/common';
+import { MonthModel } from '@p-one/core';
+
 import { EEntryRecurrence, EEntryValueDistribuition } from '../enums';
 
 export interface BuildEntryReccurrenceRequest {
   recurrence: EEntryRecurrence;
-  times: number;
-  intervalInDays: number;
+  installments: number;
   day: number;
-  dueDate: Date;
   value: number;
+  dayOfWeek: WeekDay;
   valueDistribuition: EEntryValueDistribuition;
+  begin: MonthModel;
 }

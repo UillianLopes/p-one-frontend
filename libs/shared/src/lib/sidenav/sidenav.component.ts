@@ -4,6 +4,7 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  Input,
   NgZone,
   OnDestroy,
   QueryList,
@@ -43,6 +44,10 @@ export class SidenavComponent
     delay(10)
   );
 
+  @Input() set id(id: string) {
+    this._store.loadStatus(id);
+  }
+
   constructor(
     private readonly _store: SidenavStore,
     private readonly _elementRef: ElementRef<HTMLElement>,
@@ -50,6 +55,7 @@ export class SidenavComponent
   ) {
     super();
   }
+
   ngAfterContentInit(): void {
     this._setSidenavWidthToContent();
   }

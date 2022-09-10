@@ -1,10 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import {
-  EEntryPaymentStatus,
-  EEntryType,
-  EntryFilter,
-} from '@p-one/domain/financial';
+import { FormControl, UntypedFormBuilder } from '@angular/forms';
+import { EEntryOperation, EEntryPaymentStatus, EntryFilter } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
@@ -22,12 +18,12 @@ export class EntryListFilterComponent
   extends DestroyableMixin()
   implements OnInit
 {
-  readonly EntryType = EEntryType;
+  readonly EntryOperation = EEntryOperation;
   readonly EntryPaymentStatus = EEntryPaymentStatus;
   readonly isLoading$ = this._store.isLoading$;
 
   readonly form = this._formBuilder.group({
-    type: [this._data.type],
+    operation: [this._data.operation],
     text: [this._data.text],
     categories: [this._data.categories],
     subCategories: [this._data.subCategories],
@@ -37,8 +33,8 @@ export class EntryListFilterComponent
     maxValue: [this._data.maxValue],
   });
 
-  public readonly subCategories = this.form.get('subCategories');
-  public readonly categories = this.form.get('categories');
+  public readonly subCategories = this.form.get('subCategories') as FormControl;
+  public readonly categories = this.form.get('categories') as FormControl;
 
   public readonly inFilterCategoryIds$ = this.categories.valueChanges.pipe(
     startWith(this.categories.value),
@@ -60,7 +56,8 @@ export class EntryListFilterComponent
   ]).pipe(
     map(([subCategories, inFilterCategoryIds]) => {
       return subCategories.filter(
-        (c) => !inFilterCategoryIds || !inFilterCategoryIds.includes(c.id)
+        ({ id }) =>
+          !inFilterCategoryIds || (id && !inFilterCategoryIds.includes(id))
       );
     })
   );
@@ -73,9 +70,12 @@ export class EntryListFilterComponent
     map(([subCategories, inFilterSubCategoryIds, inFilterCategoryIds]) => {
       return subCategories.filter(
         (s) =>
-          (!inFilterSubCategoryIds || !inFilterSubCategoryIds.includes(s.id)) &&
+          (!inFilterSubCategoryIds ||
+            (s.id && !inFilterSubCategoryIds.includes(s.id))) &&
           (!s.category ||
             (inFilterCategoryIds &&
+              s.category &&
+              s.category.id &&
               inFilterCategoryIds.includes(s.category.id)))
       );
     })

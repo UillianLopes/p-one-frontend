@@ -45,9 +45,7 @@ export class CheckboxComponent
   private _initialized = false;
 
   @Input() set value(value: boolean) {
-    if (!this._initialized) {
-      this.writeValue(value);
-    }
+    this.writeValue(value);
   }
 
   @Input()
@@ -62,8 +60,8 @@ export class CheckboxComponent
     super();
   }
 
-  writeValue(obj: boolean): void {
-    this._value = obj;
+  writeValue(value: boolean): void {
+    this._value = value;
     this._store.setIsChecked(this._value);
 
     if (!this._initialized) this._initialized = true;

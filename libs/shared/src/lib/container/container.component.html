@@ -3,10 +3,31 @@
     select="[pOneHeader],p-one-header,[pOneSubHeader],p-one-sub-header"
   ></ng-content>
 </section>
-<section class="p-one-container__content" cdkScrollable>
-  <ng-content></ng-content>
-  <p-one-loading *ngIf="isLoading$ | async"></p-one-loading>
-</section>
+<ng-container
+  *ngIf="isScrolling$ | async as isScrolling; else notScrollingTemplate"
+>
+  <section
+    class="p-one-container__content p-one-container__content--is-scrolling"
+    cdkScrollable
+  >
+    <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    <p-one-loading *ngIf="isLoading$ | async"></p-one-loading>
+  </section>
+</ng-container>
+<ng-template #notScrollingTemplate>
+  <section class="p-one-container__content">
+    <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    <p-one-loading
+      *ngIf="isLoading$ | async"
+      [withBackground]="true"
+    ></p-one-loading>
+  </section>
+</ng-template>
+
 <section class="p-one-container__footer">
   <ng-content select="[pOneFooter]"></ng-content>
 </section>
+
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>

@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EEntryType, EntryFilter, EntryService } from '@p-one/domain/financial';
+import { EEntryOperation, EntryFilter, EntryService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import * as _ from 'lodash';
 import { of } from 'rxjs';
-import {
-  catchError,
-  filter,
-  map,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { DeleteEntryModalComponent } from '../modals/delete-entry-modal/delete-entry-modal.component';
 import { EntryListFilterComponent } from '../modals/entry-list-filter/entry-list-filter.component';
@@ -50,18 +44,18 @@ export function mapFilterToRequest(
     categories,
     subCategories,
     text,
-    type,
+    operation,
     minValue,
     maxValue,
     paymentStatus,
   }: Partial<EntryFilter>,
-  entryType?: EEntryType
+  entryType?: EEntryOperation
 ): any {
   return {
     minValue,
     maxValue,
     text,
-    type: entryType === undefined ? type : entryType,
+    operation: entryType === undefined ? operation : entryType,
     month,
     year,
     categories: categories?.map((c) => c.id),

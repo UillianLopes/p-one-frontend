@@ -1,4 +1,4 @@
-<p-one-container>
+<p-one-container [isScrolling]="false">
   <p-one-header>
     <button
       pOneLeading
@@ -10,39 +10,55 @@
     >
       <i class="bi bi-list"></i>
     </button>
-    <h4>Detalhes da entrada</h4>
+    <h4>Perfil</h4>
   </p-one-header>
 
-  <div pOneGrid gap="16px" style="padding: 16px">
-    <div
-      pOneGridColumn="minmax(300px, 1fr)"
-      *ngFor="let application of applications$ | async; trackBy: trackByTitle"
-    >
+  <div class="profile-details__container">
+    <div pOneFlexColumn minWidth="fit-content" gap="16px">
       <p-one-card>
-        <h5 pOneCardHeader>
-          {{ application.title | translate }}
-        </h5>
-
-        <ng-container *ngFor="let module of application.modules; trackBy: trackByTitle">
-          <h4>
-            {{ module.title | translate }}
-          </h4>
-
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let role of module.roles; trackBy: trackByDescription" >
-              <div pOneFlexRow justification="space-between">
-                <span>{{ role.title | translate }}</span>
-                <div>
-                  <p-one-checkbox
-                    [value]="role.isActive!"
-                    (valueChange$)="toggleRole($event, role.key)"
-                  ></p-one-checkbox>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </ng-container>
+        <h5 pOneCardHeader>Detalhes</h5>
       </p-one-card>
+
+      <div pOneGrid gap="16px">
+        <div
+          pOneGridColumn="minmax(300px, 1fr)"
+          *ngFor="
+            let application of applications$ | async;
+            trackBy: trackByTitle
+          "
+        >
+          <p-one-card>
+            <h5 pOneCardHeader>
+              {{ application.title | translate }}
+            </h5>
+
+            <ng-container
+              *ngFor="let module of application.modules; trackBy: trackByTitle"
+            >
+              <h4>
+                {{ module.title | translate }}
+              </h4>
+
+              <ul class="list-group">
+                <li
+                  class="list-group-item"
+                  *ngFor="let role of module.roles; trackBy: trackByDescription"
+                >
+                  <div pOneFlexRow justification="space-between">
+                    <span>{{ role.title | translate }}</span>
+                    <div>
+                      <p-one-checkbox
+                        [value]="role.isActive!"
+                        (valueChange$)="toggleRole($event, role.key)"
+                      ></p-one-checkbox>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
+          </p-one-card>
+        </div>
+      </div>
     </div>
   </div>
 </p-one-container>

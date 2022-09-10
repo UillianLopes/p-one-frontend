@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { QueryModel } from '@p-one/core';
-import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
+import { EEntryOperation, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 import {
   filterEntries,
@@ -22,7 +22,7 @@ export interface EntryListState {
   pagination: QueryModel;
   entries: EntryModel[];
   error?: any;
-  entryType?: EEntryType;
+  entryType?: EEntryOperation;
 }
 const now = new Date();
 
@@ -35,7 +35,7 @@ const initialState: EntryListState = {
   loading: false,
   entries: [],
   filter: {
-    type: null,
+    operation: null,
     paymentStatus: null,
     date: {
       month: now.getMonth() + 1,
@@ -138,7 +138,7 @@ const _entityListReducer = createReducer<EntryListState>(
     return { ...state, error, loading: false };
   }),
 
-  on(resetState, (_) => {
+  on(resetState, () => {
     return {
       ...initialState,
     };

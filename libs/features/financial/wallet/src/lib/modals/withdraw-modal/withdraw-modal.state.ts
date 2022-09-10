@@ -3,7 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import {
   CategoryModel,
   CategoryService,
-  EEntryType,
+  EEntryOperation,
   ErrorModel,
   SubCategoryModel,
   SubCategoryService,
@@ -107,7 +107,7 @@ export class WithdrawModalStore extends ComponentStore<WithdrawModalState> {
   public readonly loadCategories = this.effect((event$: Observable<void>) => {
     return event$.pipe(
       tap(() => this.setIsLoading(true)),
-      switchMap(() => this._categoryService.get(EEntryType.Debit)),
+      switchMap(() => this._categoryService.get(EEntryOperation.Debit)),
       tap({
         next: (categories) => this.loadCategoriesSuccess(categories),
         error: (error) => this.failure(error),

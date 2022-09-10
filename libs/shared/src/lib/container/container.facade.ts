@@ -4,14 +4,17 @@ import { map } from 'rxjs/operators';
 
 export interface ContainerState {
   isLoading: boolean;
+  isScrolling: boolean;
 }
 @Injectable()
 export class ContainerFacade {
   private readonly _state$ = new BehaviorSubject<ContainerState>({
     isLoading: false,
+    isScrolling: true,
   });
 
-  readonly isLoading$ = this._state$.pipe(map((state) => state.isLoading));
+  readonly isLoading$ = this._state$.pipe(map(({ isLoading }) => isLoading));
+  readonly isScrolling$ = this._state$.pipe(map(({ isScrolling }) => isScrolling));
 
   constructor() {}
 
@@ -21,6 +24,12 @@ export class ContainerFacade {
     });
   }
 
+  public setIsScrolling(isScrolling: boolean) {
+    this._setState({
+      isScrolling,
+    });
+  }
+  
   private _setState(state: Partial<ContainerState>): void {
     this._state$.next({
       ...this._state$.value,

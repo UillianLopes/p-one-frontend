@@ -16,10 +16,16 @@ import { ContainerFacade } from './container.facade';
 })
 export class ContainerComponent extends DestroyableMixin() implements OnInit {
   readonly isLoading$ = this._facade.isLoading$;
+  readonly isScrolling$ = this._facade.isScrolling$;
 
   @Input()
   set isLoading(value: boolean) {
     this._facade.setIsLoading(value);
+  }
+
+  @Input()
+  set isScrolling(value: boolean) {
+    this._facade.setIsScrolling(value);
   }
 
   constructor(private readonly _facade: ContainerFacade) {

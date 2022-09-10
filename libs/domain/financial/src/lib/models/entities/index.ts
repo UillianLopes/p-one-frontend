@@ -1,4 +1,4 @@
-export * from './recurrence.model';
+export * from './installment.model';
 export * from './entry.model';
 export * from './category.model';
 export * from './sub-category.model';

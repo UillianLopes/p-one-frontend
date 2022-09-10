@@ -1,6 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 import { QueryModel } from '@p-one/core';
-import { EEntryType, EntryFilter, EntryModel } from '@p-one/domain/financial';
+import { EEntryOperation, EntryFilter, EntryModel } from '@p-one/domain/financial';
 
 export enum EEntryListActions {
   LOAD_ENTRIES = '[Entry List] Load entries',
@@ -33,7 +33,7 @@ export enum EEntryListActions {
 
 export const loadEntriesWithType = createAction(
   EEntryListActions.LOAD_ENTRIES,
-  props<{ entryType?: EEntryType }>()
+  props<{ entryType?: EEntryOperation }>()
 );
 
 export const loadEntriesWithTypeSuccess = createAction(

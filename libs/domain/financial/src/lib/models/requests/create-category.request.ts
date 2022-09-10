@@ -1,8 +1,8 @@
-import { EEntryType } from '../enums';
+import { EEntryOperation } from '../enums';
 
 export interface CreateCategoryRequest {
   description: string;
   name: string;
-  type: EEntryType;
+  type: EEntryOperation;
   color: string;
 }

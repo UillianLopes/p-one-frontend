@@ -21,4 +21,16 @@ export class FlexColumnDirective {
   @HostBinding('style.gap')
   @Input()
   gap = '0px';
+
+  @HostBinding('style.width')
+  @Input()
+  width = '100%';
+
+  @HostBinding('style.max-width')
+  @Input()
+  maxWidth = '100%';
+
+  @HostBinding('style.min-width')
+  @Input()
+  minWidth = '100%';
 }

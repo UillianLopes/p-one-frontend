@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
-import { CategoryModel, EEntryType, ErrorModel } from '../models';
+import { CategoryModel, EEntryOperation, ErrorModel } from '../models';
 
 @Injectable()
 export class CategoryService {
@@ -14,12 +14,12 @@ export class CategoryService {
     @Inject(FINANCIAL_ENDPOINT) private readonly _financialApiUrl: string
   ) {}
 
-  get(type?: EEntryType): Observable<CategoryModel[]> {
+  get(operation?: EEntryOperation): Observable<CategoryModel[]> {
     return this._httpClient
       .get<ResponseModel<CategoryModel[]>>(
         `${this._financialApiUrl}/Category`,
         {
-          params: serializeToQueryParams({ type }),
+          params: serializeToQueryParams({ operation }),
         }
       )
       .pipe(
@@ -30,7 +30,7 @@ export class CategoryService {
       );
   }
 
-  getAllAsOptions(type?: EEntryType): Observable<OptionModel[]> {
+  getAllAsOptions(type?: EEntryOperation): Observable<OptionModel[]> {
     return this._httpClient
       .get<ResponseModel<OptionModel[]>>(
         `${this._financialApiUrl}/Category/GetAllAsOptions`,

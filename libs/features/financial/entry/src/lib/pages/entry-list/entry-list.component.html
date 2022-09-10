@@ -72,7 +72,7 @@
         *ngIf="(entryType$ | async) === undefined"
         appearance="outline"
         color="secondary"
-        [value]="typeFilter$ | async"
+        [value]="operationFilter$ | async"
         (change$)="setTypeFilter($event)"
       >
         <p-one-radio-button [value]="null">
@@ -157,7 +157,7 @@
           <th scope="col">
             <span pOneEllipsis>
               {{
-                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.TYPE' | translate
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.OPERATION' | translate
               }}
             </span>
           </th>

@@ -1,16 +1,16 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import {
   CategoryModel,
   CategoryService,
-  EEntryType,
+  EEntryOperation,
   SubCategoryModel,
   SubCategoryService,
   TransferRequest,
   WalletModel,
   WalletService,
 } from '@p-one/domain/financial';
-import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import { DialogRef } from '@p-one/shared';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -54,12 +54,12 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
 
   public readonly debitCategories$ = this.select(
     this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryType.Debit)
+    (categories) => categories.filter(({ type }) => type === EEntryOperation.Debit)
   );
 
   public readonly creditCategories$ = this.select(
     this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryType.Credit)
+    (categories) => categories.filter(({ type }) => type === EEntryOperation.Credit)
   );
 
   public readonly destinations$ = this.select(
