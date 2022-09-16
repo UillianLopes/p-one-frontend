@@ -4,7 +4,7 @@ import { NamedModel } from '@p-one/core';
 import { CategoryModel, EEntryOperation, EEntryType } from '@p-one/domain/financial';
 import { CustomValidators, DestroyableMixin } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
-import { filter, map, startWith, takeUntil } from 'rxjs';
+import { combineLatest, debounceTime, distinctUntilChanged, filter, map, startWith, takeUntil } from 'rxjs';
 
 import { EntryCreateFacade } from '../../+state/entry-create.facade';
 import { EntryCreateFormKeys } from '../../@types/entry-create-form-keys';
@@ -18,14 +18,14 @@ export class GeneralInfoCardComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  public readonly EntryOperation = EEntryOperation;
-  public readonly EntryType = EEntryType;
+  readonly EntryOperation = EEntryOperation;
+  readonly EntryType = EEntryType;
 
-  public readonly form = this._formBuilder.group({
+  readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     operation: [EEntryOperation.Credit],
-    category: [null, [Validators.required]],
-    subCategory: [null],
+    category: [null, [Validators.required, CustomValidators.requireToBeObject]],
+    subCategory: [null, [CustomValidators.requireToBeObject]],
     currency: [null, Validators.required],
     value: [0.0, [Validators.required, Validators.min(0.01)]],
     type: [EEntryType.Normal, Validators.required],
@@ -40,26 +40,40 @@ export class GeneralInfoCardComponent
           parent.value.type === EEntryType.Normal
       ),
     ],
+    wallet: [null, [CustomValidators.requireToBeObject]],
+    paid: [false],
+    paidValue: [],
+    fees: [],
+    fine: [],
   });
 
-  public readonly currencyControl = this.form.get('currency') as FormControl;
-  public readonly operationControl = this.form.get('operation') as FormControl;
-  public readonly categoryControl = this.form.get('category') as FormControl;
-  public readonly subCategoryControl = this.form.get(
-    'subCategory'
-  ) as FormControl;
-  public readonly typeControl = this.form.get('type') as FormControl;
+  readonly walletControl = this.form.get('wallet') as FormControl;
+  readonly currencyControl = this.form.get('currency') as FormControl;
+  readonly operationControl = this.form.get('operation') as FormControl;
+  readonly categoryControl = this.form.get('category') as FormControl;
+  readonly subCategoryControl = this.form.get('subCategory') as FormControl;
+  readonly typeControl = this.form.get('type') as FormControl;
+  readonly paidValueControl = this.form.get('paidValue') as FormControl;
+  readonly fineControl = this.form.get('fine') as FormControl;
+  readonly feesControl = this.form.get('fees') as FormControl;
 
-  public readonly categories$ = this._facade.filtredCategories$;
-  public readonly subCategories$ = this._facade.filtredSubCategories$;
-
-  public readonly isANormalEntry$ = this._facade.generalInfoFormType$.pipe(
+  readonly categories$ = this._facade.filtredCategories$;
+  readonly subCategories$ = this._facade.filtredSubCategories$;
+  readonly wallets$ = this._facade.filtredWallets$;
+  readonly generalInfoFormOperation$ = this._facade.generalInfoFormOperation$;
+  readonly generalInfoFormValue$ = this._facade.generalInfoFormValue$;
+  readonly isANormalEntry$ = this._facade.generalInfoFormType$.pipe(
     map((type) => type === EEntryType.Normal)
   );
-
-  public readonly isFormValid$ = this._facade.formStatus$.pipe(
-    map((status) => status[EntryCreateFormKeys.GeneralInfo] === 'VALID')
+  readonly isFormInvalid$ = this._facade.formStatus$.pipe(
+    map((status) => status[EntryCreateFormKeys.GeneralInfo] === 'INVALID')
   );
+  readonly isLoading$ = this._facade.isLoading$;
+  readonly isCreateEntryDisabled$ = combineLatest([
+    this.isFormInvalid$,
+    this.isLoading$,
+  ]).pipe(map(([isFormInvalid, isLoading]) => isFormInvalid || isLoading));
+  readonly paid$ = this._facade.generalInfoFormPaid$;
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
@@ -122,10 +136,56 @@ export class GeneralInfoCardComponent
         this._facade.setSubCategoriesFilter(value);
       });
 
+    this.walletControl.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((s) => typeof s == 'string' || !s)
+      )
+      .subscribe((value) => {
+        this._facade.setWalletsFilter(value);
+      });
+
     this.form.statusChanges
-      .pipe(takeUntil(this.destroyed$), startWith(this.form.status))
+      .pipe(
+        takeUntil(this.destroyed$),
+        startWith(this.form.status),
+        distinctUntilChanged()
+      )
       .subscribe((status) => {
         this._facade.patchFormStatus(EntryCreateFormKeys.GeneralInfo, status);
+      });
+
+    this.generalInfoFormValue$
+      .pipe(takeUntil(this.destroyed$), debounceTime(300))
+      .subscribe((value) => {
+        if (typeof value !== 'number') {
+          return;
+        }
+
+        this.paidValueControl.setValidators([
+          Validators.min(0.01),
+          Validators.max(value),
+          Validators.required,
+        ]);
+
+        this.paidValueControl.setValue(value);
+        this.paidValueControl.updateValueAndValidity();
+        this.fineControl.setValue(0.0);
+        this.feesControl.setValue(0.0);
+      });
+
+    combineLatest([this.paid$, this.isANormalEntry$])
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(([paid, isANormalEntry]) => {
+        if (paid && isANormalEntry) {
+          this.paidValueControl.enable();
+          this.fineControl.enable();
+          this.feesControl.enable();
+        } else {
+          this.paidValueControl.disable();
+          this.fineControl.disable();
+          this.feesControl.disable();
+        }
       });
   }
 

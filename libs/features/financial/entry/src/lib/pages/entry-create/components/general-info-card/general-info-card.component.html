@@ -62,7 +62,11 @@
       </p-one-form-field>
     </div>
 
-    <div pOneGrid columns="minmax(0px, 1fr) minmax(0px, 1fr)" gap="16px">
+    <div
+      pOneGrid
+      columns="minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr)"
+      gap="16px"
+    >
       <p-one-form-field>
         <label for="autoCompleteCategory" pOneLabel>Categoria</label>
         <input
@@ -81,6 +85,7 @@
           </p-one-option>
         </p-one-autocomplete>
       </p-one-form-field>
+
       <p-one-form-field>
         <label pOneLabel for="autoCompleteSubCategory"> Sub categoria </label>
         <input
@@ -100,13 +105,75 @@
           </p-one-option>
         </p-one-autocomplete>
       </p-one-form-field>
+
+      <p-one-form-field>
+        <label for="autocompleteWallets" pOneLabel>Conta / Carteira</label>
+        <input
+          [pOneAutocomplete]="autocompleteWallets"
+          formControlName="wallet"
+        />
+        <p-one-autocomplete
+          #autocompleteWallets="pOneAutocomplete"
+          [displayFn]="displayFn"
+        >
+          <p-one-option
+            *ngFor="let wallet of this.wallets$ | async"
+            [value]="wallet"
+          >
+            {{ wallet.name }}
+          </p-one-option>
+        </p-one-autocomplete>
+      </p-one-form-field>
     </div>
+
+    <ng-container *ngIf="isANormalEntry$ | async">
+      <div pOneFlexRow alignment="center" gap="16px">
+        <p-one-checkbox formControlName="paid"></p-one-checkbox>
+        <span [ngSwitch]="generalInfoFormOperation$ | async">
+          <ng-container *ngSwitchCase="EntryOperation.Credit">
+            Esta entrada já foi recebida
+          </ng-container>
+          <ng-container *ngSwitchCase="EntryOperation.Debit">
+            Esta entrada já foi paga
+          </ng-container>
+        </span>
+      </div>
+      <div pOneGrid *ngIf="paid$ | async" gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="entryPaidValueInput" i18n> Valor pago </label>
+          <input
+            #entryPaidValueInput
+            pOneInput
+            currencyMask
+            formControlName="paidValue"
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="entryFeesInput" i18n> Juros </label>
+          <input
+            #entryFeesInput
+            pOneInput
+            currencyMask
+            formControlName="fees"
+          />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel for="entryFineInput" i18n> Multa </label>
+          <input
+            #entryFineInput
+            pOneInput
+            currencyMask
+            formControlName="fine"
+          />
+        </p-one-form-field>
+      </div>
+    </ng-container>
   </form>
   <ng-container pOneCardFooter *ngIf="isANormalEntry$ | async">
     <button
       p-one-button
       (click)="createEntry()"
-      [disabled]="(isFormValid$ | async)!"
+      [disabled]="(isCreateEntryDisabled$ | async)!"
     >
       <ng-container> Criar entrada </ng-container>
     </button>

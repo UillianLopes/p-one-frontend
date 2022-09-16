@@ -76,6 +76,6 @@ export abstract class Chart<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public slugify(value: string) {
-    return value.replace(/ /g, '-').replace(/\//g, '-');
+    return value.replace(/[^0-9a-zA-Z_-]/g, '');
   }
 }

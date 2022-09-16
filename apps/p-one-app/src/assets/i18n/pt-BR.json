@@ -149,7 +149,10 @@
             "AMOUNT": "Valor",
             "OPERATION": "Operação",
             "STATUS": "Situação",
-            "BAR_CODE": "C. barras"
+            "BAR_CODE": "C. barras",
+            "WALLET": "Conta/Carteira",
+            "RECURRENCE_BEGIN": "Inicio da recorrência",
+            "RECURRENCE_END": "Fim da recorrência"
           }
         },
         "FILTER": {

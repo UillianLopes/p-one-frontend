@@ -40,6 +40,20 @@ export const filtredSubCategoriesSelector = createSelector(
     _.filter(subCategories, (sc) => sc.name.toLowerCase().indexOf(filter) >= 0)
 );
 
+const walletsSelector = createSelector(stateSelector, (state) => state.wallets);
+
+const walletsFilterSelector = createSelector(
+  stateSelector,
+  (state) => state.walletsFilter?.toLowerCase() ?? ''
+);
+
+export const filtredWalletsSelector = createSelector(
+  walletsSelector,
+  walletsFilterSelector,
+  (wallets, filter) =>
+    _.filter(wallets, (sc) => sc.name.toLowerCase().indexOf(filter) >= 0)
+);
+
 export const installmentsSelector = createSelector(
   stateSelector,
   ({ installments }) => installments
@@ -55,6 +69,10 @@ export const generalInfoFormTypeSelector = createSelector(
   ({ type }) => type
 );
 
+export const generalInfoFormOperationSelector = createSelector(
+  generalInfoFormSelector,
+  ({ operation }) => operation
+);
 export const generalInfoFormCurrencySelector = createSelector(
   generalInfoFormSelector,
   ({ currency }) => currency
@@ -65,6 +83,10 @@ export const generalInfoFormValueSelector = createSelector(
   ({ value }) => value
 );
 
+export const generalInfoFormPaidSelector = createSelector(
+  generalInfoFormSelector,
+  ({ paid }) => paid
+);
 export const installmentsFormSelector = createSelector(
   stateSelector,
   ({ installmentsForm }) => installmentsForm

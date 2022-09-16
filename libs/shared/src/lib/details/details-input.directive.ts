@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Optional } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Optional } from '@angular/core';
 
 import {
   AutocompleteDirective,
@@ -29,6 +29,9 @@ export class DetailsInputDirective {
       this._smallAutocomlete
     );
   }
+
+  @HostBinding('disabled') public disabled = false;
+
   constructor(
     @Optional() private readonly _input: InputDirective,
     @Optional() private readonly _smallInput: SmallInputDirective,
@@ -44,14 +47,14 @@ export class DetailsInputDirective {
 
   enableField(): void {
     if (this.input) {
-      this.input.disabled = false;
+      this.disabled = false;
     }
     this._elementRef.nativeElement.focus();
   }
 
   disabledField(): void {
     if (this.input) {
-      this.input.disabled = true;
+      this.disabled = true;
     }
   }
 }

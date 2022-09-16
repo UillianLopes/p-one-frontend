@@ -53,41 +53,33 @@ export class AutocompleteDirective
   }
 
   ngOnInit(): void {
-    this.autocomplete.change$
+    this.autocomplete.valueChange
       .pipe(takeUntil(this.destroyed$))
       .subscribe((obj) => {
-        this._ngControl?.control?.setValue(obj);
-        this._ngControl?.control?.markAsDirty();
-
+        this.value = obj;
         this.close();
       });
 
-    this._ngControl.control?.valueChanges
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((obj) => {
-        const element = this._elementRef.nativeElement as HTMLInputElement;
-        if (!this.clearAfterSelect) {
-          if (typeof obj === 'string') {
-            element.value = obj;
-          } else if (obj) {
-            element.value = this.autocomplete.displayFn
-              ? this.autocomplete.displayFn(obj)
-              : JSON.stringify(obj);
-          } else {
-            element.value = '';
-          }
-        } else {
-          (this._elementRef.nativeElement as HTMLInputElement).value = '';
-        }
-      });
+    const control = this._ngControl?.control;
+
+    if (control) {
+      control.valueChanges
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((obj) => this._applyValueToDOM(obj));
+    } else {
+      this.value$
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((obj) => this._applyValueToDOM(obj));
+    }
+  }
+
+  close() {
+    this._overlayRef?.detach();
+    this._overlayRef = undefined;
   }
 
   @HostListener('focus')
   open() {
-    if (this.disabled) {
-      return;
-    }
-
     if (this._overlayRef) {
       return;
     }
@@ -135,17 +127,32 @@ export class AutocompleteDirective
     this._overlayRef = overlayRef;
   }
 
-  close() {
-    this._overlayRef?.detach();
-    this._overlayRef = undefined;
-  }
-
-  @HostListener('keydown') onKeyDown() {
+  @HostListener('keydown')
+  onKeyDown() {
     this.open();
   }
 
-  @HostListener('click') click() {
+  @HostListener('click')
+  onClick() {
     this.open();
+  }
+
+  private _applyValueToDOM(obj: any) {
+    const element = this._elementRef.nativeElement as HTMLInputElement;
+
+    if (!this.clearAfterSelect) {
+      if (typeof obj === 'string') {
+        element.value = obj;
+      } else if (obj) {
+        element.value = this.autocomplete.displayFn
+          ? this.autocomplete.displayFn(obj)
+          : JSON.stringify(obj);
+      } else {
+        element.value = '';
+      }
+    } else {
+      (this._elementRef.nativeElement as HTMLInputElement).value = '';
+    }
   }
 }
 

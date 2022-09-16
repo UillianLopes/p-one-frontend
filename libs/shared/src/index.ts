@@ -65,3 +65,4 @@ export * from './lib/button';
 
 export * from './lib/table-utils';
 export * from './lib/collapse';
+export * from './lib/input-v2';

@@ -45,6 +45,7 @@
     <button
       class="btn btn-primary btn-sm"
       routerLink="/main/financial/entries/create"
+      *pOneHasRoles="[GlobalRoles.Standalone, EntryRoles.Create]"
     >
       <span pOneEllipsis>
         {{ '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.CREATE_ENTRY' | translate }}
@@ -157,7 +158,8 @@
           <th scope="col">
             <span pOneEllipsis>
               {{
-                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.OPERATION' | translate
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.OPERATION'
+                  | translate
               }}
             </span>
           </th>
@@ -171,12 +173,44 @@
           <th scope="col">
             <span pOneEllipsis>
               {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.WALLET' | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
                 '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.BAR_CODE'
                   | translate
               }}
             </span>
           </th>
-          <th scope="col" p-one-actions-cell></th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.RECURRENCE_BEGIN'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th scope="col">
+            <span pOneEllipsis>
+              {{
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.RECURRENCE_END'
+                  | translate
+              }}
+            </span>
+          </th>
+          <th
+            scope="col"
+            *pOneHasRoles="[
+              GlobalRoles.Standalone,
+              EntryRoles.Create,
+              EntryRoles.Update,
+              EntryRoles.Delete
+            ]"
+            p-one-actions-cell
+          ></th>
         </tr>
       </thead>
       <tbody>
@@ -256,34 +290,72 @@
               </ng-container>
             </div>
           </td>
-
+          <td [ngSwitch]="entry.paymentStatus">
+            <div pOneEllipsis>
+              {{ entry.wallet && entry.wallet.title }}
+            </div>
+          </td>
           <td>
             <span pOneEllipsis>
               {{ entry.barCode }}
             </span>
           </td>
+          <td>
+            <span pOneEllipsis>
+              {{ entry.recurrenceBegin | date }}
+            </span>
+          </td>
+          <td>
+            <span
+              pOneEllipsis
+              *ngIf="
+                entry.recurrenceEnd as recurrenceEnd;
+                else infiniteIconTemplate
+              "
+            >
+              {{ recurrenceEnd | date }}
+            </span>
 
-          <td p-one-actions-cell>
+            <ng-template #infiniteIconTemplate>
+              <i *ngIf="entry.recurrenceBegin" class="bi bi-infinity"></i>
+            </ng-template>
+          </td>
+
+          <td
+            p-one-actions-cell
+            *pOneHasRoles="[
+              GlobalRoles.Standalone,
+              EntryRoles.Create,
+              EntryRoles.Update,
+              EntryRoles.Delete
+            ]"
+          >
             <ng-container *pOneActionsCellOptions>
-              <button
-                p-one-button
-                size="small"
-                color="success"
-                appearance="outline"
-                (click)="openPayEntryDialog(entry)"
+              <ng-container
+                *pOneHasRoles="[GlobalRoles.Standalone, EntryRoles.Update]"
               >
-                <i class="bi bi-credit-card" pOneIcon></i>
-                {{
-                  '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY'
-                    | translate
-                }}
-              </button>
+                <button
+                  p-one-button
+                  size="small"
+                  color="success"
+                  appearance="outline"
+                  (click)="openPayEntryDialog(entry)"
+                  *ngIf="entry.paymentStatus !== EntryPaymentStatus.Paid"
+                >
+                  <i class="bi bi-credit-card" pOneIcon></i>
+                  {{
+                    '@PONE.FINANCIAL.ENTRIES.LIST.BUTTONS.OPEN_PAY_ENTRY'
+                      | translate
+                  }}
+                </button>
+              </ng-container>
               <button
                 p-one-button
                 size="small"
                 color="danger"
                 appearance="outline"
                 (click)="openDeleteEntryDialog(entry)"
+                *pOneHasRoles="[GlobalRoles.Standalone, EntryRoles.Delete]"
               >
                 <i class="bi bi-trash" pOneIcon></i>
 
@@ -297,6 +369,7 @@
                 size="small"
                 appearance="outline"
                 (click)="openEntryDetailsDialog(entry)"
+                *pOneHasRoles="[GlobalRoles.Standalone, EntryRoles.Update]"
               >
                 <i class="bi bi-eye" pOneIcon></i>
 

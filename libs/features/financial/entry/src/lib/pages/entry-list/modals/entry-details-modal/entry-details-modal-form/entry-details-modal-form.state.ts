@@ -14,19 +14,15 @@ export interface EntryDetailsModalFormState {
 
 @Injectable()
 export class EntryDetailsModalFormStore extends ComponentStore<EntryDetailsModalFormState> {
-  public readonly categories$ = this.select(({ categories }) => categories);
-  public readonly subCategories$ = this.select(
-    ({ subCategories }) => subCategories
-  );
-
-  public readonly entry$ = this.select(({ entry }) => entry);
-  public readonly currency$ = this.select(({ entry }) => entry?.currency);
-  public readonly canEditValue$ = this.select(
+  readonly categories$ = this.select(({ categories }) => categories);
+  readonly subCategories$ = this.select(({ subCategories }) => subCategories);
+  readonly entry$ = this.select(({ entry }) => entry);
+  readonly currency$ = this.select(({ entry }) => entry?.currency);
+  readonly canEditValue$ = this.select(
     this.entry$,
     (entry) => entry && entry.paymentStatus !== EEntryPaymentStatus.Paid
   );
-
-  public readonly isLoading$ = this.select(({ isLoading }) => isLoading);
+  readonly isLoading$ = this.select(({ isLoading }) => isLoading);
 
   constructor(
     private readonly _subCategoryService: SubCategoryService,
@@ -36,7 +32,7 @@ export class EntryDetailsModalFormStore extends ComponentStore<EntryDetailsModal
     super({ isLoading: false, categories: [], subCategories: [] });
   }
 
-  public readonly updateEntry = this.effect((event$: Observable<any>) =>
+  readonly updateEntry = this.effect((event$: Observable<any>) =>
     event$.pipe(
       tap(() => this.patchState({ isLoading: true })),
       withLatestFrom(this.entry$),
@@ -59,26 +55,25 @@ export class EntryDetailsModalFormStore extends ComponentStore<EntryDetailsModal
     )
   );
 
-  public readonly setEntryAndLoad = this.effect(
-    (event$: Observable<EntryModel>) =>
-      event$.pipe(
-        tap(() => this.patchState({ isLoading: true })),
-        switchMap((entry) =>
-          forkJoin([
-            this._categoryService.getAllAsOptions(entry.type),
-            this._subCategoryService.getAllAsOptions(entry.category.id),
-          ]).pipe(
-            tap({
-              next: ([categories, subCategories]) =>
-                this.patchState({
-                  categories,
-                  subCategories,
-                  entry,
-                }),
-              complete: () => this.patchState({ isLoading: false }),
-            })
-          )
+  readonly setEntryAndLoad = this.effect((event$: Observable<EntryModel>) =>
+    event$.pipe(
+      tap(() => this.patchState({ isLoading: true })),
+      switchMap((entry) =>
+        forkJoin([
+          this._categoryService.getAllAsOptions(entry.type),
+          this._subCategoryService.getAllAsOptions(entry.category.id),
+        ]).pipe(
+          tap({
+            next: ([categories, subCategories]) =>
+              this.patchState({
+                categories,
+                subCategories,
+                entry,
+              }),
+            complete: () => this.patchState({ isLoading: false }),
+          })
         )
       )
+    )
   );
 }

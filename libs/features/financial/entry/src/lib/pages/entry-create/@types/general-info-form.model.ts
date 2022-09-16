@@ -1,4 +1,11 @@
-import { CategoryModel, EEntryOperation, EEntryRecurrence, EEntryType, SubCategoryModel } from '@p-one/domain/financial';
+import {
+  CategoryModel,
+  EEntryOperation,
+  EEntryRecurrence,
+  EEntryType,
+  SubCategoryModel,
+  WalletModel,
+} from '@p-one/domain/financial';
 
 export interface GeneralInfoFormModel {
   title: string;
@@ -12,4 +19,9 @@ export interface GeneralInfoFormModel {
   barCode: string;
   type: EEntryType;
   value: number;
+  wallet?: WalletModel;
+  paid: boolean;
+  paidValue: number;
+  fees: number;
+  fine: number;
 }

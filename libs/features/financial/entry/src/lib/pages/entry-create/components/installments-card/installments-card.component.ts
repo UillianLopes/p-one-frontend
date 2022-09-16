@@ -1,8 +1,8 @@
 import { WeekDay } from '@angular/common';
-import { Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { EEntryRecurrence, EEntryValueDistribuition, InstallmentModel } from '@p-one/domain/financial';
-import { DestroyableMixin, StepComponent } from '@p-one/shared';
+import { DestroyableMixin } from '@p-one/shared';
 import { combineLatest, map, startWith, takeUntil } from 'rxjs';
 
 import { EntryCreateFacade } from '../../+state/entry-create.facade';
@@ -63,17 +63,16 @@ export class InstallmentsCardComponent
     map((status) => status === 'VALID')
   );
 
-  public readonly isLoading$ = this._facade.isLoading$;
-  public readonly isBuildingRecurrences$ = this._facade.isBuildingRecurrences$;
-  public readonly generalInfoFormCurrency$ = this._facade.generalInfoFormCurrencySelector$;
-  public readonly generalInfoFormValue$ = this._facade.generalInfoFormValue$;
-  public readonly installmentsFromRecurrence$ = this._facade.installmentsFromRecurrence$;
-  public readonly installments$ = this._facade.installments$;
-  public readonly isGenerateInstallmentsDisabled$ = combineLatest([
+  readonly isLoading$ = this._facade.isLoading$;
+  readonly isBuildingRecurrences$ = this._facade.isBuildingRecurrences$;
+  readonly generalInfoFormCurrency$ = this._facade.generalInfoFormCurrencySelector$;
+  readonly generalInfoFormValue$ = this._facade.generalInfoFormValue$;
+  readonly installmentsFromRecurrence$ = this._facade.installmentsFromRecurrence$;
+  readonly installments$ = this._facade.installments$;
+  readonly isGenerateInstallmentsDisabled$ = combineLatest([
     this.isFormValid$,
     this.isDayValid$,
     this.isDayOfWeekValid$,
-
     this.installmentsFromRecurrence$,
     this.generalInfoFormValue$,
     this.installments$,
@@ -91,7 +90,7 @@ export class InstallmentsCardComponent
         isBuildingRecurrences,
         isLoading,
       ]) => {
-        let flag = isFormValid;
+        let flag: boolean = isFormValid;
 
         switch (recurrence) {
           case EEntryRecurrence.EverySpecificDayOfMonth:
@@ -114,11 +113,11 @@ export class InstallmentsCardComponent
     )
   );
 
-  public readonly isGeneralInfoFormValid$ = this._facade.formStatus$.pipe(
+  readonly isGeneralInfoFormValid$ = this._facade.formStatus$.pipe(
     map((status) => status[EntryCreateFormKeys.GeneralInfo] === 'VALID')
   );
 
-  public readonly isCreateButtonDisabled$ = combineLatest([
+  readonly isCreateButtonDisabled$ = combineLatest([
     this.isGeneralInfoFormValid$,
     this.installments$,
     this.isBuildingRecurrences$,
@@ -139,12 +138,11 @@ export class InstallmentsCardComponent
     )
   );
 
-  public readonly trackById = (_: number, item: InstallmentModel) => item.index;
+  readonly trackById = (_: number, item: InstallmentModel) => item.index;
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
-    private readonly _facade: EntryCreateFacade,
-    @Optional() private readonly _step: StepComponent
+    private readonly _facade: EntryCreateFacade
   ) {
     super();
   }

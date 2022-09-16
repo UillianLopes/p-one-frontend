@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import {
-  EntryModel,
-  EntryService,
-  PayEntryRequest,
-  WalletModel,
-  WalletService,
-} from '@p-one/domain/financial';
+import { EntryModel, EntryService, WalletModel, WalletService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+
+import { PayEntryForm } from './pay-entry.form';
 
 export interface PayEntryModalState {
   isLoading: boolean;
   entry: EntryModel;
+  wallet: WalletModel;
   dialogId?: string;
-  balances: WalletModel[];
-  error?: any;
-  balance?: WalletModel;
+  wallets: WalletModel[];
+  error?: unknown;
 }
 
 @Injectable()
 export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   public readonly isLoading$ = this.select(({ isLoading }) => isLoading);
-  public readonly balances$ = this.select(({ balances }) => balances);
+  public readonly wallets$ = this.select(({ wallets }) => wallets);
   public readonly entry$ = this.select(({ entry }) => entry);
   public readonly value$ = this.select(this.entry$, ({ value }) => value);
   public readonly dueDate$ = this.select(this.entry$, ({ dueDate }) => dueDate);
   public readonly type$ = this.select(this.entry$, ({ type }) => type);
-  public readonly balance$ = this.select(({ balance }) => balance);
+  public readonly wallet$ = this.select(({ wallet }) => wallet);
   public readonly dialogId$ = this.select(({ dialogId }) => dialogId);
+  public readonly canDefineEntryValue$ = this.select(
+    this.entry$,
+    (entry) => !entry?.id
+  );
 
   constructor(
     private readonly _walletService: WalletService,
@@ -38,8 +38,9 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   ) {
     super({
       isLoading: false,
-      balances: [],
+      wallets: [],
       entry: null,
+      wallet: null,
     });
   }
 
@@ -63,24 +64,24 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly setBalance = this.updater((state, balance: WalletModel) => {
+  public readonly setWallet = this.updater((state, wallet: WalletModel) => {
     return {
       ...state,
-      balance,
+      wallet,
     };
   });
 
-  public readonly loadBalancesSuccess = this.updater(
-    (state, balances: WalletModel[]) => {
+  private readonly _loadWalletsSuccess = this.updater(
+    (state, wallets: WalletModel[]) => {
       return {
         ...state,
-        balances,
+        wallets,
         isLoading: false,
       };
     }
   );
 
-  public readonly loadBalancesFailure = this.updater((state, error: any) => {
+  private readonly _loadWalletsFailure = this.updater((state, error: any) => {
     return {
       ...state,
       error,
@@ -88,15 +89,15 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly loadBalances = this.effect((data$) => {
+  public readonly loadWallets = this.effect((data$) => {
     return data$.pipe(
       tap(() => this.setIsLoading(true)),
       withLatestFrom(this.entry$),
-      switchMap(([_, entry]) =>
-        this._walletService.get({ currency: entry.currency }).pipe(
+      switchMap(([, { currency }]) =>
+        this._walletService.get({ currency }).pipe(
           tap({
-            next: (balances) => this.loadBalancesSuccess(balances),
-            error: (error) => this.loadBalancesFailure(error),
+            next: (wallets) => this._loadWalletsSuccess(wallets),
+            error: (error) => this._loadWalletsFailure(error),
           })
         )
       )
@@ -118,14 +119,25 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly payEntry = this.effect(
-    (data$: Observable<PayEntryRequest>) => {
-      return data$.pipe(
-        withLatestFrom(this.entry$, this.balance$),
-        filter(([__, entry, balance]) => !!entry && !!balance),
-        tap(() => this.setIsLoading(true)),
-        switchMap(([data, { id: entryId }, { id: balanceId }]) =>
-          this._entryService.payEntry(entryId, { ...data, balanceId }).pipe(
+  public readonly payEntry = this.effect((data$: Observable<PayEntryForm>) => {
+    return data$.pipe(
+      withLatestFrom(this.entry$),
+      filter(([, entry]) => !!entry),
+      tap(() => this.setIsLoading(true)),
+      switchMap(([{ wallet, ...form }, { id: entryId, parentId, dueDate }]) => {
+        const id = entryId ?? parentId;
+
+        if (!id) {
+          return of(null);
+        }
+
+        return this._entryService
+          .payEntry(id, {
+            ...form,
+            walletId: wallet?.id,
+            dueDate,
+          })
+          .pipe(
             withLatestFrom(this.dialogId$),
             tap({
               next: ([__, dialogId]) => {
@@ -134,9 +146,8 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
               },
               error: (error) => this.payEntryFailure(error),
             })
-          )
-        )
-      );
-    }
-  );
+          );
+      })
+    );
+  });
 }
