@@ -20,8 +20,10 @@ import {
   POneGridModule,
   POneHeaderModule,
   POneInputModule,
+  POneInputV2Module,
   POneLoadingModule,
   POneMonthYearPickerModule,
+  POneRolesModule,
   POneSidenavModule,
   POneTableContainerModule,
   POneTableUtilsModule,
@@ -81,6 +83,8 @@ import { PayEntryModalComponent } from './modals/pay-entry-modal/pay-entry-modal
     POneLoadingModule,
     POneTableUtilsModule,
     POneButtonModule,
+    POneInputV2Module,
+    POneRolesModule
   ],
   providers: [EntryListFacade],
 })

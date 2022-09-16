@@ -1,9 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EEntryOperation, EntryModel, WalletModel } from '@p-one/domain/financial';
-import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import {
+  CustomValidators,
+  DestroyableMixin,
+  DialogRef,
+  PONE_DIALOG_DATA,
+  updateValueAndValidityMarkingControlsAreDirty,
+} from '@p-one/shared';
 import { combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { PayEntryModalStore } from './pay-entry-modal.state';
 
@@ -13,67 +19,88 @@ import { PayEntryModalStore } from './pay-entry-modal.state';
   styleUrls: ['./pay-entry-modal.component.scss'],
   providers: [PayEntryModalStore],
 })
-export class PayEntryModalComponent implements OnInit {
-  public readonly EntryType = EEntryOperation;
-  public readonly isLoading$ = this._store.isLoading$;
-  public readonly balances$ = this._store.balances$;
-  public readonly entry$ = this._store.entry$;
-  public readonly type$ = this._store.type$;
+export class PayEntryModalComponent
+  extends DestroyableMixin()
+  implements OnInit
+{
+  readonly EntryType = EEntryOperation;
+  readonly isLoading$ = this._store.isLoading$;
+  readonly balances$ = this._store.wallets$;
+  readonly entry$ = this._store.entry$;
+  readonly type$ = this._store.type$;
 
-  public readonly balance$ = this._store.balance$;
+  readonly balance$ = this._store.wallet$;
 
-  public readonly form = this._formBuilder.group({
+  readonly form = this._formBuilder.group({
+    wallet: [null, [Validators.required, CustomValidators.requireToBeObject]],
     fees: [0.0],
     fine: [0.0],
-    value: [this.entry.value, [Validators.max(this.entry.value)]],
+    value: [
+      this.entry.value,
+      [Validators.min(0.01), Validators.max(this.entry.value)],
+    ],
+    newValue: [{ disabled: !!this.entry.id, value: this.entry.value }],
+    dueDate: [{ disabled: true, value: this.entry.dueDate }],
   });
 
-  public readonly paymentValue = this.form.get('value');
-  public readonly paymentFine = this.form.get('fine');
-  public readonly paymentFees = this.form.get('fees');
-
-  public readonly paymentValue$ = this.paymentValue.valueChanges.pipe(
+  readonly paymentValue = this.form.get('value') as FormControl;
+  readonly paymentFine = this.form.get('fine') as FormControl;
+  readonly paymentFees = this.form.get('fees') as FormControl;
+  readonly entryNewValue = this.form.get('newValue') as FormControl;
+  readonly paymentValue$ = this.paymentValue.valueChanges.pipe(
     startWith(this.paymentValue.value)
   );
-
-  public readonly paymentFine$ = this.paymentFine.valueChanges.pipe(
+  readonly paymentFine$ = this.paymentFine.valueChanges.pipe(
     startWith(this.paymentFine.value)
   );
-
-  public readonly paymentFees$ = this.paymentFees.valueChanges.pipe(
+  readonly paymentFees$ = this.paymentFees.valueChanges.pipe(
     startWith(this.paymentFees.value)
   );
-
-  public readonly paymentRealValue$ = combineLatest([
+  readonly entryNewValue$ = this.entryNewValue.valueChanges;
+  readonly paymentRealValue$ = combineLatest([
     this.paymentFees$,
     this.paymentFine$,
     this.paymentValue$,
   ]).pipe(map(([fees, fine, value]) => value + fine + fees));
 
+  readonly canDefineEntryValue$ = this._store.canDefineEntryValue$;
+  readonly displayBalanceFn = (balance: WalletModel) => balance?.name;
+
   constructor(
     private readonly _store: PayEntryModalStore,
-    @Inject(PONE_DIALOG_DATA) public readonly entry: EntryModel,
+    @Inject(PONE_DIALOG_DATA) readonly entry: EntryModel,
     private readonly _formBuilder: UntypedFormBuilder,
-    private readonly _dialogRef: DialogRef
+    dialogRef: DialogRef
   ) {
-    this._store.setDialogId(_dialogRef.dialogId);
+    super();
+    this._store.setDialogId(dialogRef.dialogId);
     this._store.setEntry(entry);
   }
 
   ngOnInit(): void {
-    this._store.loadBalances();
+    this._store.loadWallets();
+    this.entryNewValue$
+      .pipe(takeUntil(this.destroyed$), debounceTime(300))
+      .subscribe((value) => {
+        this.paymentValue.setValidators([
+          Validators.min(0.01),
+          Validators.max(value),
+        ]);
+        this.paymentValue.setValue(value);
+        this.paymentValue.updateValueAndValidity();
+      });
   }
 
-  public setBalance(balance: WalletModel) {
-    this._store.setBalance(balance);
+  setWallet(wallet: WalletModel) {
+    this._store.setWallet(wallet);
   }
 
-  public payEntry(): void {
-    if (!this.form.valid) {
+  payEntry(): void {
+    if (this.form.invalid) {
+      updateValueAndValidityMarkingControlsAreDirty(this.form);
       return;
     }
+
     this._store.payEntry(this.form.value);
   }
-
-  public readonly displayBalanceFn = (balance: WalletModel) => balance?.name;
 }

@@ -12,6 +12,7 @@ import {
   createRecurrentEntry,
   loadCategories,
   loadSubCategories,
+  loadWallets,
   patchFormStatus,
   patchGeneralInfoForm,
   patchInstallmentsForm,
@@ -22,6 +23,7 @@ import {
   resetState,
   setCategoriesFilter,
   setSubCategoriesFilter,
+  setWalletsFilter,
 } from './entry-create.actions';
 import { EntryCreateState } from './entry-create.reducer';
 import * as EntryCreateSelectors from './entry-create.selectors';
@@ -34,6 +36,10 @@ export class EntryCreateFacade {
 
   readonly filtredCategories$ = this._store.select(
     EntryCreateSelectors.filtredCategoriesSelector
+  );
+
+  readonly filtredWallets$ = this._store.select(
+    EntryCreateSelectors.filtredWalletsSelector
   );
 
   readonly isLoading$ = this._store.select(
@@ -54,6 +60,14 @@ export class EntryCreateFacade {
 
   readonly generalInfoFormCurrencySelector$ = this._store.select(
     EntryCreateSelectors.generalInfoFormCurrencySelector
+  );
+
+  readonly generalInfoFormOperation$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormOperationSelector
+  );
+  
+  readonly generalInfoFormPaid$ = this._store.select(
+    EntryCreateSelectors.generalInfoFormPaidSelector
   );
 
   readonly installmentsForm$ = this._store.select(
@@ -83,6 +97,7 @@ export class EntryCreateFacade {
   readonly recurrenceFormRecurrence$ = this._store.select(
     EntryCreateSelectors.recurrenceFormRecurrenceSelector
   );
+
 
   constructor(private readonly _store: Store<EntryCreateState>) {}
 
@@ -116,6 +131,14 @@ export class EntryCreateFacade {
 
   setSubCategoriesFilter(subCategoriesFilter: string): void {
     this._store.dispatch(setSubCategoriesFilter({ subCategoriesFilter }));
+  }
+
+  setWalletsFilter(walletsFilter: string) {
+    this._store.dispatch(setWalletsFilter({ walletsFilter }));
+  }
+
+  loadWallets(): void {
+    this._store.dispatch(loadWallets());
   }
 
   loadCategories(targetOperation: EEntryOperation): void {

@@ -122,10 +122,15 @@ export class EntryService {
       );
   }
 
-  delete(categoryId: string): Observable<EntryModel> {
+  delete(entryId: string, dueDate?: Date): Observable<EntryModel> {
     return this._httpClient
       .delete<ResponseModel<EntryModel>>(
-        `${this._financialApiUrl}/Entry/${categoryId}`
+        `${this._financialApiUrl}/Entry/${entryId}`,
+        {
+          params: serializeToQueryParams({
+            dueDate,
+          }),
+        }
       )
       .pipe(
         map((resposne) => resposne.data),

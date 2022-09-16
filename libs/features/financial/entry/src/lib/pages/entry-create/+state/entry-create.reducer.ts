@@ -1,7 +1,7 @@
 import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 import { FormStatusModel } from '@p-one/core';
-import { CategoryModel, InstallmentModel, SubCategoryModel } from '@p-one/domain/financial';
+import { CategoryModel, InstallmentModel, SubCategoryModel, WalletModel } from '@p-one/domain/financial';
 
 import { GeneralInfoFormModel } from '../@types';
 import { InstallmentsFormModel } from '../@types/installments-form.model';
@@ -14,6 +14,8 @@ import {
   loadCategoriesSuccess,
   loadSubCategoriesFailure,
   loadSubCategoriesSuccess,
+  loadWalletsFailure,
+  loadWalletsSuccess,
   patchFormStatus,
   patchGeneralInfoForm,
   patchInstallmentsForm,
@@ -24,6 +26,7 @@ import {
   resetState,
   setCategoriesFilter,
   setSubCategoriesFilter,
+  setWalletsFilter,
 } from './entry-create.actions';
 
 export const ENTRY_CREATE_KEY = 'ENTRY_CREATE';
@@ -33,10 +36,13 @@ export interface EntryCreateState {
   isBuildingRecurrences: boolean;
 
   subCategoriesFilter?: string;
-  subCategories?: SubCategoryModel[];
+  subCategories: SubCategoryModel[];
 
   categoriesFilter?: string;
-  categories?: CategoryModel[];
+  categories: CategoryModel[];
+
+  walletsFilter?: string;
+  wallets: WalletModel[];
 
   installments: InstallmentModel[];
 
@@ -57,10 +63,27 @@ const initialState: EntryCreateState = {
   recurrenceForm: {},
   installments: [],
   formStatus: {},
+  wallets: [],
+  categories: [],
+  subCategories: [],
 };
 
 const _entryCreateReducer = createReducer<EntryCreateState>(
   initialState,
+
+  on(loadWalletsSuccess, (state, { wallets }) => {
+    return {
+      ...state,
+      wallets,
+    };
+  }),
+
+  on(loadWalletsFailure, (state, { error }) => {
+    return {
+      ...state,
+      error,
+    };
+  }),
 
   on(loadCategoriesSuccess, (state, { categories }) => {
     return {
@@ -102,6 +125,13 @@ const _entryCreateReducer = createReducer<EntryCreateState>(
     return {
       ...state,
       subCategoriesFilter,
+    };
+  }),
+
+  on(setWalletsFilter, (state, { walletsFilter }) => {
+    return {
+      ...state,
+      walletsFilter,
     };
   }),
 

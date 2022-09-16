@@ -119,7 +119,7 @@ export class EntryListEffects {
 
   public readonly openDeleteEntryDialogEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EEntryListActions.OPEN_DELETE_ENTRIES_DIALOG),
+      ofType(EEntryListActions.OPEN_DELETE_ENTRY_DIALOG),
       withLatestFrom(this._facade.entries$),
       switchMap(([{ entry }, entries]) => {
         return this._dialogService
@@ -127,7 +127,7 @@ export class EntryListEffects {
             DeleteEntryModalComponent,
             { minWidth: '600px' },
             {
-              entries: entry ? [entry] : entries,
+              entry,
             }
           )
           .afterClosed$.pipe(

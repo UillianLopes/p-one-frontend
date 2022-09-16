@@ -17,6 +17,7 @@ import {
   POneHeaderModule,
   POneInputModule,
   POneMonthYearPickerModule,
+  POneRolesModule,
   POneSidenavModule,
   POneStepperModule,
 } from '@p-one/shared';
@@ -61,6 +62,7 @@ import { EntryCreateRoutingModule } from './entry-create.routing';
     POneButtonModule,
     POneDatepickerModule,
     POneMonthYearPickerModule,
+    POneRolesModule,
   ],
   providers: [EntryCreateFacade],
 })

@@ -1,6 +1,6 @@
 import { FormControlStatus } from '@angular/forms';
 import { createAction, props, union } from '@ngrx/store';
-import { CategoryModel, EEntryOperation, InstallmentModel, SubCategoryModel } from '@p-one/domain/financial';
+import { CategoryModel, EEntryOperation, InstallmentModel, SubCategoryModel, WalletModel } from '@p-one/domain/financial';
 
 import { GeneralInfoFormModel } from '../@types';
 import { InstallmentsFormModel } from '../@types/installments-form.model';
@@ -10,18 +10,21 @@ export enum EEntryCreateActions {
   LOAD_CATEGORIES = '[Entry Create] Load categories',
   LOAD_CATEGORIES_SUCCESS = '[Entry Create] Load categories success',
   LOAD_CATEGORIES_FAILURE = '[Entry Create] Load categories failure',
-
   SET_CATEGORIES_FILTER = '[Entry Create] Set categories filter',
 
   LOAD_SUB_CATEGORIES = '[Entry Create] Load sub categories',
   LOAD_SUB_CATEGORIES_SUCCESS = '[Entry Create] Load sub categories success',
   LOAD_SUB_CATEGORIES_FAILURE = '[Entry Create] Load sub categories failure',
+  SET_SUB_CATEGORIES_FILTER = '[Entry Create] Set sub categories filter',
+
+  LOAD_WALLETS = '[Entry Create] Load wallets',
+  LOAD_WALLETS_SUCCESS = '[Entry Create] Load wallets success',
+  LOAD_WALLETS_FAILURE = '[Entry Create] Load wallets failure',
+  SET_WALLETS_FILTER = '[Entry Create] Set wallets filter',
 
   BUILD_INSTALLMENTS = '[Entry Create] Build installments',
   BUILD_INSTALLMENTS_SUCCESS = '[Entry Create] Build installments success',
   BUILD_INSTALLMENTS_FAILURE = '[Entry Create] Build installments failure',
-
-  SET_SUB_CATEGORIES_FILTER = '[Entry Create] Set sub categories filter',
 
   PATCH_GENERAL_INFO_FORM = '[Entry Create] Patch general info form',
   RESET_GENERAL_INFO_FORM = '[Entry Create] Reset general info form',
@@ -45,11 +48,6 @@ export enum EEntryCreateActions {
 
 export const resetState = createAction(EEntryCreateActions.RESET_STATE);
 
-export const loadCategories = createAction(
-  EEntryCreateActions.LOAD_CATEGORIES,
-  props<{ targetOperation: EEntryOperation }>()
-);
-
 export const createEntry = createAction(EEntryCreateActions.CREATE_ENTRY);
 
 export const createInstallmentEntries = createAction(
@@ -69,6 +67,11 @@ export const createEntryFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadCategories = createAction(
+  EEntryCreateActions.LOAD_CATEGORIES,
+  props<{ targetOperation: EEntryOperation }>()
+);
+
 export const loadCategoriesSuccess = createAction(
   EEntryCreateActions.LOAD_CATEGORIES_SUCCESS,
   props<{ categories: CategoryModel[] }>()
@@ -82,6 +85,23 @@ export const loadCategoriesFailure = createAction(
 export const setCategoriesFilter = createAction(
   EEntryCreateActions.SET_CATEGORIES_FILTER,
   props<{ categoriesFilter: string }>()
+);
+
+export const loadWallets = createAction(EEntryCreateActions.LOAD_WALLETS);
+
+export const loadWalletsSuccess = createAction(
+  EEntryCreateActions.LOAD_WALLETS_SUCCESS,
+  props<{ wallets: WalletModel[] }>()
+);
+
+export const loadWalletsFailure = createAction(
+  EEntryCreateActions.LOAD_WALLETS_FAILURE,
+  props<{ error: any }>()
+);
+
+export const setWalletsFilter = createAction(
+  EEntryCreateActions.SET_WALLETS_FILTER,
+  props<{ walletsFilter: string }>()
 );
 
 export const loadSubCategories = createAction(
@@ -160,6 +180,11 @@ const actionsUnion = union({
   loadSubCategoriesSuccess,
   loadSubCategoriesFailure,
   setSubCategoriesFilter,
+
+  loadWallets,
+  loadWalletsSuccess,
+  loadWalletsFailure,
+  setWalletsFilter,
 
   patchInstallmentsForm,
   resetInstallmentsForm,

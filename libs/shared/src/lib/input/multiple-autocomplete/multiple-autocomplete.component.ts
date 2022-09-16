@@ -1,5 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormControl } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../../@mixins/destroyable.mixin';
@@ -86,7 +86,7 @@ export class MultipleAutocompleteComponent
     });
 
     if (this.autocomplete) {
-      this.autocomplete.change$
+      this.autocomplete.valueChange
         .pipe(takeUntil(this.destroyed$))
         .subscribe((value) => {
           this._store.add(value);

@@ -64,6 +64,10 @@ export class DatepickerDirective implements OnInit, ControlValueAccessor {
     this._onTouched = fn;
   }
 
+  setDisabledState(isDisabled: boolean): void {
+    this._elementRef.nativeElement.disabled = isDisabled;
+  }
+
   ngOnInit(): void {}
 
   @HostListener('change', ['$event'])

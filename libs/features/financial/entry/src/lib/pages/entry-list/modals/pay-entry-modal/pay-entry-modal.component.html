@@ -1,24 +1,47 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h5 p-one-dialog-header>Pagar entrada</h5>
-  <p-one-dialog-body>
+  <p-one-dialog-body [formGroup]="this.form">
     <ng-template #walletErrorMessageTemplate>
       <span class="text-warning"
         >Por favor, selecione uma <b>conta/carteira</b></span
       >
     </ng-template>
+
+    <ng-container *ngIf="canDefineEntryValue$ | async">
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel>Valor da entrada</label>
+          <input pOneInput currencyMask formControlName="newValue" />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
+          <label pOneLabel>Vencimento</label>
+          <input
+            pOneInput
+            pOneDatepicker
+            formControlName="dueDate"
+            [disabled]="true"
+          />
+        </p-one-form-field>
+        <div pOneGridColumn="minmax(0px, 1fr)"></div>
+      </div>
+      <span>
+        Esta entrada ainda não existe no sistema pois foi gerada pela
+        recorrencia, por isso é possivel alterar o valor
+      </span>
+    </ng-container>
     <p-one-form-field>
       <label pOneLabel>Conta / carteira</label>
 
       <input
         placeholder="Selecione a conta ou carteira"
         [pOneAutocomplete]="balanceAutocomplete"
-        pOneInput
+        formControlName="wallet"
       />
 
       <p-one-autocomplete
         #balanceAutocomplete="pOneAutocomplete"
         [displayFn]="displayBalanceFn"
-        (change$)="setBalance($event)"
+        (valueChange)="setWallet($event)"
       >
         <p-one-option
           *ngFor="let balance of this.balances$ | async"
@@ -67,7 +90,7 @@
       </div>
     </p-one-form-field>
 
-    <div pOneGrid gap="16px" [formGroup]="this.form">
+    <div pOneGrid gap="16px">
       <p-one-form-field pOneGridColumn="minmax(0px, 1fr)">
         <label pOneLabel>Valor </label>
         <input currencyMask type="tel" pOneInput formControlName="value" />

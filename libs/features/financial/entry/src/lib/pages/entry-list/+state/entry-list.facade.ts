@@ -6,7 +6,7 @@ import { EEntryOperation, EntryFilter, EntryModel } from '@p-one/domain/financia
 import {
   filterEntries,
   loadEntriesWithType,
-  openDeleteEntriesDialog,
+  openDeleteEntryDialog,
   openPayEntryDialog,
   paginateEntries,
   patchEntriesFilter,
@@ -75,12 +75,12 @@ export class EntryListFacade {
   public removeFilter(id: string): void {
     this._store.dispatch(removeFilter({ id }));
   }
-
-  public openDeleteEntriesDialog(entry?: EntryModel): void {
-    this._store.dispatch(openDeleteEntriesDialog({ entry }));
+  
+  public openDeleteEntryDialog(entry?: EntryModel): void {
+    this._store.dispatch(openDeleteEntryDialog({ entry }));
   }
 
-  public openPayEntryDialog(entry?: EntryModel): void {
+  public openPayEntryDialog(entry: EntryModel): void {
     this._store.dispatch(openPayEntryDialog({ entry }));
   }
 }

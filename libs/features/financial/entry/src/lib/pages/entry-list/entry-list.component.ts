@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EEntryOperation, EEntryPaymentStatus, EntryModel } from '@p-one/domain/financial';
+import { GlobalRoles } from '@p-one/core';
+import { EEntryOperation, EEntryPaymentStatus, EntryModel, FinancialRoles } from '@p-one/domain/financial';
 import { DestroyableMixin, DialogService, FilterDisplayData } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, take } from 'rxjs/operators';
@@ -18,21 +19,21 @@ export class EntryListComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  public readonly EntryType = EEntryOperation;
-  public readonly EntryPaymentStatus = EEntryPaymentStatus;
+  EntryRoles = FinancialRoles.Entry;
+  GlobalRoles = GlobalRoles;
 
-  public readonly entries$ = this._facade.entries$;
-  public readonly isLoading$ = this._facade.isLoading$;
-  public readonly filterToDisplay$ = this._facade.filterToDisplay$;
-
-  public readonly filter$ = this._facade.filter$;
-  public readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
-  public readonly operationFilter$ = this.filter$.pipe(
+  readonly EntryType = EEntryOperation;
+  readonly EntryPaymentStatus = EEntryPaymentStatus;
+  readonly entries$ = this._facade.entries$;
+  readonly isLoading$ = this._facade.isLoading$;
+  readonly filterToDisplay$ = this._facade.filterToDisplay$;
+  readonly filter$ = this._facade.filter$;
+  readonly dateFilter$ = this.filter$.pipe(map(({ date }) => date));
+  readonly operationFilter$ = this.filter$.pipe(
     map(({ operation }) => operation)
   );
-  public readonly entryType$ = this._facade.entryType$;
-  public readonly settingsCurrency$ =
-    this._settingsStoreFacade.settingsCurrency$;
+  readonly entryType$ = this._facade.entryType$;
+  readonly settingsCurrency$ = this._settingsStoreFacade.settingsCurrency$;
 
   constructor(
     private readonly _facade: EntryListFacade,
@@ -43,7 +44,7 @@ export class EntryListComponent
     super();
   }
 
-  public openEntryListFilterDialog(): void {
+  openEntryListFilterDialog(): void {
     this._facade.filter$.pipe(take(1)).subscribe((filter) => {
       const dialogRef = this._dialogService.open(
         EntryListFilterComponent,
@@ -59,22 +60,22 @@ export class EntryListComponent
     });
   }
 
-  public override ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     super.ngOnDestroy();
     this._facade.resetState();
   }
 
-  public remove({ id }: FilterDisplayData): void {
+  remove({ id }: FilterDisplayData): void {
     this._facade.removeFilter(id);
   }
 
-  public setTypeFilter(operation?: EEntryOperation): void {
+  setTypeFilter(operation?: EEntryOperation): void {
     this._facade.patchEntriesFilter({
       operation,
     });
   }
 
-  public setDateFilter(date: any): void {
+  setDateFilter(date: any): void {
     this._facade.patchEntriesFilter({
       date: {
         ...date,
@@ -82,15 +83,15 @@ export class EntryListComponent
     });
   }
 
-  public openDeleteEntryDialog(entry: EntryModel): void {
-    this._facade.openDeleteEntriesDialog(entry);
+  openDeleteEntryDialog(entry: EntryModel): void {
+    this._facade.openDeleteEntryDialog(entry);
   }
 
-  public openPayEntryDialog(entry: EntryModel): void {
+  openPayEntryDialog(entry: EntryModel): void {
     this._facade.openPayEntryDialog(entry);
   }
 
-  public openEntryDetailsDialog(entry: EntryModel): void {
+  openEntryDetailsDialog(entry: EntryModel): void {
     this._dialogService.open(
       EntryDetailsModalComponent,
       {
@@ -101,7 +102,7 @@ export class EntryListComponent
     );
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this._facade.loadEntriesWithType(this._route.snapshot.data['type']);
   }
 }
