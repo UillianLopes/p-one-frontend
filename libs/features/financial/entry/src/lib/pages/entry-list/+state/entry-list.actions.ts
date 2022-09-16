@@ -22,7 +22,7 @@ export enum EEntryListActions {
 
   OPEN_FILTER_ENTRIES_DIALOG = '[Entry List] Open filter entries dialog',
 
-  OPEN_DELETE_ENTRIES_DIALOG = '[Entry List] Open delete entries dialog',
+  OPEN_DELETE_ENTRY_DIALOG = '[Entry List] Open delete entries dialog',
 
   OPEN_PAY_ENTRY_DIALOG = '[Entry List] Open pay entry dialog',
 
@@ -51,8 +51,8 @@ export const removeFilter = createAction(
   props<{ id: string }>()
 );
 
-export const openDeleteEntriesDialog = createAction(
-  EEntryListActions.OPEN_DELETE_ENTRIES_DIALOG,
+export const openDeleteEntryDialog = createAction(
+  EEntryListActions.OPEN_DELETE_ENTRY_DIALOG,
   props<{ entry?: EntryModel }>()
 );
 
@@ -117,7 +117,7 @@ const actionsUnion = union({
   filterEntriesSuccess,
   filterEntriesFailure,
 
-  openDeleteEntriesDialog,
+  openDeleteEntriesDialog: openDeleteEntryDialog,
   openPayEntryDialog,
 
   resetState,

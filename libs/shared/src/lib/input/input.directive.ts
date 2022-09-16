@@ -1,16 +1,17 @@
 import {
   Directive,
   ElementRef,
-  HostBinding,
+  EventEmitter,
   HostListener,
   Input,
   OnDestroy,
   OnInit,
   Optional,
+  Output,
   Renderer2,
 } from '@angular/core';
 import { NgControl, UntypedFormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../@mixins/destroyable.mixin';
@@ -27,26 +28,27 @@ export class InputDirective
 {
   invalid$?: Observable<boolean | undefined>;
 
-  @HostBinding('disabled') public disabled = false;
-
   @Input() public useFormControl = true;
   @Input() public selectContentOnClick = false;
+
+  @Output() readonly valueChange = new EventEmitter<any>();
+
+  public readonly value$ = new BehaviorSubject<any>(null);
 
   get value(): any {
     if (this._ngControl) {
       return this._ngControl.control?.value;
     }
 
-    if (this._elementRef.nativeElement instanceof HTMLInputElement) {
-      return this._elementRef.nativeElement.value;
-    }
+    return this.value$.value;
+  }
 
-    if (this._elementRef.nativeElement instanceof HTMLTextAreaElement) {
-      return this._elementRef.nativeElement.value;
-    }
-
-    if (this._elementRef.nativeElement instanceof HTMLSelectElement) {
-      return this._elementRef.nativeElement.value;
+  @Input()
+  set value(value: any) {
+    if (this._ngControl) {
+      this._ngControl.control?.setValue(value);
+    } else {
+      this.value$.next(value);
     }
   }
 
@@ -64,6 +66,8 @@ export class InputDirective
     protected readonly _elementRef: ElementRef<HTMLElement>
   ) {
     super();
+
+    
   }
 
   public ngOnInit(): void {
@@ -83,7 +87,10 @@ export class InputDirective
   }
 
   @HostListener('click') public onClick(): void {
-    if (this.selectContentOnClick && this._elementRef.nativeElement instanceof HTMLInputElement) {
+    if (
+      this.selectContentOnClick &&
+      this._elementRef.nativeElement instanceof HTMLInputElement
+    ) {
       this._elementRef.nativeElement.select();
     }
   }

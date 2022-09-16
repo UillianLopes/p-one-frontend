@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CategoryService, EntryService, SubCategoryService } from '@p-one/domain/financial';
+import { CategoryService, EntryService, SubCategoryService, WalletService } from '@p-one/domain/financial';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -16,6 +16,8 @@ import {
   loadCategoriesSuccess,
   loadSubCategoriesFailure,
   loadSubCategoriesSuccess,
+  loadWalletsFailure,
+  loadWalletsSuccess,
 } from './entry-create.actions';
 import { EntryCreateFacade } from './entry-create.facade';
 
@@ -40,6 +42,18 @@ export class EntryCreateEffects {
         return this._subCategoryService.get(categoryId).pipe(
           map((subCategories) => loadSubCategoriesSuccess({ subCategories })),
           catchError((error) => of(loadSubCategoriesFailure({ error })))
+        );
+      })
+    )
+  );
+
+  public readonly loadWalletsEffect$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(EEntryCreateActions.LOAD_WALLETS),
+      switchMap(() => {
+        return this._walletService.get().pipe(
+          map((wallets) => loadWalletsSuccess({ wallets })),
+          catchError((error) => of(loadWalletsFailure({ error })))
         );
       })
     )
@@ -70,12 +84,13 @@ export class EntryCreateEffects {
     this._actions$.pipe(
       ofType(EEntryCreateActions.CREATE_ENTRY),
       withLatestFrom(this._facade.generalInfoForm$),
-      switchMap(([, { category, subCategory, ...generalInfoForm }]) => {
+      switchMap(([, { category, subCategory, wallet, ...generalInfoForm }]) => {
         return this._entryService
           .create({
             ...generalInfoForm,
             subCategoryId: subCategory?.id,
             categoryId: category?.id,
+            walletId: wallet?.id,
           })
           .pipe(
             map(() => createEntrySuccess()),
@@ -90,13 +105,18 @@ export class EntryCreateEffects {
       ofType(EEntryCreateActions.CREATE_INSTALLMENT_ENTRIES),
       withLatestFrom(this._facade.generalInfoForm$, this._facade.installments$),
       switchMap(
-        ([, { category, subCategory, ...generalInfoForm }, installments]) => {
+        ([
+          ,
+          { category, subCategory, wallet, ...generalInfoForm },
+          installments,
+        ]) => {
           return this._entryService
             .createInstallmentEntries({
               ...generalInfoForm,
               installments,
               subCategoryId: subCategory?.id,
               categoryId: category?.id,
+              walletId: wallet?.id,
             })
             .pipe(
               map(() => createEntrySuccess()),
@@ -115,13 +135,18 @@ export class EntryCreateEffects {
         this._facade.recurrenceForm$
       ),
       switchMap(
-        ([, { category, subCategory, ...generalInfoForm }, recurrenceForm]) => {
+        ([
+          ,
+          { category, subCategory, wallet, ...generalInfoForm },
+          recurrenceForm,
+        ]) => {
           return this._entryService
             .createRecurrentEntry({
               ...generalInfoForm,
               ...recurrenceForm,
               subCategoryId: subCategory?.id,
               categoryId: category?.id,
+              walletId: wallet?.id,
               dueDate: undefined,
             })
             .pipe(
@@ -149,6 +174,7 @@ export class EntryCreateEffects {
     private readonly _entryService: EntryService,
     private readonly _categoryService: CategoryService,
     private readonly _subCategoryService: SubCategoryService,
+    private readonly _walletService: WalletService,
     private readonly _facade: EntryCreateFacade,
     private readonly _router: Router
   ) {}

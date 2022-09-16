@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import {
-  CategoryModel,
-  CategoryService,
-  EntryFilter,
-  SubCategoryModel,
-  SubCategoryService,
-} from '@p-one/domain/financial';
+import { CategoryModel, CategoryService, EntryFilter, SubCategoryModel, SubCategoryService } from '@p-one/domain/financial';
 import { combineLatest } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -17,7 +11,7 @@ export interface EntryListFilterState {
   categoryFilter?: string;
   subCategoryFilter?: string;
 
-  error?: any;
+  error?: unknown;
 
   isCategoriesLoading?: boolean;
   isSubCategoriesLoading?: boolean;
@@ -27,28 +21,27 @@ export interface EntryListFilterState {
 
 @Injectable()
 export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
-  private readonly categoryFilter$ = this.select((e) =>
-    e.categoryFilter?.toLowerCase()
+  private readonly _categoryFilter$ = this.select(({ categoryFilter }) =>
+    categoryFilter?.toLowerCase()
   );
-  private readonly subCategoryFilter$ = this.select((e) =>
-    e.subCategoryFilter?.toLowerCase()
+  private readonly _subCategoryFilter$ = this.select(({ subCategoryFilter }) =>
+    subCategoryFilter?.toLowerCase()
   );
-  private readonly categories$ = this.select((e) => e.categories);
-  private readonly subCategories$ = this.select((e) => e.subCategories);
+  private readonly _categories$ = this.select((e) => e.categories);
+  private readonly _subCategories$ = this.select((e) => e.subCategories);
 
-  public readonly isLoading$ = this.select((e) => e.loading);
-  public readonly filtredCategories$ = combineLatest([
-    this.categoryFilter$,
-    this.categories$,
+  readonly isLoading$ = this.select((e) => e.loading);
+  readonly categories$ = combineLatest([
+    this._categoryFilter$,
+    this._categories$,
   ]).pipe(
     map(([filter, categories]) =>
       categories.filter((c) => c.name.toLowerCase().includes(filter ?? ''))
     )
   );
-
-  public readonly filtredSubCategories$ = combineLatest([
-    this.subCategoryFilter$,
-    this.subCategories$,
+  readonly subCategories$ = combineLatest([
+    this._subCategoryFilter$,
+    this._subCategories$,
   ]).pipe(
     map(([filter, subCategories]) =>
       subCategories.filter((c) => c.name.toLowerCase().includes(filter ?? ''))
@@ -65,14 +58,14 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
     });
   }
 
-  public readonly setFilter = this.updater((state, filter: EntryFilter) => {
+  readonly setFilter = this.updater((state, filter: EntryFilter) => {
     return {
       ...state,
       filter,
     };
   });
 
-  public readonly loadCategories = this.effect((event$) => {
+  readonly loadCategories = this.effect((event$) => {
     return event$.pipe(
       tap(() => this._setIsCategoriesLoading(true)),
       switchMap(() =>
@@ -86,7 +79,7 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
     );
   });
 
-  public readonly loadSubCategories = this.effect((event$) => {
+  readonly loadSubCategories = this.effect((event$) => {
     return event$.pipe(
       tap(() => this._setIsSubCategoriesLoading(true)),
       switchMap(() =>
@@ -100,16 +93,14 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
     );
   });
 
-  public readonly setCategoryFilter = this.updater(
-    (state, categoryFilter: string) => {
-      return {
-        ...state,
-        categoryFilter,
-      };
-    }
-  );
+  readonly setCategoryFilter = this.updater((state, categoryFilter: string) => {
+    return {
+      ...state,
+      categoryFilter,
+    };
+  });
 
-  public readonly setSubCategoryFilter = this.updater(
+  readonly setSubCategoryFilter = this.updater(
     (state, subCategoryFilter: string) => {
       return {
         ...state,
@@ -129,7 +120,7 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
   );
 
   private readonly _loadCategoriesFailure = this.updater(
-    (state, error: any) => {
+    (state, error: unknown) => {
       return {
         ...state,
         error,
@@ -149,7 +140,7 @@ export class EntryListFilterStore extends ComponentStore<EntryListFilterState> {
   );
 
   private readonly _loadSubCategoriesFailure = this.updater(
-    (state, error: any) => {
+    (state, error: unknown) => {
       return {
         ...state,
         error,

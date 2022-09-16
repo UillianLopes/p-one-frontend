@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChildren,
+  EventEmitter,
   Input,
+  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -25,12 +27,12 @@ import { OptionComponent } from '../option/option.component';
 })
 export class AutocompleteComponent
   extends DestroyableMixin()
-  implements AfterContentInit
+  implements AfterContentInit, OnInit
 {
   readonly formControl = new UntypedFormControl(null);
 
   @Output()
-  readonly change$ = this.formControl.valueChanges;
+  readonly valueChange = new EventEmitter<any>();
 
   @Input()
   public displayFn?: (obj: any) => string;
@@ -40,10 +42,18 @@ export class AutocompleteComponent
 
   @ContentChildren(OptionComponent)
   public _options!: QueryList<OptionComponent>;
+
   public readonly options$ = new BehaviorSubject<OptionComponent[]>([]);
 
   constructor() {
     super();
+  }
+  ngOnInit(): void {
+    this.formControl.valueChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((value) => {
+        this.valueChange.emit(value);
+      });
   }
 
   ngAfterContentInit(): void {

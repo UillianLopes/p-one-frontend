@@ -68,7 +68,10 @@
             "AMOUNT": "Amount",
             "OPERATION": "Operation",
             "STATUS": "Status",
-            "BAR_CODE": "Bar code"
+            "BAR_CODE": "Bar code",
+            "WALLET": "Account/Wallet",
+            "RECURRENCE_BEGIN": "Recurrence begin",
+            "RECURRENCE_END": "Recurrence end"
           }
         },
         "FILTER": {

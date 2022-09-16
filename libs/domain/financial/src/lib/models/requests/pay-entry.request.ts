@@ -2,5 +2,7 @@ export interface PayEntryRequest {
   value: number;
   fees: number;
   fine: number;
-  balanceId: string;
+  walletId: string;
+  dueDate?: Date;
+  newValue?: number;
 }

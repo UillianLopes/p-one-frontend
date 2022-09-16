@@ -33,25 +33,25 @@ export class EntryListFilterComponent
     maxValue: [this._data.maxValue],
   });
 
-  public readonly subCategories = this.form.get('subCategories') as FormControl;
-  public readonly categories = this.form.get('categories') as FormControl;
+  readonly subCategoriesControl = this.form.get('subCategories') as FormControl;
+  readonly categoriesControl = this.form.get('categories') as FormControl;
 
-  public readonly inFilterCategoryIds$ = this.categories.valueChanges.pipe(
-    startWith(this.categories.value),
+  readonly inFilterCategoryIds$ = this.categoriesControl.valueChanges.pipe(
+    startWith(this.categoriesControl.value),
     map((categories) => (categories?.map((c: any) => c.id) ?? []) as string[])
   );
 
-  public readonly inFilterSubCategoryIds$ =
-    this.subCategories.valueChanges.pipe(
-      startWith(this.subCategories.value),
+  readonly inFilterSubCategoryIds$ =
+    this.subCategoriesControl.valueChanges.pipe(
+      startWith(this.subCategoriesControl.value),
       map(
         (subCategories) =>
           (subCategories?.map((c: any) => c.id) ?? []) as string[]
       )
     );
 
-  public readonly categories$ = combineLatest([
-    this._store.filtredCategories$,
+  readonly categories$ = combineLatest([
+    this._store.categories$,
     this.inFilterCategoryIds$,
   ]).pipe(
     map(([subCategories, inFilterCategoryIds]) => {
@@ -62,8 +62,8 @@ export class EntryListFilterComponent
     })
   );
 
-  public readonly subCategories$ = combineLatest([
-    this._store.filtredSubCategories$,
+  readonly subCategories$ = combineLatest([
+    this._store.subCategories$,
     this.inFilterSubCategoryIds$,
     this.inFilterCategoryIds$,
   ]).pipe(
@@ -81,9 +81,9 @@ export class EntryListFilterComponent
     })
   );
 
-  public readonly entryType$ = this._facade.entryType$;
+  readonly entryType$ = this._facade.entryType$;
 
-  public readonly displayFn = (obj: any) => obj.name;
+  readonly displayFn = (obj: any) => obj.name;
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
@@ -110,23 +110,23 @@ export class EntryListFilterComponent
     this.inFilterCategoryIds$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((inFilterCategoryIds) => {
-        const subCategories = this.subCategories.value;
+        const subCategories = this.subCategoriesControl.value;
 
         if (!(subCategories instanceof Array) || subCategories.length == 0) {
           return;
         }
 
         if (inFilterCategoryIds.length == 0) {
-          this.subCategories.setValue([]);
+          this.subCategoriesControl.setValue([]);
         } else {
-          this.subCategories.setValue(
+          this.subCategoriesControl.setValue(
             subCategories.filter(
               (s) => !s.category || inFilterCategoryIds.includes(s.category.id)
             )
           );
         }
 
-        this.subCategories.updateValueAndValidity();
+        this.subCategoriesControl.updateValueAndValidity();
       });
   }
 

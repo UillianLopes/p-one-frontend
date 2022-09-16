@@ -4,7 +4,8 @@ import { EEntryOperation, EEntryPaymentStatus } from '../enums';
 import { PaymentModel } from './payment.model';
 
 export interface EntryModel {
-  id: string;
+  id?: string;
+  parentId?: string;
   type: EEntryOperation;
   recurrences: number;
   value: number;
@@ -16,8 +17,11 @@ export interface EntryModel {
   description: string;
   category: OptionModel;
   subCategory: OptionModel;
+  wallet: OptionModel;
   barCode: string;
   paymentStatus: EEntryPaymentStatus;
   currency: string;
   payments: PaymentModel[];
+  recurrenceBegin?: Date;
+  recurrenceEnd?: Date;
 }

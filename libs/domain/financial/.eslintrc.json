@@ -26,7 +26,8 @@
             "prefix": "p-one",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@typescript-eslint/no-namespace": "off"
       }
     },
     {
