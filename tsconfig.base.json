@@ -41,9 +41,6 @@
       "@p-one/features/financial/entry": [
         "libs/features/financial/entry/src/index.ts"
       ],
-      "@p-one/features/financial/home": [
-        "libs/features/financial/home/src/index.ts"
-      ],
       "@p-one/features/financial/sub-category": [
         "libs/features/financial/sub-category/src/index.ts"
       ],

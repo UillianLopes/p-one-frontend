@@ -17,12 +17,11 @@ export class InstallmentsCardComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
+  private readonly now = new Date();
+
   readonly WeekDay = WeekDay;
   readonly EntryRecurrence = EEntryRecurrence;
   readonly EntryValueDistribuitioin = EEntryValueDistribuition;
-
-  private readonly now = new Date();
-
   readonly form = this._formBuilder.group({
     recurrence: [
       EEntryRecurrence.EverySpecificDayOfMonth,

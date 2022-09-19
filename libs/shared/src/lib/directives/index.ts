@@ -1,2 +1,2 @@
 export * from './directives.module';
-export * from './stop-propagation/stop-propagation.directive';
+export * from './stop-propagation.directive';

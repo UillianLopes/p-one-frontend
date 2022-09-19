@@ -14,7 +14,6 @@ import { DatepickerCalendarStore } from './datepicker-calendar.state';
 })
 export class DatepickerCalendarComponent implements OnInit {
   public readonly weekDays = Info.weekdays('short', { locale: this._locale });
-
   public readonly weeks$ = this._store.weeks$;
   public readonly month$ = this._store.month$;
   public readonly year$ = this._store.year$;

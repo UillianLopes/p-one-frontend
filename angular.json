@@ -647,32 +647,6 @@
       },
       "tags": []
     },
-    "stores-financial": {
-      "projectType": "library",
-      "root": "libs/stores/financial",
-      "sourceRoot": "libs/stores/financial/src",
-      "prefix": "p-one",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/stores/financial"],
-          "options": {
-            "jestConfig": "libs/stores/financial/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/stores/financial/**/*.ts",
-              "libs/stores/financial/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "stores-identity": {
       "projectType": "library",
       "root": "libs/stores/identity",
