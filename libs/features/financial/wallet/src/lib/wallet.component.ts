@@ -5,7 +5,7 @@ import { DestroyableMixin } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { map, takeUntil } from 'rxjs/operators';
 
-import { WalletFacade } from './+state/wallet.facade';
+import { WalletFacade } from './+state/wallet-store.facade';
 
 @Component({
   selector: 'p-one-wallet',

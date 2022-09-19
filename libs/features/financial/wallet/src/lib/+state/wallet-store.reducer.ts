@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { QueryModel } from '@p-one/core';
 import { BalanceFilter, WalletModel } from '@p-one/domain/financial';
 
-import { filterWallets, loadWallets, loadWalletsFailure, loadWalletsSuccess, resetState } from './wallet.actions';
+import { filterWallets, loadWallets, loadWalletsFailure, loadWalletsSuccess, resetState } from './wallet-store.actions';
 
 export const WALLET_KEY = `WALLET`;
 

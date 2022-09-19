@@ -22,6 +22,8 @@ export class ChartLegendComponent implements OnInit {
       return;
     }
 
-    this.legends$ = this.for.updateLegends$.asObservable();
+    this.legends$ = this.for
+      .updateLegends$
+      .asObservable();
   }
 }

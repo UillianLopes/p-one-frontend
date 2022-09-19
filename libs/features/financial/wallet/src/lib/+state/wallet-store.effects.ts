@@ -12,18 +12,18 @@ import { FoundTransferModalComponent } from '../modals/found-transfer-modal/foun
 import { UpdateWalletModalComponent } from '../modals/update-wallet-modal/update-wallet-modal.component';
 import { WithdrawModalComponent } from '../modals/withdraw-modal/withdraw-modal.component';
 import {
-  EWalletActions,
+  EWalletStoreActions,
   loadWallets,
   loadWalletsFailure,
   loadWalletsSuccess,
   WalletActionsUnion,
-} from './wallet.actions';
+} from './wallet-store.actions';
 
 @Injectable()
 export class WalletEffects {
   public readonly loadWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.LOAD_WALLETS),
+      ofType(EWalletStoreActions.LOAD_WALLETS),
       switchMap(() => {
         return this._walletService.get().pipe(
           map((wallets) => loadWalletsSuccess({ wallets })),
@@ -35,7 +35,7 @@ export class WalletEffects {
 
   public readonly openCreateWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_CREATE_WALLET_DIALOG),
+      ofType(EWalletStoreActions.OPEN_CREATE_WALLET_DIALOG),
       switchMap(() =>
         this._dialogService
           .open(CreateWalletModalComponent, {
@@ -52,7 +52,7 @@ export class WalletEffects {
 
   public readonly openUpdateWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_UPDATE_WALLET_DIALOG),
+      ofType(EWalletStoreActions.OPEN_UPDATE_WALLET_DIALOG),
       switchMap(({ wallet }) =>
         this._dialogService
           .open(
@@ -73,7 +73,7 @@ export class WalletEffects {
 
   public readonly openDepositWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_DEPOSIT_WALLET_DIALOG),
+      ofType(EWalletStoreActions.OPEN_DEPOSIT_WALLET_DIALOG),
       switchMap(({ wallet }) =>
         this._dialogService
           .open(
@@ -94,7 +94,7 @@ export class WalletEffects {
 
   public readonly openWidthdrawWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_WITHDRAW_WALLET_DIALOG),
+      ofType(EWalletStoreActions.OPEN_WITHDRAW_WALLET_DIALOG),
       switchMap(({ wallet }) =>
         this._dialogService
           .open(
@@ -115,7 +115,7 @@ export class WalletEffects {
 
   public readonly openDeleteWalletEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_DELETE_WALLET_DIALOG),
+      ofType(EWalletStoreActions.OPEN_DELETE_WALLET_DIALOG),
       switchMap(({ wallet }) =>
         this._dialogService
           .open(
@@ -135,7 +135,7 @@ export class WalletEffects {
   );
   public readonly openTransferFoundsDialogEffect$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(EWalletActions.OPEN_TRANSFER_FOUNDS_DIALOG),
+      ofType(EWalletStoreActions.OPEN_TRANSFER_FOUNDS_DIALOG),
       switchMap(({ wallet }) =>
         this._dialogService
           .open(

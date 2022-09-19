@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { POneNotificationsDisplayButtonModule } from '@p-one/features/shared';
 import {
@@ -22,9 +20,8 @@ import {
 } from '@p-one/shared';
 import { NgxCurrencyModule } from 'ngx-currency';
 
-import { WalletEffects } from './+state/wallet.effects';
-import { WalletFacade } from './+state/wallet.facade';
-import { WALLET_KEY, walletReducer } from './+state/wallet.reducer';
+import { WalletFacade } from './+state/wallet-store.facade';
+import { WalletStoreModule } from './+state/wallet-store.module';
 import { CreateWalletModalComponent } from './modals/create-wallet-modal/create-wallet-modal.component';
 import { DeleteWalletModalComponent } from './modals/delete-wallet-modal/delete-wallet-modal.component';
 import { DepositModalComponent } from './modals/deposit-modal/deposit-modal.component';
@@ -58,8 +55,7 @@ import { WalletRoutingModule } from './wallet.routing';
     ReactiveFormsModule,
     POneContextMenuModule,
     NgbPaginationModule,
-    StoreModule.forFeature(WALLET_KEY, walletReducer),
-    EffectsModule.forFeature([WalletEffects]),
+    WalletStoreModule,
     POneDialogModule,
     POneGridModule,
     NgxCurrencyModule,

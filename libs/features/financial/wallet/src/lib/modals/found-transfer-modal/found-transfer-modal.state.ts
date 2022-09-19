@@ -47,19 +47,18 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly categories$ = this.select(({ categories }) => categories);
   public readonly data$ = this.select(({ data }) => data);
   public readonly hasData$ = this.select(this.data$, (data) => !!data);
-  public readonly currency$ = this.select(
-    this.data$,
-    ({ currency }) => currency
-  );
+  public readonly currency$ = this.select(this.data$, (data) => data?.currency);
 
   public readonly debitCategories$ = this.select(
     this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryOperation.Debit)
+    (categories) =>
+      categories.filter(({ type }) => type === EEntryOperation.Debit)
   );
 
   public readonly creditCategories$ = this.select(
     this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryOperation.Credit)
+    (categories) =>
+      categories.filter(({ type }) => type === EEntryOperation.Credit)
   );
 
   public readonly destinations$ = this.select(

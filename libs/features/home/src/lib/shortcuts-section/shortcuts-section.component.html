@@ -1,0 +1,36 @@
+<p-one-card>
+  <h5 pOneCardHeader>Atalhos</h5>
+
+  <div pOneFlexRow gap="16px">
+    <a routerLink="/main/financial">
+      <p-one-shortcut>
+        <i pOneIcon class="bi bi-clipboard"></i>
+        Financeiro
+      </p-one-shortcut>
+    </a>
+    <a routerLink="/main/financial">
+      <p-one-shortcut color="secondary">
+        <i pOneIcon class="bi bi-dashboard"></i>
+        Dashboard
+      </p-one-shortcut>
+    </a>
+    <a routerLink="/main/financial/entries/create">
+      <p-one-shortcut color="secondary">
+        <i pOneIcon class="bi bi-dashboard"></i>
+        Criar entrada
+      </p-one-shortcut>
+    </a>
+    <p-one-shortcut color="secondary" (click)="openTransferFoundsDialog()">
+      <i pOneIcon class="bi bi-dashboard"></i>
+      Transferencia
+    </p-one-shortcut>
+    <p-one-shortcut color="secondary" (click)="openDepositWalletDialog()">
+      <i pOneIcon class="bi bi-dashboard"></i>
+      Depósito
+    </p-one-shortcut>
+    <p-one-shortcut color="secondary" (click)="openWithdrawWalletDialog()">
+      <i pOneIcon class="bi bi-dashboard"></i>
+      Retirada
+    </p-one-shortcut>
+  </div>
+</p-one-card>

@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { paginateArray } from '@p-one/core';
 import * as _ from 'lodash';
 
-import { WALLET_KEY, WalletState } from './wallet.reducer';
+import { WALLET_KEY, WalletState } from './wallet-store.reducer';
 
 const stateSelector = createFeatureSelector<WalletState>(WALLET_KEY);
 

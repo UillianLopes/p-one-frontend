@@ -12,9 +12,9 @@ import {
   openUpdateWalletDialog,
   openWithdrawWalletDialog,
   setWalletsPage,
-} from './wallet.actions';
-import { WalletState } from './wallet.reducer';
-import * as WalletSelectors from './wallet.selectors';
+} from './wallet-store.actions';
+import { WalletState } from './wallet-store.reducer';
+import * as WalletSelectors from './wallet-store.selectors';
 
 @Injectable()
 export class WalletFacade {

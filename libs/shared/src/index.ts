@@ -60,3 +60,4 @@ export * from './lib/details';
 export * from './lib/button';
 export * from './lib/table-utils';
 export * from './lib/collapse';
+export * from './lib/@types';
