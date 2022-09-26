@@ -18,7 +18,7 @@
       [displayFn]="displayFn"
     >
       <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
-        {{ wallet.name }}
+        {{ wallet.title }}
       </p-one-option>
     </p-one-autocomplete>
   </p-one-form-field>
@@ -45,14 +45,16 @@
         *ngFor="let category of categories$ | async"
         [value]="category"
       >
-        {{ category.name }}
+        {{ category.title }}
       </p-one-option>
     </p-one-autocomplete>
   </p-one-form-field>
 
   <p-one-form-field>
     <label pOneLabel>
-      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
+      {{
+        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate
+      }}
     </label>
 
     <input
@@ -60,7 +62,8 @@
       [pOneAutocomplete]="autoCompleteSubCategory"
       formControlName="subCategory"
       [placeholder]="
-        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
+        '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER'
+          | translate
       "
     />
 
@@ -72,7 +75,7 @@
         *ngFor="let subCategory of subCategories$ | async"
         [value]="subCategory"
       >
-        {{ subCategory.name }}
+        {{ subCategory.title }}
       </p-one-option>
     </p-one-autocomplete>
   </p-one-form-field>

@@ -1,6 +1,6 @@
 <p-one-dialog [isLoading]="isLoading$ | async">
   <h4 p-one-dialog-header>
-    {{ '@PONE.FINANCIAL.WALLETS.MODALS.CREATE_WALLET.TITLE' | translate }}
+    {{ '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.TITLE' | translate }}
   </h4>
   <p-one-dialog-body>
     <form [formGroup]="form">
@@ -12,63 +12,99 @@
           pOneInput
           formControlName="title"
           [placeholder]="
-            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.TITLE.PLACEHOLDER'
+              | translate
           "
         />
       </p-one-form-field>
-      <p-one-form-field>
-        <label pOneLabel>
-          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
-        </label>
-        <input
-          pOneInput
-          [pOneAutocomplete]="autoCompleteCategory"
-          formControlName="category"
-          [placeholder]="
-            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER' | translate
-          "
-        />
-        <p-one-autocomplete
-          #autoCompleteCategory="pOneAutocomplete"
-          [displayFn]="displayFn"
-        >
-          <p-one-option
-            *ngFor="let category of categories$ | async"
-            [value]="category"
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel>
+            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
+          </label>
+      
+          <input
+            pOneInput
+            [pOneAutocomplete]="autoCompleteWallet"
+            formControlName="wallet"
+            [placeholder]="
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER' | translate
+            "
+          />
+      
+          <p-one-autocomplete
+            #autoCompleteWallet="pOneAutocomplete"
+            [displayFn]="displayFn"
           >
-            {{ category.name }}
-          </p-one-option>
-        </p-one-autocomplete>
-      </p-one-form-field>
-      <p-one-form-field>
-        <label pOneLabel>
-          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL' | translate }}
-        </label>
-        <input
-          [pOneAutocomplete]="autoCompleteSubCategory"
-          formControlName="subCategory"
-          [placeholder]="
-            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER' | translate
-          "
-        />
-        <p-one-autocomplete
-          #autoCompleteSubCategory="pOneAutocomplete"
-          [displayFn]="displayFn"
-        >
-          <p-one-option
-            *ngFor="let subCategory of subCategories$ | async"
-            [value]="subCategory"
+            <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
+              {{ wallet.title }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel>
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate
+            }}
+          </label>
+          <input
+            pOneInput
+            [pOneAutocomplete]="autoCompleteCategory"
+            formControlName="category"
+            [placeholder]="
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.PLACEHOLDER'
+                | translate
+            "
+          />
+          <p-one-autocomplete
+            #autoCompleteCategory="pOneAutocomplete"
+            [displayFn]="displayFn"
           >
-            {{ subCategory.name }}
-          </p-one-option>
-        </p-one-autocomplete>
-      </p-one-form-field>
+            <p-one-option
+              *ngFor="let category of categories$ | async"
+              [value]="category"
+            >
+              {{ category.title }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel>
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.LABEL'
+                | translate
+            }}
+          </label>
+          <input
+            [pOneAutocomplete]="autoCompleteSubCategory"
+            formControlName="subCategory"
+            [placeholder]="
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.SUB_CATEGORY.PLACEHOLDER'
+                | translate
+            "
+          />
+          <p-one-autocomplete
+            #autoCompleteSubCategory="pOneAutocomplete"
+            [displayFn]="displayFn"
+          >
+            <p-one-option
+              *ngFor="let subCategory of subCategories$ | async"
+              [value]="subCategory"
+            >
+              {{ subCategory.title }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
       <p-one-form-field>
         <label pOneLabel
           >{{
-            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.DEPOSIT_VALUE.LABEL' | translate
+            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.DEPOSIT_VALUE.LABEL'
+              | translate
           }}
-          ({{ currency$ | async }})</label
+          ({{ walletCurrency$ | async }})</label
         >
         <input pOneInput currencyMask formControlName="deposit" />
       </p-one-form-field>
@@ -79,8 +115,11 @@
           | translate
             : {
                 currentBalance:
-                  currentBalance$ | async | currency: (currency$ | async),
-                newBalance: newBalance$ | async | currency: (currency$ | async)
+                  currentBalance$
+                  | async
+                  | currency: (walletCurrency$ | async)!,
+                newBalance:
+                  newBalance$ | async | currency: (walletCurrency$ | async)!
               }
       "
     ></p>
@@ -94,7 +133,10 @@
       [disabled]="isConfirmFormDisabled$ | async"
       (click)="confirmDeposit()"
     >
-      {{ '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.BUTTONS.CONFIRM_DEPOSIT' | translate }}
+      {{
+        '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.BUTTONS.CONFIRM_DEPOSIT'
+          | translate
+      }}
     </button>
   </p-one-dialog-footer>
 </p-one-dialog>

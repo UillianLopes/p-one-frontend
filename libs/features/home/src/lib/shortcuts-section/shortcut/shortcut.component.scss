@@ -1,4 +1,16 @@
 .shortcut {
   padding: 16px;
   border-radius: 8px;
+  cursor: pointer;
+  width: 150px;
+  display: grid;
+  grid-template-columns: auto minmax(0px, 1fr);
+
+  &__leading {
+  }
+
+  &__content {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

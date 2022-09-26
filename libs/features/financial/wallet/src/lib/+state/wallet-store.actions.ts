@@ -48,17 +48,17 @@ export const openUpdateWalletDialog = createAction(
 
 export const openDepositWalletDialog = createAction(
   EWalletStoreActions.OPEN_DEPOSIT_WALLET_DIALOG,
-  props<{ wallet: WalletModel }>()
+  props<{ wallet?: WalletModel }>()
 );
 
 export const openWithdrawWalletDialog = createAction(
   EWalletStoreActions.OPEN_WITHDRAW_WALLET_DIALOG,
-  props<{ wallet: WalletModel }>()
+  props<{ wallet?: WalletModel }>()
 );
 
 export const openDeleteWalletDialog = createAction(
   EWalletStoreActions.OPEN_DELETE_WALLET_DIALOG,
-  props<{ wallet: WalletModel }>()
+  props<{ wallet?: WalletModel }>()
 );
 
 export const filterWallets = createAction(
@@ -82,6 +82,7 @@ const actionsUnion = union({
   openUpdateWalletDialog,
   openDeleteWalletDialog,
   openDepositWalletDialog,
+  openWithdrawWalletDialog,
   openTransferFoundsDialog,
 
   resetState,

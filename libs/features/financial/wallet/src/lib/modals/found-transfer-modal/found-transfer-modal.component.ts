@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { WalletModel } from '@p-one/domain/financial';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
+import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { convetWalletIntoOption as convertWalletIntoOption, WalletModel, WalletOptionModel } from '@p-one/domain/financial';
 import { DestroyableMixin, PONE_DIALOG_DATA, updateValueAndValidityMarkingControlsAreDirty } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import { combineLatest } from 'rxjs';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { FoundTransferModalStore } from './found-transfer-modal.state';
+import { validateFoundTransfrerModalForm } from './fount-transfer-step.model';
 
 @Component({
   selector: 'p-one-found-transfer-modal',
@@ -22,16 +23,22 @@ export class FoundTransferModalComponent
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     value: [0.0, Validators.required],
-    origin: this._formBuilder.group({
-      wallet: [this.wallet, Validators.required],
-      category: [null, Validators.required],
-      subCategory: [null],
-    }),
-    destination: this._formBuilder.group({
-      wallet: [null, Validators.required],
-      category: [null, Validators.required],
-      subCategory: [null],
-    }),
+    origin: [
+      {
+        wallet: convertWalletIntoOption(this._wallet),
+        category: null,
+        subCategory: null,
+      },
+      [Validators.required, validateFoundTransfrerModalForm],
+    ],
+    destination: [
+      {
+        wallet: null,
+        category: null,
+        subCategory: null,
+      },
+      [Validators.required, validateFoundTransfrerModalForm],
+    ],
   });
 
   public readonly origin = this.form.get('origin') as UntypedFormGroup;
@@ -39,8 +46,10 @@ export class FoundTransferModalComponent
     'destination'
   ) as UntypedFormGroup;
 
-  public readonly originWallet = this.origin.get('wallet');
-  public readonly destinationWallet = this.destination.get('wallet');
+  public readonly originWallet = this.origin.get('wallet') as FormControl;
+  public readonly destinationWallet = this.destination.get(
+    'wallet'
+  ) as FormControl;
 
   public readonly isLoading$ = this._store.isLoading$;
   public readonly debitCategories$ = this._store.debitCategories$;
@@ -60,29 +69,21 @@ export class FoundTransferModalComponent
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: FoundTransferModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
-    @Inject(PONE_DIALOG_DATA) public readonly wallet: WalletModel
+    @Optional() @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel
   ) {
     super();
-    this._store.setData(wallet);
   }
 
   public ngOnInit(): void {
     this._store.load();
+  }
 
-    this.destinationWallet.valueChanges
-      .pipe(
-        takeUntil(this.destroyed$),
-        map((wallet) => (typeof wallet === 'string' ? null : wallet))
-      )
-      .subscribe((wallet) => this._store.setDestination(wallet));
+  public onDestinationWalletChange(wallet: WalletOptionModel | null): void {
+    this._store.setDestination(wallet);
+  }
 
-    this.originWallet.valueChanges
-      .pipe(
-        takeUntil(this.destroyed$),
-        startWith(this.originWallet.value),
-        map((wallet) => (typeof wallet === 'string' ? null : wallet))
-      )
-      .subscribe((value) => this._store.setOrigin(value));
+  public onOrignWalletChange(wallet: WalletOptionModel | null): void {
+    this._store.setOrigin(wallet);
   }
 
   public transfer(): void {
@@ -90,21 +91,10 @@ export class FoundTransferModalComponent
 
     if (this.form.invalid) return;
 
-    const wasDisabled = this.originWallet.disabled;
-
-    if (wasDisabled) {
-      this.originWallet.enable();
-    }
-
-    const { title, value, origin, destination } = this.form.value;
-
-    if (wasDisabled) {
-      this.originWallet.enable();
-    }
+    const { origin, destination, ...value } = this.form.value;
 
     this._store.transfer({
-      title,
-      value,
+      ...value,
       origin: {
         walletId: origin.wallet.id,
         categoryId: origin.category.id,

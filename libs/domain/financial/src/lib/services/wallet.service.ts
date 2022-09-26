@@ -11,6 +11,7 @@ import {
   ErrorModel,
   UpdateWalletRequest,
   WalletModel,
+  WalletOptionModel,
   WithdrawRequest,
 } from '../models';
 import { TransferRequest } from '../models/requests';
@@ -21,6 +22,22 @@ export class WalletService {
     private readonly _httpClient: HttpClient,
     @Inject(FINANCIAL_ENDPOINT) private readonly _financialEndpoint: string
   ) {}
+
+  public getAllAsOptions(
+    params?: Partial<{ currency: string }>
+  ): Observable<WalletOptionModel[]> {
+    return this._httpClient
+      .get<ResponseModel<WalletOptionModel[]>>(
+        `${this._financialEndpoint}/Wallet/GetAllAsOptions`,
+        {
+          params,
+        }
+      )
+      .pipe(
+        map(({ data }) => data),
+        catchError(({ messages }) => throwError({ messages } as ErrorModel))
+      );
+  }
 
   public get(
     params?: Partial<{ currency: string }>
@@ -100,12 +117,13 @@ export class WalletService {
 
   public withdraw(
     walletId: string,
-    withdraw: WithdrawRequest
+    withdraw: Partial<WithdrawRequest>
   ): Observable<any> {
+    console.log('REQUEST -> ', walletId, withdraw);
     return this._httpClient
       .put<ResponseModel<any>>(
         `${this._financialEndpoint}/Wallet/${walletId}/Withdraw`,
-        { ...withdraw }
+        withdraw
       )
       .pipe(
         map(({ data }) => data),

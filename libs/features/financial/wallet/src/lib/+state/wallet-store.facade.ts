@@ -59,7 +59,7 @@ export class WalletFacade {
     this._store.dispatch(openDepositWalletDialog({ wallet }));
   }
 
-  public openWithdrawWalletDialog(wallet: WalletModel): void {
+  public openWithdrawWalletDialog(wallet?: WalletModel): void {
     this._store.dispatch(openWithdrawWalletDialog({ wallet }));
   }
 
