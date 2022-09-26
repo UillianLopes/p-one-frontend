@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 import { HomeStoreFacade } from './+state/home-store.facade';
 
@@ -7,12 +7,9 @@ import { HomeStoreFacade } from './+state/home-store.facade';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  public readonly wallets$ = this._facade.wallets$;
-
-  constructor(private readonly _facade: HomeStoreFacade) {}
-
-  public ngOnInit(): void {
-    this._facade.loadWallets();
-  }
+export class HomeComponent {
+  constructor(
+    private readonly _facade: HomeStoreFacade,
+    private readonly _zone: NgZone
+  ) {}
 }

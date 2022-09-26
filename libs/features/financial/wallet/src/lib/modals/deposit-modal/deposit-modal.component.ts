@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, WalletModel } from '@p-one/domain/financial';
-import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { OptionModel } from '@p-one/core';
+import { CategoryModel, convetWalletIntoOption, WalletModel } from '@p-one/domain/financial';
+import { CustomValidators, DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
@@ -25,11 +26,17 @@ export class DepositModalComponent
     deposit: [0.01, [Validators.required, Validators.min(0.01)]],
     category: [null, [Validators.required]],
     subCategory: [null],
+    wallet: [
+      { value: convetWalletIntoOption(this._wallet), disabled: !!this._wallet },
+      [CustomValidators.requireToBeObject, Validators.required],
+    ],
+    dueDate: [new Date(), [Validators.required]],
   });
 
-  public readonly deposit = this.form.get('deposit');
-  public readonly category = this.form.get('category');
-  public readonly subCategory = this.form.get('subCategory');
+  public readonly deposit = this.form.get('deposit') as FormControl;
+  public readonly category = this.form.get('category') as FormControl;
+  public readonly subCategory = this.form.get('subCategory') as FormControl;
+  public readonly walletControl = this.form.get('wallet') as FormControl;
 
   public readonly isConfirmFormDisabled$ = this.form.statusChanges.pipe(
     startWith(this.form.status),
@@ -59,8 +66,8 @@ export class DepositModalComponent
     map((category) => (category ?? '') as string)
   );
 
-  public readonly currentBalance$ = this._store.wallet$.pipe(
-    map(({ value }) => value)
+  public readonly currentBalance$ = this._store.walletExtra$.pipe(
+    map((wallet) => wallet?.value ?? 0)
   );
 
   public readonly isLoading$ = this._store.isLoading$;
@@ -76,7 +83,7 @@ export class DepositModalComponent
   ]).pipe(
     map(([categories, categoryFilter]) =>
       categories.filter((c) =>
-        c.name.toLowerCase().includes((categoryFilter ?? '').toLowerCase())
+        c?.title?.toLowerCase().includes((categoryFilter ?? '').toLowerCase())
       )
     )
   );
@@ -86,35 +93,47 @@ export class DepositModalComponent
     this.subCategoryFilter$,
   ]).pipe(
     map(([subCategories, subCategoryFilter]) =>
-      subCategories.filter(({ name }) =>
-        name.toLowerCase().includes((subCategoryFilter ?? '').toLowerCase())
+      subCategories.filter(({ title }) =>
+        title?.toLowerCase()?.includes((subCategoryFilter ?? '').toLowerCase())
       )
     )
   );
 
-  public readonly displayFn = (obj: any) => obj?.name;
-  public readonly currency$ = this._store.wallet$.pipe(
-    map((wallet) => wallet.currency)
-  );
+  readonly walletCurrency$ = combineLatest([
+    this._settingsStoreFacade.settingsCurrency$,
+    this._store.walletExtra$,
+  ]).pipe(map(([currency, extra]) => extra?.currency ?? currency));
+
+  readonly wallets$ = this._store.wallets$;
+
+  public readonly displayFn = (obj: OptionModel) => obj?.title;
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: DepositModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
-    @Inject(PONE_DIALOG_DATA) wallet: WalletModel,
+    @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel,
     { dialogId }: DialogRef
   ) {
     super();
-    this._store.setWallet(wallet);
     this._store.setDialogId(dialogId);
   }
 
   ngOnInit(): void {
     this._store.loadCategories();
+    this._store.loadWallets({});
     this.category$.pipe(takeUntil(this.destroyed$)).subscribe((category) => {
       this.subCategory.setValue(null);
       this._store.loadSubCategories(category?.id);
     });
+
+    this.walletControl.valueChanges
+      .pipe(takeUntil(this.destroyed$), startWith(this.walletControl.value))
+      .subscribe((wallet) => {
+        this._store.setWallet(wallet);
+      });
+
+    this.walletControl;
   }
 
   public confirmDeposit(): void {

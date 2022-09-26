@@ -7,5 +7,5 @@ export interface OptionModel {
 }
 
 export interface OptionModelWithExtra<T> extends OptionModel {
-  extra?: T;
+  extra: T;
 }

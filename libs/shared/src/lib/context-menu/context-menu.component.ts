@@ -20,6 +20,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     @Inject(CONTEXT_MENU_TEMPLATE) public readonly template: TemplateRef<any>,
     private _el: ElementRef<HTMLElement>
   ) {}
+
   ngOnDestroy(): void {
     this._resizeObserver.disconnect();
     this._resizeObserver.unobserve(this._el.nativeElement);

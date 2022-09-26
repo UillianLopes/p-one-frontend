@@ -75,6 +75,7 @@ export class DatepickerDirective implements OnInit, ControlValueAccessor {
     if (!(target instanceof HTMLInputElement)) {
       return;
     }
+
     const value = target.value;
 
     if (!value) {
@@ -87,6 +88,7 @@ export class DatepickerDirective implements OnInit, ControlValueAccessor {
     if (dateTime.isValid) this.value = dateTime.toJSDate();
     else this.value = undefined;
   }
+
   _applyValueToElement() {
     if (!this._value) {
       return;

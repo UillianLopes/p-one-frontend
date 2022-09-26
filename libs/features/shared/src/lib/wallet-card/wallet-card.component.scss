@@ -7,5 +7,8 @@
   &__title {
     font-size: 24px;
     font-weight: bold;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

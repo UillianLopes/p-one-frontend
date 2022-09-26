@@ -15,7 +15,7 @@ export class MainComponent
   implements OnInit, OnDestroy
 {
   ESidenavState = ESidenavState;
-  
+
   constructor(
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,

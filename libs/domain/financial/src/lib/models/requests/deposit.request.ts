@@ -3,4 +3,5 @@ export interface DepositRequest {
   categoryId: string;
   subCategoryId?: string;
   title: string;
+  dueDate: Date;
 }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
-import { EEntryOperation, EntryModel, WalletModel } from '@p-one/domain/financial';
+import { OptionModel } from '@p-one/core';
+import { EEntryOperation, EntryModel, WalletOptionModel } from '@p-one/domain/financial';
 import {
   CustomValidators,
   DestroyableMixin,
@@ -32,7 +33,10 @@ export class PayEntryModalComponent
   readonly balance$ = this._store.wallet$;
 
   readonly form = this._formBuilder.group({
-    wallet: [null, [Validators.required, CustomValidators.requireToBeObject]],
+    wallet: [
+      this.entry.wallet,
+      [Validators.required, CustomValidators.requireToBeObject],
+    ],
     fees: [0.0],
     fine: [0.0],
     value: [
@@ -64,7 +68,7 @@ export class PayEntryModalComponent
   ]).pipe(map(([fees, fine, value]) => value + fine + fees));
 
   readonly canDefineEntryValue$ = this._store.canDefineEntryValue$;
-  readonly displayBalanceFn = (balance: WalletModel) => balance?.name;
+  readonly displayBalanceFn = (balance: OptionModel) => balance?.title;
 
   constructor(
     private readonly _store: PayEntryModalStore,
@@ -91,7 +95,7 @@ export class PayEntryModalComponent
       });
   }
 
-  setWallet(wallet: WalletModel) {
+  setWallet(wallet: WalletOptionModel) {
     this._store.setWallet(wallet);
   }
 

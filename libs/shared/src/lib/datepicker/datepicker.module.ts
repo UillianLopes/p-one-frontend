@@ -6,13 +6,11 @@ import { NgModule } from '@angular/core';
 import { POneMonthYearPickerModule } from '../month-year-picker';
 import { DatepickerCalendarComponent } from './datepicker-calendar/datepicker-calendar.component';
 import { DatepickerDayComponent } from './datepicker-day/datepicker-day.component';
-import { DatepickerComponent } from './datepicker.component';
 import { DatepickerDirective } from './datepicker.directive';
 import { RangeDatepickerComponent } from './range-datepicker/range-datepicker.component';
 
 @NgModule({
   declarations: [
-    DatepickerComponent,
     DatepickerDirective,
     DatepickerCalendarComponent,
     DatepickerDayComponent,
@@ -24,9 +22,6 @@ import { RangeDatepickerComponent } from './range-datepicker/range-datepicker.co
     PortalModule,
     OverlayModule,
   ],
-  exports: [
-    RangeDatepickerComponent,
-    DatepickerDirective
-  ],
+  exports: [RangeDatepickerComponent, DatepickerDirective],
 })
 export class POneDatepickerModule {}

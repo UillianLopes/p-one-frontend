@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { OptionModel } from '@p-one/core';
 import {
-  CategoryModel,
   CategoryService,
   EEntryOperation,
-  SubCategoryModel,
-  SubCategoryService,
   TransferRequest,
   WalletModel,
+  WalletOptionModel,
   WalletService,
 } from '@p-one/domain/financial';
 import { DialogRef } from '@p-one/shared';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 export interface FoundTransferModalState {
   isLoading?: boolean;
-  origin?: WalletModel;
-  destination?: WalletModel;
-  wallets: WalletModel[];
-  categories: CategoryModel[];
-  subCategories: SubCategoryModel[];
-  error?: any;
+  origin: WalletOptionModel | null;
+  destination: WalletOptionModel | null;
+  wallets: WalletOptionModel[];
+  debitCategories: OptionModel[];
+  creditCategories: OptionModel[];
+  error?: unknown;
   data?: WalletModel;
 }
 
@@ -44,22 +43,16 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     (wallets, destination) => wallets.filter(({ id }) => id !== destination?.id)
   );
 
-  public readonly categories$ = this.select(({ categories }) => categories);
   public readonly data$ = this.select(({ data }) => data);
   public readonly hasData$ = this.select(this.data$, (data) => !!data);
-  public readonly currency$ = this.select(
-    this.data$,
-    ({ currency }) => currency
-  );
+  public readonly currency$ = this.select(this.data$, (data) => data?.currency);
 
   public readonly debitCategories$ = this.select(
-    this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryOperation.Debit)
+    ({ debitCategories }) => debitCategories
   );
 
   public readonly creditCategories$ = this.select(
-    this.categories$,
-    (categories) => categories.filter(({ type }) => type === EEntryOperation.Credit)
+    ({ creditCategories }) => creditCategories
   );
 
   public readonly destinations$ = this.select(
@@ -67,8 +60,9 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     this.origin$,
     (wallets, origin) =>
       wallets.filter(
-        ({ id, currency }) =>
-          !origin || (origin.id !== id && origin.currency === currency)
+        ({ id, extra }) =>
+          !origin ||
+          (origin.id !== id && origin.extra.currency === extra.currency)
       )
   );
 
@@ -77,9 +71,10 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     this.destination$,
     (wallets, destination) =>
       wallets.filter(
-        ({ id, currency }) =>
+        ({ id, extra }) =>
           !destination ||
-          (destination.id !== id && destination.currency === currency)
+          (destination.id !== id &&
+            destination.extra.currency === extra.currency)
       )
   );
 
@@ -88,13 +83,14 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   constructor(
     private readonly _dialogRef: DialogRef,
     private readonly _categoryService: CategoryService,
-    private readonly _subCategoryService: SubCategoryService,
     private readonly _walletService: WalletService
   ) {
     super({
       wallets: [],
-      categories: [],
-      subCategories: [],
+      debitCategories: [],
+      creditCategories: [],
+      origin: null,
+      destination: null,
     });
   }
 
@@ -102,68 +98,23 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     event$.pipe(
       tap(() => this.patchState({ isLoading: true })),
       switchMap(() =>
-        this._walletService.get().pipe(
-          switchMap((wallets) =>
-            this._categoryService.get().pipe(
-              tap({
-                next: (categories) =>
-                  this.patchState({
-                    categories,
-                    wallets,
-                    isLoading: false,
-                  }),
-                error: (error) => this.patchState({ error, isLoading: false }),
-              })
-            )
+        forkJoin([
+          this._walletService.getAllAsOptions(),
+          this._categoryService.getAllAsOptions(EEntryOperation.Credit),
+          this._categoryService.getAllAsOptions(EEntryOperation.Debit),
+        ]).pipe(
+          tap(([wallets, creditCategories, debitCategories]) =>
+            this.patchState({
+              wallets,
+              creditCategories,
+              debitCategories,
+              isLoading: false,
+            })
           )
         )
       )
     )
   );
-
-  public readonly loadCategories = this.effect((event$) => {
-    return event$.pipe(
-      tap(() => this.patchState({ isLoading: true })),
-      switchMap(() =>
-        this._categoryService.get().pipe(
-          tap({
-            next: (categories) =>
-              this.patchState({ categories, isLoading: false }),
-            error: (error) => this.patchState({ error, isLoading: false }),
-          })
-        )
-      )
-    );
-  });
-
-  public readonly loadSubCategories = this.effect((event$) => {
-    return event$.pipe(
-      tap(() => this.patchState({ isLoading: true })),
-      switchMap(() =>
-        this._subCategoryService.get().pipe(
-          tap({
-            next: (subCategories) =>
-              this.patchState({ subCategories, isLoading: false }),
-            error: (error) => this.patchState({ error, isLoading: false }),
-          })
-        )
-      )
-    );
-  });
-
-  public readonly loadWallets = this.effect((event$) => {
-    return event$.pipe(
-      tap(() => this.patchState({ isLoading: true })),
-      switchMap(() =>
-        this._walletService.get().pipe(
-          tap({
-            next: (wallets) => this.patchState({ wallets, isLoading: false }),
-            error: (error) => this.patchState({ error, isLoading: false }),
-          })
-        )
-      )
-    );
-  });
 
   public readonly transfer = this.effect((data$: Observable<TransferRequest>) =>
     data$.pipe(
@@ -182,24 +133,21 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     )
   );
 
-  public readonly setOrigin = this.updater((state, origin: WalletModel) => ({
-    ...state,
-    origin,
-  }));
-
-  public readonly setDestination = this.updater(
-    (state, origin: WalletModel) => ({
+  public readonly setOrigin = this.updater(
+    (state, origin: WalletOptionModel | null) => ({
       ...state,
       origin,
     })
   );
 
-  public readonly setData = this.updater((state, data: WalletModel) => ({
-    ...state,
-    data,
-  }));
+  public readonly setDestination = this.updater(
+    (state, origin: WalletOptionModel | null) => ({
+      ...state,
+      origin,
+    })
+  );
 
   public readonly setWallets = this.updater(
-    (state, wallets: WalletModel[]) => ({ ...state, wallets })
+    (state, wallets: WalletOptionModel[]) => ({ ...state, wallets })
   );
 }

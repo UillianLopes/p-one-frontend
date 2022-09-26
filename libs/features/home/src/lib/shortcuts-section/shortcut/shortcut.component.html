@@ -1,0 +1,8 @@
+<div class="shortcut" [ngClass]="(classes$ | async)!">
+  <div class="shortcut__leading">
+    <ng-content pOneIcon></ng-content>
+  </div>
+  <div class="shortcut__content">
+    <ng-content></ng-content>
+  </div>
+</div>

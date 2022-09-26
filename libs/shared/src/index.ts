@@ -50,19 +50,14 @@ export * from './lib/chip';
 export * from './lib/breadcrumb';
 export * from './lib/datepicker';
 export * from './lib/color-picker';
-export * from './lib/range-slider';
 
 export * from './lib/@functions';
 export * from './lib/ellipsis';
 export * from './lib/table-container';
-
 export * from './lib/list';
-
 export * from './lib/roles';
-
 export * from './lib/details';
 export * from './lib/button';
-
 export * from './lib/table-utils';
 export * from './lib/collapse';
-export * from './lib/input-v2';
+export * from './lib/@types';

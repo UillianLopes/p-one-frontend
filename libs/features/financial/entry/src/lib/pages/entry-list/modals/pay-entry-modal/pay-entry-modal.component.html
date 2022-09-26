@@ -47,43 +47,43 @@
           *ngFor="let balance of this.balances$ | async"
           [value]="balance"
         >
-          <b> {{ balance.name }} </b>
+          <b> {{ balance.title }} </b>
           <br />
-          Saldo: <b>{{ balance.value | currency: balance.currency }}</b>
+          Saldo: <b>{{ balance.extra.value | currency: balance.extra.currency }}</b>
           <br />
           Saldo depois do pagamento:
           <ng-container [ngSwitch]="type$ | async">
             <b class="text-success" *ngSwitchCase="EntryType.Credit">
               {{
-                balance.value + (paymentRealValue$ | async)
-                  | currency: balance.currency
+                balance.extra.value + (paymentRealValue$ | async)
+                  | currency: balance.extra.currency
               }}
             </b>
 
             <b class="text-danger" *ngSwitchCase="EntryType.Debit">
               {{
-                balance.value - (paymentRealValue$ | async)
-                  | currency: balance.currency
+                balance.extra.value - (paymentRealValue$ | async)
+                  | currency: balance.extra.currency
               }}
             </b>
           </ng-container>
         </p-one-option>
       </p-one-autocomplete>
       <div *ngIf="balance$ | async as balance; else walletErrorMessageTemplate">
-        Saldo atual: <b> {{ balance.value | currency: balance.currency }} </b> -
+        Saldo atual: <b> {{ balance.extra.value | currency: balance.extra.currency }} </b> -
         Saldo após pagamento:
         <ng-container [ngSwitch]="type$ | async">
           <b class="text-success" *ngSwitchCase="EntryType.Credit">
             {{
-              balance.value + (paymentRealValue$ | async)
-                | currency: balance.currency
+              balance.extra.value + (paymentRealValue$ | async)
+                | currency: balance.extra.currency
             }}
           </b>
 
           <b class="text-danger" *ngSwitchCase="EntryType.Debit">
             {{
-              balance.value - (paymentRealValue$ | async)
-                | currency: balance.currency
+              balance.extra.value - (paymentRealValue$ | async)
+                | currency: balance.extra.currency
             }}
           </b>
         </ng-container>

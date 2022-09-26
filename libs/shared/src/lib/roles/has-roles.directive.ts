@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, withLatestFrom } from 'rxjs/operators';
 
 import { DestroyableMixin } from '../@mixins';
 import { RolesService } from './roles.state';
@@ -21,20 +21,25 @@ export class HasRolesDirective extends DestroyableMixin() implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._service.roles$.pipe(takeUntil(this.destroyed$)).subscribe((roles) => {
-      if (!roles) {
-        return;
-      }
-      if (
-        (this.operator == 'OR' &&
-          this.roles.some((role) => roles.includes(role))) ||
-        (this.operator == 'AND' &&
-          this.roles.every((role) => roles.includes(role)))
-      ) {
-        this._viewContainerRef.createEmbeddedView(this._templateRef);
-      } else {
-        this._viewContainerRef.clear();
-      }
-    });
+    this._service.roles$
+      .pipe(
+        takeUntil(this.destroyed$),
+        withLatestFrom(this._service.ignoreAllRoles$)
+      )
+      .subscribe(([roles, ignoreAllRoles]) => {
+        if (!roles) {
+          return;
+        }
+
+        if (
+          ignoreAllRoles ||
+          (this.operator == 'OR' && this.roles.some((role) => roles.includes(role))) ||
+          (this.operator == 'AND' && this.roles.every((role) => roles.includes(role)))
+        ) {
+          this._viewContainerRef.createEmbeddedView(this._templateRef);
+        } else {
+          this._viewContainerRef.clear();
+        }
+      });
   }
 }

@@ -26,11 +26,7 @@
       link="/main/financial"
       [tooltip]="'@PONE.MAIN.SIDENAV.FINANCIAL' | translate"
       [collapseState]="ESidenavState.OPENED"
-      *pOneHasRoles="[
-        'STANDALONE',
-        'FINANCIAL_DASHBOARD_READ',
-        'FINANCIAL_ENTRY_READ'
-      ]"
+      *pOneHasRoles="['FINANCIAL_DASHBOARD_READ', 'FINANCIAL_ENTRY_READ']"
     >
       <i pOneIcon class="bi bi-clipboard"></i>
       {{ '@PONE.MAIN.SIDENAV.FINANCIAL' | translate }}
@@ -38,7 +34,7 @@
       <p-one-sidenav-item
         link="/main/financial/dashboard"
         [tooltip]="'@PONE.MAIN.SIDENAV.DASHBOARD' | translate"
-        *pOneHasRoles="['STANDALONE', 'FINANCIAL_DASHBOARD_READ']"
+        *pOneHasRoles="['FINANCIAL_DASHBOARD_READ']"
       >
         <i pOneIcon class="bi bi-bar-chart"></i>
         {{ '@PONE.MAIN.SIDENAV.DASHBOARD' | translate }}
@@ -47,7 +43,7 @@
       <p-one-sidenav-collapse
         link="/main/financial/entries"
         [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate"
-        *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
+        *pOneHasRoles="['FINANCIAL_ENTRY_READ']"
       >
         <i pOneIcon class="bi bi-clipboard"></i>
         {{ '@PONE.MAIN.SIDENAV.ENTRIES.TITLE' | translate }}
@@ -55,7 +51,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/list"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate"
-          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
+          *pOneHasRoles="['FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-down-up"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.ALL_BILLS' | translate }}
@@ -66,7 +62,7 @@
           [tooltip]="
             '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate
           "
-          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
+          *pOneHasRoles="['FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-up"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_BE_RECEIVED' | translate }}
@@ -75,7 +71,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/debits"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate"
-          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_READ']"
+          *pOneHasRoles="['FINANCIAL_ENTRY_READ']"
         >
           <i pOneIcon class="bi bi-arrow-down"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.BILLS_TO_PAY' | translate }}
@@ -84,7 +80,7 @@
         <p-one-sidenav-item
           link="/main/financial/entries/create"
           [tooltip]="'@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate"
-          *pOneHasRoles="['STANDALONE', 'FINANCIAL_ENTRY_CREATE']"
+          *pOneHasRoles="['FINANCIAL_ENTRY_CREATE']"
         >
           <i pOneIcon class="bi bi-clipboard-plus"></i>
           {{ '@PONE.MAIN.SIDENAV.ENTRIES.CREATE_ENTRY' | translate }}
@@ -94,7 +90,7 @@
       <p-one-sidenav-item
         link="/main/financial/categories"
         [tooltip]="'@PONE.MAIN.SIDENAV.CATEGORIES' | translate"
-        *pOneHasRoles="['STANDALONE', 'FINANCIAL_CATEGORY_READ']"
+        *pOneHasRoles="['FINANCIAL_CATEGORY_READ']"
       >
         <i pOneIcon class="bi bi-tag"></i>
         {{ '@PONE.MAIN.SIDENAV.CATEGORIES' | translate }}
@@ -103,7 +99,7 @@
       <p-one-sidenav-item
         link="/main/financial/sub-categories"
         [tooltip]="'@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate"
-        *pOneHasRoles="['STANDALONE', 'FINANCIAL_SUB_CATEGORY_READ']"
+        *pOneHasRoles="['FINANCIAL_SUB_CATEGORY_READ']"
       >
         <i pOneIcon class="bi bi-tags"></i>
         {{ '@PONE.MAIN.SIDENAV.SUB_CATEGORIES' | translate }}
@@ -112,7 +108,7 @@
       <p-one-sidenav-item
         link="/main/financial/wallets"
         [tooltip]="'@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate"
-        *pOneHasRoles="['STANDALONE', 'FINANCIAL_WALLET_READ']"
+        *pOneHasRoles="['FINANCIAL_WALLET_READ']"
       >
         <i pOneIcon class="bi bi-bank"></i>
         {{ '@PONE.MAIN.SIDENAV.ACCOUNTS_OR_WALLETS' | translate }}
