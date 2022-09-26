@@ -92,8 +92,7 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
       switchMap(() =>
         this._categoryService.getAllAsOptions(EEntryOperation.Credit).pipe(
           tap({
-            next: (categories) =>
-              this.patchState({ categories, isLoading: false }),
+            next: (categories) => this.patchState({ categories, isLoading: false }),
             error: (error) => this.failure(error),
           })
         )
@@ -112,8 +111,7 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
 
           return this._subCategoryService.getAllAsOptions(id).pipe(
             tap({
-              next: (subCategories) =>
-                this.patchState({ subCategories, isLoading: false }),
+              next: (subCategories) => this.patchState({ subCategories, isLoading: false }),
               error: (error) => this.failure(error),
             })
           );

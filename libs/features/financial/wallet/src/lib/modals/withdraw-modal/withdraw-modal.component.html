@@ -17,29 +17,41 @@
           "
         />
       </p-one-form-field>
-      <p-one-form-field>
-        <label pOneLabel>
-          {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
-        </label>
-    
-        <input
-          pOneInput
-          [pOneAutocomplete]="autoCompleteWallet"
-          formControlName="wallet"
-          [placeholder]="
-            '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER' | translate
-          "
-        />
-    
-        <p-one-autocomplete
-          #autoCompleteWallet="pOneAutocomplete"
-          [displayFn]="displayFn"
-        >
-          <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
-            {{ wallet.title }}
-          </p-one-option>
-        </p-one-autocomplete>
-      </p-one-form-field>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel i18n>Vencimento</label>
+          <input pOneInput pOneDatepicker formControlName="dueDate" />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel>
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate
+            }}
+          </label>
+
+          <input
+            pOneInput
+            [pOneAutocomplete]="autoCompleteWallet"
+            formControlName="wallet"
+            [placeholder]="
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER'
+                | translate
+            "
+          />
+
+          <p-one-autocomplete
+            #autoCompleteWallet="pOneAutocomplete"
+            [displayFn]="displayFn"
+          >
+            <p-one-option
+              *ngFor="let wallet of wallets$ | async"
+              [value]="wallet"
+            >
+              {{ wallet.title }}
+            </p-one-option>
+          </p-one-autocomplete>
+        </p-one-form-field>
+      </div>
       <div pOneGrid gap="16px">
         <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
           <label pOneLabel>

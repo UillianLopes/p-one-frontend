@@ -3,4 +3,5 @@ export interface WithdrawRequest {
   categoryId: string;
   subCategoryId?: string;
   title: string;
+  dueDate: Date;
 }

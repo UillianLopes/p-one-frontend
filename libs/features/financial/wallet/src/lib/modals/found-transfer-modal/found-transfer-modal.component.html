@@ -20,7 +20,14 @@
             "
           />
         </p-one-form-field>
-        <p-one-form-field class="col">
+
+      </div>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel i18n>Vencimento</label>
+          <input pOneInput pOneDatepicker formControlName="dueDate" />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
           <label pOneLabel>
             {{
               '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate

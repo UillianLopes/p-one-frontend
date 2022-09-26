@@ -36,6 +36,7 @@ export class DepositModalComponent
   public readonly deposit = this.form.get('deposit') as FormControl;
   public readonly category = this.form.get('category') as FormControl;
   public readonly subCategory = this.form.get('subCategory') as FormControl;
+  public readonly walletControl = this.form.get('wallet') as FormControl;
 
   public readonly isConfirmFormDisabled$ = this.form.statusChanges.pipe(
     startWith(this.form.status),
@@ -65,8 +66,8 @@ export class DepositModalComponent
     map((category) => (category ?? '') as string)
   );
 
-  public readonly currentBalance$ = this._store.wallet$.pipe(
-    map((wallet) => wallet?.extra?.value ?? 0)
+  public readonly currentBalance$ = this._store.walletExtra$.pipe(
+    map((wallet) => wallet?.value ?? 0)
   );
 
   public readonly isLoading$ = this._store.isLoading$;
@@ -125,6 +126,14 @@ export class DepositModalComponent
       this.subCategory.setValue(null);
       this._store.loadSubCategories(category?.id);
     });
+
+    this.walletControl.valueChanges
+      .pipe(takeUntil(this.destroyed$), startWith(this.walletControl.value))
+      .subscribe((wallet) => {
+        this._store.setWallet(wallet);
+      });
+
+    this.walletControl;
   }
 
   public confirmDeposit(): void {

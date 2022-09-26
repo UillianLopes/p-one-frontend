@@ -7,4 +7,5 @@ export interface WithdrawModelForm {
   category: OptionModel;
   subCategory: OptionModel;
   wallet: WalletOptionModel;
+  dueDate: Date;
 }

@@ -23,6 +23,7 @@ export class FoundTransferModalComponent
   public readonly form = this._formBuilder.group({
     title: [null, Validators.required],
     value: [0.0, Validators.required],
+    dueDate: [new Date(), Validators.required],
     origin: [
       {
         wallet: convertWalletIntoOption(this._wallet),
