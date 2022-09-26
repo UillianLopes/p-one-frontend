@@ -30,12 +30,12 @@ export class CategoryService {
       );
   }
 
-  getAllAsOptions(type?: EEntryOperation): Observable<OptionModel[]> {
+  getAllAsOptions(operation?: EEntryOperation): Observable<OptionModel[]> {
     return this._httpClient
       .get<ResponseModel<OptionModel[]>>(
         `${this._financialApiUrl}/Category/GetAllAsOptions`,
         {
-          params: serializeToQueryParams({ type }),
+          params: serializeToQueryParams({ operation }),
         }
       )
       .pipe(

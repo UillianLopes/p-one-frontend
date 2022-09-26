@@ -15,12 +15,12 @@ export class MainComponent
   implements OnInit, OnDestroy
 {
   ESidenavState = ESidenavState;
-  
+
   constructor(
     private readonly _notificationsStoreFacade: NotificationsStoreFacade,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     private readonly _authenticationStoreFacade: AuthenticationStoreFacade,
-    private readonly _translateService: TranslateService,
+    private readonly _translateService: TranslateService
   ) {
     super();
   }

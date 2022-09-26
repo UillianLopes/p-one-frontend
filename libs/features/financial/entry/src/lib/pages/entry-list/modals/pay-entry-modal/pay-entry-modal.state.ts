@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { EntryModel, EntryService, WalletModel, WalletService } from '@p-one/domain/financial';
+import { EntryModel, EntryService, WalletOptionModel, WalletService } from '@p-one/domain/financial';
 import { DialogService } from '@p-one/shared';
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -10,9 +10,9 @@ import { PayEntryForm } from './pay-entry.form';
 export interface PayEntryModalState {
   isLoading: boolean;
   entry: EntryModel;
-  wallet: WalletModel;
+  wallet: WalletOptionModel;
   dialogId?: string;
-  wallets: WalletModel[];
+  wallets: WalletOptionModel[];
   error?: unknown;
 }
 
@@ -64,7 +64,7 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly setWallet = this.updater((state, wallet: WalletModel) => {
+  public readonly setWallet = this.updater((state, wallet: WalletOptionModel) => {
     return {
       ...state,
       wallet,
@@ -72,7 +72,7 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   });
 
   private readonly _loadWalletsSuccess = this.updater(
-    (state, wallets: WalletModel[]) => {
+    (state, wallets: WalletOptionModel[]) => {
       return {
         ...state,
         wallets,
@@ -94,7 +94,7 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
       tap(() => this.setIsLoading(true)),
       withLatestFrom(this.entry$),
       switchMap(([, { currency }]) =>
-        this._walletService.get({ currency }).pipe(
+        this._walletService.getAllAsOptions({ currency }).pipe(
           tap({
             next: (wallets) => this._loadWalletsSuccess(wallets),
             error: (error) => this._loadWalletsFailure(error),

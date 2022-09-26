@@ -9,6 +9,7 @@ import {
   POneColorPickerModule,
   POneContainerModule,
   POneContextMenuModule,
+  POneDatepickerModule,
   POneDialogModule,
   POneFlexModule,
   POneGridModule,
@@ -65,6 +66,7 @@ import { WalletRoutingModule } from './wallet.routing';
     POneNotificationsDisplayButtonModule,
     TranslateModule,
     POneStepperModule,
+    POneDatepickerModule,
   ],
   providers: [WalletFacade],
 })

@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import {
-  CategoryModel,
-  SubCategoryModel,
-  SubCategoryService,
-  WalletModel,
-} from '@p-one/domain/financial';
+import { OptionModel } from '@p-one/core';
+import { SubCategoryService, WalletOptionModel } from '@p-one/domain/financial';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 export interface FoundTransferStepState {
-  categories?: CategoryModel[];
-  subCategories?: SubCategoryModel[];
-  wallets?: WalletModel[];
+  categories?: OptionModel[];
+  subCategories?: OptionModel[];
+  wallets?: WalletOptionModel[];
   isWalletDisabled?: boolean;
 }
 
@@ -27,22 +23,16 @@ export class FoundTransferStepStore extends ComponentStore<FoundTransferStepStat
     ({ isWalletDisabled }) => isWalletDisabled
   );
 
-  public readonly t: any;
-
   constructor(private readonly _subCategoryService: SubCategoryService) {
     super({});
   }
 
   public readonly setWallets = this.updater(
-    (state, wallets: WalletModel[]) => ({ ...state, wallets })
+    (state, wallets: WalletOptionModel[]) => ({ ...state, wallets })
   );
 
   public readonly setCategories = this.updater(
-    (state, categories: CategoryModel[]) => ({ ...state, categories })
-  );
-
-  public readonly setSubCategories = this.updater(
-    (state, subCategories: SubCategoryModel[]) => ({ ...state, subCategories })
+    (state, categories: OptionModel[]) => ({ ...state, categories })
   );
 
   public readonly setIsWalletDisabled = this.updater(
@@ -53,9 +43,9 @@ export class FoundTransferStepStore extends ComponentStore<FoundTransferStepStat
     (event$: Observable<string>) =>
       event$.pipe(
         switchMap((categoryId) =>
-          this._subCategoryService.get(categoryId).pipe(
+          this._subCategoryService.getAllAsOptions(categoryId).pipe(
             tap({
-              next: (subCategories) => this.setSubCategories(subCategories),
+              next: (subCategories) => this.patchState({ subCategories }),
             })
           )
         )

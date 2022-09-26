@@ -1,36 +1,38 @@
 <p-one-card>
   <h5 pOneCardHeader>Atalhos</h5>
 
-  <div pOneFlexRow gap="16px">
-    <a routerLink="/main/financial">
-      <p-one-shortcut>
-        <i pOneIcon class="bi bi-clipboard"></i>
-        Financeiro
+  <div style="overflow: auto">
+    <div pOneFlexRow gap="16px">
+      <a routerLink="/main/financial">
+        <p-one-shortcut color="secondary">
+          <i pOneIcon class="bi bi-clipboard"></i>
+          Financeiro
+        </p-one-shortcut>
+      </a>
+      <a routerLink="/main/financial/dashboard">
+        <p-one-shortcut color="secondary">
+          <i pOneIcon class="bi bi-bar-chart"></i>
+          Dashboard
+        </p-one-shortcut>
+      </a>
+      <a routerLink="/main/financial/entries/create">
+        <p-one-shortcut color="secondary">
+          <i pOneIcon class="bi bi-clipboard-plus"></i>
+          Criar entrada
+        </p-one-shortcut>
+      </a>
+      <p-one-shortcut color="secondary" (click)="openTransferFoundsDialog()">
+        <i pOneIcon class="bi bi-arrow-left-right"></i>
+        Transferencia
       </p-one-shortcut>
-    </a>
-    <a routerLink="/main/financial">
-      <p-one-shortcut color="secondary">
-        <i pOneIcon class="bi bi-dashboard"></i>
-        Dashboard
+      <p-one-shortcut color="success" (click)="openDepositWalletDialog()">
+        <i pOneIcon class="bi bi-arrow-up"></i>
+        Depósito
       </p-one-shortcut>
-    </a>
-    <a routerLink="/main/financial/entries/create">
-      <p-one-shortcut color="secondary">
-        <i pOneIcon class="bi bi-dashboard"></i>
-        Criar entrada
+      <p-one-shortcut color="danger" (click)="openWithdrawWalletDialog()">
+        <i pOneIcon class="bi bi-arrow-down"></i>
+        Retirada
       </p-one-shortcut>
-    </a>
-    <p-one-shortcut color="secondary" (click)="openTransferFoundsDialog()">
-      <i pOneIcon class="bi bi-dashboard"></i>
-      Transferencia
-    </p-one-shortcut>
-    <p-one-shortcut color="secondary" (click)="openDepositWalletDialog()">
-      <i pOneIcon class="bi bi-dashboard"></i>
-      Depósito
-    </p-one-shortcut>
-    <p-one-shortcut color="secondary" (click)="openWithdrawWalletDialog()">
-      <i pOneIcon class="bi bi-dashboard"></i>
-      Retirada
-    </p-one-shortcut>
+    </div>
   </div>
 </p-one-card>

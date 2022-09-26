@@ -1,16 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 import {
   AbstractControl,
-  FormControl,
   FormControlDirective,
   FormControlName,
   FormControlStatus,
-  FormGroup,
   FormGroupDirective,
   FormGroupName,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { startWith, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { v4 } from 'uuid';
 
 import { DestroyableMixin } from '../../@mixins';

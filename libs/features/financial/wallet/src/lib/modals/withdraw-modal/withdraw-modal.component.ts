@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { CategoryModel, WalletModel } from '@p-one/domain/financial';
-import { DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { OptionModel } from '@p-one/core';
+import { CategoryModel, convetWalletIntoOption, WalletModel, WalletOptionModel } from '@p-one/domain/financial';
+import { CustomValidators, DestroyableMixin, DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
 import { SettingsStoreFacade } from '@p-one/stores/identity';
 import * as _ from 'lodash';
 import { combineLatest } from 'rxjs';
@@ -20,117 +21,146 @@ export class WithdrawModalComponent
   extends DestroyableMixin()
   implements OnInit
 {
-  public readonly form = this._formBuilder.group({
+  readonly DEFAULT_WITHDRAW_VALIDATORS = [
+    Validators.required,
+    Validators.min(0.01),
+  ];
+
+  readonly form = this._formBuilder.group({
     title: ['', [Validators.required]],
-    withdraw: [
-      0.01,
-      [
-        Validators.required,
-        Validators.min(0.01),
-        Validators.max(this._wallet.value),
-      ],
-    ],
+    withdraw: [0.01],
     category: [null, [Validators.required]],
     subCategory: [null],
+    wallet: [
+      { value: convetWalletIntoOption(this._wallet), disabled: !!this._wallet },
+      [CustomValidators.requireToBeObject, Validators.required],
+    ],
+    dueDate: [new Date(), [Validators.required]],
   });
 
-  public readonly withdraw = this.form.get('withdraw');
-  public readonly category = this.form.get('category');
-  public readonly subCategory = this.form.get('subCategory');
+  readonly withdrawControl = this.form.get('withdraw') as FormControl;
+  readonly categoryControl = this.form.get('category') as FormControl;
+  readonly subCategoryControl = this.form.get('subCategory') as FormControl;
+  readonly walletControl = this.form.get('wallet') as FormControl;
 
-  public readonly isConfirmFormDisabled$ = this.form.statusChanges.pipe(
+  readonly isConfirmFormDisabled$ = this.form.statusChanges.pipe(
     startWith(this.form.status),
     map((status) => !status || status === 'INVALID')
   );
 
-  public readonly withdraw$ = this.withdraw.valueChanges.pipe(
-    startWith(this.withdraw.value),
+  readonly withdraw$ = this.withdrawControl.valueChanges.pipe(
+    startWith(this.withdrawControl.value),
     map((value) => value as number)
   );
 
-  public readonly category$ = this.category.valueChanges.pipe(
+  readonly category$ = this.categoryControl.valueChanges.pipe(
     filter((category) => typeof category !== 'string'),
     map((category) => category as CategoryModel),
     distinctUntilChanged(_.isEqual)
   );
 
-  public readonly subCategoryFilter$ = this.subCategory.valueChanges.pipe(
+  readonly subCategoryFilter$ = this.subCategoryControl.valueChanges.pipe(
     startWith(''),
     filter((subCategory) => !subCategory || typeof subCategory === 'string'),
     map((subCategory) => (subCategory ?? '') as string)
   );
 
-  public readonly categoryFilter$ = this.category.valueChanges.pipe(
+  readonly categoryFilter$ = this.categoryControl.valueChanges.pipe(
     startWith(''),
     filter((category) => !category || typeof category === 'string'),
     map((category) => (category ?? '') as string)
   );
 
-  public readonly currentBalance$ = this._store.wallet$.pipe(
-    map(({ value }) => value)
+  readonly wallet$ = this._store.wallet$;
+  readonly walletCurrency$ = combineLatest([
+    this._settingsStoreFacade.settingsCurrency$,
+    this._store.walletExtra$,
+  ]).pipe(map(([currency, extra]) => extra?.currency ?? currency));
+
+  readonly currentBalance$ = this.wallet$.pipe(
+    map((wallet) => wallet?.extra?.value ?? 0)
   );
 
-  public readonly isLoading$ = this._store.isLoading$;
-
-  public readonly newBalance$ = combineLatest([
+  readonly isLoading$ = this._store.isLoading$;
+  readonly newBalance$ = combineLatest([
     this.withdraw$,
     this.currentBalance$,
-  ]).pipe(map(([deposit, currentBalance]) => currentBalance - deposit));
-
-  public readonly categories$ = combineLatest([
+  ]).pipe(map(([withdraw, currentBalance]) => currentBalance - withdraw));
+  readonly categories$ = combineLatest([
     this._store.categories$,
     this.categoryFilter$,
   ]).pipe(
     map(([categories, categoryFilter]) =>
-      categories.filter((c) =>
-        c.name.toLowerCase().includes((categoryFilter ?? '').toLowerCase())
+      categories.filter(({ title }) =>
+        title.toLowerCase().includes((categoryFilter ?? '').toLowerCase())
       )
     )
   );
-
-  public readonly subCategories$ = combineLatest([
+  readonly subCategories$ = combineLatest([
     this._store.subCategories$,
     this.subCategoryFilter$,
   ]).pipe(
     map(([subCategories, subCategoryFilter]) =>
-      subCategories.filter(({ name }) =>
-        name.toLowerCase().includes((subCategoryFilter ?? '').toLowerCase())
+      subCategories.filter(({ title }) =>
+        title.toLowerCase().includes((subCategoryFilter ?? '').toLowerCase())
       )
     )
   );
 
-  public readonly displayFn = (obj: any) => obj?.name;
-  public readonly currency$ = combineLatest([
-    this._settingsStoreFacade.settingsCurrency$,
-    this._store.wallet$,
-  ]).pipe(map(([currency, wallet]) => wallet.currency ?? currency));
+  readonly wallets$ = this._store.wallets$;
+
+  readonly displayFn = (obj: OptionModel) => obj?.title;
 
   constructor(
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: WithdrawModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
-    @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel,
+
+    @Optional()
+    @Inject(PONE_DIALOG_DATA)
+    private readonly _wallet: WalletModel,
     { dialogId }: DialogRef
   ) {
     super();
-    this._store.setWallet(_wallet);
     this._store.setDialogId(dialogId);
   }
 
   ngOnInit(): void {
     this._store.loadCategories();
+    this._store.loadWallets({
+      currency: this._wallet?.id,
+    });
+
     this.category$.pipe(takeUntil(this.destroyed$)).subscribe((category) => {
-      this.subCategory.setValue(null);
+      this.subCategoryControl.setValue(null);
       this._store.loadSubCategories(category?.id);
     });
+
+    this.walletControl.valueChanges
+      .pipe(
+        takeUntil(this.destroyed$),
+        startWith(this.walletControl.value),
+        filter((wallet) => !!wallet && typeof wallet !== 'string')
+      )
+      .subscribe((wallet: WalletOptionModel) => {
+        this._store.setWallet(wallet);
+        this.withdrawControl.setValidators([
+          ...this.DEFAULT_WITHDRAW_VALIDATORS,
+          Validators.max(wallet.extra.value ?? 0),
+        ]);
+        this.withdrawControl.updateValueAndValidity();
+      });
   }
 
-  public confirmWithdraw(): void {
+  confirmWithdraw(): void {
     if (this.form.invalid) {
       this.form.updateValueAndValidity();
       return;
     }
 
-    this._store.confirmWithdraw(this.form.value);
+    this._store.confirmWithdraw({
+      ...this.form.value,
+      wallet: this.walletControl.value,
+    });
   }
 }

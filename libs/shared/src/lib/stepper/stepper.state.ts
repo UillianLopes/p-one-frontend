@@ -72,12 +72,17 @@ export class StepperStore extends ComponentStore<StepperState> {
 
   public readonly next = this.effect((event$: Observable<void>) =>
     event$.pipe(
-      withLatestFrom(this.steps$, this.selectedStep$, this.stepAmmount$),
+      withLatestFrom(
+        this.steps$,
+        this.selectedStep$,
+        this.stepAmmount$,
+        this.validate$
+      ),
       filter(
-        ([_, steps, selectedStep, stepAmmount]) =>
+        ([_, steps, selectedStep, stepAmmount, validate]) =>
+          selectedStep < stepAmmount - 1 &&
           steps &&
-          !['INVALID', 'DISABLED'].includes(steps[selectedStep]) &&
-          selectedStep < stepAmmount - 1
+          (!validate || !['INVALID', 'DISABLED'].includes(steps[selectedStep]))
       ),
       tap({
         next: ([_, __, selectedStep, ___]) =>

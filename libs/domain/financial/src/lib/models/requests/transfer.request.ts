@@ -7,6 +7,7 @@ interface TransferSubject {
 export interface TransferRequest {
   title: string;
   value: number;
+  dueDate: Date;
   origin: TransferSubject;
   destination: TransferSubject;
 }
