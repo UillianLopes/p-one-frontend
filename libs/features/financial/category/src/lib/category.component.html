@@ -30,7 +30,10 @@
       *ngIf="isSomeFiltredCategoriesSelected$ | async"
       (click)="openDeleteCategoryDialog()"
     >
-      {{ '@PONE.FINANCIAL.CATEGORIES.BUTTONS.DELETE_SELECTED_CATEGORIES' | translate }}
+      {{
+        '@PONE.FINANCIAL.CATEGORIES.BUTTONS.DELETE_SELECTED_CATEGORIES'
+          | translate
+      }}
     </button>
 
     <p-one-form-field noPadding>
@@ -38,14 +41,14 @@
     </p-one-form-field>
   </div>
 
-  <div pOneFlexColumn gap="16px" style="padding: 16px; position: relative;">
+  <div pOneFlexColumn gap="16px" style="padding: 16px; position: relative">
     <table class="table table-sm table-hover table--fix-head">
       <thead>
         <tr>
           <th class="p-one-category__selection-column">
             <p-one-checkbox
               [isIndeterminated]="
-                isSomeButNotAllFiltredCategoriesSelected$ | async
+                (isSomeButNotAllFiltredCategoriesSelected$ | async)!
               "
               [ngModel]="isAllFiltredCategoriesSelected$ | async"
               (ngModelChange)="toggleSelectMultipleCategories()"
@@ -56,7 +59,9 @@
             {{ '@PONE.FINANCIAL.CATEGORIES.TABLE.COLUMNS.NAME' | translate }}
           </th>
           <th scope="col">
-            {{ '@PONE.FINANCIAL.CATEGORIES.TABLE.COLUMNS.DESCRIPTION' | translate }}
+            {{
+              '@PONE.FINANCIAL.CATEGORIES.TABLE.COLUMNS.DESCRIPTION' | translate
+            }}
           </th>
           <th scope="col">
             {{ '@PONE.FINANCIAL.CATEGORIES.TABLE.COLUMNS.TYPE' | translate }}
@@ -99,15 +104,15 @@
           </td>
           <td>{{ category.name }}</td>
           <td>{{ category.description }}</td>
-          <td [ngSwitch]="category.type">
+          <td [ngSwitch]="category.operation">
             <i
-              *ngSwitchCase="EntryType.Debit"
+              *ngSwitchCase="EntryOperation.Debit"
               class="bi bi-arrow-down-short text-danger"
             >
             </i>
 
             <i
-              *ngSwitchCase="EntryType.Credit"
+              *ngSwitchCase="EntryOperation.Credit"
               class="bi bi-arrow-up-short text-success"
             ></i>
           </td>
@@ -119,7 +124,9 @@
       [page]="(page$ | async)!"
       [pageSize]="(pageSize$ | async)!"
       (pageChange)="setCategoriesPage($event)"
-      [attr.aria-label]="'@PONE.FINANCIAL.CATEGORIES.PAGINATION.LABEL' | translate"
+      [attr.aria-label]="
+        '@PONE.FINANCIAL.CATEGORIES.PAGINATION.LABEL' | translate
+      "
     ></ngb-pagination>
   </div>
 </p-one-container>

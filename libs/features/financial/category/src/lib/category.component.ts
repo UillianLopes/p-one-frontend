@@ -18,7 +18,7 @@ export class CategoryComponent
   extends DestroyableMixin()
   implements OnInit, OnDestroy
 {
-  public readonly EntryType = EEntryOperation;
+  public readonly EntryOperation = EEntryOperation;
   public readonly categories$ = this._facade.filtredPaginatedCategories$;
   public readonly isLoading$ = this._facade.isLoading$;
   public readonly isAllFiltredCategoriesSelected$ =

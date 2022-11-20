@@ -119,7 +119,6 @@ export class WalletService {
     walletId: string,
     withdraw: Partial<WithdrawRequest>
   ): Observable<any> {
-    console.log('REQUEST -> ', walletId, withdraw);
     return this._httpClient
       .put<ResponseModel<any>>(
         `${this._financialEndpoint}/Wallet/${walletId}/Withdraw`,

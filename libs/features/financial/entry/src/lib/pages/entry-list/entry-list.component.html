@@ -155,7 +155,7 @@
               }}
             </span>
           </th>
-          <th scope="col">
+          <th scope="col" class="p-one-entry-list__operation">
             <span pOneEllipsis>
               {{
                 '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.OPERATION'
@@ -188,15 +188,7 @@
           <th scope="col">
             <span pOneEllipsis>
               {{
-                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.RECURRENCE_BEGIN'
-                  | translate
-              }}
-            </span>
-          </th>
-          <th scope="col">
-            <span pOneEllipsis>
-              {{
-                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.RECURRENCE_END'
+                '@PONE.FINANCIAL.ENTRIES.LIST.TABLE.COLUMNS.RECURRENCE'
                   | translate
               }}
             </span>
@@ -250,15 +242,17 @@
                       : (settingsCurrency$ | async)!)
             }}
           </td>
-          <td [ngSwitch]="entry.type">
+          <td class="p-one-entry-list__operation" [ngSwitch]="entry.type">
             <i
               *ngSwitchCase="EntryType.Debit"
               class="bi bi-arrow-down text-danger"
+              [pOneTooltip]="'@PONE.FINANCIAL.ENTRIES.TOOLTIPS.DEBIT' | translate"
             >
             </i>
 
             <i
               *ngSwitchCase="EntryType.Credit"
+              [pOneTooltip]="'@PONE.FINANCIAL.ENTRIES.TOOLTIPS.CREDIT' | translate"
               class="bi bi-arrow-up text-success"
             ></i>
           </td>
@@ -303,24 +297,22 @@
           <td>
             <span pOneEllipsis>
               {{ entry.recurrenceBegin | date }}
+              -
+              <span
+                pOneEllipsis
+                *ngIf="
+                  entry.recurrenceEnd as recurrenceEnd;
+                  else infiniteIconTemplate
+                "
+              >
+                {{ recurrenceEnd | date }}
+              </span>
+
+              <ng-template #infiniteIconTemplate>
+                <i *ngIf="entry.recurrenceBegin" class="bi bi-infinity"></i>
+              </ng-template>
             </span>
           </td>
-          <td>
-            <span
-              pOneEllipsis
-              *ngIf="
-                entry.recurrenceEnd as recurrenceEnd;
-                else infiniteIconTemplate
-              "
-            >
-              {{ recurrenceEnd | date }}
-            </span>
-
-            <ng-template #infiniteIconTemplate>
-              <i *ngIf="entry.recurrenceBegin" class="bi bi-infinity"></i>
-            </ng-template>
-          </td>
-
           <td
             p-one-actions-cell
             *pOneHasRoles="[

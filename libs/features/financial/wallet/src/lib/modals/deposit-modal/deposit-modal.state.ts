@@ -92,7 +92,8 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
       switchMap(() =>
         this._categoryService.getAllAsOptions(EEntryOperation.Credit).pipe(
           tap({
-            next: (categories) => this.patchState({ categories, isLoading: false }),
+            next: (categories) =>
+              this.patchState({ categories, isLoading: false }),
             error: (error) => this.failure(error),
           })
         )
@@ -111,7 +112,8 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
 
           return this._subCategoryService.getAllAsOptions(id).pipe(
             tap({
-              next: (subCategories) => this.patchState({ subCategories, isLoading: false }),
+              next: (subCategories) =>
+                this.patchState({ subCategories, isLoading: false }),
               error: (error) => this.failure(error),
             })
           );
@@ -124,10 +126,9 @@ export class DepositModalStore extends ComponentStore<DepositModalState> {
     (event$: Observable<{ currency?: string }>) => {
       return event$.pipe(
         tap(() => this.patchState({ isLoading: true })),
-        withLatestFrom(this._settingsFacadeStore.settingsCurrency$),
-        switchMap(([{ currency }, settingsCurrency]) =>
+        switchMap((options) =>
           this._walletService
-            .getAllAsOptions({ currency: currency || settingsCurrency })
+            .getAllAsOptions(options)
             .pipe(
               tap((wallets) => this.patchState({ wallets, isLoading: false }))
             )

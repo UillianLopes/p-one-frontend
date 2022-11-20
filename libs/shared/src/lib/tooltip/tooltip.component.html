@@ -1,6 +1,7 @@
 <div
   class="p-one-tooltip"
   [@tooltipAnimation]="status$ | async"
+  (@tooltipAnimation.done)="tooltipAnimationDone($event)"
   *ngIf="config && config.useTooltipStyle; else noStyleTemplate"
 >
   <ng-container *ngIf="data">

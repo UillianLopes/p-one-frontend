@@ -80,7 +80,7 @@ export class CategoryEffects {
       ofType(ECategoryActions.UPDATE_CATEGORY),
       switchMap(({ updateCategoryRequest }) => {
         return this._categoryService
-          .update(updateCategoryRequest.id ?? '', updateCategoryRequest)
+          .update(updateCategoryRequest.id, updateCategoryRequest)
           .pipe(
             map((category) => {
               return updateCategorySuccess({

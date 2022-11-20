@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, Input } from '@angular/core';
+
+import { DialogStore } from './dialog.state';
 
 export interface DialogState {
   isLoading?: boolean | null;
@@ -9,30 +9,15 @@ export interface DialogState {
   selector: 'p-one-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
+  providers: [DialogStore],
 })
-export class DialogComponent implements OnInit {
-  private readonly _state$ = new BehaviorSubject<DialogState>({
-    isLoading: false,
-  });
-
-  public readonly isLoading$ = this._state$.pipe(
-    map((state) => state.isLoading)
-  );
+export class DialogComponent {
+  public readonly isLoading$ = this._store.isLoading$;
 
   @Input()
-  set isLoading(isLoading: boolean | undefined | null) {
-    this._setState({
-      isLoading,
-    });
+  set isLoading(isLoading: boolean) {
+    this._store.setIsLoading(isLoading);
   }
-  constructor() {}
 
-  ngOnInit(): void {}
-
-  private _setState(state: Partial<DialogState>) {
-    this._state$.next({
-      ...this._state$.value,
-      ...state,
-    });
-  }
+  constructor(private readonly _store: DialogStore) {}
 }

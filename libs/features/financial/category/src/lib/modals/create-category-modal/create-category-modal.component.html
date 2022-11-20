@@ -1,4 +1,4 @@
-<p-one-dialog [isLoading]="isLoading$ | async">
+<p-one-dialog [isLoading]="(isLoading$ | async)!">
   <h5 class="card-header">
     {{ '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.TITLE' | translate }}
   </h5>
@@ -21,18 +21,18 @@
         </p-one-form-field>
         <p-one-form-field pOneGridColumn="200px">
           <label pOneLabel for="categoryNameInput">{{
-            '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.TYPE.LABEL' | translate
+            '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.OPERATION.LABEL' | translate
           }}</label>
-          <select pOneInput formControlName="type">
+          <select pOneInput formControlName="operation">
             <option [ngValue]="EntryType.Credit">
               {{
-                '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.TYPE.OPTIONS.CREDIT'
+                '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.OPERATION.OPTIONS.CREDIT'
                   | translate
               }}
             </option>
             <option [ngValue]="EntryType.Debit">
               {{
-                '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.TYPE.OPTIONS.DEBIT'
+                '@PONE.FINANCIAL.CATEGORIES.MODALS.CREATE.FIELDS.OPERATION.OPTIONS.DEBIT'
                   | translate
               }}
             </option>

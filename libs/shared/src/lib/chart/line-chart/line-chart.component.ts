@@ -722,6 +722,7 @@ export class LineChartComponent
 
     const values = _.uniq(series.map(({ value }) => value));
     const points = _.uniq(series.map(({ name }) => name));
+
     const greaterPointWidth = points
       .map((a) => {
         const text = svg
@@ -747,7 +748,7 @@ export class LineChartComponent
       minValue = 0;
     }
 
-    const maxValue = values.reduce((a, b) => (a > b ? a : b), 0);
+    const maxValue = _.max(values) ?? 0;
     const yAxisWidth = 50;
     const graphWidth = innerWidth - yAxisWidth;
     const xAxisHeight = greaterPointWidth + graphMargin;

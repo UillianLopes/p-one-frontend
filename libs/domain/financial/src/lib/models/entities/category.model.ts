@@ -5,6 +5,6 @@ import { EEntryOperation } from '../enums';
 export interface CategoryModel extends NamedModel {
   description?: string;
   id?: string;
-  type?: EEntryOperation;
+  operation?: EEntryOperation;
   color?: string;
 }

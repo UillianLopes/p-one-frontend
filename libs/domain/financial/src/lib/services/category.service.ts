@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { FINANCIAL_ENDPOINT } from '../contants/financial-endpoints.token';
-import { CategoryModel, EEntryOperation, ErrorModel } from '../models';
+import { CategoryModel, CreateCategoryRequest, EEntryOperation, ErrorModel, UpdateCategoryRequest } from '../models';
 
 @Injectable()
 export class CategoryService {
@@ -46,7 +46,7 @@ export class CategoryService {
       );
   }
 
-  create(category: CategoryModel): Observable<CategoryModel> {
+  create(category: CreateCategoryRequest): Observable<CategoryModel> {
     return this._httpClient
       .post<ResponseModel<CategoryModel>>(
         `${this._financialApiUrl}/Category`,
@@ -60,7 +60,10 @@ export class CategoryService {
       );
   }
 
-  update(id: string, category: CategoryModel): Observable<CategoryModel> {
+  update(
+    id: string,
+    category: UpdateCategoryRequest
+  ): Observable<CategoryModel> {
     return this._httpClient
       .put<ResponseModel<CategoryModel>>(
         `${this._financialApiUrl}/Category/${id}`,

@@ -1,8 +1,35 @@
 .p-one-tooltip {
   display: block;
   padding: 4px;
-  background: white;
   border-radius: 8px;
   border: 1px solid var(--bs-gray-200);
   opacity: 0;
+  background: white;
+  position: relative;
+
+  &__triangle {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+
+    &--right {
+      right: -8px;
+      top: calc(50% - 4px);
+    }
+
+    &--left {
+      left: -8px;
+      top: calc(50% - 4px);
+    }
+
+    &--bottom {
+      bottom: -8px;
+      left: calc(50% - 4px);
+    }
+
+    &--top {
+      top: -8px;
+      left: calc(50% - 4px);
+    }
+  }
 }
