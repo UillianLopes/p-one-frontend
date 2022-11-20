@@ -40,13 +40,12 @@ export interface CategoryState {
   filter: CategoryFilter;
   pagination: QueryModel;
   categories: CategoryModel[];
-  error?: unknown;
-
   selectedCategoryIds: string[];
-
   createCategoryDialogId?: string;
   updateCategoryDialogId?: string;
   deleteCategoryDialogId?: string;
+
+  error?: unknown;
 }
 
 const initialState: CategoryState = {
@@ -63,7 +62,7 @@ const initialState: CategoryState = {
 const _categoryReducer = createReducer<CategoryState>(
   initialState,
 
-  on(loadCategories, (state, _) => {
+  on(loadCategories, (state) => {
     return { ...state, loading: true };
   }),
 

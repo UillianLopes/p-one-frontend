@@ -85,7 +85,8 @@ export class FoundTransferStepComponent
         }
       });
 
-    this.walletControl.valueChanges
+    this.walletControl
+      .valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((value) => {
         this.walletChange.next(value);
@@ -102,15 +103,14 @@ export class FoundTransferStepComponent
 
     this.form.valueChanges
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((value) => {
+      .subscribe(() => {
         if (this._onChange) {
           if (this.form.valid) {
-            this._onChange(value);
+            this._onChange(this.form.getRawValue());
           } else {
             this._onChange(null);
           }
         }
-
         if (this._onTouched) {
           this._onTouched();
         }

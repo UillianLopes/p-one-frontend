@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { PONE_DIALOG_DATA } from '@p-one/shared';
 import { combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { CategoryFacade } from '../../+state/category.facade';
   templateUrl: './delete-category-modal.component.html',
   styleUrls: ['./delete-category-modal.component.scss'],
 })
-export class DeleteCategoryModalComponent implements OnInit {
+export class DeleteCategoryModalComponent {
   readonly isLoading$ = this._facade.isLoading$;
   readonly toBeDeleteCategories$ = combineLatest([
     this._facade.filtredSelectedCategories$,
@@ -19,9 +19,7 @@ export class DeleteCategoryModalComponent implements OnInit {
   ]).pipe(
     map(([filtredAndSelectedCategories, filtredCategories, categoryId]) =>
       categoryId
-        ? [filtredCategories.find((c) => c.id === categoryId)].filter(
-            (x) => !!x
-          )
+        ? filtredCategories.filter((category) => category.id === categoryId)
         : filtredAndSelectedCategories
     )
   );
@@ -37,8 +35,6 @@ export class DeleteCategoryModalComponent implements OnInit {
     @Inject(PONE_DIALOG_DATA) private readonly cateogryId: string,
     private _facade: CategoryFacade
   ) {}
-
-  ngOnInit(): void {}
 
   deleteCategory(): void {
     if (this.cateogryId) {

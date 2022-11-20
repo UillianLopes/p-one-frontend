@@ -1,7 +1,10 @@
+import { AnimationEvent } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional, TemplateRef } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { tooltipAnimation } from './tooltip.animation';
 import { TOOLTIP_CONFIG, TOOLTIP_DATA, TOOLTIP_TEMPLATE } from './tooltip.constants';
+import { TooltipPosition } from './tooltip.directive';
 import { TooltipRef } from './tooltip.ref';
 import { TooltipStore } from './tooltip.state';
 
@@ -11,32 +14,52 @@ import { TooltipStore } from './tooltip.state';
   styleUrls: ['./tooltip.component.scss'],
   animations: [tooltipAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TooltipStore]
+  providers: [TooltipStore],
 })
 export class TooltipComponent implements OnInit {
-  public readonly status$ = this._store.status$;
+  readonly status$ = this._store.status$;
+  readonly position$ = this._store.position$;
+  readonly closed$ = new Subject<void>();
+  readonly opened$ = new Subject<void>();
 
   constructor(
     private readonly _store: TooltipStore,
-
-    public readonly tooltipRef: TooltipRef,
+    readonly tooltipRef: TooltipRef,
 
     @Optional()
     @Inject(TOOLTIP_TEMPLATE)
-    public readonly template?: TemplateRef<any>,
+    readonly template?: TemplateRef<any>,
 
     @Optional()
     @Inject(TOOLTIP_DATA)
-    public readonly data?: string,
+    readonly data?: string,
 
     @Optional()
     @Inject(TOOLTIP_CONFIG)
-    public readonly config?: {
+    readonly config?: {
       useTooltipStyle: boolean;
+      position: TooltipPosition;
     }
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  open(): void {
     this._store.setStatus('OPENED');
+  }
+
+  close(): void {
+    this._store.setStatus('CLOSED');
+  }
+
+  tooltipAnimationDone({ fromState, toState }: AnimationEvent) {
+    if (fromState === 'OPENED' && toState === 'CLOSED') {
+      this.closed$.next();
+    }
+
+    if (toState === 'OPENED') {
+      this.opened$.next();
+    }
   }
 }

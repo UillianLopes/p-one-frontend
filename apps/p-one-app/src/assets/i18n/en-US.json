@@ -43,6 +43,10 @@
   },
   "FINANCIAL": {
     "ENTRIES": {
+      "TOOLTIPS": {
+        "CREDIT": "Credit",
+        "DEBIT": "Debit"
+      },
       "LIST": {
         "TITLE": "Entries",
         "ENTRY_TYPES": {
@@ -70,8 +74,7 @@
             "STATUS": "Status",
             "BAR_CODE": "Bar code",
             "WALLET": "Account/Wallet",
-            "RECURRENCE_BEGIN": "Recurrence begin",
-            "RECURRENCE_END": "Recurrence end"
+            "RECURRENCE": "Recurrence"
           }
         },
         "FILTER": {
@@ -138,9 +141,9 @@
               "LABEL": "Description",
               "PLACEHOLDER": "Type the category description"
             },
-            "TYPE": {
-              "LABEL": "Tipo",
-              "PLACEHOLDER": "Select the category type",
+            "OPERATION": {
+              "LABEL": "Operation",
+              "PLACEHOLDER": "Select the category operation",
               "OPTIONS": {
                 "CREDIT": "Credit",
                 "DEBIT": "Debit"
@@ -167,9 +170,9 @@
               "LABEL": "Description",
               "PLACEHOLDER": "Type the category description"
             },
-            "TYPE": {
-              "LABEL": "Type",
-              "PLACEHOLDER": "Select the category type",
+            "OPERATION": {
+              "LABEL": "Operation",
+              "PLACEHOLDER": "Select the category operation",
               "OPTIONS": {
                 "CREDIT": "Credit",
                 "DEBIT": "Debit"
@@ -393,7 +396,7 @@
             "CANCEL": "Cancel",
             "PREVIOUS": "Previous",
             "NEXT": "Next",
-            "CONFIRM_DEPOSIT": "Confirm deposit"
+            "CONFIRM_TRANSFER": "Confirm transfer"
           }
         },
         "DEPOSIT": {

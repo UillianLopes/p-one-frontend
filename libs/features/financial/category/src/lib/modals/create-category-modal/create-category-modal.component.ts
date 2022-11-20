@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { generateColor } from '@p-one/core';
 import { EEntryOperation } from '@p-one/domain/financial';
@@ -11,11 +11,11 @@ import { CategoryFacade } from '../../+state/category.facade';
   templateUrl: './create-category-modal.component.html',
   styleUrls: ['./create-category-modal.component.scss'],
 })
-export class CreateCategoryModalComponent implements OnInit {
+export class CreateCategoryModalComponent {
   public readonly EntryType = EEntryOperation;
   public readonly form = this._formBuilder.group({
     name: ['', [Validators.required]],
-    type: [EEntryOperation.Credit, [Validators.required]],
+    operation: [EEntryOperation.Credit, [Validators.required]],
     description: [''],
     color: [generateColor(), [Validators.required]],
   });
@@ -31,8 +31,6 @@ export class CreateCategoryModalComponent implements OnInit {
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _facade: CategoryFacade
   ) {}
-
-  ngOnInit(): void {}
 
   createCategory(): void {
     this._facade.createCategory(this.form.value);

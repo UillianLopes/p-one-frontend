@@ -49,7 +49,7 @@ import { WalletsSectionComponent } from './wallets-section/wallets-section.compo
     POneCardModule,
     POneButtonModule,
     WalletStoreModule,
-    POneChartModule,
+    POneChartModule
   ],
 })
 export class HomeModule {}

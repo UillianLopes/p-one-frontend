@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
