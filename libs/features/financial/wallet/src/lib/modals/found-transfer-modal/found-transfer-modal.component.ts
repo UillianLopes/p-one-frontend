@@ -73,6 +73,7 @@ export class FoundTransferModalComponent
     @Optional() @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel
   ) {
     super();
+    this._store.setData(_wallet);
   }
 
   public ngOnInit(): void {
@@ -85,14 +86,21 @@ export class FoundTransferModalComponent
 
   public onOrignWalletChange(wallet: WalletOptionModel | null): void {
     this._store.setOrigin(wallet);
+    this.destination.patchValue({
+      ...this.destination.getRawValue(),
+      wallet: null,
+    });
   }
 
   public transfer(): void {
     updateValueAndValidityMarkingControlsAreDirty(this.form);
 
+    console.log(this.form.getRawValue());
     if (this.form.invalid) return;
 
-    const { origin, destination, ...value } = this.form.value;
+    const { origin, destination, ...value } = this.form.getRawValue();
+
+    console.log(origin, destination, value);
 
     this._store.transfer({
       ...value,

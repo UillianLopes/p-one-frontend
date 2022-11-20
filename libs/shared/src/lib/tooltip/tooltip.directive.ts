@@ -11,7 +11,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { eventOutsideOverlay } from '../oprators';
 import { TooltipComponent } from './tooltip.component';
@@ -57,10 +57,10 @@ export const TOP: ConnectedPosition = {
 export type TooltipPosition = 'bottom' | 'right' | 'left' | 'top';
 
 const POSITIONS = new Map<TooltipPosition, ConnectedPosition[]>([
-  ['bottom', [{ ...BOTTOM }, TOP, RIGHT, LEFT]],
-  ['top', [{ ...TOP }, BOTTOM, RIGHT, LEFT]],
-  ['left', [{ ...LEFT }, BOTTOM, TOP, RIGHT]],
-  ['right', [{ ...RIGHT }, BOTTOM, TOP, LEFT]],
+  ['bottom', [BOTTOM, TOP, RIGHT, LEFT]],
+  ['top', [TOP, BOTTOM, RIGHT, LEFT]],
+  ['left', [LEFT, BOTTOM, TOP, RIGHT]],
+  ['right', [RIGHT, BOTTOM, TOP, LEFT]],
 ]);
 
 @Directive({
@@ -69,28 +69,22 @@ const POSITIONS = new Map<TooltipPosition, ConnectedPosition[]>([
 export class TooltipDirective implements OnDestroy {
   @Input('pOneTooltip')
   public tooltip!: TemplateRef<any> | string;
-
   @Input()
   public data: any;
-
   @Input()
   public trigger: 'hover' | 'click' = 'hover';
+  @Input()
+  public tooltipPosition: TooltipPosition = 'bottom';
+  @Input()
+  public canTooltipOpen = true;
+  @Input()
+  public autoClose = true;
+  @Input()
+  public useTooltipStyle = true;
 
   private _overlayRef?: OverlayRef;
 
   private _mouseLeaveEventDispatcher?: () => void;
-
-  @Input()
-  public tooltipPosition: TooltipPosition = 'bottom';
-
-  @Input()
-  public canTooltipOpen = true;
-
-  @Input()
-  public autoClose = true;
-
-  @Input()
-  public useTooltipStyle = true;
 
   constructor(
     private readonly _overlay: Overlay,
@@ -157,6 +151,7 @@ export class TooltipDirective implements OnDestroy {
             provide: TOOLTIP_CONFIG,
             useValue: {
               useTooltipStyle: this.useTooltipStyle,
+              tooltipPosition: ''
             },
           },
           {
@@ -167,21 +162,25 @@ export class TooltipDirective implements OnDestroy {
       })
     );
 
-    overlayRef.attach(componentPortal);
+    const componentRef = overlayRef.attach(componentPortal);
+
+    componentRef.instance.open();
+
+    componentRef.instance.closed$.pipe(take(1)).subscribe(() => this._close());
 
     if (this.autoClose) {
       if (this.trigger == 'click') {
         eventOutsideOverlay('click', overlayRef, this._elementRef.nativeElement)
           .pipe(takeUntil(overlayRef.detachments()))
           .subscribe(() => {
-            this._close();
+            componentRef.instance.close();
           });
       } else {
         this._mouseLeaveEventDispatcher = this._renderer2.listen(
           this._elementRef.nativeElement,
           'mouseleave',
           () => {
-            this._close();
+            componentRef.instance.close();
           }
         );
       }
@@ -197,6 +196,7 @@ export class TooltipDirective implements OnDestroy {
 
     this._overlayRef.detach();
     this._overlayRef = undefined;
+
     if (this._mouseLeaveEventDispatcher) {
       this._mouseLeaveEventDispatcher();
       this._mouseLeaveEventDispatcher = undefined;

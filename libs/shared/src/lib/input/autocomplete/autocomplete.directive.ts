@@ -53,7 +53,8 @@ export class AutocompleteDirective
   }
 
   ngOnInit(): void {
-    this.autocomplete.valueChange
+    this.autocomplete
+      .valueChange
       .pipe(takeUntil(this.destroyed$))
       .subscribe((obj) => {
         this.value = obj;
@@ -63,7 +64,8 @@ export class AutocompleteDirective
     const control = this._ngControl?.control;
 
     if (control) {
-      control.valueChanges
+      control
+        .valueChanges
         .pipe(takeUntil(this.destroyed$))
         .subscribe((obj) => this._applyValueToDOM(obj));
     } else {

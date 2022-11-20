@@ -124,6 +124,10 @@
       }
     },
     "ENTRIES": {
+      "TOOLTIPS": {
+        "CREDIT": "Crédito",
+        "DEBIT": "Débito"
+      },
       "LIST": {
         "TITLE": "Entradas",
         "ENTRY_TYPES": {
@@ -151,8 +155,7 @@
             "STATUS": "Situação",
             "BAR_CODE": "C. barras",
             "WALLET": "Conta/Carteira",
-            "RECURRENCE_BEGIN": "Inicio da recorrência",
-            "RECURRENCE_END": "Fim da recorrência"
+            "RECURRENCE": "Recorrência"
           }
         },
         "FILTER": {
@@ -239,9 +242,9 @@
               "LABEL": "Descrição",
               "PLACEHOLDER": "Digite a descrição da categoria"
             },
-            "TYPE": {
-              "LABEL": "Tipo",
-              "PLACEHOLDER": "Selecione o tipo da categoria",
+            "OPERATION": {
+              "LABEL": "Operação",
+              "PLACEHOLDER": "Selecione a operação da categoria",
               "OPTIONS": {
                 "CREDIT": "Crédito",
                 "DEBIT": "Débito"
@@ -268,9 +271,9 @@
               "LABEL": "Descrição",
               "PLACEHOLDER": "Digite a descrição da categoria"
             },
-            "TYPE": {
-              "LABEL": "Tipo",
-              "PLACEHOLDER": "Selecione o tipo da categoria",
+            "OPERATION": {
+              "LABEL": "Operação",
+              "PLACEHOLDER": "Selecione operação da categoria",
               "OPTIONS": {
                 "CREDIT": "Crédito",
                 "DEBIT": "Débito"
@@ -413,7 +416,7 @@
             "CANCEL": "Cancelar",
             "PREVIOUS": "Anterior",
             "NEXT": "Próximo",
-            "CONFIRM_DEPOSIT": "Confirmar depósito"
+            "CONFIRM_TRANSFER": "Confirmar transferência"
           }
         },
         "DEPOSIT": {

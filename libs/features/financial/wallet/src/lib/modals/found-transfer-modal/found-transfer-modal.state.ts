@@ -21,7 +21,7 @@ export interface FoundTransferModalState {
   debitCategories: OptionModel[];
   creditCategories: OptionModel[];
   error?: unknown;
-  data?: WalletModel;
+  data: WalletModel | null;
 }
 
 @Injectable()
@@ -45,7 +45,11 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
 
   public readonly data$ = this.select(({ data }) => data);
   public readonly hasData$ = this.select(this.data$, (data) => !!data);
-  public readonly currency$ = this.select(this.data$, (data) => data?.currency);
+
+  public readonly currency$ = this.select(
+    this.origin$,
+    (origin) => origin?.extra?.currency
+  );
 
   public readonly debitCategories$ = this.select(
     ({ debitCategories }) => debitCategories
@@ -61,24 +65,13 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
     (wallets, origin) =>
       wallets.filter(
         ({ id, extra }) =>
-          !origin ||
-          (origin.id !== id && origin.extra.currency === extra.currency)
+          origin && origin.id !== id && origin.extra.currency === extra.currency
       )
   );
 
-  public readonly origins$ = this.select(
-    this.wallets$,
-    this.destination$,
-    (wallets, destination) =>
-      wallets.filter(
-        ({ id, extra }) =>
-          !destination ||
-          (destination.id !== id &&
-            destination.extra.currency === extra.currency)
-      )
-  );
+  public readonly origins$ = this.wallets$;
 
-  public readonly wallet$ = this.select((data) => data);
+  public readonly wallet$ = this.select((origin) => origin);
 
   constructor(
     private readonly _dialogRef: DialogRef,
@@ -91,6 +84,7 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
       creditCategories: [],
       origin: null,
       destination: null,
+      data: null
     });
   }
 
@@ -141,11 +135,16 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   );
 
   public readonly setDestination = this.updater(
-    (state, origin: WalletOptionModel | null) => ({
+    (state, destination: WalletOptionModel | null) => ({
       ...state,
-      origin,
+      destination,
     })
   );
+
+  public readonly setData = this.updater((state, data: WalletModel | null) => ({
+    ...state,
+    data,
+  }));
 
   public readonly setWallets = this.updater(
     (state, wallets: WalletOptionModel[]) => ({ ...state, wallets })

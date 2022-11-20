@@ -1,4 +1,4 @@
-<p-one-dialog [isLoading]="isLoading$ | async">
+<p-one-dialog [isLoading]="(isLoading$ | async)!">
   <h4 p-one-dialog-header>
     {{ '@PONE.FINANCIAL.WALLETS.MODALS.DEPOSIT.TITLE' | translate }}
   </h4>
@@ -24,23 +24,29 @@
         </p-one-form-field>
         <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
           <label pOneLabel>
-            {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate
+            }}
           </label>
-      
+
           <input
             pOneInput
             [pOneAutocomplete]="autoCompleteWallet"
             formControlName="wallet"
             [placeholder]="
-              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER' | translate
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.PLACEHOLDER'
+                | translate
             "
           />
-      
+
           <p-one-autocomplete
             #autoCompleteWallet="pOneAutocomplete"
             [displayFn]="displayFn"
           >
-            <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
+            <p-one-option
+              *ngFor="let wallet of wallets$ | async"
+              [value]="wallet"
+            >
               {{ wallet.title }}
             </p-one-option>
           </p-one-autocomplete>

@@ -49,7 +49,8 @@ export class AutocompleteComponent
     super();
   }
   ngOnInit(): void {
-    this.formControl.valueChanges
+    this.formControl
+      .valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((value) => {
         this.valueChange.emit(value);

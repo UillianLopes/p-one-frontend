@@ -9,8 +9,8 @@ import { PayEntryForm } from './pay-entry.form';
 
 export interface PayEntryModalState {
   isLoading: boolean;
-  entry: EntryModel;
-  wallet: WalletOptionModel;
+  entry: EntryModel | null;
+  wallet: WalletOptionModel | null;
   dialogId?: string;
   wallets: WalletOptionModel[];
   error?: unknown;
@@ -21,9 +21,12 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
   public readonly isLoading$ = this.select(({ isLoading }) => isLoading);
   public readonly wallets$ = this.select(({ wallets }) => wallets);
   public readonly entry$ = this.select(({ entry }) => entry);
-  public readonly value$ = this.select(this.entry$, ({ value }) => value);
-  public readonly dueDate$ = this.select(this.entry$, ({ dueDate }) => dueDate);
-  public readonly type$ = this.select(this.entry$, ({ type }) => type);
+  public readonly value$ = this.select(this.entry$, (entry) => entry?.value);
+  public readonly dueDate$ = this.select(
+    this.entry$,
+    (entry) => entry?.dueDate
+  );
+  public readonly type$ = this.select(this.entry$, (entry) => entry?.type);
   public readonly wallet$ = this.select(({ wallet }) => wallet);
   public readonly dialogId$ = this.select(({ dialogId }) => dialogId);
   public readonly canDefineEntryValue$ = this.select(
@@ -64,12 +67,14 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly setWallet = this.updater((state, wallet: WalletOptionModel) => {
-    return {
-      ...state,
-      wallet,
-    };
-  });
+  public readonly setWallet = this.updater(
+    (state, wallet: WalletOptionModel) => {
+      return {
+        ...state,
+        wallet,
+      };
+    }
+  );
 
   private readonly _loadWalletsSuccess = this.updater(
     (state, wallets: WalletOptionModel[]) => {
@@ -93,14 +98,21 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     return data$.pipe(
       tap(() => this.setIsLoading(true)),
       withLatestFrom(this.entry$),
-      switchMap(([, { currency }]) =>
-        this._walletService.getAllAsOptions({ currency }).pipe(
-          tap({
-            next: (wallets) => this._loadWalletsSuccess(wallets),
-            error: (error) => this._loadWalletsFailure(error),
+      switchMap(([, entry]) => {
+        if (!entry) {
+          return of(null);
+        }
+        return this._walletService
+          .getAllAsOptions({
+            currency: entry.currency,
           })
-        )
-      )
+          .pipe(
+            tap({
+              next: (wallets) => this._loadWalletsSuccess(wallets),
+              error: (error) => this._loadWalletsFailure(error),
+            })
+          );
+      })
     );
   });
 
@@ -111,7 +123,7 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
     };
   });
 
-  public readonly payEntryFailure = this.updater((state, error: any) => {
+  public readonly payEntryFailure = this.updater((state, error: unknown) => {
     return {
       ...state,
       isLoading: false,
@@ -124,7 +136,13 @@ export class PayEntryModalStore extends ComponentStore<PayEntryModalState> {
       withLatestFrom(this.entry$),
       filter(([, entry]) => !!entry),
       tap(() => this.setIsLoading(true)),
-      switchMap(([{ wallet, ...form }, { id: entryId, parentId, dueDate }]) => {
+      switchMap(([{ wallet, ...form }, entry]) => {
+        if (!entry) {
+          return of(null);
+        }
+
+        const { id: entryId, parentId, dueDate } = entry;
+
         const id = entryId ?? parentId;
 
         if (!id) {

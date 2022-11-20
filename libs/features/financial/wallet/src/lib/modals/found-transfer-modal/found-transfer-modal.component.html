@@ -1,4 +1,4 @@
-<p-one-dialog [isLoading]="isLoading$ | async">
+<p-one-dialog [isLoading]="(isLoading$ | async)!">
   <h4 p-one-dialog-header>
     {{ '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.TITLE' | translate }}
   </h4>
@@ -20,31 +20,8 @@
             "
           />
         </p-one-form-field>
+      </div>
 
-      </div>
-      <div pOneGrid gap="16px">
-        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-          <label pOneLabel i18n>Vencimento</label>
-          <input pOneInput pOneDatepicker formControlName="dueDate" />
-        </p-one-form-field>
-        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
-          <label pOneLabel>
-            {{
-              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate
-            }}
-            ({{ currency$ | async }})
-          </label>
-          <input
-            pOneInput
-            currencyMask
-            formControlName="value"
-            [placeholder]="
-              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.PLACEHOLDER'
-                | translate
-            "
-          />
-        </p-one-form-field>
-      </div>
       <p-one-stepper #stepper>
         <p-one-step
           [header]="
@@ -74,6 +51,29 @@
           ></p-one-found-transfer-step>
         </p-one-step>
       </p-one-stepper>
+      <div pOneGrid gap="16px">
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel i18n>Vencimento</label>
+          <input pOneInput pOneDatepicker formControlName="dueDate" />
+        </p-one-form-field>
+        <p-one-form-field pOneGridColumn="minmax(0px,1fr)">
+          <label pOneLabel>
+            {{
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.LABEL' | translate
+            }}
+            ({{ currency$ | async }})
+          </label>
+          <input
+            pOneInput
+            currencyMask
+            formControlName="value"
+            [placeholder]="
+              '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.VALUE.PLACEHOLDER'
+                | translate
+            "
+          />
+        </p-one-form-field>
+      </div>
     </form>
   </p-one-dialog-body>
   <p-one-dialog-footer>
@@ -96,7 +96,7 @@
     </button>
     <button class="btn btn-primary btn-sm" (click)="transfer()">
       {{
-        '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CONFIRM_DEPOSIT'
+        '@PONE.FINANCIAL.WALLETS.MODALS.FOUND_TRANSFER.BUTTONS.CONFIRM_TRANSFER'
           | translate
       }}
     </button>

@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <p-one-form-field>
     <label pOneLabel>
-      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.WALLET.LABEL' | translate }}*
     </label>
 
     <input
@@ -18,14 +18,14 @@
       [displayFn]="displayFn"
     >
       <p-one-option *ngFor="let wallet of wallets$ | async" [value]="wallet">
-        {{ wallet.title }}
+        {{ wallet.title }} ({{ wallet.extra.currency }})
       </p-one-option>
     </p-one-autocomplete>
   </p-one-form-field>
 
   <p-one-form-field>
     <label pOneLabel>
-      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}
+      {{ '@PONE.FINANCIAL.WALLETS.MODALS.FIELDS.CATEGORY.LABEL' | translate }}*
     </label>
 
     <input

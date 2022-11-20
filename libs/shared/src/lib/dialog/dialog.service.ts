@@ -9,9 +9,7 @@ import { DialogContainerComponent } from './dialog-container/dialog-container.co
 
 @Injectable()
 export class DialogService {
-  private _dialogs: {
-    [dialogId: string]: DialogRef | undefined;
-  } = {};
+  private _dialogs = new Map<string, DialogRef>();
 
   constructor(
     private readonly _overlay: Overlay,
@@ -32,7 +30,10 @@ export class DialogService {
 
       const dialogId = v4();
 
-      const dialogRef = new DialogRef(overlayRef, dialogId);
+      const dialogRef = new DialogRef(
+        overlayRef,
+        dialogId
+      );
 
       const componentInjector = Injector.create({
         providers: [
@@ -76,10 +77,7 @@ export class DialogService {
 
       overlayRef.attach(containerPortal);
 
-      this._dialogs = {
-        ...this._dialogs,
-        [dialogId]: dialogRef,
-      };
+      this._dialogs.set(dialogId, dialogRef);
 
       return dialogRef;
     });
@@ -90,19 +88,12 @@ export class DialogService {
       if (!dialogId) {
         return;
       }
-
-      const dialogRef = this._dialogs[dialogId];
-
+      const dialogRef = this._dialogs.get(dialogId);
       if (!dialogRef) {
         return;
       }
-
       dialogRef.close(data);
-
-      this._dialogs = {
-        ...this._dialogs,
-        [dialogId]: undefined,
-      };
+      this._dialogs.delete(dialogId);
     });
   }
 }
