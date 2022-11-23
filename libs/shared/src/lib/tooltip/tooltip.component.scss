@@ -1,10 +1,10 @@
 .p-one-tooltip {
   display: block;
-  padding: 4px;
+  padding: 8px;
   border-radius: 8px;
-  border: 1px solid var(--bs-gray-200);
   opacity: 0;
-  background: white;
+  background: var(--bs-gray-900);
+  color: var(--bs-gray-100);
   position: relative;
 
   &__triangle {

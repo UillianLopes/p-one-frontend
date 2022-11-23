@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { BankModel, EWalletType, WalletModel } from '@p-one/domain/financial';
 import { DialogRef, PONE_DIALOG_DATA } from '@p-one/shared';
@@ -65,7 +60,7 @@ export class UpdateWalletModalComponent implements OnInit {
     private readonly _store: UpdateWalletModalStore,
     private readonly _formBuilder: UntypedFormBuilder,
     @Inject(PONE_DIALOG_DATA) private readonly data: WalletModel,
-    dialogRef: DialogRef
+    dialogRef: DialogRef<UpdateWalletModalComponent>
   ) {
     this._store.setType(data.type);
     this._store.setDialogId(dialogRef.dialogId);

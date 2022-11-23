@@ -74,7 +74,7 @@ export class FoundTransferModalStore extends ComponentStore<FoundTransferModalSt
   public readonly wallet$ = this.select((origin) => origin);
 
   constructor(
-    private readonly _dialogRef: DialogRef,
+    private readonly _dialogRef: DialogRef<unknown>,
     private readonly _categoryService: CategoryService,
     private readonly _walletService: WalletService
   ) {

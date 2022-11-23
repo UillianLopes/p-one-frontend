@@ -1,4 +1,3 @@
-
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import './dialog/theme';
 
@@ -13,7 +12,7 @@ table.table {
       z-index: 3;
 
       th {
-        background: var(--bs-white);
+        background: var(--bs-body-bg);
         border-bottom: 2px solid var(--bs-gray-800);
       }
     }
@@ -96,4 +95,11 @@ table.table {
 
 ::-webkit-scrollbar-thumb:active {
   background: rgba(var(--bs-primary-rgb), 0.9);
+}
+
+@import './sidenav/theme';
+
+.form-control {
+  background-color: var(--bs-form-control-bg) !important;
+  color: var(--bs-body-color)!important;
 }

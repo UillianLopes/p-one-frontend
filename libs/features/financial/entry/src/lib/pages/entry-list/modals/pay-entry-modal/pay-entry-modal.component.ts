@@ -74,7 +74,7 @@ export class PayEntryModalComponent
     private readonly _store: PayEntryModalStore,
     @Inject(PONE_DIALOG_DATA) readonly entry: EntryModel,
     private readonly _formBuilder: UntypedFormBuilder,
-    dialogRef: DialogRef
+    dialogRef: DialogRef<PayEntryModalComponent>
   ) {
     super();
     this._store.setDialogId(dialogRef.dialogId);
