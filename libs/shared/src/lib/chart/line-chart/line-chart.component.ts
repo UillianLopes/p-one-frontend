@@ -578,7 +578,8 @@ export class LineChartComponent
       .attr('transform-orign', 'center')
       .attr('transform', (_, i) => `translate(${xScale(i)}, 0) rotate(90)`)
       .attr('font-size', 12)
-      .attr('font-weight', '600');
+      .attr('font-weight', '600')
+      .attr('fill', 'var(--bs-body-color)');
 
     yAxis
       .selectAll('text')
@@ -588,6 +589,7 @@ export class LineChartComponent
       .attr('text-anchor', 'end')
       .attr('alignment-baseline', 'middle')
       .attr('transform-orign', 'center')
+      .attr('fill', 'var(--bs-body-color)')
       .attr(
         'transform',
         (_, i) => `translate(${yAxisWidth}, ${yLinesScale(i)})`

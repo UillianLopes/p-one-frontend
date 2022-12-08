@@ -14,17 +14,17 @@
   gap: 8px;
 
   &:hover {
-    background: var(--hover-bg);
-    color: var(--hover-color);
+    background: var(--bs-body-hover-bg);
+    color: var(--bs-body-hover-color);
   }
 
   &--active {
-    background: var(--sidenav-item-active-bg);
-    color: var(--sidenav-item-active-color);
+    background: var(--bs-body-active-bg);
+    color: var(--bs-body-active-color);
 
     &:hover {
-      background: var(--sidenav-item-active-bg);
-      color: var(--sidenav-item-active-color);
+      background: var(--bs-body-active-bg);
+      color: var(--bs-body-active-color);
     }
   }
 

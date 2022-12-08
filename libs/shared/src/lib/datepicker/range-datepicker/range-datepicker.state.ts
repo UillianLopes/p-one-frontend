@@ -3,7 +3,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, NgZone, ViewContainerRef } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { DateTime } from 'luxon';
-import { map, skip, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, skip, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
 import { DatepickerCalendarComponent } from '../datepicker-calendar/datepicker-calendar.component';
 import { DatepickerMode } from '../datepicker-mode.enum';
@@ -94,15 +95,21 @@ export class RangepickerStore extends ComponentStore<RangePickerState> {
   public readonly close = this.effect((event$) =>
     event$.pipe(
       withLatestFrom(this.overlayRef$),
-      tap(([__, overlayRef]) => {
-        if (!overlayRef) {
-          return;
-        }
-        this._ngZone.run(() => {
-          overlayRef.detach();
-          this.resetOverlayRef();
-        });
-      })
+      switchMap(
+        ([_, overleyRef]) =>
+          new Observable((observer) => {
+            if (!overleyRef) {
+              return;
+            }
+
+            this._ngZone.run(() => {
+              overleyRef.detach();
+              this.resetOverlayRef();
+            });
+
+            observer.next();
+          })
+      )
     )
   );
 
@@ -139,6 +146,7 @@ export class RangepickerStore extends ComponentStore<RangePickerState> {
                 },
               ]),
             scrollStrategy: this._overlay.scrollStrategies.reposition(),
+            hasBackdrop: true,
           });
 
           const componentPortal = new ComponentPortal(
@@ -147,8 +155,17 @@ export class RangepickerStore extends ComponentStore<RangePickerState> {
             this._injector
           );
 
+          oref
+            .backdropClick()
+            .pipe(takeUntil(oref.detachments()))
+            .subscribe(() => {
+              this.close();
+            });
+
           const componentRef = oref.attach(componentPortal);
+
           componentRef.instance.mode = DatepickerMode.RANGE;
+
           if (value) componentRef.instance.setValue(value);
 
           componentRef.instance.value$

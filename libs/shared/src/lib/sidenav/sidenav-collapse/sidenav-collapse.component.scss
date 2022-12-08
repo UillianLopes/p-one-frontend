@@ -13,8 +13,8 @@
     cursor: pointer;
     border-radius: 8px;
     &:hover {
-      background: var(--hover-bg);
-      color: var(--hover-color);
+      background: var(--bs-body-hover-bg);
+      color: var(--bs-body-hover-color);
     }
 
     &--active {

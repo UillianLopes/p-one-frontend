@@ -6,6 +6,7 @@ import { Component, HostBinding, Input } from '@angular/core';
   styleUrls: ['./ellipsis-cell.component.scss'],
 })
 export class EllipsisCellComponent {
+
   @Input()
   @HostBinding('style.width.px')
   public width: number = 200;

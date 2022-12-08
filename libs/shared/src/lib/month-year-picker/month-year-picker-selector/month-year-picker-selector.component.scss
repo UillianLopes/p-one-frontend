@@ -1,7 +1,5 @@
 .p-one-month-year-picker-selector {
-  &__years {
-  }
-
+  background: var(--bs-body-bg);
   &__months {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -16,8 +14,8 @@
     padding: 0px 8px;
 
     &--active {
-      background: var(--bs-secondary);
-      color: white;
+      background: var(--bs-body-active-bg);
+      color: var(--bs-body-active-color);
     }
 
     display: flex;

@@ -25,14 +25,14 @@ export const DARK_THEME: Theme = {
   '--bs-gray-800': '#343a40',
   '--bs-gray-900': '#212529',
   '--bs-primary': '#212529',
-  '--bs-secondary': '#6c757d',
+  '--bs-secondary': '#0dcaf0',
   '--bs-success': '#198754',
   '--bs-info': '#0dcaf0',
   '--bs-warning': '#ffc107',
   '--bs-danger': '#dc3545',
   '--bs-light': '#f8f9fa',
   '--bs-dark': '#212529',
-  '--bs-primary-rgb': '33, 37, 41',
+  '--bs-primary-rgb': '32, 201, 151',
   '--bs-secondary-rgb': '108, 117, 125',
   '--bs-success-rgb': '25, 135, 84',
   '--bs-info-rgb': '13, 202, 240',
@@ -48,19 +48,21 @@ export const DARK_THEME: Theme = {
   '--bs-body-bg': '#495057',
   '--bs-border-width': '1px',
   '--bs-border-style': 'solid',
-  '--bs-border-color': '#6c757d',
+  '--bs-border-color': '#ffffff',
   '--bs-border-color-translucent': 'rgba(0, 0, 0, 0.175)',
   '--bs-link-color': '#0d6efd',
   '--bs-link-hover-color': '#0a58ca',
   '--bs-code-color': '#d63384',
   '--bs-highlight-bg': '#fff3cd',
 
-  '--hover-color': '#212529',
-  '--hover-bg': '#adb5bd',
+  '--bs-body-hover-color': '#212529',
+  '--bs-body-hover-bg': '#adb5bd',
 
-  '--sidenav-item-active-bg': '#212529',
+  '--bs-body-active-bg': '#212529',
+  '--bs-body-active-color': '#f8f9fa',
 
-  '--bs-form-control-bg': '#6c757d',
+  '--bs-body-disabled-bg': '#343a40',
+  '--bs-body-disabled-color': '#dee2e6',
 };
 
 export const LIGHT_THEME: Theme = {
@@ -111,10 +113,19 @@ export const LIGHT_THEME: Theme = {
   '--bs-body-bg': '#fff',
   '--bs-border-width': '1px',
   '--bs-border-style': 'solid',
-  '--bs-border-color': '#dee2e6',
+  '--bs-border-color': '#adb5bd',
   '--bs-border-color-translucent': 'rgba(0, 0, 0, 0.175)',
   '--bs-link-color': '#0d6efd',
   '--bs-link-hover-color': '#0a58ca',
   '--bs-code-color': '#d63384',
   '--bs-highlight-bg': '#fff3cd',
+
+  '--bs-body-hover-color': '#212529',
+  '--bs-body-hover-bg': '#adb5bd',
+
+  '--bs-body-active-bg': '#212529',
+  '--bs-body-active-color': '#f8f9fa',
+
+  '--bs-body-disabled-bg': '#343a40',
+  '--bs-body-disabled-color': '#dee2e6',
 };

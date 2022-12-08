@@ -2,6 +2,9 @@
 @import './dialog/theme';
 
 table.table {
+  $self: &;
+  min-width: 0px;
+  width: 100%;
   border-spacing: 0px;
   border-collapse: separate;
 
@@ -18,40 +21,41 @@ table.table {
     }
   }
 
-  min-width: 0px;
-  width: 100%;
-
-  $self: &;
   tr td {
+    &.column--fixed-on-left,
     &.column--fixed-on-right {
       position: sticky;
-      right: 0;
       z-index: 2;
-      background: var(--bs-white);
+      background: var(--bs-body-bg);
     }
+
     &.column--fixed-on-left {
-      position: sticky;
       left: 0px;
-      z-index: 2;
-      background: var(--bs-white);
     }
-  }
-  tr th {
+
     &.column--fixed-on-right {
-      position: sticky;
       right: 0px;
-      top: 0px;
-      z-index: 2;
-      background: var(--bs-white);
-    }
-    &.column--fixed-on-left {
-      position: sticky;
-      left: 0px;
-      top: 0px;
-      z-index: 3;
-      background: var(--bs-white);
     }
   }
+
+  tr th {
+    &.column--fixed-on-left,
+    &.column--fixed-on-right {
+      position: sticky;
+      top: 0px;
+      z-index: 2;
+      background: var(--bs-body-bg);
+    }
+
+    &.column--fixed-on-left {
+      left: 0px;
+    }
+
+    &.column--fixed-on-right {
+      right: 0px;
+    }
+  }
+
   tr {
     cursor: pointer;
     td {
@@ -65,6 +69,7 @@ table.table {
       transition: 0.1s linear;
     }
   }
+
   .btn-icon {
     padding: 0px !important;
   }
@@ -97,9 +102,33 @@ table.table {
   background: rgba(var(--bs-primary-rgb), 0.9);
 }
 
-@import './sidenav/theme';
-
 .form-control {
-  background-color: var(--bs-form-control-bg) !important;
-  color: var(--bs-body-color)!important;
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+  border: 1px solid var(--bs-border-color) !important;
+
+  &:disabled {
+    background-color: var(--bs-body-disabled-bg) !important;
+    color: var(--bs-body-disabled-color) !important;
+  }
+  &::placeholder {
+    color: var(--bs-body-color) !important;
+    opacity: 0.5 !important;
+  }
+}
+
+.input-group-text {
+  background-color: var(--bs-body-disabled-bg) !important;
+  color: var(--bs-body-disabled-color) !important;
+}
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  & > [class^='col-'],
+  & > [class*=' col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }

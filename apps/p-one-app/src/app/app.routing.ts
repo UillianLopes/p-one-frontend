@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/user/user.module').then((e) => e.UserModule),
   },
   {
+    path: 'sandbox',
+    loadChildren: () => import('@p-one/shared').then((e) => e.SandboxModule),
+  },
+  {
     path: 'main',
     loadChildren: () => import('./pages/main/main.module').then((e) => e.MainModule),
     canActivate: [AuthGuard],

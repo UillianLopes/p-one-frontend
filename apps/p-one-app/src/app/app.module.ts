@@ -109,7 +109,6 @@ import { DARK_THEME, LIGHT_THEME } from './app.themes';
         dark: { ...DARK_THEME },
         light: { ...LIGHT_THEME },
       },
-
     }),
   ],
   bootstrap: [AppComponent],

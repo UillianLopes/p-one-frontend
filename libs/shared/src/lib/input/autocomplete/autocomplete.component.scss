@@ -13,8 +13,8 @@
     cursor: pointer;
 
     &:hover {
-      background: var(--hover-bg);
-      color: var(--hover-color);
+      background: var(--bs-body-hover-bg);
+      color: var(--bs-body-hover-color);
     }
 
     &:first-child {
