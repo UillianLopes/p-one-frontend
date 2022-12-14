@@ -8,14 +8,14 @@
       <div class="p-one-landing__trailing">
         <p-one-radio
           appearance="outline"
-          color="light"
+          color="secondary"
           [formControl]="languageControl"
           size="md"
         >
           <p-one-radio-button value="en-US">en-US</p-one-radio-button>
           <p-one-radio-button value="pt-BR">pt-BR</p-one-radio-button>
         </p-one-radio>
-        <button class="btn btn-outline-light" (click)="signIn()">
+        <button class="btn btn-outline-secondary" (click)="signIn()">
           {{ '@PONE.LANDING.BUTTONS.SIGN_IN' | translate }}
         </button>
       </div>

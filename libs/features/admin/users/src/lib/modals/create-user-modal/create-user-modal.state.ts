@@ -46,7 +46,7 @@ export class CreateUserModalStore extends ComponentStore<CreateUserModalState> {
   constructor(
     private readonly _userService: UserService,
     private readonly _profileService: ProfileService,
-    private readonly _dialogRef: DialogRef
+    private readonly _dialogRef: DialogRef<unknown>
   ) {
     super({
       isLoading: false,

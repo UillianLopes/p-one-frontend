@@ -1,13 +1,11 @@
 .p-one-landing {
   &__main {
-    background: var(--bs-secondary);
     width: 100vw;
     height: 100vh;
     max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 32px;
-    color: white;
   }
 
   &__nav {
@@ -26,8 +24,6 @@
     }
   }
 
-  &__leading {
-  }
   &__trailing {
     display: flex;
     flex-direction: row;

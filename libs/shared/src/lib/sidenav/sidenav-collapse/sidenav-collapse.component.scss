@@ -12,19 +12,22 @@
     gap: 8px;
     cursor: pointer;
     border-radius: 8px;
+    &:hover {
+      background: var(--bs-body-hover-bg);
+      color: var(--bs-body-hover-color);
+    }
 
     &--active {
-      color: white;
-      background: var(--bs-primary);
+      background: var(--sidenav-item-active-bg);
+      color: var(--sidenav-item-active-color);
 
       &:hover {
-        background: var(--bs-dark) !important;
+        background: var(--sidenav-item-active-bg);
+        color: var(--sidenav-item-active-color);
       }
     }
 
-    &:hover {
-      background: #e6e6e6;
-    }
+
 
     &__leading {
       grid-column: 1;

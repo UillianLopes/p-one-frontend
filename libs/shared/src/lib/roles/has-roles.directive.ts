@@ -8,8 +8,8 @@ import { RolesService } from './roles.state';
   selector: '[pOneHasRoles]',
 })
 export class HasRolesDirective extends DestroyableMixin() implements OnInit {
-  @Input('pOneHasRoles') public roles: string[] = [];
-  @Input() public operator: 'OR' | 'AND' = 'OR';
+  @Input('pOneHasRoles') roles: string[] = [];
+  @Input() operator: 'OR' | 'AND' = 'OR';
 
   private isEmbeddedViewCreated = false;
 
@@ -46,8 +46,10 @@ export class HasRolesDirective extends DestroyableMixin() implements OnInit {
           (this.operator == 'AND' &&
             this.roles.every((role) => roles.includes(role)))
         ) {
-          this._viewContainerRef.createEmbeddedView(this._templateRef);
-          this.isEmbeddedViewCreated = true;
+          if (!this.isEmbeddedViewCreated) {
+            this._viewContainerRef.createEmbeddedView(this._templateRef);
+            this.isEmbeddedViewCreated = true;
+          }
         } else {
           this._viewContainerRef.clear();
           this.isEmbeddedViewCreated = false;

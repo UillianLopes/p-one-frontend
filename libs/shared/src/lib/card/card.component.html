@@ -1,5 +1,14 @@
-<div class="card" style="position: relative" [ngClass]="(class$ | async)!">
-  <img *ngIf="image$ | async as image" [src]="image" class="card-img-top" alt="..." />
+<div
+  class="card p-one-card"
+  style="position: relative"
+  [ngClass]="(class$ | async)!"
+>
+  <img
+    *ngIf="image$ | async as image"
+    [src]="image"
+    class="card-img-top"
+    alt="..."
+  />
 
   <div class="card-header p-one-card__header">
     <ng-content select="[pOneCardHeader]"></ng-content>

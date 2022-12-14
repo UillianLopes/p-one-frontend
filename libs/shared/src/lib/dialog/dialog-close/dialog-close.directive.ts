@@ -5,11 +5,11 @@ import { DialogRef } from '../@types/dialog-ref';
 @Directive({
   selector: '[pOneDialogClose]',
 })
-export class DialogCloseDirective {
+export class DialogCloseDirective<T> {
   @Input()
   public data: any;
 
-  constructor(private readonly _dialogRef: DialogRef) {}
+  constructor(private readonly _dialogRef: DialogRef<T>) {}
 
   @HostListener('click')
   public click(): void {

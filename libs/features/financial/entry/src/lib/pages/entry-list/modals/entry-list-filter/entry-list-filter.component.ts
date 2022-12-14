@@ -89,7 +89,7 @@ export class EntryListFilterComponent
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: EntryListFilterStore,
     @Inject(PONE_DIALOG_DATA) private readonly _data: Partial<EntryFilter>,
-    private readonly _dialog: DialogRef,
+    private readonly _dialog: DialogRef<EntryListFilterComponent>,
     private readonly _facade: EntryListFacade
   ) {
     super();

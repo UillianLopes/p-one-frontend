@@ -1,10 +1,14 @@
-<ng-container>
+<ng-container *ngIf="this.portal$ | async as portal">
   <div
     class="p-one-dialog-container"
     [style.min-width]="this.minWidth$ | async"
     [style.max-width]="this.maxWidth$ | async"
-    *ngIf="this.portal$ | async as portal"
+    [@dialogAnimations]="status$ | async"
+    (@dialogAnimations.done)="onAnimationDone($event)"
   >
-    <ng-template [cdkPortalOutlet]="portal"></ng-template>
+    <ng-template
+      [cdkPortalOutlet]="portal"
+      (attached)="onAttached($event)"
+    ></ng-template>
   </div>
 </ng-container>

@@ -34,7 +34,6 @@ export class UpdateCategoryModalComponent {
     @Inject(PONE_DIALOG_DATA) private readonly _category: CategoryModel
   ) {}
 
-
   updateCategory(): void {
     this._facade.updateCategory(this.form.value);
   }

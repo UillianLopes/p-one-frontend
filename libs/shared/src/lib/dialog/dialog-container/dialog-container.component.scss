@@ -1,15 +1,5 @@
 .p-one-dialog-container {
   min-width: 500px;
   display: block;
-  animation: translateAnimation .2s ease-in;
-}
-
-@keyframes translateAnimation {
-  from {
-    transform: translateY(-50%);
-  }
-
-  to {
-    transform: translateY(0%);
-  }
+  transform: translateY(-50%);
 }

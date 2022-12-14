@@ -1,5 +1,4 @@
 @import '../../../libs/shared/src/lib/theme';
-@import 'node_modules/bootstrap/scss/bootstrap';
 
 html,
 body {
@@ -14,17 +13,6 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-.row.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-
-  & > [class^='col-'],
-  & > [class*=' col-'] {
-    padding-right: 0;
-    padding-left: 0;
-  }
 }
 
 .credit {

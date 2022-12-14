@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalRoles } from '@p-one/core';
 import { DestroyableMixin, RolesService } from '@p-one/shared';
 import { AuthenticationStoreFacade } from '@p-one/stores/identity';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -19,9 +20,14 @@ export class AppComponent extends DestroyableMixin() implements OnInit {
   ngOnInit(): void {
     this._authenticationStoreFacade.load();
     this._authenticationStoreFacade.roles$
-      .pipe(takeUntil(this.destroyed$), filter((roles) => !!roles))
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((roles) => !!roles)
+      )
       .subscribe((roles) => {
-        this._rolesService.setIgnoreAllRoles(roles.includes('STANDALONE'));
+        this._rolesService.setIgnoreAllRoles(
+          roles.includes(GlobalRoles.Standalone)
+        );
         this._rolesService.setRoles(roles);
       });
   }

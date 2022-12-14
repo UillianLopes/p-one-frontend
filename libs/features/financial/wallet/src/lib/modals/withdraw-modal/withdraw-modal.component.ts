@@ -119,7 +119,7 @@ export class WithdrawModalComponent
     @Optional()
     @Inject(PONE_DIALOG_DATA)
     private readonly _wallet: WalletModel,
-    { dialogId }: DialogRef
+    { dialogId }: DialogRef<WithdrawModalComponent>
   ) {
     super();
     this._store.setDialogId(dialogId);

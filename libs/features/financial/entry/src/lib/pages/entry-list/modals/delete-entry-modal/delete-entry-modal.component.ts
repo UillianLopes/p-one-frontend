@@ -19,7 +19,7 @@ export class DeleteEntryModalComponent {
 
   constructor(
     private readonly _store: DeleteEntryModalStore,
-    private readonly _dialogRef: DialogRef,
+    private readonly _dialogRef: DialogRef<DeleteEntryModalComponent>,
     @Inject(PONE_DIALOG_DATA) data: DeleteEntryModalData
   ) {
     this._store.setData(data);

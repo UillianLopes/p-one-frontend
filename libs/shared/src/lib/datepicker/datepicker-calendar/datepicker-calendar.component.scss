@@ -17,7 +17,7 @@ $half-day-size: 17.5px;
   display: block;
   max-width: fit-content;
   padding: 8px;
-  border: var(--bs-gray-200) 1px solid;
+  border: 1px solid var(--bs-border-color);
   border-radius: 8px;
-  background: white;
+  background-color: var(--bs-body-bg);
 }

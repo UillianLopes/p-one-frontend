@@ -113,7 +113,7 @@ export class DepositModalComponent
     private readonly _store: DepositModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
     @Inject(PONE_DIALOG_DATA) private readonly _wallet: WalletModel,
-    { dialogId }: DialogRef
+    { dialogId }: DialogRef<DepositModalComponent>
   ) {
     super();
     this._store.setDialogId(dialogId);

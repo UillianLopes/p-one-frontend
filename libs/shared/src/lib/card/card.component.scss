@@ -1,7 +1,9 @@
 :host {
   display: block;
 }
+
 .p-one-card {
+
   &__header,
   &__footer,
   &__title {
@@ -15,5 +17,10 @@
       margin: 0px;
       margin-inline: 0px;
     }
+  }
+
+  &.card {
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
   }
 }

@@ -9,22 +9,22 @@
   display: grid;
   grid-template-columns: 40px minmax(0px, 1fr);
   cursor: pointer;
-
   border-radius: 8px;
-  color: black;
   text-decoration: none;
   gap: 8px;
 
   &:hover {
-    background: rgba($color: #e6e6e6, $alpha: 5);
+    background: var(--bs-body-hover-bg);
+    color: var(--bs-body-hover-color);
   }
 
   &--active {
-    background: var(--bs-primary);
-    color: white;
+    background: var(--bs-body-active-bg);
+    color: var(--bs-body-active-color);
 
     &:hover {
-      color: var(--bs-primary);
+      background: var(--bs-body-active-bg);
+      color: var(--bs-body-active-color);
     }
   }
 
@@ -57,4 +57,5 @@
     word-wrap: normal;
     white-space: nowrap;
   }
+  color: var(--bs-body-color);
 }
