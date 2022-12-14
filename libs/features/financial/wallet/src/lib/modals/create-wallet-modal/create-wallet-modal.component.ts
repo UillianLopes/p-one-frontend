@@ -62,7 +62,7 @@ export class CreateWalletModalComponent implements OnInit {
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: CreateWalletModalStore,
     private readonly _settingsStoreFacade: SettingsStoreFacade,
-    dialogRef: DialogRef
+    dialogRef: DialogRef<CreateWalletModalComponent>
   ) {
     this._store.setDialogId(dialogRef.dialogId);
   }

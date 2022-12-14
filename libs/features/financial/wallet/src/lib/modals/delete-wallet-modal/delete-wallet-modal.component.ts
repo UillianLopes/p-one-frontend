@@ -21,7 +21,7 @@ export class DeleteWalletModalComponent {
 
   constructor(
     private readonly _store: DeleteWalletModalStore,
-    private readonly _dialogRef: DialogRef,
+    private readonly _dialogRef: DialogRef<DeleteWalletModalComponent>,
     @Inject(PONE_DIALOG_DATA) wallets: WalletModel[]
   ) {
     this._store.setDialogId(this._dialogRef.dialogId);

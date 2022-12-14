@@ -38,7 +38,7 @@ export class DashboardFilterModalComponent
     private readonly _formBuilder: UntypedFormBuilder,
     private readonly _store: DashboardFilterModalStore,
     @Inject(PONE_DIALOG_DATA) private readonly _filter: DashboardFilter,
-    dialogRef: DialogRef
+    dialogRef: DialogRef<DashboardFilterModalComponent>
   ) {
     super();
     this._store.setDialogId(dialogRef.dialogId);

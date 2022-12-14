@@ -92,4 +92,9 @@ export class RangeDatepickerComponent
   public toggle() {
     this._store.toggle();
   }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this._store.close();
+  }
 }

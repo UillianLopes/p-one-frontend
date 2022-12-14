@@ -12,7 +12,7 @@ import { POneAdminDomainModule } from '@p-one/domain/admin';
 import { POneFinancialDomainModule } from '@p-one/domain/financial';
 import { POneIdentityDomainModule, TOKEN_REQUIRED_ENDPOINTS } from '@p-one/domain/identity';
 import { POneNotificationDomainModule } from '@p-one/domain/notification';
-import { POneLoadingModule, POneRolesModule, POneToastModule } from '@p-one/shared';
+import { POneLoadingModule, POneRolesModule, POneToastModule, ThemeModule } from '@p-one/shared';
 import { AuthenticationStoreModule, SettingsStoreModule } from '@p-one/stores/identity';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
@@ -22,6 +22,7 @@ import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-comp
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { DARK_THEME, LIGHT_THEME } from './app.themes';
 
 @NgModule({
   declarations: [AppComponent],
@@ -102,6 +103,13 @@ import { AppRoutingModule } from './app.routing';
     SettingsStoreModule,
     POneRolesModule.forRoot(),
     POneLoadingModule,
+    ThemeModule.forRoot({
+      default: 'dark',
+      themes: {
+        dark: { ...DARK_THEME },
+        light: { ...LIGHT_THEME },
+      },
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [

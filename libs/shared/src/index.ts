@@ -44,3 +44,5 @@ export * from './lib/table-container';
 export * from './lib/table-utils';
 export * from './lib/toast';
 export * from './lib/tooltip';
+export * from './lib/theme';
+export * from './lib/sandbox';

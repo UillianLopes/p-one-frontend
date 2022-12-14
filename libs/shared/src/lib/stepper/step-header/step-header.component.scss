@@ -12,13 +12,10 @@
     flex-direction: row;
     gap: 16px;
     align-items: center;
-    background: white;
+    background: var(--bs-body-bg);
     height: 66px;
     padding: 0px 16px;
     font-weight: bold;
-    &:hover {
-      background: whitesmoke;
-    }
   }
 
   &__index {

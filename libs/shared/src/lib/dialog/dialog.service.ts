@@ -4,12 +4,12 @@ import { Injectable, Injector, NgZone } from '@angular/core';
 import { v4 } from 'uuid';
 
 import { DialogOptions, PONE_DIALOG_CONTENT, PONE_DIALOG_DATA, PONE_DIALOG_OPTIONS } from './@types/dialog-options';
-import { DialogRef } from './@types/dialog-ref';
+import { DialogRef, IDialogRef } from './@types/dialog-ref';
 import { DialogContainerComponent } from './dialog-container/dialog-container.component';
 
 @Injectable()
 export class DialogService {
-  private _dialogs = new Map<string, DialogRef>();
+  private _dialogs = new Map<string, IDialogRef>();
 
   constructor(
     private readonly _overlay: Overlay,
@@ -21,7 +21,7 @@ export class DialogService {
     component: ComponentType<T>,
     options: DialogOptions,
     data?: any
-  ): DialogRef {
+  ): DialogRef<T> {
     return this._ngZone.run(() => {
       const overlayRef = this._overlay.create({
         hasBackdrop: options.hasBackdrop,
@@ -30,7 +30,7 @@ export class DialogService {
 
       const dialogId = v4();
 
-      const dialogRef = new DialogRef(
+      const dialogRef = new DialogRef<T>(
         overlayRef,
         dialogId
       );
@@ -42,7 +42,7 @@ export class DialogService {
             useValue: data,
           },
           {
-            provide: DialogRef,
+            provide: DialogRef<T>,
             useValue: dialogRef,
           },
         ],
@@ -64,6 +64,10 @@ export class DialogService {
           {
             provide: PONE_DIALOG_CONTENT,
             useValue: componentPortal,
+          },
+          {
+            provide: DialogRef<T>,
+            useValue: dialogRef,
           },
         ],
         parent: this._injector,

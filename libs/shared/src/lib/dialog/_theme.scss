@@ -10,7 +10,7 @@
   align-items: center;
   overflow: auto;
   background: rgba($color: #000000, $alpha: 0.2);
-  animation: opacityAnimation .2s ease-in;
+  animation: opacityAnimation 0.2s ease-in;
 }
 
 @keyframes opacityAnimation {

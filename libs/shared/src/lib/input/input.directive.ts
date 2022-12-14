@@ -67,7 +67,7 @@ export class InputDirective
   ) {
     super();
 
-    
+
   }
 
   public ngOnInit(): void {
@@ -84,6 +84,13 @@ export class InputDirective
 
   public markAsDirty(): void {
     this._ngControl?.control?.markAsPristine();
+  }
+
+  public focus(): void {
+    console.log(this._elementRef.nativeElement);
+    this._elementRef.nativeElement.focus({
+      preventScroll: true,
+    });
   }
 
   @HostListener('click') public onClick(): void {

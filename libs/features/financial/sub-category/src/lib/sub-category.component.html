@@ -1,4 +1,4 @@
-<p-one-container [isLoading]="this.isLoading$ | async">
+<p-one-container [isLoading]="(this.isLoading$ | async)!">
   <p-one-header>
     <button
       class="btn btn-outline-light"
@@ -22,7 +22,9 @@
   </div>
   <div pOneHeader class="p-one-sub-category__sub-header">
     <button class="btn btn-primary btn-sm" (click)="openCreateCategoryDialog()">
-      {{ '@PONE.FINANCIAL.SUB_CATEGORIES.BUTTONS.CREATE_SUB_CATEGORY' | translate }}
+      {{
+        '@PONE.FINANCIAL.SUB_CATEGORIES.BUTTONS.CREATE_SUB_CATEGORY' | translate
+      }}
     </button>
 
     <button
@@ -48,23 +50,33 @@
           <th class="p-one-sub-category__selection-column">
             <p-one-checkbox
               [isIndeterminated]="
-                this.isSomeButNotAllFiltredCategoriesSelected$ | async
+                (this.isSomeButNotAllFiltredCategoriesSelected$ | async)!
               "
               [ngModel]="this.isAllFiltredSubCategoriesSelected$ | async"
               (ngModelChange)="toggleSelectMultipleCategories()"
             ></p-one-checkbox>
           </th>
           <th scope="col">
-            {{ '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.NAME' | translate }}
+            {{
+              '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.NAME' | translate
+            }}
           </th>
           <th scope="col">
-            {{ '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.DESCRIPTION' | translate }}
+            {{
+              '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.DESCRIPTION'
+                | translate
+            }}
           </th>
           <th scope="col">
-            {{ '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.CATEGORY' | translate }}
+            {{
+              '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.CATEGORY'
+                | translate
+            }}
           </th>
           <th scope="col">
-            {{ '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.TYPE' | translate }}
+            {{
+              '@PONE.FINANCIAL.SUB_CATEGORIES.TABLE.COLUMNS.TYPE' | translate
+            }}
           </th>
         </tr>
       </thead>
@@ -105,7 +117,7 @@
           <td>{{ subCategory.name }}</td>
           <td>{{ subCategory.description }}</td>
           <td>{{ subCategory.category?.name }}</td>
-          <td [ngSwitch]="subCategory.category?.type">
+          <td [ngSwitch]="subCategory.category?.operation">
             <i
               *ngSwitchCase="EntryType.Debit"
               class="bi bi-arrow-down-short text-danger"
@@ -121,11 +133,13 @@
       </tbody>
     </table>
     <ngb-pagination
-      [collectionSize]="this.filtredSubCategoriesLength$ | async"
-      [page]="this.page$ | async"
-      [pageSize]="this.pageSize$ | async"
+      [collectionSize]="(filtredSubCategoriesLength$ | async)!"
+      [page]="(page$ | async)!"
+      [pageSize]="(pageSize$ | async)!"
       (pageChange)="setCategoriesPage($event)"
-      [attr.aria-label]="'@PONE.FINANCIAL.SUB_CATEGORIES.PAGINATION.LABEL' | translate"
+      [attr.aria-label]="
+        '@PONE.FINANCIAL.SUB_CATEGORIES.PAGINATION.LABEL' | translate
+      "
     ></ngb-pagination>
   </div>
 </p-one-container>

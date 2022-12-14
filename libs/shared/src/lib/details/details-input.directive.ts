@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Optional } from '@angular/core';
+import { Directive, HostBinding, Optional } from '@angular/core';
 
 import {
   AutocompleteDirective,
@@ -37,8 +37,7 @@ export class DetailsInputDirective {
     @Optional() private readonly _smallInput: SmallInputDirective,
     @Optional() private readonly _largeInput: LargeInputDirective,
     @Optional() private readonly _autocomlete: AutocompleteDirective,
-    @Optional() private readonly _smallAutocomlete: SmallAutocompleteDirective,
-    private readonly _elementRef: ElementRef<HTMLInputElement>
+    @Optional() private readonly _smallAutocomlete: SmallAutocompleteDirective
   ) {}
 
   markAsPristine(): void {
@@ -48,8 +47,8 @@ export class DetailsInputDirective {
   enableField(): void {
     if (this.input) {
       this.disabled = false;
+      setTimeout(() => this.input.focus());
     }
-    this._elementRef.nativeElement.focus();
   }
 
   disabledField(): void {
